@@ -1,0 +1,68 @@
+[
+    {
+        "id": "bitcoin",
+        "symbol": "btc",
+        "name": "Bitcoin",
+        "image": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+        "current_price": 28679,
+        "market_cap": 543104784696,
+        "market_cap_rank": 1,
+        "fully_diluted_valuation": 599081285398,
+        "total_volume": 79710163025,
+        "high_24h": 31841,
+        "low_24h": 26597,
+        "price_change_24h": -3162.6128825599517,
+        "price_change_percentage_24h": -9.93243,
+        "market_cap_change_24h": -60896114305.38214,
+        "market_cap_change_percentage_24h": -10.08212,
+        "circulating_supply": 19037818,
+        "total_supply": 21000000,
+        "max_supply": 21000000,
+        "ath": 69045,
+        "ath_change_percentage": -58.62528,
+        "ath_date": "2021-11-10T14:24:11.849Z",
+        "atl": 67.81,
+        "atl_change_percentage": 42028.73924,
+        "atl_date": "2013-07-06T00:00:00.000Z",
+        "last_updated": "2022-05-12T11:15:01.530Z",
+        "sparkline_in_7d": {
+          "price": [
+            39509.42332989887,
+            39570.01981374774
+          ]
+        }
+      },
+      {
+        "id": "ethereum",
+        "symbol": "eth",
+        "name": "Ethereum",
+        "image": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+        "current_price": 1973.38,
+        "market_cap": 238204688907,
+        "market_cap_rank": 2,
+        "fully_diluted_valuation": null,
+        "total_volume": 56129052848,
+        "high_24h": 2438.13,
+        "low_24h": 1774.8,
+        "price_change_24h": -464.75212045184276,
+        "price_change_percentage_24h": -19.06184,
+        "market_cap_change_24h": -54735742670.09357,
+        "market_cap_change_percentage_24h": -18.68494,
+        "circulating_supply": 120747263.249,
+        "total_supply": null,
+        "max_supply": null,
+        "ath": 4878.26,
+        "ath_change_percentage": -59.60473,
+        "ath_date": "2021-11-10T14:24:19.604Z",
+        "atl": 0.432979,
+        "atl_change_percentage": 455023.03107,
+        "atl_date": "2015-10-20T00:00:00.000Z",
+        "last_updated": "2022-05-12T11:14:14.177Z",
+        "sparkline_in_7d": {
+          "price": [
+            2925.7546621681654,
+            2932.6198376355937
+          ]
+        }
+      }
+]
