@@ -27,6 +27,7 @@ class Coin extends Equatable{
   final String? atlDate;
   final String? lastUpdated;
   final Map<String, dynamic>? sparklineIn7d;
+  final double? priceChangePercentage7dInCurrency;
 
   const Coin({
     required this.id, 
@@ -55,6 +56,7 @@ class Coin extends Equatable{
     this.atlDate, 
     this.lastUpdated,
     this.sparklineIn7d,
+    this.priceChangePercentage7dInCurrency
   }
   );
 

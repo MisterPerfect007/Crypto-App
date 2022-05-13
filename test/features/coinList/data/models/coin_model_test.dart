@@ -8,9 +8,14 @@ import '../../../../testData/coins_list_for_tests.dart';
 import '../../../../testData/json/json_reader.dart';
 
 void main() {
-  String jsonString = readJson("singleCoin.json");
-  Map<String, dynamic> testSingleCoin = jsonDecode(jsonString);
-  final CoinModel coinModel = CoinModel.fromJson(testSingleCoin);
+  late CoinModel coinModel;
+  late Map<String, dynamic> testSingleCoin;
+  setUp((){
+    String jsonString = readJson("singleCoin.json");
+    testSingleCoin = jsonDecode(jsonString);
+    coinModel = CoinModel.fromJson(testSingleCoin);
+
+  });
   test("a coinModel should be a correct subclass of Coin", () {
     expect(coinModel, isA<Coin>());
   });

@@ -12,21 +12,21 @@ import 'get_coin_list_test.mocks.dart';
 
 void main(){
   late MockCoinListRepository repository;
-  late GetCoinList usecase;
+  late GetRemoteCoinList usecase;
   setUp((){
     repository = MockCoinListRepository();
-    usecase = GetCoinList(repository: repository);
+    usecase = GetRemoteCoinList(repository: repository);
   });
   const testCurrency = "usd";
   const testPage = 1;
   test("Should get coins from repository", () async{
-    when(repository.getCoinList(currency: testCurrency, page: testPage))
+    when(repository.getRemoteCoinList(currency: testCurrency, page: testPage))
       .thenAnswer((_) async => const Right(testCoins));
     
     final result = await usecase(testCurrency, testPage);
 
     expect(result, const Right(testCoins));
-    verify(repository.getCoinList(currency: testCurrency, page: testPage)).called(1);
+    verify(repository.getRemoteCoinList(currency: testCurrency, page: testPage)).called(1);
     verifyNoMoreInteractions(repository);
 
   });

@@ -9,8 +9,6 @@ import 'package:crypto_trends/features/coinList/domain/entities/coin.dart'
     as _i6;
 import 'package:crypto_trends/features/coinList/domain/repositories/get_coin_list_repository.dart'
     as _i3;
-import 'package:crypto_trends/features/coinList/domain/usecases/get_coin_list.dart'
-    as _i7;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -26,9 +24,6 @@ import 'package:mockito/mockito.dart' as _i1;
 
 class _FakeEither_0<L, R> extends _i1.Fake implements _i2.Either<L, R> {}
 
-class _FakeCoinListRepository_1 extends _i1.Fake
-    implements _i3.CoinListRepository {}
-
 /// A class which mocks [CoinListRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -39,32 +34,11 @@ class MockCoinListRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Coin>>> getCoinList(
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Coin>>> getRemoteCoinList(
           {String? currency, int? page}) =>
       (super.noSuchMethod(
           Invocation.method(
-              #getCoinList, [], {#currency: currency, #page: page}),
-          returnValue: Future<_i2.Either<_i5.Failure, List<_i6.Coin>>>.value(
-              _FakeEither_0<_i5.Failure, List<_i6.Coin>>())) as _i4
-          .Future<_i2.Either<_i5.Failure, List<_i6.Coin>>>);
-}
-
-/// A class which mocks [GetCoinList].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockGetCoinList extends _i1.Mock implements _i7.GetCoinList {
-  MockGetCoinList() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.CoinListRepository get repository =>
-      (super.noSuchMethod(Invocation.getter(#repository),
-          returnValue: _FakeCoinListRepository_1()) as _i3.CoinListRepository);
-  @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Coin>>> call(
-          String? currency, int? page) =>
-      (super.noSuchMethod(Invocation.method(#call, [currency, page]),
+              #getRemoteCoinList, [], {#currency: currency, #page: page}),
           returnValue: Future<_i2.Either<_i5.Failure, List<_i6.Coin>>>.value(
               _FakeEither_0<_i5.Failure, List<_i6.Coin>>())) as _i4
           .Future<_i2.Either<_i5.Failure, List<_i6.Coin>>>);

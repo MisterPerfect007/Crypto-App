@@ -30,7 +30,8 @@
             39509.42332989887,
             39570.01981374774
           ]
-        }
+        },
+        "price_change_percentage_7d_in_currency": 13
       },
       {
         "id": "ethereum",
@@ -63,6 +64,7 @@
             2925.7546621681654,
             2932.6198376355937
           ]
-        }
+        },
+        "price_change_percentage_7d_in_currency": -23.652538572429716
       }
 ]

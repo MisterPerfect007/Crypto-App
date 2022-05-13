@@ -4,14 +4,14 @@ import '../../../../errors/failures.dart';
 import '../entities/coin.dart';
 import '../repositories/get_coin_list_repository.dart';
 
-class GetCoinList {
+class GetRemoteCoinList {
   final CoinListRepository repository;
 
-  GetCoinList({
+  GetRemoteCoinList({
     required this.repository
   });
 
   Future<Either<Failure, List<Coin>>> call(String currency, int page) async {
-    return await repository.getCoinList(currency: currency, page: page);
+    return await repository.getRemoteCoinList(currency: currency, page: page);
   }
 }
