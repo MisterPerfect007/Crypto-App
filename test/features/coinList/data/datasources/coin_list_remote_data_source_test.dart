@@ -1,3 +1,4 @@
+import 'package:crypto_trends/errors/exceptions.dart';
 import 'package:crypto_trends/features/coinList/data/datasources/coin_list_remote_data_source.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_test/flutter_test.dart';
@@ -13,9 +14,11 @@ void main() {
   // http
   late MockClient client;
   late CoinListRemoteDataSourceImpl remote;
+  late Map<String, String> defaultHeader;
   setUp(() {
     client = MockClient();
     remote = CoinListRemoteDataSourceImpl(client: client);
+    defaultHeader = { 'Content-type': 'application/json' };
   });
 
   Uri buildUrl({required String currency, int? page}) {
@@ -32,19 +35,27 @@ void main() {
   const tPage = 2;
   final apiResponseBody = readJson('coin_list.json');
 
-  test("Should make a call to coin list API with corrent parameters", (() async {
-    when(client.get(any)).thenAnswer((_) async => http.Response("{}", 200));
+  test("Should make a call to coin list API with corrent parameters and the right Header", (() async {
+    when(client.get(any, headers: anyNamed("headers"))).thenAnswer((_) async => http.Response("{}", 200));
 
     await remote.getRemoteCoinList(currency: tCurrency, page: tPage);
 
-    verify(client.get(buildUrl(currency: tCurrency, page: tPage))).called(1);
+    verify(client.get(buildUrl(currency: tCurrency, page: tPage), headers: defaultHeader)).called(1);
   }));
 
   test("Should return a valid coin list when the call to Api successed", () async {
-    when(client.get(any)).thenAnswer((_) async => http.Response(apiResponseBody, 200));
+    when(client.get(any, headers: anyNamed("headers"))).thenAnswer((_) async => http.Response(apiResponseBody, 200));
 
     final result = await remote.getRemoteCoinList(currency: tCurrency, page: tPage);
 
     expect(result, testCoinModels);
+  });
+
+  test("Should throw a ServerException when the call to the API failed", () {
+    when(client.get(any, headers: anyNamed("headers"))).thenAnswer((_) async => http.Response("Something wrong", 404));
+
+    final call = remote.getRemoteCoinList;
+
+    expect(() => call(currency: tCurrency, page: tPage), throwsA(isA<ServerException>()));
   });
 }
