@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:crypto_trends/errors/failures.dart';
+import 'package:crypto_trends/errors/errors_message.dart';
 import 'package:crypto_trends/features/coinList/domain/entities/coin.dart';
 import 'package:equatable/equatable.dart';
 
@@ -16,7 +16,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
         emit(CoinListLoading());
         final coinListOrFailure = await getRemoteCoinList(event.currency, event.page!);
         coinListOrFailure.fold(
-          (failure) => null, 
+          (failure) => emit(const CoinListFailure(serverErrorMessage)), 
           (coinList) => emit(CoinListLoaded(coinList))
         );
         //1) fecth coin list from getCoinList usecase
@@ -27,7 +27,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
             * if success
               => emit [Loaded] state
             * else
-              => emit [Error] state
+              => emit [Failure] state
          */
       }
     });

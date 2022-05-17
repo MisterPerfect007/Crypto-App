@@ -1,0 +1,1 @@
+const String serverErrorMessage = "Something went wrong on server side";

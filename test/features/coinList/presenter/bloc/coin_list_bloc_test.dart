@@ -1,4 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:crypto_trends/errors/errors_message.dart';
+import 'package:crypto_trends/errors/failures.dart';
 import 'package:crypto_trends/features/coinList/domain/usecases/get_coin_list.dart';
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -45,14 +47,14 @@ void main() {
       act: (bloc) =>
           bloc.add(const GetCoinList(currency: tCurrency, page: tPage)),
       expect: () => [CoinListLoading(), const CoinListLoaded(testCoins)]);
-  // blocTest<CoinListBloc, CoinListState>(
-  //     'Should emit [CoinListLoading, CoinListFailure] when GetCoinList is triggered and some failure is returned',
-  //     setUp: () {
-  //       when(getRemoteCoinList(any, any))
-  //           .thenAnswer((_) async => const Right(testCoins));
-  //     },
-  //     build: () => bloc,
-  //     act: (bloc) =>
-  //         bloc.add(const GetCoinList(currency: tCurrency, page: tPage)),
-  //     expect: () => [CoinListLoading(), const CoinListFailure()]);
+  blocTest<CoinListBloc, CoinListState>(
+      'Should emit [CoinListLoading, CoinListFailure] when GetCoinList is triggered and some failure is returned',
+      setUp: () {
+        when(getRemoteCoinList(any, any))
+            .thenAnswer((_) async => Left(ServerFailure()));
+      },
+      build: () => bloc,
+      act: (bloc) =>
+          bloc.add(const GetCoinList(currency: tCurrency, page: tPage)),
+      expect: () => [CoinListLoading(), const CoinListFailure(serverErrorMessage)]);
 }
