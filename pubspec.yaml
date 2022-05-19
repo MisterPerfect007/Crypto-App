@@ -34,7 +34,8 @@ dependencies:
   http: ^0.13.4
   flutter_bloc: ^8.0.1
   bloc_test: ^9.0.3
-  #icons
+  # google fonts 
+  google_fonts: ^2.3.2
   
 
 

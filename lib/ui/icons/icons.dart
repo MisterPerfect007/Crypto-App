@@ -11,9 +11,13 @@ enum PersoIcons {
   searchMd,
   more,
   starFill,
+  starFill1,
+  starFill2,
   starOutline,
   leftArrow,
   leftArrow1,
+  arrowDown,
+  arrowUp,
 }
 
 Map<PersoIcons, String> iconName = {
@@ -27,9 +31,13 @@ Map<PersoIcons, String> iconName = {
   PersoIcons.searchMd: 'assets/icons/search_md.png',
   PersoIcons.more: 'assets/icons/more.png',
   PersoIcons.starFill: 'assets/icons/star_fille.png',
+  PersoIcons.starFill1: 'assets/icons/star.png',
+  PersoIcons.starFill2: 'assets/icons/star(2).png',
   PersoIcons.starOutline: 'assets/icons/star_outline.png',
   PersoIcons.leftArrow: 'assets/icons/left_arrow.png',
   PersoIcons.leftArrow1: 'assets/icons/left_arrow_1.png',
+  PersoIcons.arrowDown: 'assets/icons/arrow_down.png',
+  PersoIcons.arrowUp: 'assets/icons/arrow_up.png',
 };
 
 /// PersonIcon

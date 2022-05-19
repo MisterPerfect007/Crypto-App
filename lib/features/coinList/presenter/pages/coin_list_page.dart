@@ -1,7 +1,11 @@
 import 'package:crypto_trends/ui/colors/colors.dart';
+import 'package:crypto_trends/ui/icons/icons.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/app_bar.dart';
+import '../widgets/single coin/single_coin.dart';
+import '../widgets/sorting criteria/sorting_criteria.dart';
 
 class CoinListPage extends StatelessWidget {
   const CoinListPage({Key? key}) : super(key: key);
@@ -20,44 +24,23 @@ class CoinListPage extends StatelessWidget {
         child: CoinPageAppBar(size: size),
       ),
       body: Container(
-        padding: EdgeInsets.only(
-          left: sidePadding,
-          right: sidePadding,
-        ),
-        child: SingleChildScrollView(
-          child: Row(
+        height: size.height,
+        // decoration: BoxDecoration(
+        //   border: Border.all(color: Colors.red, width: 5),
+        // ),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              InkWell(
-                splashColor: Color.fromARGB(255, 255, 4, 4),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(5),
-                ),
-                onTap: () {},
-                child: Container(
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                    top: 7,
-                    bottom: 7,
-                  ),
-                  decoration: const BoxDecoration(
-                      // color: AppColors.mainWhite,
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      boxShadow: [
-                        // BoxShadow(
-                        //   color: AppColors.secondGrey,
-                        //   spreadRadius: 2,
-                        //   blurRadius: 10,
-                        // ),
-                      ]),
-                  child: Text(
-                    'Rank',
-                  ),
+              const SortingCriteria(),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(children: const [
+                    SingleCoin(),
+                  ]),
                 ),
               )
-            ],
-          ),
-        ),
+            ]),
       ),
     );
   }
