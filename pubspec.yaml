@@ -36,6 +36,8 @@ dependencies:
   bloc_test: ^9.0.3
   # google fonts 
   google_fonts: ^2.3.2
+  #chart 
+  fl_chart: ^0.50.6
   
 
 

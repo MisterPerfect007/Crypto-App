@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
+import '../../pages/coin_list_page.dart';
 
 class SingleCoin extends StatelessWidget {
   const SingleCoin({
@@ -17,7 +18,7 @@ class SingleCoin extends StatelessWidget {
     double sidePadding = size.width / 25;
     return Container(
       padding: EdgeInsets.only(left: sidePadding, right: sidePadding, bottom: 10),
-      margin: EdgeInsets.only(top: 10,),
+      margin: const EdgeInsets.only(top: 10,),
       decoration: const BoxDecoration(
         border: Border(bottom: BorderSide(color: AppColors.secondGrey,))
       ),
@@ -80,7 +81,16 @@ class SingleCoin extends StatelessWidget {
           ),
           //Price
           //
-          Expanded(child: Container()),
+          Expanded(
+            child: Align(
+              child: Container(
+                height: 40,
+                constraints: const BoxConstraints(minWidth: 100, maxWidth: 200),
+                padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
+                child: const SingleCoinLineChart(),
+              ),
+            ),
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -124,9 +134,9 @@ class SingleCoin extends StatelessWidget {
           //
           InkWell(
             onTap: (){},
-            borderRadius: BorderRadius.all(Radius.circular(50)),
+            borderRadius: const BorderRadius.all(Radius.circular(50)),
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: const PersoIcon(
                 icon: PersoIcons.starOutline,
                 color: AppColors.mainGrey,
