@@ -26,6 +26,7 @@ class CoinName extends StatelessWidget {
         const SizedBox(height: 3,),
         Row(
           children: [
+            //MarketCapRank
             Container(
               padding: const EdgeInsets.only(
                 top: 0,
@@ -38,7 +39,7 @@ class CoinName extends StatelessWidget {
                   borderRadius:
                       BorderRadius.all(Radius.circular(3))),
               child: Text(
-                marketCapRank!.toString(),
+                marketCapRank != null ? marketCapRank.toString() : '?',
                 style: const TextStyle(
                   color: AppColors.grey1,
                   fontWeight: FontWeight.w500,
@@ -49,6 +50,8 @@ class CoinName extends StatelessWidget {
             const SizedBox(
               width: 5,
             ),
+            
+            //Symbol
             Text(
               symbol.toUpperCase(),
               style: const TextStyle(

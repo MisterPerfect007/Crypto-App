@@ -43,7 +43,7 @@ class SingleCoin extends StatelessWidget {
       child: Row(
         children: [
           Image.network(
-            image!,
+            "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
             width: 40,
           ),
           const SizedBox(

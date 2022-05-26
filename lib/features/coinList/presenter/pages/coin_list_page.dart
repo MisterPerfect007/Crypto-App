@@ -38,8 +38,8 @@ class CoinListPage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(children: const [
                     SingleCoin(
-                      name: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
-                      symbol: '',
+                      name: 'Bitcoin',
+                      symbol: 'btc',
                     ),
                   ]),
                 ),
