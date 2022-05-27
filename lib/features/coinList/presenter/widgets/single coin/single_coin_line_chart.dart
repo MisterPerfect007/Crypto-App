@@ -38,7 +38,7 @@ class SingleCoinLineChart extends StatelessWidget {
           preventCurveOverShooting: false,
           spots: chartData.getSpotList(),
           // isCurved: true,
-          barWidth: 2,
+          barWidth: 1.6,
           dotData: FlDotData(
             show: false,
           ),
@@ -46,7 +46,7 @@ class SingleCoinLineChart extends StatelessWidget {
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(colors: [
-              chartData.getColor().withOpacity(0.2),
+              chartData.getColor().withOpacity(0.4),
               chartData.getColor().withOpacity(0.0)
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
           ),

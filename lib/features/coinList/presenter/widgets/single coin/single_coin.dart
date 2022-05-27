@@ -1,3 +1,4 @@
+import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
 import 'package:crypto_trends/features/coinList/presenter/pages/sample_data.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_data.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class SingleCoin extends StatelessWidget {
   final double? currentPrice;
   final int? marketCapRank;
   final double? priceChangePercentage7dInCurrency;
+  final List<double>? lastWeekData;
   const SingleCoin({
     Key? key,
     required this.name,
@@ -23,6 +25,7 @@ class SingleCoin extends StatelessWidget {
     this.currentPrice,
     this.marketCapRank,
     this.priceChangePercentage7dInCurrency,
+    this.lastWeekData,
   }) : super(key: key);
 
   @override
@@ -30,8 +33,11 @@ class SingleCoin extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
     return Container(
-      padding:
-          EdgeInsets.only(left: sidePadding, right: sidePadding, bottom: 10),
+      padding: EdgeInsets.only(
+        left: sidePadding,
+        right: sidePadding,
+        bottom: 10,
+      ),
       margin: const EdgeInsets.only(
         top: 10,
       ),
@@ -43,7 +49,7 @@ class SingleCoin extends StatelessWidget {
       child: Row(
         children: [
           Image.network(
-            "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+            image!,
             width: 40,
           ),
           const SizedBox(
@@ -63,8 +69,11 @@ class SingleCoin extends StatelessWidget {
               child: Container(
                 height: 40,
                 constraints:
-                    const BoxConstraints(minWidth: 100, maxWidth: 1000),
-                padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
+                    const BoxConstraints(minWidth: 100, maxWidth: 300),
+                padding: const EdgeInsets.only(
+                  left: 5,
+                  right: 5,
+                ),
                 child: const SingleCoinLineChart(
                   chartData: CoinLineChartData(dataList: weekData),
                 ),
@@ -73,7 +82,13 @@ class SingleCoin extends StatelessWidget {
           ),
           //Price and week evolution
           //
-          const CoinPrice(),
+          CoinPrice(
+            currentPrice: currentPrice,
+            formated7DPercentage: priceChangePercentage7dInCurrency == null
+                ? null
+                : CoinPercentageFormat(
+                    percentage: priceChangePercentage7dInCurrency!),
+          ),
           const SizedBox(
             width: 5,
           ),
