@@ -1,3 +1,4 @@
+import 'package:crypto_trends/features/coinList/presenter/pages/sample_data.dart';
 import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,7 @@ class CoinListPage extends StatelessWidget {
                       currentPrice: 930984.99,
                       marketCapRank: 1,
                       priceChangePercentage7dInCurrency: 9.1287,
+                      lastWeekData: weekData,
                     ),
                     SingleCoin(
                       name: 'Ethereum eth',
@@ -46,6 +48,7 @@ class CoinListPage extends StatelessWidget {
                       currentPrice: 1.82,
                       marketCapRank: 1,
                       priceChangePercentage7dInCurrency: 19.1287,
+                      lastWeekData: weekData,
                     ),
                   ]),
                 ),

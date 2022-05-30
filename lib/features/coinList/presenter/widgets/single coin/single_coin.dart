@@ -66,18 +66,19 @@ class SingleCoin extends StatelessWidget {
           //
           Expanded(
             child: Align(
-              child: Container(
+              child: 
+              lastWeekData != null ? Container(
                 height: 40,
-                constraints:
-                    const BoxConstraints(minWidth: 100, maxWidth: 300),
+                // constraints:
+                //     const BoxConstraints(minWidth: 200, maxWidth: 300),
                 padding: const EdgeInsets.only(
                   left: 5,
                   right: 5,
                 ),
-                child: const SingleCoinLineChart(
-                  chartData: CoinLineChartData(dataList: weekData),
+                child: SingleCoinLineChart(
+                  chartData: CoinLineChartData(dataList: lastWeekData!),
                 ),
-              ),
+              ) : Container(),
             ),
           ),
           //Price and week evolution

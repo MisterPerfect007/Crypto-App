@@ -11,47 +11,53 @@ class SingleCoinLineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LineChart(LineChartData(
-      lineTouchData: LineTouchData(
-        enabled: false,
-      ),
-      gridData: FlGridData(
-        show: false,
-      ),
-      titlesData: FlTitlesData(
-        show: false,
-        topTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: false,
+    return LineChart(
+      LineChartData(
+        lineTouchData: LineTouchData(
+          enabled: false,
+        ),
+        gridData: FlGridData(
+          show: false,
+        ),
+        titlesData: FlTitlesData(
+          show: false,
+          topTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: false,
+            ),
           ),
         ),
-      ),
-      borderData: FlBorderData(
-        show: false,
-      ),
-      minX: 0,
-      maxX: chartData.getMaxX,
-      minY: chartData.getMinY,
-      maxY: chartData.getMaxY,
-      lineBarsData: [
-        LineChartBarData(
-          preventCurveOverShooting: false,
-          spots: chartData.getSpotList(),
-          // isCurved: true,
-          barWidth: 1.6,
-          dotData: FlDotData(
-            show: false,
-          ),
-          color: chartData.getColor(),
-          belowBarData: BarAreaData(
-            show: true,
-            gradient: LinearGradient(colors: [
-              chartData.getColor().withOpacity(0.4),
-              chartData.getColor().withOpacity(0.0)
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-          ),
+        borderData: FlBorderData(
+          show: false,
         ),
-      ],
-    ));
+        minX: 0,
+        maxX: chartData.getMaxX,
+        minY: chartData.getMinY,
+        maxY: chartData.getMaxY,
+        lineBarsData: [
+          LineChartBarData(
+            preventCurveOverShooting: false,
+            spots: chartData.getSpotList(),
+            // isCurved: true,
+            barWidth: 1,
+            dotData: FlDotData(
+              show: false,
+            ),
+            color: chartData.getColor(),
+            belowBarData: BarAreaData(
+              show: true,
+              gradient: LinearGradient(
+                colors: [
+                  chartData.getColor().withOpacity(0.4),
+                  chartData.getColor().withOpacity(0.0)
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

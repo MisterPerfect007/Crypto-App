@@ -9,27 +9,24 @@ import '../../../../../ui/icons/icons.dart';
 class CoinPrice extends StatelessWidget {
   final double? currentPrice;
   final CoinPercentageFormat? formated7DPercentage;
-  const CoinPrice({
+  CoinPrice({
     Key? key,
     required this.currentPrice,
     this.formated7DPercentage,
   }) : super(key: key);
 
+  final numberFormater = NumberFormat("#,##0.00", "en_US");
   @override
   Widget build(BuildContext context) {
-    final numberFormater = NumberFormat("#,##0.00", "en_US");
-
     return Container(
       constraints: const BoxConstraints(maxWidth: 90),
+      // decoration: BoxDecoration(border: Border.all()),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           //* Current price
           Text(
-            '\$' +
-                (currentPrice != null
-                    ? numberFormater.format(currentPrice)
-                    : '??'),
+            '\$ ' + priceFormater(1899993.0555),
             style: GoogleFonts.inter(
               textStyle: const TextStyle(
                   color: AppColors.mainBlack,
@@ -72,5 +69,22 @@ class CoinPrice extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  ///Custom method to format price for a correct display
+  String priceFormater(double? price) {
+    if (price == null) {
+      return '??';
+    } else {
+      if (price < 1000000) {
+        if (price < 100000) {
+          return numberFormater.format(price);
+        } else {
+          return NumberFormat("#,###", "en_US").format(price);
+        }
+      } else {
+        return NumberFormat.compact().format(price);
+      }
+    }
   }
 }
