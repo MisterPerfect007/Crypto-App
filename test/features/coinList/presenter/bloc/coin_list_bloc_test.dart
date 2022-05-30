@@ -28,7 +28,7 @@ void main() {
       'Should make call to the usecase with correct given arguments',
       setUp: () {
         when(getRemoteCoinList(any, any))
-            .thenAnswer((_) async => const Right(testCoins));
+            .thenAnswer((_) async => Right(testCoins));
       },
       build: () => bloc,
       act: (bloc) =>
@@ -41,12 +41,12 @@ void main() {
       'Should emit [CoinListLoading, CoinListLoaded] when GetCoinList is triggered with success response',
       setUp: () {
         when(getRemoteCoinList(any, any))
-            .thenAnswer((_) async => const Right(testCoins));
+            .thenAnswer((_) async => Right(testCoins));
       },
       build: () => bloc,
       act: (bloc) =>
           bloc.add(const GetCoinList(currency: tCurrency, page: tPage)),
-      expect: () => [CoinListLoading(), const CoinListLoaded(testCoins)]);
+      expect: () => [CoinListLoading(), CoinListLoaded(testCoins)]);
   blocTest<CoinListBloc, CoinListState>(
       'Should emit [CoinListLoading, CoinListFailure] when GetCoinList is triggered and some failure is returned',
       setUp: () {

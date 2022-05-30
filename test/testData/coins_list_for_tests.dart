@@ -1,7 +1,7 @@
 import 'package:crypto_trends/features/coinList/data/models/coin_model.dart';
 import 'package:crypto_trends/features/coinList/domain/entities/coin.dart';
 
-const CoinModel testSingleCoinModel = CoinModel(
+final CoinModel testSingleCoinModel = CoinModel(
     id: "bitcoin",
     symbol: "btc",
     name: "Bitcoin",
@@ -28,13 +28,12 @@ const CoinModel testSingleCoinModel = CoinModel(
     atlChangePercentage: 42028.73924,
     atlDate: "2013-07-06T00:00:00.000Z",
     lastUpdated: "2022-05-12T11:15:01.530Z",
-    sparklineIn7d: {
-      "price": [39509.42332989887, 39570.01981374774]
-    },
+    sparklineIn7d: SparlineIn7d.fromJson(const {
+      "price": [39509.42332989887, 39570.01981374774],
+    }),
     priceChangePercentage7dInCurrency: 13);
 
-
-const List<Coin> testCoins = [
+final List<Coin> testCoins = [
   Coin(
       id: "bitcoin",
       symbol: "btc",
@@ -62,9 +61,9 @@ const List<Coin> testCoins = [
       atlChangePercentage: 42028.73924,
       atlDate: "2013-07-06T00:00:00.000Z",
       lastUpdated: "2022-05-12T11:15:01.530Z",
-      sparklineIn7d: {
-        "price": [39509.42332989887, 39570.01981374774]
-      },
+      sparklineIn7d: SparlineIn7d.fromJson(const {
+        "price": [39509.42332989887, 39570.01981374774],
+      }),
       priceChangePercentage7dInCurrency: 13),
   Coin(
       id: "ethereum",
@@ -93,14 +92,13 @@ const List<Coin> testCoins = [
       atlChangePercentage: 455023.03107,
       atlDate: "2015-10-20T00:00:00.000Z",
       lastUpdated: "2022-05-12T11:14:14.177Z",
-      sparklineIn7d: {
+      sparklineIn7d: SparlineIn7d.fromJson(const {
         "price": [2925.7546621681654, 2932.6198376355937]
-      },
+      }),
       priceChangePercentage7dInCurrency: 9),
 ];
 
-
-const List<CoinModel> testCoinModels = [
+final List<CoinModel> testCoinModels = [
   CoinModel(
       id: "bitcoin",
       symbol: "btc",
@@ -128,9 +126,9 @@ const List<CoinModel> testCoinModels = [
       atlChangePercentage: 42028.73924,
       atlDate: "2013-07-06T00:00:00.000Z",
       lastUpdated: "2022-05-12T11:15:01.530Z",
-      sparklineIn7d: {
-        "price": [39509.42332989887, 39570.01981374774]
-      },
+      sparklineIn7d: SparlineIn7d.fromJson(const {
+        "price": [39509.42332989887, 39570.01981374774],
+      }),
       priceChangePercentage7dInCurrency: 13),
   CoinModel(
       id: "ethereum",
@@ -159,9 +157,8 @@ const List<CoinModel> testCoinModels = [
       atlChangePercentage: 455023.03107,
       atlDate: "2015-10-20T00:00:00.000Z",
       lastUpdated: "2022-05-12T11:14:14.177Z",
-      sparklineIn7d: {
+      sparklineIn7d: SparlineIn7d.fromJson(const {
         "price": [2925.7546621681654, 2932.6198376355937]
-      },
+      }),
       priceChangePercentage7dInCurrency: 9),
 ];
-

@@ -41,7 +41,7 @@ void main() {
         .thenAnswer((_) async => testCoinModels);
     final result = await repository.getRemoteCoinList(currency: tCurrency, page: tPage);
 
-    expect(result, const Right(testCoinModels));
+    expect(result, Right(testCoinModels));
   });
   test("Should return a ServerFailure when a ServerException is thrown", () async {
     when(remote.getRemoteCoinList(

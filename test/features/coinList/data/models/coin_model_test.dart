@@ -16,7 +16,7 @@ void main() {
     coinModel = CoinModel.fromJson(testSingleCoin);
 
   });
-  test("a coinModel should be a correct subclass of Coin", () {
+  test("a coinModel should be a subclass of Coin", () {
     expect(coinModel, isA<Coin>());
   });
   test("Should return a valid json file from model", (){
@@ -24,7 +24,7 @@ void main() {
     expect(result, testSingleCoin);
   });
   test("Should return a valid a model from json", () {
-    const CoinModel validCoin = testSingleCoinModel;
+    final CoinModel validCoin = testSingleCoinModel;
     expect(coinModel, validCoin);
   });
 }

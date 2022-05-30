@@ -1,5 +1,4 @@
 import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
-import 'package:crypto_trends/features/coinList/presenter/pages/sample_data.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_data.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +67,7 @@ class SingleCoin extends StatelessWidget {
             child: Align(
               child: 
               lastWeekData != null ? Container(
-                height: 40,
+                height: 20,
                 // constraints:
                 //     const BoxConstraints(minWidth: 200, maxWidth: 300),
                 padding: const EdgeInsets.only(

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../data/models/coin_model.dart';
+
 class Coin extends Equatable{
   final String id;
   final String symbol;
@@ -26,7 +28,7 @@ class Coin extends Equatable{
   final double? atlChangePercentage;
   final String? atlDate;
   final String? lastUpdated;
-  final Map<String, dynamic>? sparklineIn7d;
+  final SparlineIn7d? sparklineIn7d;
   final double? priceChangePercentage7dInCurrency;
 
   const Coin({
@@ -63,3 +65,4 @@ class Coin extends Equatable{
   @override
   List<Object?> get props => [id, symbol, name, image, currentPrice, marketCap, marketCapRank, fullyDilutedValuation, totalVolume, high24h, low24h, priceChange24h, priceChangePercentage24h, marketCapChange24h, marketCapChangePercentage24h, circulatingSupply, totalSupply, maxSupply, ath, athChangePercentage, athDate, atl, atlChangePercentage, atlDate, lastUpdated];
 }
+

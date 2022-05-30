@@ -1,7 +1,11 @@
+import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
+import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  await di.init();
   runApp(const MyApp());
 }
 
@@ -18,7 +22,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // themeMode: ThemeMode.light,
-      home: const CoinListPage(),
+      home: BlocProvider(
+        create: (context) => di.sl<CoinListBloc>(),
+        child: const CoinListPage(),
+      ),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 import '../../domain/entities/coin.dart';
 
 class CoinModel extends Coin {
@@ -27,7 +29,7 @@ class CoinModel extends Coin {
       double? atlChangePercentage,
       String? atlDate,
       String? lastUpdated,
-      Map<String, dynamic>? sparklineIn7d,
+      SparlineIn7d? sparklineIn7d,
       double? priceChangePercentage7dInCurrency})
       : super(
             id: id,
@@ -86,7 +88,7 @@ class CoinModel extends Coin {
       atlChangePercentage: json["atl_change_percentage"]?.toDouble(),
       atlDate: json["atl_date"],
       lastUpdated: json["last_updated"],
-      sparklineIn7d: json["sparkline_in_7d"],
+      sparklineIn7d: SparlineIn7d.fromJson(json["sparkline_in_7d"]),
       priceChangePercentage7dInCurrency:
           json["price_change_percentage_7d_in_currency"]?.toDouble(),
     );
@@ -118,8 +120,34 @@ class CoinModel extends Coin {
       "atl_change_percentage": atlChangePercentage,
       "atl_date": atlDate,
       "last_updated": lastUpdated,
-      "sparkline_in_7d": sparklineIn7d,
-      "price_change_percentage_7d_in_currency": priceChangePercentage7dInCurrency
+      "sparkline_in_7d": sparklineIn7d!.toJson(),
+      "price_change_percentage_7d_in_currency":
+          priceChangePercentage7dInCurrency
     };
   }
+}
+
+class SparlineIn7d extends Equatable {
+  final List<double> price;
+
+  const SparlineIn7d(this.price);
+
+  factory SparlineIn7d.fromJson(Map<String, dynamic> json) {
+    return SparlineIn7d(
+      List<double>.from(
+        json["price"].map(
+          (x) => x.toDouble(),
+        ),
+      ),
+    );
+  }
+
+  Map<String, dynamic> toJson(){
+    return {
+      "price": price,
+    };
+  }
+
+  @override
+  List<Object?> get props => [price];
 }

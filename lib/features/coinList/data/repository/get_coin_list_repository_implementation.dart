@@ -9,7 +9,7 @@ import 'package:crypto_trends/errors/failures.dart';
 import '../../domain/repositories/get_coin_list_repository.dart';
 
 class CoinListRepositoryImpl implements CoinListRepository{
-  final CoinListRemoteDataSourceImpl remote;
+  final CoinListRemoteDataSource remote;
 
   CoinListRepositoryImpl({required this.remote});
   @override

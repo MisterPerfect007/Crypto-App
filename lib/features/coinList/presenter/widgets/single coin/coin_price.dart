@@ -26,7 +26,7 @@ class CoinPrice extends StatelessWidget {
         children: [
           //* Current price
           Text(
-            '\$ ' + priceFormater(1899993.0555),
+            '\$ ' + priceFormater(currentPrice),
             style: GoogleFonts.inter(
               textStyle: const TextStyle(
                   color: AppColors.mainBlack,

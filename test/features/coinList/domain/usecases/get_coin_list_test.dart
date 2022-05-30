@@ -20,11 +20,11 @@ void main() {
   const testPage = 1;
   test("Should get coins from repository", () async {
     when(repository.getRemoteCoinList(currency: testCurrency, page: testPage))
-        .thenAnswer((_) async => const Right(testCoins));
+        .thenAnswer((_) async => Right(testCoins));
 
     final result = await usecase(testCurrency, testPage);
 
-    expect(result, const Right(testCoins));
+    expect(result, Right(testCoins));
     verify(repository.getRemoteCoinList(currency: testCurrency, page: testPage))
         .called(1);
     verifyNoMoreInteractions(repository);
