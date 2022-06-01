@@ -19,10 +19,10 @@ class SortingCriteria extends StatelessWidget {
         ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             SingleCriteria(),
             SingleCriteria(),
             SingleCriteria(),

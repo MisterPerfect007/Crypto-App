@@ -36,7 +36,7 @@ void main() {
   final apiResponseBody = readJson('coin_list.json');
 
   test("Should make a call to coin list API with corrent parameters and the right Header", (() async {
-    when(client.get(any, headers: anyNamed("headers"))).thenAnswer((_) async => http.Response("{}", 200));
+    when(client.get(any, headers: anyNamed("headers"))).thenAnswer((_) async => http.Response(apiResponseBody, 200));
 
     await remote.getRemoteCoinList(currency: tCurrency, page: tPage);
 

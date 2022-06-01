@@ -1,6 +1,5 @@
 import 'package:crypto_trends/features/coinList/domain/entities/coin.dart';
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
-import 'package:crypto_trends/features/coinList/presenter/pages/sample_data.dart';
 import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +32,7 @@ class CoinListPage extends StatelessWidget {
             if (state is CoinListInitial) {
               return const Text('Initial state');
             } else if (state is CoinListLoading) {
-              return const Align(child: const CircularProgressIndicator());
+              return const Align(child: CircularProgressIndicator());
             } else if (state is CoinListLoaded) {
               List<Coin> coinList = state.coinList;
               return Column(

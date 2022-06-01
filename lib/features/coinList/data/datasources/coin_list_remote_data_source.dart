@@ -23,7 +23,9 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
   @override
   Future<List<CoinModel>> getRemoteCoinList(
       {required String currency, int? page}) async {
-    const Map<String, String> defaultHeader = { 'Content-type': 'application/json' };
+    const Map<String, String> defaultHeader = {
+      'Content-type': 'application/json'
+    };
     final url = Uri.https('api.coingecko.com', '/api/v3/coins/markets', {
       'vs_currency': currency,
       'order': 'market_cap_desc',
@@ -33,23 +35,16 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
       'price_change_percentage': '7d',
     });
 
-    //! Call the remote API
     final response = await client.get(url, headers: defaultHeader);
-    client.close();
-    //* if (success)
+    // client.close();
     if (response.statusCode == 200) {
       final responseBody = response.body;
-      final responseJson = jsonDecode(responseBody);
-      List<CoinModel> listCoinModel = [];
-      for (int i = 0; i < responseJson.length; i++) {
-        listCoinModel.add(CoinModel.fromJson(responseJson[i]));
-      }
-    // => return list of coinModel from API's response
-      return listCoinModel;
-    }
-    //* else
-    else {
-    // => throw a [ServerException]
+      final responseJson =
+          List<Map<String, dynamic>>.from(jsonDecode(responseBody));
+      return responseJson
+          .map((coinjson) => CoinModel.fromJson(coinjson))
+          .toList();
+    } else {
       throw ServerException();
     }
   }

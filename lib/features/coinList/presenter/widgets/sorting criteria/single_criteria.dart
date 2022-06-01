@@ -25,11 +25,11 @@ class SingleCriteria extends StatelessWidget {
           ]),
       child: Material(
         color: Colors.transparent,
-        borderRadius: BorderRadius.all(Radius.circular(5)),
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
         child: InkWell(
           splashColor: AppColors.secondGreen,
           onTap: () {},
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(5),
           ),
           child: Container(
@@ -39,7 +39,7 @@ class SingleCriteria extends StatelessWidget {
               top: 7,
               bottom: 7,
             ),
-            child: Text(
+            child: const Text(
               'Rank',
               style: TextStyle(
                   color: AppColors.mainGrey, fontWeight: FontWeight.w500),
