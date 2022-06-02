@@ -2,38 +2,39 @@ import 'package:crypto_trends/features/coinInfo/domain/entities/coin_market_char
 import 'package:equatable/equatable.dart';
 
 class CoinMarketChartModel extends CoinMarketChart {
-  const CoinMarketChartModel(
-      {required List<SingleDayCoinMarketChart> prices})
+  const CoinMarketChartModel({required List<SingleCoinMarketChartData> prices})
       : super(prices: prices);
   factory CoinMarketChartModel.fromJson(Map<String, dynamic> json) {
-    print(json.runtimeType);
     return CoinMarketChartModel(
-      prices: json["prices"]
+      prices: List<SingleCoinMarketChartData>.from(json["prices"]
           .map(
-            (x) => {SingleDayCoinMarketChart.fromJson(x), print(SingleDayCoinMarketChart.fromJson(x).runtimeType)},
-          ).toList()
-          as List<SingleDayCoinMarketChart>,
+            (x) => SingleCoinMarketChartData.fromJson(x),
+          )
+          .toList()),
     );
   }
 
-  Map<String, dynamic> toJson(prices) {
-    return {"prices": prices};
+  Map<String, dynamic> toJson(List<SingleCoinMarketChartData> prices) {
+    return {
+      "prices": prices.map((x) => x.toJson()).toList()
+    };
   }
 }
 
-class SingleDayCoinMarketChart extends Equatable {
+class SingleCoinMarketChartData extends Equatable {
   final List<num> singlePrice;
 
-  const SingleDayCoinMarketChart({required this.singlePrice});
+  const SingleCoinMarketChartData({required this.singlePrice});
 
-  factory SingleDayCoinMarketChart.fromJson(json) {
-    return SingleDayCoinMarketChart(singlePrice: [json[0].toInt(), json[1].toDouble()]);
+  factory SingleCoinMarketChartData.fromJson(json) {
+    return SingleCoinMarketChartData(
+        singlePrice: [json[0].toInt(), json[1].toDouble()]);
   }
 
   List toJson() {
     return [
       singlePrice[0],
-      singlePrice[2],
+      singlePrice[1],
     ];
   }
 

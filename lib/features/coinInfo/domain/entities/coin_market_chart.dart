@@ -3,7 +3,7 @@ import 'package:crypto_trends/features/coinList/presenter/widgets/single%20coin/
 import 'package:equatable/equatable.dart';
 
 class CoinMarketChart extends Equatable {
-  final List<SingleDayCoinMarketChart> prices;
+  final List<SingleCoinMarketChartData> prices;
 
   const CoinMarketChart({required this.prices});
 

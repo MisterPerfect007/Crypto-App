@@ -1,3 +1,4 @@
+import 'package:crypto_trends/features/coinInfo/domain/entities/coin_market_chart.dart';
 import 'package:crypto_trends/features/coinInfo/domain/repository/get_coin_market_chart_repository.dart';
 import 'package:crypto_trends/features/coinInfo/domain/usescases/get_coin_market_chart.dart';
 import 'package:dartz/dartz.dart';
@@ -30,7 +31,7 @@ void main() {
       days: anyNamed("days"),
       dailyInterval: anyNamed("dailyInterval"),
     )).thenAnswer(
-      (_) async => const Right(testCoinMarketChart),
+      (_) async => Right(CoinMarketChart(prices: testCoinMarketChart) ),
     );
 
     final result = await usecase.call(
@@ -46,7 +47,7 @@ void main() {
       dailyInterval: dailyInterval,
     )).called(1);
 
-    expect(result, const Right(testCoinMarketChart));
+    expect(result, Right(CoinMarketChart(prices: testCoinMarketChart)));
 
     verifyNoMoreInteractions(repository);
   });
