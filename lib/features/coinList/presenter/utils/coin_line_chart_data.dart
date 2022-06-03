@@ -19,14 +19,14 @@ class CoinLineChartData extends Equatable {
 
   /// Return FlSpot list
   List<FlSpot> getSpotList() {
-    List<FlSpot> spotList = [];
-    for (int i = 0; i < dataList.length; i++) {
-      spotList.add(FlSpot(i.toDouble(), dataList[i]));
-    }
-    return spotList;
+    return dataList
+        .asMap()
+        .entries
+        .map((element) => FlSpot(element.key.toDouble(), element.value))
+        .toList();
   }
 
-  /// Return the LineChart color 
+  /// Return the LineChart color
   Color getColor() {
     return dataList[0] > dataList[dataList.length - 1]
         ? AppColors.pureRed

@@ -1,3 +1,4 @@
+import 'package:crypto_trends/features/coinInfo/presenter/page/coin_info.dart';
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
 import 'package:crypto_trends/injection_container.dart' as di;
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       // themeMode: ThemeMode.light,
       home: BlocProvider(
         create: (context) => di.sl<CoinListBloc>(),
-        child: const CoinListPage(),
+        child: const CoinInfoPage(),
       ),
     );
   }

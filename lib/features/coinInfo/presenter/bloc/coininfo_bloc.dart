@@ -10,16 +10,26 @@ part 'coininfo_state.dart';
 class CoinInfoBloc extends Bloc<CoinInfoEvent, CoinInfoState> {
   final GetCoinMarketChart usecase;
   CoinInfoBloc({required this.usecase}) : super(CoinInfoInitial()) {
-    on<CoinInfoEvent>((event, emit) {
-      if(event is GetCoinInfo){
+    on<CoinInfoEvent>((event, emit) async {
+      if (event is GetCoinInfo) {
         emit(CoinInfoLoading());
+        final leftOrRight = await usecase.call(
+          id: event.id,
+          currency: event.currency,
+          days: event.days,
+          dailyInterval: event.dailyInterval,
+        );
+        leftOrRight.fold(
+          (l) => emit(CoinInfoError()),
+          (chartData) => emit(CoinInfoLoaded(coinMarketChart: chartData)),
+        );
       }
       // TODO: implement event handler
       //make call the usecase
-        //if (right is return)
-          //emit Loaded
-        //else
-          //emit Error
+      //if (right is return)
+      //emit Loaded
+      //else
+      //emit Error
     });
   }
 }

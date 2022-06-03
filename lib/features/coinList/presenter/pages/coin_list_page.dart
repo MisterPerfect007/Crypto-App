@@ -14,7 +14,7 @@ class CoinListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    context.read<CoinListBloc>().add(const GetCoinList(currency: "usd", page: 2));
+    context.read<CoinListBloc>().add(const GetCoinList(currency: "usd", page: 1));
     // double sidePadding = size.width / 25;
     return Scaffold(
       backgroundColor: AppColors.lightBg,
@@ -62,48 +62,7 @@ class CoinListPage extends StatelessWidget {
               return const Text('Something went wrong');
             }
           }))
-          // Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     mainAxisSize: MainAxisSize.max,
-          //     children: [
-          //       const SortingCriteria(),
-          //       Expanded(child: ListView.builder(
-          //         padding: const EdgeInsets.only(bottom: 100),
-          //         itemCount: 20,
-          //         itemBuilder: ((context, index) {
-          //         return const SingleCoin(
-          //           name: 'Bitcoin',
-          //           image:
-          //               'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
-          //           symbol: 'btc',
-          //           currentPrice: 930984.99,
-          //           marketCapRank: 1,
-          //           priceChangePercentage7dInCurrency: 9.1287,
-          //           lastWeekData: weekData,
-          //         );
-          //       })))
-          //     ]),
           ),
     );
   }
 }
-/* 
-SingleCoin(
-                      name: 'Bitcoin',
-                      image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
-                      symbol: 'btc',
-                      currentPrice: 930984.99,
-                      marketCapRank: 1,
-                      priceChangePercentage7dInCurrency: 9.1287,
-                      lastWeekData: weekData,
-                    ),
-                    SingleCoin(
-                      name: 'Ethereum eth',
-                      image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
-                      symbol: 'btc',
-                      currentPrice: 1.82,
-                      marketCapRank: 1,
-                      priceChangePercentage7dInCurrency: 19.1287,
-                      lastWeekData: weekData,
-                    ),
-      */
