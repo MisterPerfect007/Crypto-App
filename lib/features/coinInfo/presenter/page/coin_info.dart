@@ -1,11 +1,11 @@
-import 'package:crypto_trends/features/coinInfo/presenter/widgets/custom_inkWell_icon.dart';
+import 'package:crypto_trends/features/coinInfo/presenter/widgets/custom_ink_well_icon.dart';
 import 'package:crypto_trends/ui/icons/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../ui/colors/colors.dart';
-import '../widgets/coin_info_appBar.dart';
-import '../widgets/custom_inkWell_icon.dart';
+import '../widgets/coin_info_app_bar.dart';
+import '../widgets/custom_ink_well_icon.dart';
 
 class CoinInfoPage extends StatelessWidget {
   const CoinInfoPage({Key? key}) : super(key: key);
@@ -24,7 +24,10 @@ class CoinInfoPage extends StatelessWidget {
       ),
       body: Container(
         color: Colors.white,
-        padding: EdgeInsets.only(left: sidePadding, right: sidePadding,),
+        padding: EdgeInsets.only(
+          left: sidePadding,
+          right: sidePadding,
+        ),
         child: Column(
           children: [
             Row(
@@ -49,15 +52,18 @@ class CoinInfoPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                // Expanded(child: Container()),
-                CustomInkWellIcon(
-                  onTap: () {},
-                  child: const PersoIcon(
-                    icon: PersoIcons.starOutline,
-                    size: 25,
-                    color: AppColors.mainGrey,
+                Expanded(child: Container()),
+                Material(
+                  color: Colors.transparent,
+                  child: CustomInkWellIcon(
+                    onTap: () {},
+                    child: const PersoIcon(
+                      icon: PersoIcons.starOutline,
+                      // size: 25,
+                      color: AppColors.mainGrey,
+                    ),
                   ),
-                )
+                ),
               ],
             ),
           ],
