@@ -2,11 +2,13 @@ import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/coin_info_line_chart_data.dart';
+
 class CoinInfoLineChart extends StatelessWidget {
-  final CoinLineChartData? chartData;
+  final CoinInfoLineChartData chartData;
   const CoinInfoLineChart({
     Key? key,
-    this.chartData,
+    required this.chartData,
   }) : super(key: key);
 
   @override
@@ -20,8 +22,20 @@ class CoinInfoLineChart extends StatelessWidget {
           show: false,
         ),
         titlesData: FlTitlesData(
-          show: false,
+          show: true,
           topTitles: AxisTitles(
+            sideTitles: SideTitles(
+              interval: 10000,
+              showTitles: false,
+            ),
+          ),
+          bottomTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: false,
+            ),
+          ),
+          rightTitles: AxisTitles(
+            // drawBehindEverything: false,
             sideTitles: SideTitles(
               showTitles: false,
             ),
@@ -30,35 +44,26 @@ class CoinInfoLineChart extends StatelessWidget {
         borderData: FlBorderData(
           show: false,
         ),
-        minX: 0,
-        maxX: 100,
-        minY: 29000,
-        maxY: 30000,
+        minX: chartData.getMinX,
+        maxX: chartData.getMaxX,
+        minY: chartData.getMinY,
+        maxY: chartData.getMaxY,
         lineBarsData: [
           LineChartBarData(
             preventCurveOverShooting: false,
-            spots: [
-              FlSpot(0, 29000),
-              FlSpot(5, 29200),
-              FlSpot(10, 29300),
-              FlSpot(20, 29400),
-              FlSpot(30, 29500),
-              FlSpot(50, 29600),
-              FlSpot(70, 29700),
-              FlSpot(100, 30000),
-            ],
-            // isCurved: true,
-            barWidth: 4,
+            spots: chartData.getSpotList(),
+            isCurved: true,
+            barWidth: 2.5,
             dotData: FlDotData(
               show: false,
             ),
-            color: Colors.green,
+            color: chartData.getColor(),
             belowBarData: BarAreaData(
               show: true,
               gradient: LinearGradient(
                 colors: [
-                  Colors.green.withOpacity(0.4),
-                  Colors.green.withOpacity(0.0)
+                  chartData.getColor().withOpacity(0.4),
+                  chartData.getColor().withOpacity(0.0)
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
