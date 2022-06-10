@@ -15,7 +15,6 @@ class CoinPrice extends StatelessWidget {
     this.formated7DPercentage,
   }) : super(key: key);
 
-  final numberFormater = NumberFormat("#,##0.00", "en_US");
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,6 +70,7 @@ class CoinPrice extends StatelessWidget {
     );
   }
 
+  final numberFormater = NumberFormat("#,##0.00", "en_US");
   ///Custom method to format price for a correct display
   String priceFormater(double? price) {
     if (price == null) {
@@ -80,7 +80,7 @@ class CoinPrice extends StatelessWidget {
         if (price < 100000) {
           return numberFormater.format(price);
         } else {
-          return NumberFormat("#,###", "en_US").format(price);
+          return numberFormater.format(price);
         }
       } else {
         return NumberFormat.compact().format(price);

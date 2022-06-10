@@ -4,6 +4,7 @@ import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.d
 import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 void main() async {
   await di.init();
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

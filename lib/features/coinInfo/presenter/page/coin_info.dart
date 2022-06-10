@@ -78,10 +78,10 @@ class CoinNameImage extends StatelessWidget {
           Row(
             children: [
               //image
-              Image.network(
-                "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
-                width: 50,
-              ),
+              // Image.network(
+              //   "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+              //   width: 50,
+              // ),
               FadeInImage.assetNetwork(
                 key: ValueKey(DateTime.now()),
                 placeholder: 'assets/icons/arrow.png',
