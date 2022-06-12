@@ -1,4 +1,4 @@
-import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_data.dart';
+import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,21 +21,30 @@ class CoinInfoLineChart extends StatelessWidget {
           handleBuiltInTouches: true,
           enabled: true,
           touchTooltipData: LineTouchTooltipData(
+              tooltipPadding: const EdgeInsets.all(5),
               tooltipBgColor: Colors.grey.withOpacity(0.2),
               fitInsideHorizontally: true,
               getTooltipItems: (touchedSpot) {
-                return touchedSpot.map((e) {
-                  return LineTooltipItem("", TextStyle(),
+                return touchedSpot.map((spotData) {
+                  return LineTooltipItem("", const TextStyle(),
                       textAlign: TextAlign.left,
                       children: [
                         TextSpan(
-                          /* text: "\$ ${NumberFormat.compact().format(e.y)}", */
-                          text: "\$ ${priceFormater(0.0001567)}",
-                          style: GoogleFonts.inter(textStyle: TextStyle(
-                            fontWeight: FontWeight.bold
-                          ))
+                          text: "\$ ${priceFormater(spotData.y)}",
+                          style: GoogleFonts.inter(
+                            textStyle: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 12),
+                          ),
                         ),
-                        TextSpan(text: "\nAAaaa nnnn"),
+                        TextSpan(
+                          text: "\n${convertTime(spotData.x.toInt())}",
+                          style: GoogleFonts.inter(
+                            textStyle: const TextStyle(
+                              color: AppColors.mainGrey,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
                       ]);
                 }).toList();
               }),
@@ -109,24 +118,37 @@ class CoinInfoLineChart extends StatelessWidget {
     );
   }
 
-
-  final numberFormater = NumberFormat("#,##0.00", "en_US");
   ///Custom method to format price for a correct display
   String priceFormater(double? price) {
     if (price == null) {
       return '??';
     } else {
-      if(price < 1000){
-        if(price < 0.1){
-          return price.toString();
+      if (price < 0.9) {
+        if (price < 0.09) {
+          if (price < 0.00099) {
+            return NumberFormat("#.${'#' * 15}", "en_US").format(price);
+          } else {
+            return NumberFormat("#.${'#' * 5}", "en_US").format(price);
+          }
         } else {
-          return numberFormater.format(price);
+          return NumberFormat("#.${'#' * 4}", "en_US").format(price);
         }
       } else {
-        return NumberFormat("#,###", "en_US").format(price);
+        return NumberFormat("#,###.##", "en_US").format(price);
       }
-      // return NumberFormat("#,###", "en_US").format(price);
-
+      // if (price < 0.00099) {
+      //   return  price.toStringAsFixed(10);
+      // } else {
+      //   return NumberFormat("#,###.##", "en_US").format(price);
+      // }
     }
+  }
+
+  ///Convert and format time from millisecondsSinceEpoch
+  String convertTime(int? millisecondsSinceEpoch) {
+    return millisecondsSinceEpoch != null
+        ? DateFormat('dd/MM/y hh:mma', 'en_US')
+            .format(DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch))
+        : "??/??/????";
   }
 }
