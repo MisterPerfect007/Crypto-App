@@ -8,7 +8,7 @@ import '../../utils/coin_info_line_chart_data.dart';
 
 class CoinInfoLineChart extends StatelessWidget {
   final CoinInfoLineChartData chartData;
-  CoinInfoLineChart({
+  const CoinInfoLineChart({
     Key? key,
     required this.chartData,
   }) : super(key: key);
@@ -42,6 +42,8 @@ class CoinInfoLineChart extends StatelessWidget {
                             textStyle: const TextStyle(
                               color: AppColors.mainGrey,
                               fontSize: 11,
+                              height: 2,
+                              fontWeight: FontWeight.w500
                             ),
                           ),
                         ),

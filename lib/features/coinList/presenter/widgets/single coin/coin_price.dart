@@ -53,7 +53,7 @@ class CoinPrice extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  formated7DPercentage!.signedPercentage() + '%',
+                  formated7DPercentage!.fixedPercentage() + '%',
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                         color: formated7DPercentage!.getColor,

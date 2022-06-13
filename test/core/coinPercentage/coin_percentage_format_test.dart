@@ -44,41 +44,41 @@ void main() {
     });
   });
 
-  group("signedPercentage", () {
+  group("fixedPercentage", () {
     test(
-        'Should return a decimal signed (+) percentage fixed to 2 when percentage is decimal',
+        'Should return percentage fixed to 2 when percentage is decimal',
         () {
       format = const CoinPercentageFormat(percentage: positive);
-      final result = format.signedPercentage();
+      final result = format.fixedPercentage();
 
-      expect(result, '+12.23');
+      expect(result, '12.23');
     });
 
     test(
-        'Should return a decimal signed (-) percentage fixed to 2 when percentage is decimal',
+        'Should return percentage fixed to 2 when percentage is decimal négative ',
         () {
       format = const CoinPercentageFormat(percentage: negative);
-      final result = format.signedPercentage();
+      final result = format.fixedPercentage();
 
-      expect(result, '-12.23');
+      expect(result, '12.23');
     });
 
     test(
-        'Should return a decimal signed (+) percentage fixed to 2 when percentage int positive number',
+        'Should return percentage fixed to 2 when percentage int positive number',
         () {
       format = CoinPercentageFormat(percentage: positiveInt.toDouble());
-      final result = format.signedPercentage();
+      final result = format.fixedPercentage();
 
-      expect(result, '+12.00');
+      expect(result, '12.00');
     });
 
     test(
         'Should return a decimal signed (-) percentage fixed to 2 when percentage int negative number',
         () {
       format = CoinPercentageFormat(percentage: negativeInt.toDouble());
-      final result = format.signedPercentage();
+      final result = format.fixedPercentage();
 
-      expect(result, '-12.00');
+      expect(result, '12.00');
     });
   });
 }

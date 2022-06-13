@@ -14,13 +14,9 @@ class CoinPercentageFormat extends Equatable {
 
   Color get getColor => isPositive ? AppColors.mainGreen : AppColors.pureRed;
 
-  String signedPercentage() {
-    if (percentage is int) {
-      return isPositive ? '+$percentage.00' : '-$percentage.00';
-    } else {
-      return isPositive
-          ? '+' + percentage.toStringAsFixed(2)
-          : percentage.toStringAsFixed(2);
-    }
+  String fixedPercentage() {
+    return isPositive
+        ? percentage.toStringAsFixed(2)
+        : percentage.toStringAsFixed(2).replaceFirst('-', '');
   }
 }

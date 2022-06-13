@@ -9,15 +9,18 @@ class CustomInkWellIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      splashColor: const Color.fromARGB(255, 199, 199, 199),
-      borderRadius: const BorderRadius.all(
-        Radius.circular(20),
-      ),
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: child,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        splashColor: const Color.fromARGB(255, 199, 199, 199),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(20),
+        ),
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          child: child,
+        ),
       ),
     );
   }

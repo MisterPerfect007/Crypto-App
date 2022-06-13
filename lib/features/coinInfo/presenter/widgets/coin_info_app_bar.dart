@@ -12,6 +12,7 @@ class CoinInfoPageAppBar extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Container(
+        color: AppColors.lightBg,
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(left: size.width / 25),
           height: 50,
