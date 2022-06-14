@@ -14,7 +14,9 @@ class CoinListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    context.read<CoinListBloc>().add(const GetCoinList(currency: "usd", page: 1));
+    context
+        .read<CoinListBloc>()
+        .add(const GetCoinList(currency: "usd", page: 1));
     // double sidePadding = size.width / 25;
     return Scaffold(
       backgroundColor: AppColors.lightBg,
@@ -25,44 +27,50 @@ class CoinListPage extends StatelessWidget {
         ),
         child: CoinPageAppBar(size: size),
       ),
+      // Column(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             mainAxisSize: MainAxisSize.max,
+      //             children: [
       body: SizedBox(
-          height: size.height,
-          child: BlocBuilder<CoinListBloc, CoinListState>(
-            builder: ((context, state) {
-            if (state is CoinListInitial) {
-              return const Text('Initial state');
-            } else if (state is CoinListLoading) {
-              return const Align(child: CircularProgressIndicator());
-            } else if (state is CoinListLoaded) {
-              List<Coin> coinList = state.coinList;
-              return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const SortingCriteria(),
-                    Expanded(
-                        child: ListView.builder(
-                            padding: const EdgeInsets.only(bottom: 100),
-                            itemCount: coinList.length,
-                            itemBuilder: ((context, i) {
-                              return SingleCoin(
-                                name: coinList[i].name,
-                                image: coinList[i].image,
-                                symbol: coinList[i].symbol,
-                                currentPrice: coinList[i].currentPrice,
-                                marketCapRank: coinList[i].marketCapRank,
-                                priceChangePercentage7dInCurrency: coinList[i]
-                                    .priceChangePercentage7dInCurrency,
-                                lastWeekData:
-                                    coinList[i].sparklineIn7d?.price,
-                              );
-                            })))
-                  ]);
-            } else {
-              return const Text('Something went wrong');
-            }
-          }))
-          ),
+        height: size.height,
+        child: Column(
+          children: [
+            const SortingCriteria(),
+            // SizedBox(height: 20,),
+            Expanded(
+              child: SizedBox(
+                  child: BlocBuilder<CoinListBloc, CoinListState>(
+                      builder: ((context, state) {
+                    if (state is CoinListInitial) {
+                      return const Text('Initial state');
+                    } else if (state is CoinListLoading) {
+                      return const Align(child: CircularProgressIndicator());
+                    } else if (state is CoinListLoaded) {
+                      List<Coin> coinList = state.coinList;
+                      return Expanded(
+                          child: ListView.builder(
+                              padding: const EdgeInsets.only(bottom: 100),
+                              itemCount: coinList.length,
+                              itemBuilder: ((context, i) {
+                                return SingleCoin(
+                                  name: coinList[i].name,
+                                  image: coinList[i].image,
+                                  symbol: coinList[i].symbol,
+                                  currentPrice: coinList[i].currentPrice,
+                                  marketCapRank: coinList[i].marketCapRank,
+                                  priceChangePercentage7dInCurrency:
+                                      coinList[i].priceChangePercentage7dInCurrency,
+                                  lastWeekData: coinList[i].sparklineIn7d?.price,
+                                );
+                              })));
+                    } else {
+                      return const Text('Something went wrong');
+                    }
+                  }))),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

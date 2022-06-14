@@ -23,11 +23,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        // colorScheme: ColorScheme.fromSwatch(accentColor: Colors.red)
       ),
       // themeMode: ThemeMode.light,
       home: BlocProvider(
         create: (context) => di.sl<CoinListBloc>(),
-        child: const CoinInfoPage(),
+        child: const CoinListPage(),
       ),
     );
   }

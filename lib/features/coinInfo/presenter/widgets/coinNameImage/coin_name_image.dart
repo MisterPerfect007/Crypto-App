@@ -48,6 +48,8 @@ class CoinNameImage extends StatelessWidget {
           Expanded(child: Container()),
           CustomInkWellIcon(
             onTap: () {},
+            size: 45,
+            radius: 45,
             child: const PersoIcon(
               icon: PersoIcons.starOutline,
               size: 25,

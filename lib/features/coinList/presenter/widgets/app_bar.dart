@@ -24,9 +24,10 @@ class CoinPageAppBar extends StatelessWidget {
           const Text(
             "Coin List",
             style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: AppColors.mainBlack),
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: AppColors.pureBlack,
+            ),
           ),
           Expanded(child: Container()),
           InkWell(
@@ -63,7 +64,7 @@ class CoinPageAppBar extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               child: const PersoIcon(
                 icon: PersoIcons.more,
-                color: AppColors.mainBlack,
+                color: AppColors.pureBlack,
                 size: 17,
               ),
             ),
