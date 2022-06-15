@@ -6,13 +6,12 @@ import '../../../../ui/icons/icons.dart';
 class CoinPageAppBar extends StatelessWidget {
   const CoinPageAppBar({
     Key? key,
-    required this.size,
   }) : super(key: key);
 
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Container(
         padding: EdgeInsets.only(

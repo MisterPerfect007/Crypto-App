@@ -21,7 +21,7 @@ class TimeSlot extends StatelessWidget {
               : [
                   const BoxShadow(
                       offset: Offset(0, 0),
-                      blurRadius: 5,
+                      blurRadius: 2,
                       spreadRadius: 1,
                       color: AppColors.secondGrey)
                 ]),

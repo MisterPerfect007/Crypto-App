@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../ui/colors/colors.dart';
 
 class SingleCriteria extends StatelessWidget {
   const SingleCriteria({
     Key? key,
+    required this.name,
+    required this.isSelected,
   }) : super(key: key);
+  final String name;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 10),
-      decoration: const BoxDecoration(
-          color: AppColors.mainWhite,
-          borderRadius: BorderRadius.all(
+      margin: const EdgeInsets.only(right: 15),
+      decoration: BoxDecoration(
+          color: isSelected? AppColors.mainGreen.withOpacity(0.1) : AppColors.mainWhite,
+          borderRadius: const BorderRadius.all(
             Radius.circular(5),
           ),
-          boxShadow: [
-            BoxShadow(
-                color: AppColors.secondGrey,
-                offset: Offset(0, 1),
-                blurRadius: 0.5,
-                spreadRadius: 0.2),
+          boxShadow: isSelected? null : [
+            const BoxShadow(
+                offset: Offset(0, 0),
+                blurRadius: 2,
+                spreadRadius: 1,
+                color: AppColors.secondGrey),
           ]),
       child: Material(
         color: Colors.transparent,
@@ -39,10 +44,13 @@ class SingleCriteria extends StatelessWidget {
               top: 7,
               bottom: 7,
             ),
-            child: const Text(
-              'Rank',
-              style: TextStyle(
-                  color: AppColors.mainGrey, fontWeight: FontWeight.w500),
+            child: Text(
+              name,
+              style: GoogleFonts.inter(
+                fontSize: 12,
+                color: isSelected? AppColors.mainGreen : AppColors.mainGrey,
+                // fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../ui/colors/colors.dart';
 
@@ -16,23 +17,22 @@ class CoinName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 100),
+      constraints: const BoxConstraints(maxWidth: 80, minWidth: 80),
       // decoration: BoxDecoration(border: Border.all()),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            name.length > 8 ? '${name.substring(0, 8)} ...' : name,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
+            name.length > 9 ? name.substring(0, 9) : name,
+            style: GoogleFonts.inter(
                 color: AppColors.pureBlack,
                 fontWeight: FontWeight.w500,
-                fontSize: 16),
+                fontSize: 15),
           ),
           const SizedBox(
             height: 3,
           ),
-          Row(
+          Wrap(
             children: [
               //MarketCapRank
               Container(
@@ -47,10 +47,10 @@ class CoinName extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(3))),
                 child: Text(
                   marketCapRank != null ? marketCapRank.toString() : '?',
-                  style: const TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColors.grey1,
                     fontWeight: FontWeight.w500,
-                    fontSize: 12,
+                    fontSize: 11,
                   ),
                 ),
               ),
@@ -61,10 +61,10 @@ class CoinName extends StatelessWidget {
               //Symbol
               Text(
                 symbol.toUpperCase(),
-                style: const TextStyle(
-                  color: AppColors.grey1,
+                style: GoogleFonts.inter(
+                  color: AppColors.mainGrey,
                   fontWeight: FontWeight.w500,
-                  fontSize: 11,
+                  fontSize: 10,
                 ),
               )
             ],

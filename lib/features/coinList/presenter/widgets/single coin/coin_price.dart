@@ -18,7 +18,7 @@ class CoinPrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 90),
+      constraints: const BoxConstraints(maxWidth: 100),
       // decoration: BoxDecoration(border: Border.all()),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -28,8 +28,8 @@ class CoinPrice extends StatelessWidget {
             '\$ ' + priceFormater(currentPrice),
             style: GoogleFonts.inter(
               textStyle: const TextStyle(
-                  color: AppColors.mainBlack,
-                  fontWeight: FontWeight.w700,
+                  color: AppColors.pureBlack,
+                  fontWeight: FontWeight.w600,
                   fontSize: 13),
             ),
           ),
@@ -57,7 +57,7 @@ class CoinPrice extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                         color: formated7DPercentage!.getColor,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w500,
                         fontSize: 11),
                   ),
                 )
@@ -70,17 +70,22 @@ class CoinPrice extends StatelessWidget {
     );
   }
 
-  final numberFormater = NumberFormat("#,##0.00", "en_US");
+  final numberFormater = NumberFormat("#,###.00", "en_US");
+
   ///Custom method to format price for a correct display
-  String priceFormater(double? price) {
+  static String priceFormater(double? price) {
     if (price == null) {
       return '??';
     } else {
       if (price < 1000000) {
-        if (price < 100000) {
-          return numberFormater.format(price);
+        if (price < 1) {
+          if (price < 0.01) {
+            return NumberFormat("#.${'#' * 8}", "en_US").format(price);
+          } else{
+            return NumberFormat("#.${'#' * 4}", "en_US").format(price);
+          }
         } else {
-          return numberFormater.format(price);
+          return NumberFormat("#,###.00", "en_US").format(price);
         }
       } else {
         return NumberFormat.compact().format(price);

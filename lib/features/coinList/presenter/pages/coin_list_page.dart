@@ -25,7 +25,15 @@ class CoinListPage extends StatelessWidget {
           size.width,
           100,
         ),
-        child: CoinPageAppBar(size: size),
+        child: CoinPageAppBar(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        mini: true,
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        foregroundColor: AppColors.mainBlack,
+        elevation: 5,
+        onPressed: () {},
+        child: Text('T'),
       ),
       // Column(
       //             crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,39 +42,43 @@ class CoinListPage extends StatelessWidget {
       body: SizedBox(
         height: size.height,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const SortingCriteria(),
             // SizedBox(height: 20,),
             Expanded(
-              child: SizedBox(
-                  child: BlocBuilder<CoinListBloc, CoinListState>(
-                      builder: ((context, state) {
-                    if (state is CoinListInitial) {
-                      return const Text('Initial state');
-                    } else if (state is CoinListLoading) {
-                      return const Align(child: CircularProgressIndicator());
-                    } else if (state is CoinListLoaded) {
-                      List<Coin> coinList = state.coinList;
-                      return Expanded(
-                          child: ListView.builder(
-                              padding: const EdgeInsets.only(bottom: 100),
-                              itemCount: coinList.length,
-                              itemBuilder: ((context, i) {
-                                return SingleCoin(
-                                  name: coinList[i].name,
-                                  image: coinList[i].image,
-                                  symbol: coinList[i].symbol,
-                                  currentPrice: coinList[i].currentPrice,
-                                  marketCapRank: coinList[i].marketCapRank,
-                                  priceChangePercentage7dInCurrency:
-                                      coinList[i].priceChangePercentage7dInCurrency,
-                                  lastWeekData: coinList[i].sparklineIn7d?.price,
-                                );
-                              })));
-                    } else {
-                      return const Text('Something went wrong');
-                    }
-                  }))),
+              child: BlocBuilder<CoinListBloc, CoinListState>(
+                  builder: ((context, state) {
+                if (state is CoinListInitial) {
+                  return const Text('Initial state');
+                } else if (state is CoinListLoading) {
+                  return const Align(child: CircularProgressIndicator());
+                } else if (state is CoinListLoaded) {
+                  List<Coin> coinList = state.coinList;
+                  return ScrollConfiguration(
+                    behavior: const ScrollBehavior(
+                        androidOverscrollIndicator:
+                            AndroidOverscrollIndicator.stretch),
+                    child: ListView.builder(
+                        padding: const EdgeInsets.only(bottom: 100),
+                        itemCount: coinList.length,
+                        itemBuilder: ((context, i) {
+                          return SingleCoin(
+                            name: coinList[i].name,
+                            image: coinList[i].image,
+                            symbol: coinList[i].symbol,
+                            currentPrice: coinList[i].currentPrice,
+                            marketCapRank: coinList[i].marketCapRank,
+                            priceChangePercentage7dInCurrency:
+                                coinList[i].priceChangePercentage7dInCurrency,
+                            lastWeekData: coinList[i].sparklineIn7d?.price,
+                          );
+                        })),
+                  );
+                } else {
+                  return const Text('Something went wrong');
+                }
+              })),
             ),
           ],
         ),

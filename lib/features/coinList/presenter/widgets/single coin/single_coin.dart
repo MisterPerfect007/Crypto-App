@@ -31,81 +31,84 @@ class SingleCoin extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
-    return Container(
-      padding: EdgeInsets.only(
-        left: sidePadding,
-        right: sidePadding,
-        bottom: 10,
-      ),
-      margin: const EdgeInsets.only(
-        top: 10,
-      ),
-      decoration: const BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-        color: AppColors.secondGrey,
-      ))),
-      child: Row(
-        children: [
-          Image.network(
-            image!,
-            width: 40,
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          //Name and Rank
-          //
-          CoinName(
-            name: name,
-            symbol: symbol,
-            marketCapRank: marketCapRank,
-          ),
-          //Chart
-          //
-          Expanded(
-            child: Align(
-              child: 
-              lastWeekData != null ? Container(
-                height: 20,
-                // constraints:
-                //     const BoxConstraints(minWidth: 200, maxWidth: 300),
-                padding: const EdgeInsets.only(
-                  left: 5,
-                  right: 5,
-                ),
-                child: SingleCoinLineChart(
-                  chartData: CoinLineChartData(dataList: lastWeekData!),
-                ),
-              ) : Container(),
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        padding: EdgeInsets.only(
+          left: sidePadding,
+          right: sidePadding,
+          bottom: 10,
+        ),
+        margin: const EdgeInsets.only(
+          top: 10,
+        ),
+        // decoration: const BoxDecoration(
+        //     border: Border(
+        //         bottom: BorderSide(
+        //   color: AppColors.secondGrey,
+        // ))),
+        child: Row(
+          children: [
+            Image.network(
+              image!,
+              width: 40,
             ),
-          ),
-          //Price and week evolution
-          //
-          CoinPrice(
-            currentPrice: currentPrice,
-            formated7DPercentage: priceChangePercentage7dInCurrency == null
-                ? null
-                : CoinPercentageFormat(
-                    percentage: priceChangePercentage7dInCurrency!),
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          //Favorite
-          //
-          InkWell(
-            onTap: () {},
-            borderRadius: const BorderRadius.all(Radius.circular(50)),
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              child: const PersoIcon(
-                icon: PersoIcons.starOutline,
-                color: AppColors.mainGrey,
+            const SizedBox(
+              width: 5,
+            ),
+            //Name and Rank
+            //
+            CoinName(
+              name: name,
+              symbol: symbol,
+              marketCapRank: marketCapRank,
+            ),
+            //Chart
+            //
+            Expanded(
+              child: Align(
+                child: 
+                lastWeekData != null ? Container(
+                  height: 20,
+                  // constraints:
+                  //     const BoxConstraints(minWidth: 200, maxWidth: 300),
+                  padding: const EdgeInsets.only(
+                    left: 5,
+                    right: 5,
+                  ),
+                  child: SingleCoinLineChart(
+                    chartData: CoinLineChartData(dataList: lastWeekData!),
+                  ),
+                ) : Container(),
               ),
             ),
-          ),
-        ],
+            //Price and week evolution
+            //
+            CoinPrice(
+              currentPrice: currentPrice,
+              formated7DPercentage: priceChangePercentage7dInCurrency == null
+                  ? null
+                  : CoinPercentageFormat(
+                      percentage: priceChangePercentage7dInCurrency!),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            //Favorite
+            //
+            InkWell(
+              onTap: () {},
+              borderRadius: const BorderRadius.all(Radius.circular(50)),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                child: const PersoIcon(
+                  icon: PersoIcons.starOutline,
+                  color: AppColors.mainGrey,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
