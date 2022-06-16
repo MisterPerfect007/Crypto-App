@@ -19,16 +19,19 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
           (failure) => emit(const CoinListFailure(serverErrorMessage)), 
           (coinList) => emit(CoinListLoaded(coinList))
         );
-        //1) fecth coin list from getCoinList usecase
-        /*
-          * call to the usecase
-          
-            => emit [Loading] state
-            * if success
-              => emit [Loaded] state
-            * else
-              => emit [Failure] state
-         */
+      }
+      else if (event is UpdateCoinList){
+        
+        final newList = List<Coin>.from(event.coinList) ;
+        newList[0] = Coin(
+          id: newList[0].id, 
+          symbol: newList[0].symbol, 
+          name: newList[0].name,
+          sparklineIn7d: newList[0].sparklineIn7d,
+          currentPrice: 1838383
+          );
+        print(newList[0]);
+        emit(CoinListLoaded(newList));
       }
     });
   }

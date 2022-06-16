@@ -66,7 +66,7 @@ class ExtraInfos extends StatelessWidget {
         padding:
             EdgeInsets.only(left: sidePadding, right: sidePadding),
         child: Column(
-          children: [
+          children: const [
             ExtraInfo(infoName: "Rank", value: "1",),
             SizedBox(height: 20,),
             ExtraInfo(infoName: "High 24h", value: "\$ 174.90",),

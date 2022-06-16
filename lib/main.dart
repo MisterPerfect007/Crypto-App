@@ -4,7 +4,8 @@ import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.d
 import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+
+import 'features/coinList/presenter/cubit/scrollposition_cubit.dart';
 
 void main() async {
   await di.init();
@@ -17,7 +18,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -26,9 +26,13 @@ class MyApp extends StatelessWidget {
         // colorScheme: ColorScheme.fromSwatch(accentColor: Colors.red)
       ),
       // themeMode: ThemeMode.light,
-      home: BlocProvider(
-        create: (context) => di.sl<CoinListBloc>(),
-        child: const CoinListPage(),
+      home: MultiBlocProvider(
+        // create: (context) => di.sl<CoinListBloc>(),
+        providers: [
+          BlocProvider(create: (context) => di.sl<CoinListBloc>()),
+          BlocProvider(create: (context) => ScrollPositionCubit()),
+        ],
+        child: CoinListPage(),
       ),
     );
   }

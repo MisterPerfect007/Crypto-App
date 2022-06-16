@@ -16,3 +16,12 @@ class GetCoinList extends CoinListEvent{
   @override
   List<Object> get props => [currency, page!];
 }
+
+class UpdateCoinList extends CoinListEvent{
+  final List<Coin> coinList;
+
+  const UpdateCoinList({required this.coinList});
+
+  @override
+  List<Object> get props => [coinList];
+}
