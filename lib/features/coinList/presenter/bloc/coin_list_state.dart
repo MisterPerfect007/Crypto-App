@@ -12,18 +12,43 @@ class CoinListInitial extends CoinListState {}
 class CoinListLoading extends CoinListState {}
 
 class CoinListLoaded extends CoinListState {
+  final bool? isUpdate;
   final List<Coin> coinList;
 
-  const CoinListLoaded(this.coinList);
+  const CoinListLoaded({ required this.coinList, this.isUpdate = false});
 
   @override
-  List<Object> get props => [coinList];
+  List<Object> get props => [coinList, isUpdate!];
 }
 
 class CoinListFailure extends CoinListState{
   final String message;
 
   const CoinListFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+//* Coin List update
+
+class CoinListUpdateInitial extends CoinListState {}
+
+class CoinListUpdateLoading extends CoinListState {}
+
+class CoinListUpdateLoaded extends CoinListState {
+  final List<Coin> coinList;
+
+  const CoinListUpdateLoaded(this.coinList);
+
+  @override
+  List<Object> get props => [coinList];
+}
+
+class CoinListUpdateFailure extends CoinListState{
+  final String message;
+
+  const CoinListUpdateFailure(this.message);
 
   @override
   List<Object> get props => [message];

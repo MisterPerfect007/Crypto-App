@@ -32,17 +32,13 @@ class CoinInfoPage extends StatelessWidget {
           child: Column(
             children: [
               const CoinNameImage(),
-              PriceAndPercentage(
-                percentage: 99.0,
-              ),
-              const SizedBox(
-                height: 50,
-              ),
+              PriceAndPercentage(percentage: 99.0),
+              const SizedBox(height: 50),
               const CoinChart(),
               const TimeSlotsParent(),
-              const SizedBox(height: 30,),
+              const SizedBox(height: 30),
               const ExtraInfos(),
-              const SizedBox(height: 30,), 
+              const SizedBox(height: 30),
             ],
           ),
         ),
@@ -56,26 +52,46 @@ class ExtraInfos extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
     return Container(
-        padding:
-            EdgeInsets.only(left: sidePadding, right: sidePadding),
+        padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
         child: Column(
           children: const [
-            ExtraInfo(infoName: "Rank", value: "1",),
-            SizedBox(height: 20,),
-            ExtraInfo(infoName: "High 24h", value: "\$ 174.90",),
-            SizedBox(height: 20,),
-            ExtraInfo(infoName: "Low 24h", value: "\$ 166.12",),
-            SizedBox(height: 20,),
-            ExtraInfo(infoName: "Vol.", value: "\$ 790,864,928,782",),
-            SizedBox(height: 20,),
-            ExtraInfo(infoName: "Mkt. Cap.", value: "\$ 790,864,928,782",),
+            ExtraInfo(
+              infoName: "Rank",
+              value: "1",
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ExtraInfo(
+              infoName: "High 24h",
+              value: "\$ 174.90",
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ExtraInfo(
+              infoName: "Low 24h",
+              value: "\$ 166.12",
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ExtraInfo(
+              infoName: "Vol.",
+              value: "\$ 790,864,928,782",
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ExtraInfo(
+              infoName: "Mkt. Cap.",
+              value: "\$ 790,864,928,782",
+            ),
           ],
         ));
   }
@@ -85,7 +101,9 @@ class ExtraInfo extends StatelessWidget {
   final String? value;
   final String infoName;
   const ExtraInfo({
-    Key? key, required this.infoName, this.value,
+    Key? key,
+    required this.infoName,
+    this.value,
   }) : super(key: key);
 
   @override
@@ -95,19 +113,17 @@ class ExtraInfo extends StatelessWidget {
         Text(
           infoName,
           style: GoogleFonts.inter(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: AppColors.mainGrey
-          ),
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: AppColors.mainGrey),
         ),
         Expanded(child: Container()),
         Text(
           value!.toString(),
           style: GoogleFonts.inter(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: AppColors.mainBlack
-          ),
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: AppColors.mainBlack),
         )
       ],
     );

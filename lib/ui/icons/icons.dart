@@ -35,7 +35,7 @@ Map<PersoIcons, String> iconName = {
   PersoIcons.starFill: 'assets/icons/star_fille.png',
   PersoIcons.starFill1: 'assets/icons/star.png',
   PersoIcons.starFill2: 'assets/icons/star(2).png',
-  PersoIcons.starOutline: 'assets/icons/star_outline.png',
+  PersoIcons.starOutline: 'assets/icons/star_2.png',
   PersoIcons.leftArrow: 'assets/icons/left_arrow.png',
   PersoIcons.leftArrow1: 'assets/icons/left_arrow_1.png',
   PersoIcons.arrowDown: 'assets/icons/arrow_down.png',

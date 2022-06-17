@@ -12,27 +12,30 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
   final GetRemoteCoinList getRemoteCoinList;
   CoinListBloc({required this.getRemoteCoinList}) : super(CoinListInitial()) {
     on<CoinListEvent>((event, emit) async {
-      if(event is GetCoinList){
+      if (event is CoinListGet) {
         emit(CoinListLoading());
-        final coinListOrFailure = await getRemoteCoinList(event.currency, event.page!);
+        final coinListOrFailure =
+            await getRemoteCoinList(event.currency, event.page!);
         coinListOrFailure.fold(
-          (failure) => emit(const CoinListFailure(serverErrorMessage)), 
-          (coinList) => emit(CoinListLoaded(coinList))
+            (failure) => emit(const CoinListFailure(serverErrorMessage)),
+            (coinList) => emit(CoinListLoaded(coinList: coinList, )));
+      }
+      //! on CoinListUpdate
+      if (event is CoinListUpdate) {
+        // emit(CoinListUpdateLoading());
+        final coinListOrFailure =
+            await getRemoteCoinList(event.currency, event.page!);
+        coinListOrFailure.fold(
+          (failure) => emit(const CoinListUpdateFailure(serverErrorMessage)), 
+          (coinList) => emit(CoinListLoaded(coinList: coinList, isUpdate: true))
         );
       }
-      else if (event is UpdateCoinList){
-        
-        final newList = List<Coin>.from(event.coinList) ;
-        newList[0] = Coin(
-          id: newList[0].id, 
-          symbol: newList[0].symbol, 
-          name: newList[0].name,
-          sparklineIn7d: newList[0].sparklineIn7d,
-          currentPrice: 1838383
-          );
-        print(newList[0]);
-        emit(CoinListLoaded(newList));
-      }
+      //emit CoinListUpdateLoading
+      //make the call to usecase
+      //**
+      //* if (success) emit CoinList Loaded
+      //* else emit CoinListUpdate Failure
+      // */
     });
   }
 }

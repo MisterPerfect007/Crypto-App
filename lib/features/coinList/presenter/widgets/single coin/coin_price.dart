@@ -24,13 +24,24 @@ class CoinPrice extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           //* Current price
-          Text(
-            '\$ ' + priceFormater(currentPrice),
-            style: GoogleFonts.inter(
-              textStyle: const TextStyle(
-                  color: AppColors.pureBlack,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13),
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 1000),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return SlideTransition(
+                child: child,
+                position: Tween<Offset>(
+                        begin: Offset(0.0, -5), end: Offset(0.0, 0.0))
+                    .animate(animation),
+              );
+            },
+            child: Text(
+              '\$ ' + priceFormater(currentPrice),
+              style: GoogleFonts.inter(
+                textStyle: const TextStyle(
+                    color: AppColors.pureBlack,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13),
+              ),
             ),
           ),
           const SizedBox(
@@ -81,7 +92,7 @@ class CoinPrice extends StatelessWidget {
         if (price < 1) {
           if (price < 0.01) {
             return NumberFormat("#.${'#' * 8}", "en_US").format(price);
-          } else{
+          } else {
             return NumberFormat("#.${'#' * 4}", "en_US").format(price);
           }
         } else {

@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/coin_model.dart';
 import '../cubit/scrollposition_cubit.dart';
 import '../widgets/app_bar.dart';
+import '../widgets/customFloatingActionButton/custom_floating_action_button.dart';
 import '../widgets/single coin/single_coin.dart';
 import '../widgets/sorting criteria/sorting_criteria.dart';
 
@@ -17,9 +18,7 @@ class CoinListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    context
-        .read<CoinListBloc>()
-        .add(const GetCoinList(currency: "usd", page: 1));
+    gettingOrRefringCoinList(context);
     final ScrollController _scrollController = ScrollController();
     return Scaffold(
       backgroundColor: AppColors.lightBg,
@@ -31,7 +30,7 @@ class CoinListPage extends StatelessWidget {
         child: const CoinPageAppBar(),
       ),
       floatingActionButton:
-          buildFloatingActionButton(context, _scrollController),
+          CustomFloatingActionButton(context: context, scrollController: _scrollController),
       body: SizedBox(
         height: size.height,
         child: Column(
@@ -56,29 +55,35 @@ class CoinListPage extends StatelessWidget {
                         context
                             .read<ScrollPositionCubit>()
                             .onScroll(_scrollController.position.pixels);
-
                         return true;
                       }),
-                      child: ListView.builder(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          controller: _scrollController,
-                          padding: const EdgeInsets.only(bottom: 100),
-                          itemCount: coinList.length,
-                          itemBuilder: ((context, i) {
-                            return SingleCoin(
-                              name: coinList[i].name,
-                              image: coinList[i].image,
-                              symbol: coinList[i].symbol,
-                              currentPrice: coinList[i].currentPrice,
-                              marketCapRank: coinList[i].marketCapRank,
-                              priceChangePercentage7dInCurrency:
-                                  coinList[i].priceChangePercentage7dInCurrency,
-                              lastWeekData: coinList[i].sparklineIn7d?.price,
-                            );
-                          })),
+                      child: RefreshIndicator(
+                        onRefresh: () async {
+                          gettingOrRefringCoinList(context);
+                        },
+                        color: AppColors.mainGreen ,
+                        child: ListView.builder(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            controller: _scrollController,
+                            padding: const EdgeInsets.only(bottom: 100),
+                            itemCount: coinList.length,
+                            itemBuilder: ((context, i) {
+                              return SingleCoin(
+                                name: coinList[i].name,
+                                image: coinList[i].image,
+                                symbol: coinList[i].symbol,
+                                currentPrice: coinList[i].currentPrice,
+                                marketCapRank: coinList[i].marketCapRank,
+                                priceChangePercentage7dInCurrency:
+                                    coinList[i].priceChangePercentage7dInCurrency,
+                                lastWeekData: coinList[i].sparklineIn7d?.price,
+                              );
+                            })),
+                      ),
                     ),
                   );
-                } else {
+                } 
+                else {
                   return const Text('Something went wrong');
                 }
               })),
@@ -88,36 +93,14 @@ class CoinListPage extends StatelessWidget {
       ),
     );
   }
-
-  BlocBuilder<ScrollPositionCubit, Object?> buildFloatingActionButton(
-      BuildContext context, ScrollController _scrollController) {
-    return BlocBuilder(
-      bloc: context.read<ScrollPositionCubit>(),
-      builder: (context, state) {
-        if (context.read<ScrollPositionCubit>().state > 10) {
-          return BlocBuilder<CoinListBloc, CoinListState>(
-            builder: (context, state) {
-             return FloatingActionButton(
-                  mini: true,
-                  backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                  elevation: 10,
-                  onPressed: () {
-                    _scrollController.animateTo(
-                      0,
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.fastOutSlowIn,
-                    );
-                    if(state is CoinListLoaded) {
-                      context.read<CoinListBloc>().add(UpdateCoinList(coinList: state.coinList));
-                    }
-                  },
-                  child: const PersoIcon(icon: PersoIcons.arrowScrollUp),
-                );},
-          );
-        } else {
-          return Container();
-        }
-      },
-    );
+  void gettingOrRefringCoinList(BuildContext context){
+    print("object***************");
+    final coinListBloc = context.read<CoinListBloc>();
+    final state = coinListBloc.state;
+    if(state is CoinListLoaded){
+      coinListBloc.add(const CoinListUpdate(currency: "usd", page: 1));
+    }else {
+      coinListBloc.add(const CoinListGet(currency: "usd", page: 1));
+    }
   }
 }

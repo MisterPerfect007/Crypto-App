@@ -42,6 +42,8 @@ dependencies:
   intl: ^0.17.0
   #Getit
   get_it: ^7.2.0
+
+  transparent_image: ^2.0.0
   
 
 

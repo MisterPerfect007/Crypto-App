@@ -7,21 +7,22 @@ abstract class CoinListEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetCoinList extends CoinListEvent{
+class CoinListGet extends CoinListEvent{
   final String currency;
   final int? page;
 
-  const GetCoinList({required this.currency, this.page});
+  const CoinListGet({required this.currency, this.page});
 
   @override
   List<Object> get props => [currency, page!];
 }
 
-class UpdateCoinList extends CoinListEvent{
-  final List<Coin> coinList;
+class CoinListUpdate extends CoinListEvent{
+  final String currency;
+  final int? page;
 
-  const UpdateCoinList({required this.coinList});
+  const CoinListUpdate({required this.currency, this.page});
 
   @override
-  List<Object> get props => [coinList];
+  List<Object> get props => [currency, page!];
 }

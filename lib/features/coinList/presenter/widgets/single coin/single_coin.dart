@@ -1,6 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_data.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
@@ -49,10 +52,7 @@ class SingleCoin extends StatelessWidget {
         // ))),
         child: Row(
           children: [
-            Image.network(
-              image!,
-              width: 40,
-            ),
+            CustomNetworkImage(image: image, name: name),
             const SizedBox(
               width: 5,
             ),
@@ -67,19 +67,20 @@ class SingleCoin extends StatelessWidget {
             //
             Expanded(
               child: Align(
-                child: 
-                lastWeekData != null ? Container(
-                  height: 20,
-                  // constraints:
-                  //     const BoxConstraints(minWidth: 200, maxWidth: 300),
-                  padding: const EdgeInsets.only(
-                    left: 5,
-                    right: 5,
-                  ),
-                  child: SingleCoinLineChart(
-                    chartData: CoinLineChartData(dataList: lastWeekData!),
-                  ),
-                ) : Container(),
+                child: lastWeekData != null
+                    ? Container(
+                        height: 20,
+                        // constraints:
+                        //     const BoxConstraints(minWidth: 200, maxWidth: 300),
+                        padding: const EdgeInsets.only(
+                          left: 5,
+                          right: 5,
+                        ),
+                        child: SingleCoinLineChart(
+                          chartData: CoinLineChartData(dataList: lastWeekData!),
+                        ),
+                      )
+                    : Container(),
               ),
             ),
             //Price and week evolution
@@ -111,5 +112,43 @@ class SingleCoin extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class CustomNetworkImage extends StatelessWidget {
+  const CustomNetworkImage({
+    Key? key,
+    required this.image,
+    required this.name,
+  }) : super(key: key);
+
+  final String? image;
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeInImage.memoryNetwork(
+        placeholder: kTransparentImage,
+        image: image!,
+        width: 40,
+        fit: BoxFit.fitWidth,
+        imageErrorBuilder: (context, error, stackTrace) {
+          return Container(
+              width: 40,
+              height: 40,
+              alignment: Alignment.center,
+              decoration: const BoxDecoration(
+                  color: AppColors.secondGrey,
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(40))),
+              child: Text(
+                name[0],
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.mainWhite
+                ),
+              ));
+        });
   }
 }
