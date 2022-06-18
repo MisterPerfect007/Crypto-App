@@ -14,9 +14,10 @@ class CoinPrice extends StatelessWidget {
     required this.currentPrice,
     this.formated7DPercentage,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final textKey = ValueKey<String>(priceFormater(currentPrice));
+    print(textKey.value == priceFormater(currentPrice));
     return Container(
       constraints: const BoxConstraints(maxWidth: 100),
       // decoration: BoxDecoration(border: Border.all()),
@@ -29,13 +30,14 @@ class CoinPrice extends StatelessWidget {
             transitionBuilder: (Widget child, Animation<double> animation) {
               return SlideTransition(
                 child: child,
-                position: Tween<Offset>(
-                        begin: Offset(0.0, -5), end: Offset(0.0, 0.0))
-                    .animate(animation),
+                position:
+                    Tween<Offset>(begin: Offset(0.0, -1), end: Offset(0.0, 0.0))
+                        .animate(animation),
               );
             },
             child: Text(
               '\$ ' + priceFormater(currentPrice),
+              key: textKey,
               style: GoogleFonts.inter(
                 textStyle: const TextStyle(
                     color: AppColors.pureBlack,
