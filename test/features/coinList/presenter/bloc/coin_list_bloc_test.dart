@@ -86,7 +86,7 @@ void main() {
         build: () => bloc,
         act: (bloc) =>
             bloc.add(const CoinListUpdate(currency: tCurrency, page: tPage)),
-        expect: () => [CoinListUpdateLoading(), CoinListLoaded(coinList: testCoins, isUpdate: true)]);
+        expect: () => [CoinListLoaded(coinList: testCoins, isUpdate: true)]);
     blocTest<CoinListBloc, CoinListState>(
           'Should emit [CoinListUpdateLoading, CoinListUpdateFailure] when GetCoinList is triggered and some failure is returned',
           setUp: () {
@@ -97,6 +97,6 @@ void main() {
           act: (bloc) =>
               bloc.add(const CoinListUpdate(currency: tCurrency, page: tPage)),
           expect: () =>
-              [CoinListUpdateLoading(), const CoinListUpdateFailure(serverErrorMessage)]);
+              [const CoinListUpdateFailure(serverErrorMessage)]);
   });
 }

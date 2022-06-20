@@ -17,7 +17,6 @@ class CoinPrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textKey = ValueKey<String>(priceFormater(currentPrice));
-    print(textKey.value == priceFormater(currentPrice));
     return Container(
       constraints: const BoxConstraints(maxWidth: 100),
       // decoration: BoxDecoration(border: Border.all()),
@@ -69,9 +68,10 @@ class CoinPrice extends StatelessWidget {
                   formated7DPercentage!.fixedPercentage() + '%',
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
-                        color: formated7DPercentage!.getColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 11),
+                      color: formated7DPercentage!.getColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 11,
+                    ),
                   ),
                 )
               ],

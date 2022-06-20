@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_data.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +9,7 @@ import 'coin_name.dart';
 import 'coin_price.dart';
 import 'single_coin_line_chart.dart';
 
-class SingleCoin extends StatelessWidget {
+class SingleCoin extends StatefulWidget {
   final String name;
   final String? image;
   final String symbol;
@@ -29,6 +27,12 @@ class SingleCoin extends StatelessWidget {
     this.priceChangePercentage7dInCurrency,
     this.lastWeekData,
   }) : super(key: key);
+
+  @override
+  State<SingleCoin> createState() => _SingleCoinState();
+}
+
+class _SingleCoinState extends State<SingleCoin> {
 
   @override
   Widget build(BuildContext context) {
@@ -52,22 +56,26 @@ class SingleCoin extends StatelessWidget {
         // ))),
         child: Row(
           children: [
-            CustomNetworkImage(image: image, name: name),
+            CustomNetworkImage(
+              image: widget.image,
+              name: widget.name,
+            ),
             const SizedBox(
               width: 5,
             ),
             //Name and Rank
             //
             CoinName(
-              name: name,
-              symbol: symbol,
-              marketCapRank: marketCapRank,
+              name: widget.name,
+              symbol: widget.symbol,
+              marketCapRank: widget.marketCapRank,
             ),
             //Chart
             //
             Expanded(
               child: Align(
-                child: lastWeekData != null
+                alignment: Alignment.topLeft,
+                child: widget.lastWeekData != null
                     ? Container(
                         height: 20,
                         // constraints:
@@ -77,7 +85,8 @@ class SingleCoin extends StatelessWidget {
                           right: 5,
                         ),
                         child: SingleCoinLineChart(
-                          chartData: CoinLineChartData(dataList: lastWeekData!),
+                          chartData:
+                              CoinLineChartData(dataList: widget.lastWeekData!),
                         ),
                       )
                     : Container(),
@@ -86,11 +95,12 @@ class SingleCoin extends StatelessWidget {
             //Price and week evolution
             //
             CoinPrice(
-              currentPrice: currentPrice,
-              formated7DPercentage: priceChangePercentage7dInCurrency == null
+              currentPrice: widget.currentPrice,
+              formated7DPercentage: widget.priceChangePercentage7dInCurrency ==
+                      null
                   ? null
                   : CoinPercentageFormat(
-                      percentage: priceChangePercentage7dInCurrency!),
+                      percentage: widget.priceChangePercentage7dInCurrency!),
             ),
             const SizedBox(
               width: 5,
@@ -128,27 +138,27 @@ class CustomNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FadeInImage.memoryNetwork(
+        fadeInDuration: const Duration(milliseconds: 200),
         placeholder: kTransparentImage,
         image: image!,
         width: 40,
         fit: BoxFit.fitWidth,
         imageErrorBuilder: (context, error, stackTrace) {
           return Container(
-              width: 40,
-              height: 40,
-              alignment: Alignment.center,
-              decoration: const BoxDecoration(
-                  color: AppColors.secondGrey,
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(40))),
-              child: Text(
-                name[0],
-                style: const TextStyle(
+            width: 40,
+            height: 40,
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+                color: AppColors.secondGrey,
+                borderRadius: BorderRadius.all(Radius.circular(40))),
+            child: Text(
+              name[0],
+              style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.mainWhite
-                ),
-              ));
+                  color: AppColors.mainWhite),
+            ),
+          );
         });
   }
 }
