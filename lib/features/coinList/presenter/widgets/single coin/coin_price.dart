@@ -25,7 +25,7 @@ class CoinPrice extends StatelessWidget {
         children: [
           //* Current price
           AnimatedSwitcher(
-            duration: Duration(milliseconds: 1000),
+            duration: const Duration(milliseconds: 1000),
             transitionBuilder: (Widget child, Animation<double> animation) {
               return SlideTransition(
                 child: child,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/coin.dart';
@@ -9,7 +8,8 @@ class CoinListView extends StatefulWidget {
     Key? key,
     required ScrollController scrollController,
     required this.coinList,
-  }) : _scrollController = scrollController, super(key: key);
+  })  : _scrollController = scrollController,
+        super(key: key);
 
   final ScrollController _scrollController;
   final List<Coin> coinList;
@@ -19,27 +19,25 @@ class CoinListView extends StatefulWidget {
 }
 
 class _CoinListViewState extends State<CoinListView> {
-
   double _opacity = 0;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      if(mounted) {
+      if (mounted) {
         setState(() {
-        _opacity = 1;
-      });
+          _opacity = 1;
+        });
       }
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-      duration: const Duration(milliseconds: 1000),
-        opacity: _opacity,
+      duration: const Duration(milliseconds: 500),
+      opacity: _opacity,
       child: ListView.builder(
           physics: const AlwaysScrollableScrollPhysics(),
           controller: widget._scrollController,

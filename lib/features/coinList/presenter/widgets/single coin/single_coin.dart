@@ -5,6 +5,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
+import '../../utils/utils_functions.dart';
 import 'coin_name.dart';
 import 'coin_price.dart';
 import 'single_coin_line_chart.dart';
@@ -33,7 +34,6 @@ class SingleCoin extends StatefulWidget {
 }
 
 class _SingleCoinState extends State<SingleCoin> {
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -100,7 +100,7 @@ class _SingleCoinState extends State<SingleCoin> {
                       null
                   ? null
                   : CoinPercentageFormat(
-                      percentage: widget.priceChangePercentage7dInCurrency!),
+                      percentage: calculate7DPercentage(widget.lastWeekData)),
             ),
             const SizedBox(
               width: 5,
@@ -125,6 +125,8 @@ class _SingleCoinState extends State<SingleCoin> {
   }
 }
 
+
+
 class CustomNetworkImage extends StatelessWidget {
   const CustomNetworkImage({
     Key? key,
@@ -138,7 +140,7 @@ class CustomNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FadeInImage.memoryNetwork(
-        fadeInDuration: const Duration(milliseconds: 200),
+        fadeInDuration: const Duration(milliseconds: 100),
         placeholder: kTransparentImage,
         image: image!,
         width: 40,

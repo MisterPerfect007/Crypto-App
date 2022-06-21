@@ -4,10 +4,12 @@ import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:crypto_trends/ui/icons/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../data/models/coin_model.dart';
 import '../cubit/scrollposition_cubit.dart';
 import '../widgets/app_bar.dart';
+import '../widgets/coin_list_shimmer.dart';
 import '../widgets/coin_list_view.dart';
 import '../widgets/customFloatingActionButton/custom_floating_action_button.dart';
 import '../widgets/single coin/single_coin.dart';
@@ -30,8 +32,8 @@ class CoinListPage extends StatelessWidget {
         ),
         child: const CoinPageAppBar(),
       ),
-      floatingActionButton:
-          CustomFloatingActionButton(context: context, scrollController: _scrollController),
+      floatingActionButton: CustomFloatingActionButton(
+          context: context, scrollController: _scrollController),
       body: SizedBox(
         height: size.height,
         child: Column(
@@ -44,8 +46,22 @@ class CoinListPage extends StatelessWidget {
                 if (state is CoinListInitial) {
                   return const Text('Initial state');
                 } else if (state is CoinListLoading) {
-                  return const Align(child: CircularProgressIndicator());
+                  /*
+                  CoinListLoading 
+                   */
+                  return const SizedBox(
+                    child: ScrollConfiguration(
+                      behavior: ScrollBehavior(
+                        androidOverscrollIndicator:
+                            AndroidOverscrollIndicator.stretch,
+                      ),
+                      child: CoinShimmer(),
+                    ),
+                  );
                 } else if (state is CoinListLoaded) {
+                  /*
+                  CoinListLoading 
+                   */
                   List<Coin> coinList = state.coinList;
                   return ScrollConfiguration(
                     behavior: const ScrollBehavior(
@@ -62,13 +78,15 @@ class CoinListPage extends StatelessWidget {
                         onRefresh: () async {
                           gettingOrRefringCoinList(context);
                         },
-                        color: AppColors.mainGreen ,
-                        child: CoinListView(scrollController: _scrollController, coinList: coinList),
+                        color: AppColors.mainGreen,
+                        child: CoinListView(
+                          scrollController: _scrollController,
+                          coinList: coinList,
+                        ),
                       ),
                     ),
                   );
-                } 
-                else {
+                } else {
                   return const Text('Something went wrong');
                 }
               })),
@@ -78,12 +96,13 @@ class CoinListPage extends StatelessWidget {
       ),
     );
   }
-  void gettingOrRefringCoinList(BuildContext context){
+
+  void gettingOrRefringCoinList(BuildContext context) {
     final coinListBloc = context.read<CoinListBloc>();
     final state = coinListBloc.state;
-    if(state is CoinListLoaded){
+    if (state is CoinListLoaded) {
       coinListBloc.add(const CoinListUpdate(currency: "usd", page: 1));
-    }else {
+    } else {
       coinListBloc.add(const CoinListGet(currency: "usd", page: 1));
     }
   }
