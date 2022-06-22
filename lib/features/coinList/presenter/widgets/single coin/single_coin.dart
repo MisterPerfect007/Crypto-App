@@ -96,11 +96,12 @@ class _SingleCoinState extends State<SingleCoin> {
             //
             CoinPrice(
               currentPrice: widget.currentPrice,
-              formated7DPercentage: widget.priceChangePercentage7dInCurrency ==
+              //!change the condition
+              formated7DPercentage: widget.lastWeekData ==
                       null
                   ? null
                   : CoinPercentageFormat(
-                      percentage: calculate7DPercentage(widget.lastWeekData)),
+                      percentage: calculate7DPercentage(widget.lastWeekData)!),
             ),
             const SizedBox(
               width: 5,

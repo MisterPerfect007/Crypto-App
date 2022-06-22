@@ -46,6 +46,8 @@ dependencies:
   transparent_image: ^2.0.0
   #
   shimmer: ^2.0.0
+  #
+  decimal: ^2.2.0
   
 
 
