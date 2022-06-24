@@ -1,6 +1,7 @@
 import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_data.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../../ui/colors/colors.dart';
@@ -12,6 +13,7 @@ import 'single_coin_line_chart.dart';
 
 class SingleCoin extends StatefulWidget {
   final String name;
+  final String id;
   final String? image;
   final String symbol;
   final double? currentPrice;
@@ -27,6 +29,7 @@ class SingleCoin extends StatefulWidget {
     this.marketCapRank,
     this.priceChangePercentage7dInCurrency,
     this.lastWeekData,
+    required this.id,
   }) : super(key: key);
 
   @override
@@ -95,10 +98,9 @@ class _SingleCoinState extends State<SingleCoin> {
             //Price and week evolution
             //
             CoinPrice(
+              id: widget.id,
               currentPrice: widget.currentPrice,
-              //!change the condition
-              formated7DPercentage: widget.lastWeekData ==
-                      null
+              formated7DPercentage: widget.lastWeekData == null
                   ? null
                   : CoinPercentageFormat(
                       percentage: calculate7DPercentage(widget.lastWeekData)!),
@@ -126,8 +128,6 @@ class _SingleCoinState extends State<SingleCoin> {
   }
 }
 
-
-
 class CustomNetworkImage extends StatelessWidget {
   const CustomNetworkImage({
     Key? key,
@@ -140,9 +140,24 @@ class CustomNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FadeInImage.memoryNetwork(
+    return FadeInImage.assetNetwork(
         fadeInDuration: const Duration(milliseconds: 100),
-        placeholder: kTransparentImage,
+        placeholder: '',
+        placeholderErrorBuilder:
+            (BuildContext context, Object object, StackTrace? stackTrace) {
+          return Shimmer.fromColors(
+            baseColor: AppColors.secondGrey,
+            highlightColor: const Color.fromARGB(255, 234, 234, 234),
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: const BoxDecoration(
+                color: AppColors.secondGrey,
+                borderRadius: BorderRadius.all(Radius.circular(40)),
+              ),
+            ),
+          );
+        },
         image: image!,
         width: 40,
         fit: BoxFit.fitWidth,

@@ -44,15 +44,17 @@ class _CoinListViewState extends State<CoinListView> {
           padding: const EdgeInsets.only(bottom: 100),
           itemCount: widget.coinList.length,
           itemBuilder: ((context, i) {
+            final coinList = widget.coinList;
             return SingleCoin(
-              name: widget.coinList[i].name,
-              image: widget.coinList[i].image,
-              symbol: widget.coinList[i].symbol,
-              currentPrice: widget.coinList[i].currentPrice,
-              marketCapRank: widget.coinList[i].marketCapRank,
+              id: coinList[i].id,
+              name: coinList[i].name,
+              image: coinList[i].image,
+              symbol: coinList[i].symbol,
+              currentPrice: coinList[i].currentPrice,
+              marketCapRank: coinList[i].marketCapRank,
               priceChangePercentage7dInCurrency:
-                  widget.coinList[i].priceChangePercentage7dInCurrency,
-              lastWeekData: widget.coinList[i].sparklineIn7d?.price,
+                  coinList[i].priceChangePercentage7dInCurrency,
+              lastWeekData: coinList[i].sparklineIn7d?.price, 
             );
           })),
     );

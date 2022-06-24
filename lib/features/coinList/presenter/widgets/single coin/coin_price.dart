@@ -1,22 +1,27 @@
 import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
-import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
 
 class CoinPrice extends StatelessWidget {
+  final String id;
   final double? currentPrice;
   final CoinPercentageFormat? formated7DPercentage;
+
   CoinPrice({
     Key? key,
     required this.currentPrice,
     this.formated7DPercentage,
+    required this.id,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final textKey = ValueKey<String>(priceFormater(currentPrice));
+    final textKey =
+        ValueKey<String>(priceFormater(currentPrice));
+    print("textKey.value");
     return Container(
       constraints: const BoxConstraints(maxWidth: 100),
       // decoration: BoxDecoration(border: Border.all()),
@@ -25,21 +30,14 @@ class CoinPrice extends StatelessWidget {
         children: [
           //* Current price
           AnimatedSwitcher(
-            duration: const Duration(milliseconds: 1000),
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return SlideTransition(
-                child: child,
-                position:
-                    Tween<Offset>(begin: Offset(0.0, -1), end: Offset(0.0, 0.0))
-                        .animate(animation),
-              );
-            },
+            transitionBuilder: AnimatedSwitcher.defaultTransitionBuilder,
+            duration: const Duration(seconds: 2),
             child: Text(
-              '\$ ' + priceFormater(currentPrice),
+              '\$ ' +priceFormater(currentPrice),
               key: textKey,
               style: GoogleFonts.inter(
                 textStyle: const TextStyle(
-                    color: AppColors.pureBlack,
+                    color: AppColors.mainBlack,
                     fontWeight: FontWeight.w600,
                     fontSize: 13),
               ),
@@ -82,8 +80,6 @@ class CoinPrice extends StatelessWidget {
       ),
     );
   }
-
-  final numberFormater = NumberFormat("#,###.00", "en_US");
 
   ///Custom method to format price for a correct display
   static String priceFormater(double? price) {

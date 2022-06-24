@@ -14,7 +14,7 @@ class CoinShimmer extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Shimmer.fromColors(
       baseColor: AppColors.secondGrey,
-      highlightColor: AppColors.mainWhite,
+      highlightColor: const Color.fromARGB(255, 234, 234, 234),
       child: ListView.builder(
         itemCount: size.height ~/ 70,
         itemBuilder: ((context, index) {
@@ -40,14 +40,14 @@ class SingleCoinShimmer extends StatelessWidget {
         left: sidePadding,
         right: sidePadding,
       ),
-      margin: const EdgeInsets.only(top: 10, bottom: 10),
+      margin: const EdgeInsets.only(top: 5, bottom: 5),
       height: 50,
       // decoration: BoxDecoration(border: Border.all()),
       child: Row(
         children: [
           Container(
-            width: 50,
-            height: 50,
+            width: 40,
+            height: 40,
             decoration: const BoxDecoration(
                 color: AppColors.secondGrey,
                 borderRadius: BorderRadius.all(Radius.circular(50))),
@@ -60,7 +60,7 @@ class SingleCoinShimmer extends StatelessWidget {
             children: [
               Container(
                 height: 10,
-                width: 100,
+                width: 80,
                 decoration: const BoxDecoration(
                     color: AppColors.secondGrey,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -82,7 +82,7 @@ class SingleCoinShimmer extends StatelessWidget {
                   ),
                   Container(
                     height: 10,
-                    width: 75,
+                    width: 55,
                     decoration: const BoxDecoration(
                         color: AppColors.secondGrey,
                         borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -99,7 +99,7 @@ class SingleCoinShimmer extends StatelessWidget {
             children: [
               Container(
                 height: 10,
-                width: 100,
+                width: 80,
                 decoration: const BoxDecoration(
                     color: AppColors.secondGrey,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -115,7 +115,8 @@ class SingleCoinShimmer extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(5))),
               ),
             ],
-          )
+          ),
+          const SizedBox(width: 10),
         ],
       ),
     );

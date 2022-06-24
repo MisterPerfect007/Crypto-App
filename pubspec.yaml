@@ -46,8 +46,12 @@ dependencies:
   transparent_image: ^2.0.0
   #
   shimmer: ^2.0.0
-  #
+  #decimal
   decimal: ^2.2.0
+  #sharedpreferences
+  shared_preferences: ^2.0.15
+  #
+  #animated_text_kit: ^4.2.2
   
 
 
