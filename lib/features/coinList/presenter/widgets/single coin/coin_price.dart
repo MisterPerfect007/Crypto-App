@@ -11,7 +11,7 @@ class CoinPrice extends StatelessWidget {
   final double? currentPrice;
   final CoinPercentageFormat? formated7DPercentage;
 
-  CoinPrice({
+  const CoinPrice({
     Key? key,
     required this.currentPrice,
     this.formated7DPercentage,
@@ -21,7 +21,6 @@ class CoinPrice extends StatelessWidget {
   Widget build(BuildContext context) {
     final textKey =
         ValueKey<String>(priceFormater(currentPrice));
-    print("textKey.value");
     return Container(
       constraints: const BoxConstraints(maxWidth: 100),
       // decoration: BoxDecoration(border: Border.all()),

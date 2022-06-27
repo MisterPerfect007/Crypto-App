@@ -99,4 +99,7 @@ void main() {
           expect: () =>
               [const CoinListUpdateFailure(serverErrorMessage)]);
   });
+  group("CoinListSorting", (){
+    // test("")
+  });
 }

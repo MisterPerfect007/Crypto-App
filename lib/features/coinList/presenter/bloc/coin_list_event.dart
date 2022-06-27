@@ -26,3 +26,12 @@ class CoinListUpdate extends CoinListEvent{
   @override
   List<Object> get props => [currency, page!];
 }
+
+class CoinListSorting extends CoinListEvent{
+  final Map<String, dynamic> criteria;
+
+  const CoinListSorting({required this.criteria});
+
+  @override
+  List<Object> get props => [criteria];
+}

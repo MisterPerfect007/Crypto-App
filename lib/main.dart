@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'features/coinList/presenter/cubit/scrollposition_cubit.dart';
+import 'features/coinList/presenter/cubit/sorting_cubit.dart';
 
 void main() async {
   await di.init();
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => di.sl<CoinListBloc>()),
           BlocProvider(create: (context) => ScrollPositionCubit()),
+          BlocProvider(create: (context) => SortingCubit()),
         ],
         child: CoinListPage(),
       ),

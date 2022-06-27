@@ -4,6 +4,7 @@ import 'package:crypto_trends/features/coinList/domain/entities/coin.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../domain/usecases/get_coin_list.dart';
+import '../cubit/sorting_cubit.dart';
 
 part 'coin_list_event.dart';
 part 'coin_list_state.dart';
@@ -22,7 +23,6 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
       }
       //! on CoinListUpdate
       if (event is CoinListUpdate) {
-        // emit(CoinListUpdateLoading());
         final coinListOrFailure =
             await getRemoteCoinList(event.currency, event.page!);
         coinListOrFailure.fold(
@@ -30,12 +30,15 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
           (coinList) => emit(CoinListLoaded(coinList: coinList, isUpdate: true))
         );
       }
-      //emit CoinListUpdateLoading
-      //make the call to usecase
-      //**
-      //* if (success) emit CoinList Loaded
-      //* else emit CoinListUpdate Failure
-      // */
+
+      //! on CoinListSorting
+      if(event is CoinListSorting){
+        if(state is CoinListLoaded){
+          final actuelState = state as CoinListLoaded;
+          print(actuelState.coinList[0]);
+        }
+      }
+      
     });
   }
 }
