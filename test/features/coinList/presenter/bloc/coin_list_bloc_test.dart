@@ -3,6 +3,7 @@ import 'package:crypto_trends/errors/errors_message.dart';
 import 'package:crypto_trends/errors/failures.dart';
 import 'package:crypto_trends/features/coinList/domain/usecases/get_coin_list.dart';
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
+import 'package:crypto_trends/features/coinList/presenter/widgets/sorting%20criteria/criteria_list.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -50,7 +51,8 @@ void main() {
           build: () => bloc,
           act: (bloc) =>
               bloc.add(const CoinListGet(currency: tCurrency, page: tPage)),
-          expect: () => [CoinListLoading(), CoinListLoaded(coinList: testCoins)]);
+          expect: () =>
+              [CoinListLoading(), CoinListLoaded(coinList: testCoins)]);
       blocTest<CoinListBloc, CoinListState>(
           'Should emit [CoinListLoading, CoinListFailure] when GetCoinList is triggered and some failure is returned',
           setUp: () {
@@ -88,18 +90,89 @@ void main() {
             bloc.add(const CoinListUpdate(currency: tCurrency, page: tPage)),
         expect: () => [CoinListLoaded(coinList: testCoins, isUpdate: true)]);
     blocTest<CoinListBloc, CoinListState>(
-          'Should emit [CoinListUpdateLoading, CoinListUpdateFailure] when GetCoinList is triggered and some failure is returned',
-          setUp: () {
-            when(getRemoteCoinList(any, any))
-                .thenAnswer((_) async => Left(ServerFailure()));
-          },
-          build: () => bloc,
-          act: (bloc) =>
-              bloc.add(const CoinListUpdate(currency: tCurrency, page: tPage)),
-          expect: () =>
-              [const CoinListUpdateFailure(serverErrorMessage)]);
+        'Should emit [CoinListUpdateLoading, CoinListUpdateFailure] when GetCoinList is triggered and some failure is returned',
+        setUp: () {
+          when(getRemoteCoinList(any, any))
+              .thenAnswer((_) async => Left(ServerFailure()));
+        },
+        build: () => bloc,
+        act: (bloc) =>
+            bloc.add(const CoinListUpdate(currency: tCurrency, page: tPage)),
+        expect: () => [const CoinListUpdateFailure(serverErrorMessage)]);
   });
-  group("CoinListSorting", (){
-    // test("")
+  group("CoinListSorting", () {
+    // const rankDesc = {"by": 'Rank', "desc": true};
+    group("Rank", () {
+      blocTest<CoinListBloc, CoinListState>(
+          "Should sort coin list by Rank desc",
+          build: () => bloc,
+          act: (bloc) => bloc.add(
+                CoinListSorting(
+                    criteria: rankDesc, coinListState: testCoinModels),
+              ),
+          expect: () => [
+                CoinListLoaded(
+                    coinList: [bitcoinModel, ethereumModel, tetherModel])
+              ]);
+      blocTest<CoinListBloc, CoinListState>(
+          "Should sort coin list by Rank Asc",
+          build: () => bloc,
+          act: (bloc) => bloc.add(
+                CoinListSorting(
+                    criteria: rankAsc, coinListState: testCoinModels),
+              ),
+          expect: () => [
+                CoinListLoaded(
+                    coinList: [tetherModel, ethereumModel, bitcoinModel])
+              ]);
+    });
+    group("Price", () {
+      blocTest<CoinListBloc, CoinListState>(
+          "Should sort coin list by Price desc",
+          build: () => bloc,
+          act: (bloc) => bloc.add(
+                CoinListSorting(
+                    criteria: priceDesc, coinListState: testCoinModels),
+              ),
+          expect: () => [
+                CoinListLoaded(
+                    coinList: [bitcoinModel, ethereumModel, tetherModel])
+              ]);
+      blocTest<CoinListBloc, CoinListState>(
+          "Should sort coin list by Price Asc",
+          build: () => bloc,
+          act: (bloc) => bloc.add(
+                CoinListSorting(
+                    criteria: priceAsc, coinListState: testCoinModels),
+              ),
+          expect: () => [
+                CoinListLoaded(
+                    coinList: [tetherModel, ethereumModel, bitcoinModel])
+              ]);
+    });
+    group("% 24h", () {
+      blocTest<CoinListBloc, CoinListState>(
+          "Should sort coin list by % 24h desc",
+          build: () => bloc,
+          act: (bloc) => bloc.add(
+                CoinListSorting(
+                    criteria: percentage24HDesc, coinListState: testCoinModels),
+              ),
+          expect: () => [
+                CoinListLoaded(
+                    coinList: [tetherModel, bitcoinModel, ethereumModel])
+              ]);
+      blocTest<CoinListBloc, CoinListState>(
+          "Should sort coin list by % 24h Asc",
+          build: () => bloc,
+          act: (bloc) => bloc.add(
+                CoinListSorting(
+                    criteria: percentage24HAsc, coinListState: testCoinModels),
+              ),
+          expect: () => [
+                CoinListLoaded(
+                    coinList: [ethereumModel, bitcoinModel, tetherModel])
+              ]);
+    });
   });
 }

@@ -58,6 +58,7 @@ class SingleCoinLineChart extends StatelessWidget {
           ),
         ],
       ),
+      swapAnimationDuration: const Duration(seconds: 0),
     );
   }
 }

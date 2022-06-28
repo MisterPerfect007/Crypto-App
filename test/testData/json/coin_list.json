@@ -65,6 +65,40 @@
             2932.6198376355937
           ]
         },
-        "price_change_percentage_7d_in_currency": -23.652538572429716
+        "price_change_percentage_7d_in_currency": 9
+      },
+      {
+        "id": "tether",
+        "symbol": "usdt",
+        "name": "Tether",
+        "image": "https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707",
+        "current_price": 1,
+        "market_cap": 66863730163,
+        "market_cap_rank": 3,
+        "fully_diluted_valuation": null,
+        "total_volume": 48072507641,
+        "high_24h": 1.005,
+        "low_24h": 0.998786,
+        "price_change_24h": -0.000282234887169164,
+        "price_change_percentage_24h": -0.0282,
+        "market_cap_change_24h": -12822819.03917694,
+        "market_cap_change_percentage_24h": -0.01917,
+        "circulating_supply": 120747263.249,
+        "total_supply": null,
+        "max_supply": null,
+        "ath": 4878.26,
+        "ath_change_percentage": -59.60473,
+        "ath_date": "2021-11-10T14:24:19.604Z",
+        "atl": 0.432979,
+        "atl_change_percentage": 455023.03107,
+        "atl_date": "2015-10-20T00:00:00.000Z",
+        "last_updated": "2022-05-12T11:14:14.177Z",
+        "sparkline_in_7d": {
+          "price": [
+            1,
+            1.1
+          ]
+        },
+        "price_change_percentage_7d_in_currency": 9
       }
 ]

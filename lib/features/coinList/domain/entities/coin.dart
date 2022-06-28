@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/models/coin_model.dart';
 
-class Coin extends Equatable{
+class Coin extends Equatable {
   final String id;
   final String symbol;
   final String name;
@@ -31,38 +31,63 @@ class Coin extends Equatable{
   final SparlineIn7d? sparklineIn7d;
   final double? priceChangePercentage7dInCurrency;
 
-  const Coin({
-    required this.id, 
-    required this.symbol, 
-    required this.name, 
-    this.image, 
-    this.currentPrice, 
-    this.marketCap, 
-    this.marketCapRank, 
-    this.fullyDilutedValuation, 
-    this.totalVolume, 
-    this.high24h, 
-    this.low24h, 
-    this.priceChange24h, 
-    this.priceChangePercentage24h, 
-    this.marketCapChange24h, 
-    this.marketCapChangePercentage24h, 
-    this.circulatingSupply, 
-    this.totalSupply, 
-    this.maxSupply, 
-    this.ath, 
-    this.athChangePercentage, 
-    this.athDate, 
-    this.atl, 
-    this.atlChangePercentage, 
-    this.atlDate, 
-    this.lastUpdated,
-    this.sparklineIn7d,
-    this.priceChangePercentage7dInCurrency
-  }
-  );
+  const Coin(
+      {required this.id,
+      required this.symbol,
+      required this.name,
+      this.image,
+      this.currentPrice,
+      this.marketCap,
+      this.marketCapRank,
+      this.fullyDilutedValuation,
+      this.totalVolume,
+      this.high24h,
+      this.low24h,
+      this.priceChange24h,
+      this.priceChangePercentage24h,
+      this.marketCapChange24h,
+      this.marketCapChangePercentage24h,
+      this.circulatingSupply,
+      this.totalSupply,
+      this.maxSupply,
+      this.ath,
+      this.athChangePercentage,
+      this.athDate,
+      this.atl,
+      this.atlChangePercentage,
+      this.atlDate,
+      this.lastUpdated,
+      this.sparklineIn7d,
+      this.priceChangePercentage7dInCurrency});
 
   @override
-  List<Object?> get props => [id, symbol, name, image, currentPrice, marketCap, marketCapRank, fullyDilutedValuation, totalVolume, high24h, low24h, priceChange24h, priceChangePercentage24h, marketCapChange24h, marketCapChangePercentage24h, circulatingSupply, totalSupply, maxSupply, ath, athChangePercentage, athDate, atl, atlChangePercentage, atlDate, lastUpdated];
+  List<Object?> get props => [
+        id,
+        symbol,
+        name,
+        image,
+        currentPrice,
+        marketCap,
+        marketCapRank,
+        fullyDilutedValuation,
+        totalVolume,
+        high24h,
+        low24h,
+        priceChange24h,
+        priceChangePercentage24h,
+        marketCapChange24h,
+        marketCapChangePercentage24h,
+        circulatingSupply,
+        totalSupply,
+        maxSupply,
+        ath,
+        athChangePercentage,
+        athDate,
+        atl,
+        atlChangePercentage,
+        atlDate,
+        lastUpdated,
+        sparklineIn7d,
+        priceChangePercentage7dInCurrency,
+      ];
 }
-

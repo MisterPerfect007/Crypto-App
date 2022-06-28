@@ -125,6 +125,37 @@ class CoinModel extends Coin {
           priceChangePercentage7dInCurrency
     };
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        symbol,
+        name,
+        image,
+        currentPrice,
+        marketCap,
+        marketCapRank,
+        fullyDilutedValuation,
+        totalVolume,
+        high24h,
+        low24h,
+        priceChange24h,
+        priceChangePercentage24h,
+        marketCapChange24h,
+        marketCapChangePercentage24h,
+        circulatingSupply,
+        totalSupply,
+        maxSupply,
+        ath,
+        athChangePercentage,
+        athDate,
+        atl,
+        atlChangePercentage,
+        atlDate,
+        lastUpdated,
+        sparklineIn7d,
+        priceChangePercentage7dInCurrency,
+      ];
 }
 
 class SparlineIn7d extends Equatable {
@@ -142,7 +173,7 @@ class SparlineIn7d extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "price": price,
     };

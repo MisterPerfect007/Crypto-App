@@ -57,14 +57,19 @@ class SingleCriteria extends StatelessWidget {
             child: InkWell(
               splashColor: AppColors.secondGreen,
               onTap: () {
-                context
-                    .read<SortingCubit>()
-                    .changeSorting({"by": name, "desc": isDesc});
-                final criteria = context.read<SortingCubit>().state;
-                context
-                    .read<CoinListBloc>()
-                    .add(CoinListSorting(criteria: criteria));
-                // print(context.read<SortingCubit>().state);Ÿ
+                //! to be Extracted
+                final coinListState = context.read<CoinListBloc>().state;
+                if(coinListState is CoinListLoaded){
+                  final coinList = coinListState.coinList;
+                  context
+                      .read<SortingCubit>()
+                      .changeSorting({"by": name, "desc": isDesc});
+                  final criteria = context.read<SortingCubit>().state;
+                  context
+                      .read<CoinListBloc>()
+                      .add(CoinListSorting(criteria: criteria, coinListState: coinList));
+
+                }
               },
               borderRadius: const BorderRadius.all(
                 Radius.circular(5),

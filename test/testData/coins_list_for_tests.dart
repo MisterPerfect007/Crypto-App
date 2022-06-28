@@ -99,7 +99,13 @@ final List<Coin> testCoins = [
 ];
 
 final List<CoinModel> testCoinModels = [
-  CoinModel(
+  bitcoinModel,
+  ethereumModel,
+  tetherModel,
+];
+
+//!bitcoin
+final CoinModel bitcoinModel = CoinModel(
       id: "bitcoin",
       symbol: "btc",
       name: "Bitcoin",
@@ -129,8 +135,11 @@ final List<CoinModel> testCoinModels = [
       sparklineIn7d: SparlineIn7d.fromJson(const {
         "price": [39509.42332989887, 39570.01981374774],
       }),
-      priceChangePercentage7dInCurrency: 13),
-  CoinModel(
+      priceChangePercentage7dInCurrency: 13);
+
+
+      //!eth
+final CoinModel ethereumModel = CoinModel(
       id: "ethereum",
       symbol: "eth",
       name: "Ethereum",
@@ -160,5 +169,38 @@ final List<CoinModel> testCoinModels = [
       sparklineIn7d: SparlineIn7d.fromJson(const {
         "price": [2925.7546621681654, 2932.6198376355937]
       }),
-      priceChangePercentage7dInCurrency: 9),
-];
+      priceChangePercentage7dInCurrency: 9);
+
+//! tether
+
+final CoinModel tetherModel = CoinModel(
+      id: "tether",
+      symbol: "usdt",
+      name: "Tether",
+      image:
+          "https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707",
+      currentPrice: 1,
+      marketCap: 66863730163,
+      marketCapRank: 3,
+      fullyDilutedValuation: null,
+      totalVolume: 48072507641,
+      high24h: 1.005,
+      low24h: 0.998786,
+      priceChange24h: -0.000282234887169164,
+      priceChangePercentage24h: -0.0282,
+      marketCapChange24h: -12822819.03917694,
+      marketCapChangePercentage24h: -0.01917,
+      circulatingSupply: 120747263.249,
+      totalSupply: null,
+      maxSupply: null,
+      ath: 4878.26,
+      athChangePercentage: -59.60473,
+      athDate: "2021-11-10T14:24:19.604Z",
+      atl: 0.432979,
+      atlChangePercentage: 455023.03107,
+      atlDate: "2015-10-20T00:00:00.000Z",
+      lastUpdated: "2022-05-12T11:14:14.177Z",
+      sparklineIn7d: SparlineIn7d.fromJson(const {
+        "price": [1, 1.1]
+      }),
+      priceChangePercentage7dInCurrency: 9);
