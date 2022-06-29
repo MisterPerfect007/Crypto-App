@@ -10,12 +10,13 @@ class CoinPrice extends StatelessWidget {
   final String id;
   final double? currentPrice;
   final CoinPercentageFormat? formated7DPercentage;
+  final bool? isUpdate;
 
   const CoinPrice({
     Key? key,
     required this.currentPrice,
     this.formated7DPercentage,
-    required this.id,
+    required this.id, this.isUpdate = false,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class CoinPrice extends StatelessWidget {
           //* Current price
           AnimatedSwitcher(
             transitionBuilder: AnimatedSwitcher.defaultTransitionBuilder,
-            duration: const Duration(seconds: 2),
+            duration: Duration(milliseconds: isUpdate!? 1 : 0),
             child: Text(
               '\$ ' +priceFormater(currentPrice),
               key: textKey,

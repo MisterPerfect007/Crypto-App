@@ -20,6 +20,7 @@ class SingleCoin extends StatefulWidget {
   final int? marketCapRank;
   final double? priceChangePercentage7dInCurrency;
   final List<double>? lastWeekData;
+  final bool? isUpdate;
   const SingleCoin({
     Key? key,
     required this.name,
@@ -29,7 +30,7 @@ class SingleCoin extends StatefulWidget {
     this.marketCapRank,
     this.priceChangePercentage7dInCurrency,
     this.lastWeekData,
-    required this.id,
+    required this.id, this.isUpdate,
   }) : super(key: key);
 
   @override

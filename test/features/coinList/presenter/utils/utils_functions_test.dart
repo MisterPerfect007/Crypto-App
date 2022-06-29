@@ -1,12 +1,16 @@
+import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/utils_functions.dart';
+import 'package:crypto_trends/features/coinList/presenter/widgets/sorting%20criteria/criteria_list.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../testData/coins_list_for_tests.dart';
 import 'utils_functions_test.mocks.dart';
 
 @GenerateMocks([SharedPreferences])
+// @GenerateMocks([SortingCubit])
 void main() {
   group("calculate7DPercentage", () {
     test("Should caculate and return the right pourcentage", () {
@@ -73,6 +77,81 @@ void main() {
       final result = isNewPriceUp(id: 'id', prefs: prefs, newPrice: 1);
 
       expect(result, true);
+    });
+  });
+  group("sortCoinList", (){
+
+    group("Rank", (){
+      test("Should sort coin list by Rank desc", (){
+        final result = sortCoinList(coinList: testCoinModels, criteria: rankDesc);
+
+        expect(result, [bitcoinModel, ethereumModel, tetherModel]);
+      });
+      test("Should sort coin list by Rank Asc", (){
+
+        final result = sortCoinList(coinList: testCoinModels, criteria: rankAsc);
+
+        expect(result, [tetherModel, ethereumModel, bitcoinModel]);
+      });
+    });
+
+    group("Price", (){
+      test("Should sort coin list by price desc", (){
+
+        final result = sortCoinList(coinList: testCoinModels, criteria: priceDesc);
+
+        expect(result, [bitcoinModel, ethereumModel, tetherModel]);
+      });
+      test("Should sort coin list by price asc", (){
+        final result = sortCoinList(coinList: testCoinModels, criteria: priceAsc);
+
+        expect(result, [tetherModel, ethereumModel, bitcoinModel]);
+      });
+    });
+
+    group("% 24h", (){
+      test("Should sort coin list by percentage24HDesc desc", (){
+
+        final result = sortCoinList(coinList: testCoinModels, criteria: percentage24HDesc);
+
+        expect(result, [tetherModel, bitcoinModel, ethereumModel]);
+      });
+      test("Should sort coin list by percentage24HDesc asc", (){
+
+        final result = sortCoinList(coinList: testCoinModels, criteria: percentage24HAsc);
+
+        expect(result, [ethereumModel, bitcoinModel, tetherModel]);
+      });
+    });
+
+    group("% 7d", (){
+      test("Should sort coin list by percentage7DDesc desc", (){
+
+        final result = sortCoinList(coinList: testCoinModels, criteria: percentage7DDesc);
+
+        expect(result, [bitcoinModel, ethereumModel, tetherModel]);
+      });
+      test("Should sort coin list by percentage7DDesc asc", (){
+
+        final result = sortCoinList(coinList: testCoinModels, criteria: percentage7DAsc);
+
+        expect(result, [tetherModel, ethereumModel, bitcoinModel]);
+      });
+    });
+
+    group("Name", (){
+      test("Should sort coin list by percentage7DDesc desc", (){
+
+        final result = sortCoinList(coinList: testCoinModels, criteria: nameDesc);
+
+        expect(result, [tetherModel, ethereumModel, bitcoinModel]);
+      });
+      test("Should sort coin list by percentage7DDesc asc", (){
+
+        final result = sortCoinList(coinList: testCoinModels, criteria: nameAsc);
+
+        expect(result,  [bitcoinModel, ethereumModel, tetherModel]);
+      });
     });
   });
 }

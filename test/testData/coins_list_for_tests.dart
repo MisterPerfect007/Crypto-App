@@ -203,4 +203,4 @@ final CoinModel tetherModel = CoinModel(
       sparklineIn7d: SparlineIn7d.fromJson(const {
         "price": [1, 1.1]
       }),
-      priceChangePercentage7dInCurrency: 9);
+      priceChangePercentage7dInCurrency: 0.02);

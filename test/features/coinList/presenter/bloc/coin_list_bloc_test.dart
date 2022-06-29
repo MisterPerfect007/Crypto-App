@@ -74,8 +74,8 @@ void main() {
               .thenAnswer((_) async => Right(testCoins));
         },
         build: () => bloc,
-        act: (bloc) =>
-            bloc.add(const CoinListUpdate(currency: tCurrency, page: tPage)),
+        act: (bloc) => bloc.add(const CoinListUpdate(
+            currency: tCurrency, page: tPage, criteria: rankDesc)),
         verify: (_) {
           verify(getRemoteCoinList(tCurrency, tPage)).called(1);
         });
@@ -86,8 +86,8 @@ void main() {
               .thenAnswer((_) async => Right(testCoins));
         },
         build: () => bloc,
-        act: (bloc) =>
-            bloc.add(const CoinListUpdate(currency: tCurrency, page: tPage)),
+        act: (bloc) => bloc.add(const CoinListUpdate(
+            currency: tCurrency, page: tPage, criteria: rankDesc)),
         expect: () => [CoinListLoaded(coinList: testCoins, isUpdate: true)]);
     blocTest<CoinListBloc, CoinListState>(
         'Should emit [CoinListUpdateLoading, CoinListUpdateFailure] when GetCoinList is triggered and some failure is returned',
@@ -96,83 +96,8 @@ void main() {
               .thenAnswer((_) async => Left(ServerFailure()));
         },
         build: () => bloc,
-        act: (bloc) =>
-            bloc.add(const CoinListUpdate(currency: tCurrency, page: tPage)),
+        act: (bloc) => bloc.add(const CoinListUpdate(
+            currency: tCurrency, page: tPage, criteria: rankDesc)),
         expect: () => [const CoinListUpdateFailure(serverErrorMessage)]);
-  });
-  group("CoinListSorting", () {
-    // const rankDesc = {"by": 'Rank', "desc": true};
-    group("Rank", () {
-      blocTest<CoinListBloc, CoinListState>(
-          "Should sort coin list by Rank desc",
-          build: () => bloc,
-          act: (bloc) => bloc.add(
-                CoinListSorting(
-                    criteria: rankDesc, coinListState: testCoinModels),
-              ),
-          expect: () => [
-                CoinListLoaded(
-                    coinList: [bitcoinModel, ethereumModel, tetherModel])
-              ]);
-      blocTest<CoinListBloc, CoinListState>(
-          "Should sort coin list by Rank Asc",
-          build: () => bloc,
-          act: (bloc) => bloc.add(
-                CoinListSorting(
-                    criteria: rankAsc, coinListState: testCoinModels),
-              ),
-          expect: () => [
-                CoinListLoaded(
-                    coinList: [tetherModel, ethereumModel, bitcoinModel])
-              ]);
-    });
-    group("Price", () {
-      blocTest<CoinListBloc, CoinListState>(
-          "Should sort coin list by Price desc",
-          build: () => bloc,
-          act: (bloc) => bloc.add(
-                CoinListSorting(
-                    criteria: priceDesc, coinListState: testCoinModels),
-              ),
-          expect: () => [
-                CoinListLoaded(
-                    coinList: [bitcoinModel, ethereumModel, tetherModel])
-              ]);
-      blocTest<CoinListBloc, CoinListState>(
-          "Should sort coin list by Price Asc",
-          build: () => bloc,
-          act: (bloc) => bloc.add(
-                CoinListSorting(
-                    criteria: priceAsc, coinListState: testCoinModels),
-              ),
-          expect: () => [
-                CoinListLoaded(
-                    coinList: [tetherModel, ethereumModel, bitcoinModel])
-              ]);
-    });
-    group("% 24h", () {
-      blocTest<CoinListBloc, CoinListState>(
-          "Should sort coin list by % 24h desc",
-          build: () => bloc,
-          act: (bloc) => bloc.add(
-                CoinListSorting(
-                    criteria: percentage24HDesc, coinListState: testCoinModels),
-              ),
-          expect: () => [
-                CoinListLoaded(
-                    coinList: [tetherModel, bitcoinModel, ethereumModel])
-              ]);
-      blocTest<CoinListBloc, CoinListState>(
-          "Should sort coin list by % 24h Asc",
-          build: () => bloc,
-          act: (bloc) => bloc.add(
-                CoinListSorting(
-                    criteria: percentage24HAsc, coinListState: testCoinModels),
-              ),
-          expect: () => [
-                CoinListLoaded(
-                    coinList: [ethereumModel, bitcoinModel, tetherModel])
-              ]);
-    });
   });
 }

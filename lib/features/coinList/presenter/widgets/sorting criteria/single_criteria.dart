@@ -59,16 +59,14 @@ class SingleCriteria extends StatelessWidget {
               onTap: () {
                 //! to be Extracted
                 final coinListState = context.read<CoinListBloc>().state;
-                if(coinListState is CoinListLoaded){
+                if (coinListState is CoinListLoaded) {
                   final coinList = coinListState.coinList;
                   context
                       .read<SortingCubit>()
                       .changeSorting({"by": name, "desc": isDesc});
                   final criteria = context.read<SortingCubit>().state;
-                  context
-                      .read<CoinListBloc>()
-                      .add(CoinListSorting(criteria: criteria, coinListState: coinList));
-
+                  context.read<CoinListBloc>().add(
+                      CoinListSorting(coinList: coinList, criteria: criteria));
                 }
               },
               borderRadius: const BorderRadius.all(
@@ -97,7 +95,7 @@ class SingleCriteria extends StatelessWidget {
                         ? Container(
                             margin: const EdgeInsets.only(left: 5),
                             child: RotatedBox(
-                              quarterTurns: (isSelected && isDesc) ? 0 : 2,
+                              quarterTurns: (isSelected && !isDesc) ? 0 : 2,
                               child: const PersoIcon(
                                 icon: PersoIcons.arrowUp1,
                                 size: 10,
