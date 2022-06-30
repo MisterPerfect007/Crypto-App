@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'sorting_state.dart';
 
 class SortingCubit extends Cubit<Map<String, dynamic>> {
   SortingCubit() : super({"by": 'Rank', 'desc': true});

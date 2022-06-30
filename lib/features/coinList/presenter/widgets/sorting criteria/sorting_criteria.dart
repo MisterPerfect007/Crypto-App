@@ -45,7 +45,7 @@ class SortingCriteria extends StatelessWidget {
             behavior: const ScrollBehavior(
                 androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
             child: ListView.builder(
-              padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
               scrollDirection: Axis.horizontal,
               itemCount: criteriaList.length,
               itemBuilder: ((context, index) {

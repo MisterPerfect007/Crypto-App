@@ -31,7 +31,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
             (failure) => emit(const CoinListUpdateFailure(serverErrorMessage)),
             (coinList) => emit(CoinListLoaded(
                 coinList:
-                    sortCoinList(coinList: coinList, criteria: event.criteria),
+                    sortCoinList(coinList: coinList, criteria: event.sortingCriteria),
                 isUpdate: true)));
       }
 

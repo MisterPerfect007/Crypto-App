@@ -1,5 +1,6 @@
 import 'package:crypto_trends/features/coinInfo/presenter/page/coin_info.dart';
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
+import 'package:crypto_trends/features/coinList/presenter/cubit/pagination_cubit.dart';
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
 import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => di.sl<CoinListBloc>()),
           BlocProvider(create: (context) => ScrollPositionCubit()),
           BlocProvider(create: (context) => SortingCubit()),
+          BlocProvider(create: (context) => PaginationCubit()),
         ],
         child: CoinListPage(),
       ),

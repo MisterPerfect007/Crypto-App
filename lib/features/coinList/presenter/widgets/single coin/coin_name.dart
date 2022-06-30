@@ -23,7 +23,7 @@ class CoinName extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            name.length > 9 ? name.substring(0, 9) : name,
+            name.length > 8 ? "${name.substring(0, 8)}..": name,
             style: GoogleFonts.inter(
                 color: AppColors.pureBlack,
                 fontWeight: FontWeight.w500,

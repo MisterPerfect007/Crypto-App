@@ -1,6 +1,7 @@
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'package:crypto_trends/ui/colors/colors.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,7 +44,7 @@ class CoinListPage extends StatelessWidget {
                   return const Text('Initial state');
                 } else if (state is CoinListLoading) {
                   /*
-                  CoinListLoading 
+                  *CoinListLoading 
                    */
                   return const SizedBox(
                     child: ScrollConfiguration(
@@ -56,7 +57,7 @@ class CoinListPage extends StatelessWidget {
                   );
                 } else if (state is CoinListLoaded) {
                   /*
-                  CoinListLoading 
+                  *CoinListLoading 
                    */ 
                   return ScrollConfiguration(
                     behavior: const ScrollBehavior(
@@ -71,7 +72,7 @@ class CoinListPage extends StatelessWidget {
                       }),
                       child: RefreshIndicator(
                         onRefresh: () async {
-                          gettingOrRefringCoinList(context);
+                          await gettingOrRefringCoinList(context);
                         },
                         color: AppColors.mainGreen,
                         child: CoinListView(
@@ -92,12 +93,13 @@ class CoinListPage extends StatelessWidget {
     );
   }
 
-  void gettingOrRefringCoinList(BuildContext context) {
+  Future<void> gettingOrRefringCoinList(BuildContext context) async {
     final coinListBloc = context.read<CoinListBloc>();
     final criteria = context.read<SortingCubit>().state;
     final state = coinListBloc.state;
     if (state is CoinListLoaded) {
-      coinListBloc.add(CoinListUpdate(currency: "usd", page: 1, criteria: criteria));
+      coinListBloc.add(CoinListUpdate(currency: "usd", page: 1, sortingCriteria: criteria));
+      await Future.delayed(const Duration(seconds: 2));
     } else {
       coinListBloc.add(const CoinListGet(currency: "usd", page: 1));
     }
