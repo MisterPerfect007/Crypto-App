@@ -5,18 +5,7 @@ class PaginationCubit extends Cubit<int> {
   PaginationCubit() : super(1);
 
   void changePage(int page) {
+    print("page");
     emit(page);
-  }
-
-  void prevPage() {
-    if (state > 1) {
-      emit(state - 1);
-    }
-  }
-
-  void nextPage() {
-    if (state < 100) {
-      emit(state + 1);
-    }
   }
 }

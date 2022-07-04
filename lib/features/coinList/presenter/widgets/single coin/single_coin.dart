@@ -53,11 +53,6 @@ class _SingleCoinState extends State<SingleCoin> {
         margin: const EdgeInsets.only(
           top: 10,
         ),
-        // decoration: const BoxDecoration(
-        //     border: Border(
-        //         bottom: BorderSide(
-        //   color: AppColors.secondGrey,
-        // ))),
         child: Row(
           children: [
             CustomNetworkImage(
@@ -79,7 +74,7 @@ class _SingleCoinState extends State<SingleCoin> {
             Expanded(
               child: Align(
                 alignment: Alignment.topLeft,
-                child: widget.lastWeekData != null
+                child: widget.lastWeekData!.isNotEmpty
                     ? Container(
                         height: 20,
                         // constraints:
@@ -101,10 +96,10 @@ class _SingleCoinState extends State<SingleCoin> {
             CoinPrice(
               id: widget.id,
               currentPrice: widget.currentPrice,
-              formated7DPercentage: widget.lastWeekData == null
-                  ? null
-                  : CoinPercentageFormat(
-                      percentage: widget.priceChangePercentage7dInCurrency!),
+              formated7DPercentage: widget.priceChangePercentage7dInCurrency != null
+                  ? CoinPercentageFormat(
+                      percentage: widget.priceChangePercentage7dInCurrency!)
+                  : null,
                       // percentage: calculate7DPercentage(widget.lastWeekData)!),
             ),
             const SizedBox(
@@ -142,43 +137,68 @@ class CustomNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FadeInImage.assetNetwork(
+    return image != null? FadeInImage.assetNetwork(
         fadeInDuration: const Duration(milliseconds: 100),
         placeholder: '',
         placeholderErrorBuilder:
             (BuildContext context, Object object, StackTrace? stackTrace) {
-          return Shimmer.fromColors(
-            baseColor: AppColors.secondGrey,
-            highlightColor: const Color.fromARGB(255, 234, 234, 234),
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration: const BoxDecoration(
-                color: AppColors.secondGrey,
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-              ),
-            ),
-          );
+          return const CoinImageShimmer();
         },
         image: image!,
         width: 40,
         fit: BoxFit.fitWidth,
         imageErrorBuilder: (context, error, stackTrace) {
-          return Container(
-            width: 40,
-            height: 40,
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-                color: AppColors.secondGrey,
-                borderRadius: BorderRadius.all(Radius.circular(40))),
-            child: Text(
-              name[0],
-              style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.mainWhite),
-            ),
-          );
-        });
+          return DefaultCoinImage(name: name);
+        }) : DefaultCoinImage(name: name);
+  }
+}
+
+class DefaultCoinImage extends StatelessWidget {
+  const DefaultCoinImage({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 40,
+      height: 40,
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+          color: AppColors.secondGrey,
+          borderRadius: BorderRadius.all(Radius.circular(40))),
+      child: Text(
+        name[0],
+        style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: AppColors.mainWhite),
+      ),
+    );
+  }
+}
+
+class CoinImageShimmer extends StatelessWidget {
+  const CoinImageShimmer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: AppColors.secondGrey,
+      highlightColor: const Color.fromARGB(255, 234, 234, 234),
+      child: Container(
+        width: 40,
+        height: 40,
+        decoration: const BoxDecoration(
+          color: AppColors.secondGrey,
+          borderRadius: BorderRadius.all(Radius.circular(40)),
+        ),
+      ),
+    );
   }
 }

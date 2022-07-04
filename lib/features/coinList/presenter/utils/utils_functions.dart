@@ -48,20 +48,23 @@ bool? isNewPriceUp({
 List<Coin> sortCoinList(
     {required List<Coin> coinList, required Map<String, dynamic> criteria}) {
   List<Coin> newCoinList = List<Coin>.from(coinList);
+
+  double smallestDouble = - 10000;
+
   switch (criteria["by"]) {
     case "Rank":
-      newCoinList.sort((a, b) => b.marketCapRank!.compareTo(a.marketCapRank!));
+      newCoinList.sort((a, b) => (b.marketCapRank ?? 0).compareTo((a.marketCapRank ?? 0)));
       break;
     case "Price":
-      newCoinList.sort((a, b) => a.currentPrice!.compareTo(b.currentPrice!));
+      newCoinList.sort((a, b) => (a.currentPrice ?? smallestDouble).compareTo((b.currentPrice ?? smallestDouble)));
       break;
     case "% 24h":
       newCoinList.sort((a, b) =>
-          a.priceChangePercentage24h!.compareTo(b.priceChangePercentage24h!));
+          (a.priceChangePercentage24h ?? smallestDouble).compareTo((b.priceChangePercentage24h ?? smallestDouble)));
       break;
     case "% 7d":
-      newCoinList.sort((a, b) => a.priceChangePercentage7dInCurrency!
-          .compareTo(b.priceChangePercentage7dInCurrency!));
+      newCoinList.sort((a, b) => (a.priceChangePercentage7dInCurrency ?? smallestDouble)
+          .compareTo(b.priceChangePercentage7dInCurrency ?? smallestDouble));
       break;
     case "Name":
       newCoinList

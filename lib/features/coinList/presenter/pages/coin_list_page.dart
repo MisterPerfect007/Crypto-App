@@ -1,14 +1,16 @@
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
+import 'package:crypto_trends/features/coinList/presenter/cubit/pagination_cubit.dart';
 import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import '../cubit/scrollposition_cubit.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/coin_list_shimmer.dart';
-import '../widgets/coin_list_view.dart';
+import '../widgets/coinListView/coin_list_view.dart';
 import '../widgets/customFloatingActionButton/custom_floating_action_button.dart';
 import '../widgets/sorting criteria/sorting_criteria.dart';
 
@@ -29,8 +31,24 @@ class CoinListPage extends StatelessWidget {
         ),
         child: const CoinPageAppBar(),
       ),
-      floatingActionButton: CustomFloatingActionButton(
-          context: context, scrollController: _scrollController),
+      floatingActionButton: SpeedDial(
+          backgroundColor: AppColors.mainBlack,
+          icon: Icons.add,
+          children: [
+            SpeedDialChild(
+                onTap: () {
+                  _scrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.fastOutSlowIn,
+                  );
+                },
+                label: "Scroll to top",
+                child: CustomFloatingActionButton(
+                  scrollController: _scrollController,
+                  context: context,
+                ))
+          ]),
       body: SizedBox(
         height: size.height,
         child: Column(
@@ -58,7 +76,7 @@ class CoinListPage extends StatelessWidget {
                 } else if (state is CoinListLoaded) {
                   /*
                   *CoinListLoading 
-                   */ 
+                   */
                   return ScrollConfiguration(
                     behavior: const ScrollBehavior(
                         androidOverscrollIndicator:
@@ -97,11 +115,15 @@ class CoinListPage extends StatelessWidget {
     final coinListBloc = context.read<CoinListBloc>();
     final criteria = context.read<SortingCubit>().state;
     final state = coinListBloc.state;
+    final int pageToFetch = context.read<PaginationCubit>().state;
     if (state is CoinListLoaded) {
-      coinListBloc.add(CoinListUpdate(currency: "usd", page: 1, sortingCriteria: criteria));
+      coinListBloc.add(
+          CoinListUpdate(currency: "usd", page: pageToFetch, sortingCriteria: criteria));
+      
+      //delay just for showing the loading spinner for 2s
       await Future.delayed(const Duration(seconds: 2));
     } else {
-      coinListBloc.add(const CoinListGet(currency: "usd", page: 1));
+      coinListBloc.add(CoinListGet(currency: "usd", page: pageToFetch));
     }
   }
 }

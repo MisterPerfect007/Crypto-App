@@ -23,6 +23,7 @@ enum PersoIcons {
   arrowScrollUp,
   angleLeft,
   angleRight,
+  angleSmallUp
 }
 
 Map<PersoIcons, String> iconName = {
@@ -48,6 +49,7 @@ Map<PersoIcons, String> iconName = {
   PersoIcons.arrowScrollUp: 'assets/icons/up_scroll_arrow.png',
   PersoIcons.angleLeft: 'assets/icons/angle-left.png',
   PersoIcons.angleRight: 'assets/icons/angle-right.png',
+  PersoIcons.angleSmallUp: 'assets/icons/angle-small-up(1).png',
 
 };
 
