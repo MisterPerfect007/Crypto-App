@@ -23,7 +23,9 @@ enum PersoIcons {
   arrowScrollUp,
   angleLeft,
   angleRight,
-  angleSmallUp
+  angleSmallUp,
+  coloredNoWifi,
+  coloredRemove,
 }
 
 Map<PersoIcons, String> iconName = {
@@ -50,13 +52,15 @@ Map<PersoIcons, String> iconName = {
   PersoIcons.angleLeft: 'assets/icons/angle-left.png',
   PersoIcons.angleRight: 'assets/icons/angle-right.png',
   PersoIcons.angleSmallUp: 'assets/icons/angle-small-up(1).png',
+  PersoIcons.coloredNoWifi: 'assets/icons/colorful-icons/no-wifi.png',
+  PersoIcons.coloredRemove: 'assets/icons/colorful-icons/remove.png',
 
 };
 
 /// PersonIcon
 ///
 class PersoIcon extends StatelessWidget {
-  final Color color;
+  final Color? color;
   final double size;
   final PersoIcons icon;
   const PersoIcon({

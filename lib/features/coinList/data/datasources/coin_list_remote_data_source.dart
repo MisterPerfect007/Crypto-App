@@ -35,8 +35,12 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
       'price_change_percentage': '7d',
     });
 
-    final response = await client.get(url, headers: defaultHeader);
-    // client.close();
+    final Response response;
+    try {
+      response = await client.get(url, headers: defaultHeader);
+    } catch (e) {
+      throw ServerException();
+    }
     if (response.statusCode == 200) {
       final responseBody = response.body;
       final responseJson =
@@ -47,5 +51,6 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
     } else {
       throw ServerException();
     }
+
   }
 }

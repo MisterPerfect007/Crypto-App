@@ -16,7 +16,6 @@ class CoinInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double sidePadding = size.width / 25;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(

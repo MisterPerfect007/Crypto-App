@@ -2,11 +2,9 @@ import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_data.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
-import '../../utils/utils_functions.dart';
 import 'coin_name.dart';
 import 'coin_price.dart';
 import 'single_coin_line_chart.dart';

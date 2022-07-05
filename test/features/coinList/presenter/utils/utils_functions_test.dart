@@ -1,4 +1,4 @@
-import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.dart';
+import 'package:crypto_trends/features/coinList/data/models/coin_model.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/utils_functions.dart';
 import 'package:crypto_trends/features/coinList/presenter/widgets/sorting%20criteria/criteria_list.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -34,19 +34,19 @@ void main() {
     });
   });
 
-  group("isNewPriceUp", (){
+  group("isNewPriceUp", () {
     late MockSharedPreferences prefs;
-    setUp((){
+    setUp(() {
       prefs = MockSharedPreferences();
     });
-    test("Should return null when newPrice is null", (){
+    test("Should return null when newPrice is null", () {
       when(prefs.getDouble(any)).thenReturn(1);
 
       final result = isNewPriceUp(id: 'id', prefs: prefs);
 
       expect(result, null);
     });
-    test("Should return null when there is not oldPrice", (){
+    test("Should return null when there is not oldPrice", () {
       when(prefs.getDouble(any)).thenReturn(null);
       when(prefs.setDouble(any, any)).thenAnswer((_) async => true);
 
@@ -54,7 +54,7 @@ void main() {
 
       expect(result, null);
     });
-    test("Should return false when oldPrice > newPrice", (){
+    test("Should return false when oldPrice > newPrice", () {
       when(prefs.getDouble(any)).thenReturn(2.2);
       when(prefs.setDouble(any, any)).thenAnswer((_) async => true);
 
@@ -62,7 +62,7 @@ void main() {
 
       expect(result, false);
     });
-    test("Should return null when oldPrice == newPrice", (){
+    test("Should return null when oldPrice == newPrice", () {
       when(prefs.getDouble(any)).thenReturn(1);
       when(prefs.setDouble(any, any)).thenAnswer((_) async => true);
 
@@ -70,7 +70,7 @@ void main() {
 
       expect(result, null);
     });
-    test("Should return true when oldPrice < newPrice", (){
+    test("Should return true when oldPrice < newPrice", () {
       when(prefs.getDouble(any)).thenReturn(0.000000001);
       when(prefs.setDouble(any, any)).thenAnswer((_) async => true);
 
@@ -79,78 +79,92 @@ void main() {
       expect(result, true);
     });
   });
-  group("sortCoinList", (){
-
-    group("Rank", (){
-      test("Should sort coin list by Rank desc", (){
-        final result = sortCoinList(coinList: testCoinModels, criteria: rankDesc);
+  group("sortCoinList", () {
+    group("Rank", () {
+      const testCoinWithNullRank = [
+            CoinModel(id: "id_1", symbol: "symbol_1", name: "name_1"),
+            CoinModel(id: "id_2", symbol: "symbol_2", name: "name_2"),
+            CoinModel(id: "id_3", symbol: "symbol_3", name: "name_3"),
+          ];
+      test("Should sort coin list by Rank desc", () {
+        final result =
+            sortCoinList(coinList: testCoinModels, criteria: rankDesc);
 
         expect(result, [bitcoinModel, ethereumModel, tetherModel]);
       });
-      test("Should sort coin list by Rank Asc", (){
+      test("Should sort coin list by Rank Asc", () {
+        final result =
+            sortCoinList(coinList: testCoinModels, criteria: rankAsc);
 
-        final result = sortCoinList(coinList: testCoinModels, criteria: rankAsc);
+        expect(result, [tetherModel, ethereumModel, bitcoinModel]);
+      });
+      test("Should sort coin list by Rank with null values", () {
+        final result = sortCoinList(
+          coinList: testCoinWithNullRank,
+          criteria: rankAsc,
+        );
+
+        expect(result, testCoinWithNullRank);
+      });
+    });
+
+    group("Price", () {
+      test("Should sort coin list by price desc", () {
+        final result =
+            sortCoinList(coinList: testCoinModels, criteria: priceDesc);
+
+        expect(result, [bitcoinModel, ethereumModel, tetherModel]);
+      });
+      test("Should sort coin list by price asc", () {
+        final result =
+            sortCoinList(coinList: testCoinModels, criteria: priceAsc);
 
         expect(result, [tetherModel, ethereumModel, bitcoinModel]);
       });
     });
 
-    group("Price", (){
-      test("Should sort coin list by price desc", (){
-
-        final result = sortCoinList(coinList: testCoinModels, criteria: priceDesc);
-
-        expect(result, [bitcoinModel, ethereumModel, tetherModel]);
-      });
-      test("Should sort coin list by price asc", (){
-        final result = sortCoinList(coinList: testCoinModels, criteria: priceAsc);
-
-        expect(result, [tetherModel, ethereumModel, bitcoinModel]);
-      });
-    });
-
-    group("% 24h", (){
-      test("Should sort coin list by percentage24HDesc desc", (){
-
-        final result = sortCoinList(coinList: testCoinModels, criteria: percentage24HDesc);
+    group("% 24h", () {
+      test("Should sort coin list by percentage24HDesc desc", () {
+        final result =
+            sortCoinList(coinList: testCoinModels, criteria: percentage24HDesc);
 
         expect(result, [tetherModel, bitcoinModel, ethereumModel]);
       });
-      test("Should sort coin list by percentage24HDesc asc", (){
-
-        final result = sortCoinList(coinList: testCoinModels, criteria: percentage24HAsc);
+      test("Should sort coin list by percentage24HDesc asc", () {
+        final result =
+            sortCoinList(coinList: testCoinModels, criteria: percentage24HAsc);
 
         expect(result, [ethereumModel, bitcoinModel, tetherModel]);
       });
     });
 
-    group("% 7d", (){
-      test("Should sort coin list by percentage7DDesc desc", (){
-
-        final result = sortCoinList(coinList: testCoinModels, criteria: percentage7DDesc);
+    group("% 7d", () {
+      test("Should sort coin list by percentage7DDesc desc", () {
+        final result =
+            sortCoinList(coinList: testCoinModels, criteria: percentage7DDesc);
 
         expect(result, [bitcoinModel, ethereumModel, tetherModel]);
       });
-      test("Should sort coin list by percentage7DDesc asc", (){
-
-        final result = sortCoinList(coinList: testCoinModels, criteria: percentage7DAsc);
+      test("Should sort coin list by percentage7DDesc asc", () {
+        final result =
+            sortCoinList(coinList: testCoinModels, criteria: percentage7DAsc);
 
         expect(result, [tetherModel, ethereumModel, bitcoinModel]);
       });
     });
 
-    group("Name", (){
-      test("Should sort coin list by percentage7DDesc desc", (){
-
-        final result = sortCoinList(coinList: testCoinModels, criteria: nameDesc);
+    group("Name", () {
+      test("Should sort coin list by percentage7DDesc desc", () {
+        final result =
+            sortCoinList(coinList: testCoinModels, criteria: nameDesc);
 
         expect(result, [tetherModel, ethereumModel, bitcoinModel]);
       });
-      test("Should sort coin list by percentage7DDesc asc", (){
+      test("Should sort coin list by percentage7DDesc asc", () {
+        final result =
+            sortCoinList(coinList: testCoinModels, criteria: nameAsc);
 
-        final result = sortCoinList(coinList: testCoinModels, criteria: nameAsc);
-
-        expect(result,  [bitcoinModel, ethereumModel, tetherModel]);
+        expect(result, [bitcoinModel, ethereumModel, tetherModel]);
       });
     });
   });

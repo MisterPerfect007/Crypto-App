@@ -1,9 +1,4 @@
-import 'package:crypto_trends/features/coinList/presenter/cubit/pagination_cubit.dart';
-import 'package:crypto_trends/ui/colors/colors.dart';
-import 'package:crypto_trends/ui/icons/icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../domain/entities/coin.dart';
 import '../single coin/single_coin.dart';
@@ -48,10 +43,11 @@ class _CoinListViewState extends State<CoinListView> {
       child: ListView.builder(
           physics: const AlwaysScrollableScrollPhysics(),
           controller: widget._scrollController,
-          padding: const EdgeInsets.only(bottom: 100),
+          padding: const EdgeInsets.only(bottom: 70),
           itemCount: (widget.coinList.length + 1),
           itemBuilder: ((context, i) {
             final coinList = widget.coinList;
+            //To be able to put pagination widget to the of listview
             i = i - 1;
             if (i == -1) {
               return const CustomExpansionPanel();

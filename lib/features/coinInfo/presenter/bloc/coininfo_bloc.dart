@@ -24,7 +24,6 @@ class CoinInfoBloc extends Bloc<CoinInfoEvent, CoinInfoState> {
           (chartData) => emit(CoinInfoLoaded(coinMarketChart: chartData)),
         );
       }
-      // TODO: implement event handler
       //make call the usecase
       //if (right is return)
       //emit Loaded

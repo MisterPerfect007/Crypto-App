@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../core/coinPercentage/coin_percentage_format.dart';
 import '../../../../../ui/icons/icons.dart';
 
+// ignore: must_be_immutable
 class PriceAndPercentage extends StatelessWidget {
   final double? percentage;
   late CoinPercentageFormat formatedPercentage;

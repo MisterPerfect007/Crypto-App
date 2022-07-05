@@ -1,4 +1,3 @@
-import 'package:crypto_trends/features/coinList/domain/usecases/get_coin_list.dart';
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

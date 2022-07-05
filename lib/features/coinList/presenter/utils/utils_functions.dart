@@ -1,7 +1,11 @@
-import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/entities/coin.dart';
+import '../bloc/coin_list_bloc.dart';
+import '../cubit/pagination_cubit.dart';
+import '../cubit/sorting_cubit.dart';
 
 //* Tested
 double? calculate7DPercentage(List<double>? lastWeekData) {
@@ -76,3 +80,20 @@ List<Coin> sortCoinList(
   }
   return newCoinList;
 }
+
+//! to be tested
+  Future<void> gettingOrRefringCoinList(BuildContext context) async {
+    final coinListBloc = context.read<CoinListBloc>();
+    final criteria = context.read<SortingCubit>().state;
+    final state = coinListBloc.state;
+    final int pageToFetch = context.read<PaginationCubit>().state;
+    if (state is CoinListLoaded) {
+      coinListBloc.add(CoinListUpdate(
+          currency: "usd", page: pageToFetch, sortingCriteria: criteria));
+
+      //delay just for showing the loading spinner for 2s
+      await Future.delayed(const Duration(seconds: 2));
+    } else {
+      coinListBloc.add(CoinListGet(currency: "usd", page: pageToFetch));
+    }
+  }

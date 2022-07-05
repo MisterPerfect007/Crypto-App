@@ -1,4 +1,3 @@
-import 'package:crypto_trends/features/coinInfo/presenter/page/coin_info.dart';
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:crypto_trends/features/coinList/presenter/cubit/pagination_cubit.dart';
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
@@ -13,7 +12,7 @@ void main() async {
   await di.init();
   runApp(const MyApp());
 }
- 
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -29,14 +28,13 @@ class MyApp extends StatelessWidget {
       ),
       // themeMode: ThemeMode.light,
       home: MultiBlocProvider(
-        // create: (context) => di.sl<CoinListBloc>(),
         providers: [
           BlocProvider(create: (context) => di.sl<CoinListBloc>()),
           BlocProvider(create: (context) => ScrollPositionCubit()),
           BlocProvider(create: (context) => SortingCubit()),
           BlocProvider(create: (context) => PaginationCubit()),
         ],
-        child: CoinListPage(),
+        child: const CoinListPage(),
       ),
     );
   }
