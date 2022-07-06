@@ -1,7 +1,9 @@
 import 'package:crypto_trends/features/coinList/data/repository/get_coin_list_repository_implementation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import 'core/network/network_info.dart';
 import 'features/coinList/data/datasources/coin_list_remote_data_source.dart';
 import 'features/coinList/domain/repositories/get_coin_list_repository.dart';
 import 'features/coinList/domain/usecases/get_coin_list.dart';
@@ -12,7 +14,7 @@ final GetIt sl = GetIt.instance;
 Future<void> init() async {
   //!Presenter
   //*Bloc
-  sl.registerFactory(() => CoinListBloc(getRemoteCoinList: sl()));
+  sl.registerFactory(() => CoinListBloc(getRemoteCoinList: sl(), network: sl()));
 
   //!domain
   //*usecase
@@ -27,4 +29,5 @@ Future<void> init() async {
 
   //!External
   sl.registerLazySingleton(() => http.Client());
+  sl.registerLazySingleton(() => NetworkInfoImpl(internetConnectionChecker: InternetConnectionChecker()));
 }

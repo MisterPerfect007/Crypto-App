@@ -4,9 +4,6 @@
 
 import 'dart:async' as _i3;
 
-import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.dart'
-    as _i4;
-import 'package:flutter_bloc/flutter_bloc.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:shared_preferences/shared_preferences.dart' as _i2;
 
@@ -90,51 +87,4 @@ class MockSharedPreferences extends _i1.Mock implements _i2.SharedPreferences {
       (super.noSuchMethod(Invocation.method(#reload, []),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
-}
-
-/// A class which mocks [SortingCubit].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockSortingCubit extends _i1.Mock implements _i4.SortingCubit {
-  MockSortingCubit() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  Map<String, dynamic> get state =>
-      (super.noSuchMethod(Invocation.getter(#state),
-          returnValue: <String, dynamic>{}) as Map<String, dynamic>);
-  @override
-  _i3.Stream<Map<String, dynamic>> get stream =>
-      (super.noSuchMethod(Invocation.getter(#stream),
-              returnValue: Stream<Map<String, dynamic>>.empty())
-          as _i3.Stream<Map<String, dynamic>>);
-  @override
-  bool get isClosed =>
-      (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
-          as bool);
-  @override
-  void changeSorting(Map<String, dynamic>? critera) =>
-      super.noSuchMethod(Invocation.method(#changeSorting, [critera]),
-          returnValueForMissingStub: null);
-  @override
-  void emit(Map<String, dynamic>? state) =>
-      super.noSuchMethod(Invocation.method(#emit, [state]),
-          returnValueForMissingStub: null);
-  @override
-  void onChange(_i5.Change<Map<String, dynamic>>? change) =>
-      super.noSuchMethod(Invocation.method(#onChange, [change]),
-          returnValueForMissingStub: null);
-  @override
-  void addError(Object? error, [StackTrace? stackTrace]) =>
-      super.noSuchMethod(Invocation.method(#addError, [error, stackTrace]),
-          returnValueForMissingStub: null);
-  @override
-  void onError(Object? error, StackTrace? stackTrace) =>
-      super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]),
-          returnValueForMissingStub: null);
-  @override
-  _i3.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
-      returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
 }

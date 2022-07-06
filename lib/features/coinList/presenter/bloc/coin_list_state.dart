@@ -22,12 +22,12 @@ class CoinListLoaded extends CoinListState {
 }
 
 class CoinListFailure extends CoinListState{
-  final String message;
+  final ErrorType errorType;
 
-  const CoinListFailure(this.message);
+  const CoinListFailure(this.errorType);
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [errorType];
 }
 
 //* Coin List update

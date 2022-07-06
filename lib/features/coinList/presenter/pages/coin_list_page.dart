@@ -89,7 +89,8 @@ class CoinListPage extends StatelessWidget {
                       ),
                     ),
                   );
-                } else {
+                } 
+                else {
                   return OfflineError(
                     icon: PersoIcons.coloredRemove,
                     title: "You're currently offline",

@@ -50,7 +50,7 @@ class _CoinListViewState extends State<CoinListView> {
             //To be able to put pagination widget to the of listview
             i = i - 1;
             if (i == -1) {
-              return const CustomExpansionPanel();
+              return const PaginationExpansionPanel();
             } else {
               return SingleCoin(
                 id: coinList[i].id,

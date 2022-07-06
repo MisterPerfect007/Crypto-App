@@ -1,0 +1,4 @@
+enum ErrorType {
+  noInternetConnection,
+  failedRequest
+}

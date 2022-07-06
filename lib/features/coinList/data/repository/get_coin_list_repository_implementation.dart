@@ -20,6 +20,8 @@ class CoinListRepositoryImpl implements CoinListRepository{
       
     } on ServerException {
       return Left(ServerFailure());
+    } on NoConnectionException {
+      return Left(NoConnectionFailure());
     }
   }
   

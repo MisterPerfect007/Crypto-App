@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 abstract class CoinListRemoteDataSource {
   /// Make a call to the coin list API enpoint: https://api.coingecko.com/api/v3/coins/markets?{ some given arguments}
   ///
-  /// throw a [ServerException] when something went wrong
+  /// throw a [ServerException] or [NoConnectionException] when something went wrong
   Future<List<CoinModel>> getRemoteCoinList(
       {required String currency, int? page});
 }
@@ -39,7 +39,7 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
     try {
       response = await client.get(url, headers: defaultHeader);
     } catch (e) {
-      throw ServerException();
+      throw NoConnectionException();
     }
     if (response.statusCode == 200) {
       final responseBody = response.body;
