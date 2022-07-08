@@ -9,7 +9,7 @@ class GetRemoteCoinList {
 
   GetRemoteCoinList({required this.repository});
 
-  Future<Either<Failure, List<Coin>>> call(String currency, int page) async {
+  Future<Either<Failure, List<Coin>>> call(String currency, int? page) async {
     return await repository.getRemoteCoinList(currency: currency, page: page);
   }
 }

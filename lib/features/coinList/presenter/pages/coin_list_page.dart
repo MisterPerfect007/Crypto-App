@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../errors/error_types.dart';
 import '../cubit/scrollposition_cubit.dart';
 import '../utils/utils_functions.dart';
 import '../widgets/app_bar.dart';
@@ -45,13 +46,13 @@ class CoinListPage extends StatelessWidget {
               child: BlocBuilder<CoinListBloc, CoinListState>(
                   builder: ((context, state) {
                 /*
-                  *CoinListInitial
+                    !CoinListInitial
                    */
                 if (state is CoinListInitial) {
                   return const Text('Initial state');
                 } else if (state is CoinListLoading) {
                   /*
-                  *CoinListLoading 
+                    !CoinListLoading 
                    */
                   return const SizedBox(
                     child: ScrollConfiguration(
@@ -64,7 +65,7 @@ class CoinListPage extends StatelessWidget {
                   );
                 } else if (state is CoinListLoaded) {
                   /*
-                  *CoinListLoaded
+                    !CoinListLoaded
                    */
                   return ScrollConfiguration(
                     behavior: const ScrollBehavior(
@@ -89,15 +90,43 @@ class CoinListPage extends StatelessWidget {
                       ),
                     ),
                   );
-                } 
-                else {
+                  /* 
+                    !CoinListFailure
+                   */
+                } else if (state is CoinListFailure) {
+                  if (state.errorType == ErrorType.noInternetConnection) {
+                    return OfflineError(
+                      icon: PersoIcons.coloredNoWifi,
+                      title: "You're currently offline",
+                      secondTitle:
+                          "Check your internet connection and try to refresh.",
+                      buttonOnPressed: () {
+                        context.read<CoinListBloc>().add(CoinListGet(
+                              currency: "usd",
+                              page: (context.read<PaginationCubit>().state),
+                              sortingCriteria: context.read<SortingCubit>().state,
+                            ));
+                      },
+                      buttonText: "Refresh",
+                    );
+                  } else {
+                    return OfflineError(
+                      icon: PersoIcons.coloredRemove,
+                      title: "Something went wrong",
+                      secondTitle:
+                          "Something went wrong on the back side, please try again.",
+                      buttonOnPressed: () {},
+                      buttonText: "Try again",
+                    );
+                  }
+                } else {
                   return OfflineError(
                     icon: PersoIcons.coloredRemove,
-                    title: "You're currently offline",
+                    title: "Something went wrong",
                     secondTitle:
-                        "Check your internet connection and try to refresh.",
+                        "Something went wrong on the back side, please try again.",
                     buttonOnPressed: () {},
-                    buttonText: "Refresh",
+                    buttonText: "Try again",
                   );
                 }
               })),

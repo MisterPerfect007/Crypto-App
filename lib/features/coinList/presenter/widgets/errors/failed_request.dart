@@ -43,7 +43,7 @@ class _OfflineErrorState extends State<OfflineError> {
     double sidePadding = size.width / 25;
     return AnimatedOpacity(
       opacity: _opacity,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 700),
       child: Container(
         padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
         child: Center(

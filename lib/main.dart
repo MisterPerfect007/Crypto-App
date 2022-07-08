@@ -5,6 +5,7 @@ import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'features/coinInfo/presenter/page/coin_info.dart';
 import 'features/coinList/presenter/cubit/scrollposition_cubit.dart';
 import 'features/coinList/presenter/cubit/sorting_cubit.dart';
 
@@ -27,15 +28,16 @@ class MyApp extends StatelessWidget {
         // colorScheme: ColorScheme.fromSwatch(accentColor: Colors.red)
       ),
       // themeMode: ThemeMode.light,
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => di.sl<CoinListBloc>()),
-          BlocProvider(create: (context) => ScrollPositionCubit()),
-          BlocProvider(create: (context) => SortingCubit()),
-          BlocProvider(create: (context) => PaginationCubit()),
-        ],
-        child: const CoinListPage(),
-      ),
+      home: const CoinInfoPage(),
+      // MultiBlocProvider(
+      //   providers: [
+      //     BlocProvider(create: (context) => di.sl<CoinListBloc>()),
+      //     BlocProvider(create: (context) => ScrollPositionCubit()),
+      //     BlocProvider(create: (context) => SortingCubit()),
+      //     BlocProvider(create: (context) => PaginationCubit()),
+      //   ],
+      //   child: const CoinListPage(),
+      // ),
     );
   }
 }

@@ -48,7 +48,7 @@ void main() {
           },
           build: () => bloc,
           act: (bloc) =>
-              bloc.add(const CoinListGet(currency: tCurrency, page: tPage)),
+              bloc.add(const CoinListGet(currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
           verify: (_) {
             verify(getRemoteCoinList(tCurrency, tPage)).called(1);
           });
@@ -59,7 +59,7 @@ void main() {
           },
           build: () => bloc,
           act: (bloc) =>
-              bloc.add(const CoinListGet(currency: tCurrency, page: tPage)),
+              bloc.add(const CoinListGet(currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
           verify: (_) {
             verify(network.isConnected).called(1);
           });
@@ -71,7 +71,7 @@ void main() {
           },
           build: () => bloc,
           act: (bloc) =>
-              bloc.add(const CoinListGet(currency: tCurrency, page: tPage)),
+              bloc.add(const CoinListGet(currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
           expect: () => [CoinListLoading(), const CoinListFailure(ErrorType.noInternetConnection)]
           );
 
@@ -82,7 +82,7 @@ void main() {
           },
           build: () => bloc,
           act: (bloc) =>
-              bloc.add(const CoinListGet(currency: tCurrency, page: tPage)),
+              bloc.add(const CoinListGet(currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
           expect: () =>
               [CoinListLoading(), CoinListLoaded(coinList: testCoins)]);
       blocTest<CoinListBloc, CoinListState>(
@@ -95,7 +95,7 @@ void main() {
           },
           build: () => bloc,
           act: (bloc) =>
-              bloc.add(const CoinListGet(currency: tCurrency, page: tPage)),
+              bloc.add(const CoinListGet(currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
           expect: () =>
               [CoinListLoading(), const CoinListFailure(ErrorType.failedRequest)]);
     }),

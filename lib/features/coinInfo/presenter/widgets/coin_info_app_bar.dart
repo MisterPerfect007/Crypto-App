@@ -17,20 +17,14 @@ class CoinInfoPageAppBar extends StatelessWidget {
         padding: EdgeInsets.only(left: size.width / 25),
         child: Row(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 230, 230, 230),
-                borderRadius: BorderRadius.all(Radius.circular(50)),
-              ),
-              child: CustomInkWellIcon(
-                onTap: () {},
-                size: 47,
-                radius: 47,
-                child: const PersoIcon(
-                  icon: PersoIcons.arrowLeft,
-                  color: AppColors.mainBlack,
-                  size: 25,
-                ),
+            CustomInkWellIcon(
+              onTap: () {},
+              size: 47,
+              radius: 47,
+              child: const PersoIcon(
+                icon: PersoIcons.arrowLeft,
+                color: AppColors.mainBlack,
+                // size: 25,
               ),
             ),
           ],

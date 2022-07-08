@@ -22,6 +22,7 @@ class CustomSpeedDial extends StatelessWidget {
         final bool isCoinListLoaded = state is CoinListLoaded;
         if (isCoinListLoaded) {
           return SpeedDial(
+            overlayOpacity: 0.6,
             backgroundColor: AppColors.mainBlack,
             icon: Icons.add,
             children: [

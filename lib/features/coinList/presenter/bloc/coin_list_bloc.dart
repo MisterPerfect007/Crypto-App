@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:crypto_trends/errors/errors_message.dart';
 import 'package:crypto_trends/features/coinList/domain/entities/coin.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/utils_functions.dart';
+import 'package:crypto_trends/features/coinList/presenter/widgets/sorting%20criteria/sorting_criteria.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/network/network_info.dart';
@@ -24,20 +25,21 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
         final isConnected = await network.isConnected;
         if (isConnected) {
           final coinListOrFailure =
-              await getRemoteCoinList(event.currency, event.page!);
+              await getRemoteCoinList(event.currency, event.page);
           coinListOrFailure.fold(
               (failure) => emit(const CoinListFailure(ErrorType.failedRequest)),
               (coinList) => emit(CoinListLoaded(
-                    coinList: coinList,
+                    coinList: sortCoinList(
+                    coinList: coinList, criteria: event.sortingCriteria),
                   )));
-        }else {
+        } else {
           emit(const CoinListFailure(ErrorType.noInternetConnection));
         }
       }
       //! on CoinListUpdate
       if (event is CoinListUpdate) {
         final coinListOrFailure =
-            await getRemoteCoinList(event.currency, event.page!);
+            await getRemoteCoinList(event.currency, event.page);
         coinListOrFailure.fold(
             (failure) => emit(const CoinListUpdateFailure(serverErrorMessage)),
             (coinList) => emit(CoinListLoaded(
