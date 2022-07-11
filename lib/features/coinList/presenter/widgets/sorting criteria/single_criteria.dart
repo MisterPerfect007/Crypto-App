@@ -24,11 +24,6 @@ class SingleCriteria extends StatelessWidget {
       builder: (context, Map<String, dynamic> state) {
         bool isDesc = false;
         bool isSelected = false;
-        // if(context.read<CoinListBloc>().state is CoinListLoaded){
-        //   final stat = context.read<CoinListBloc>().state;
-        //   print("Can caallll>>$statŸ");
-        // };
-        // .add(const CoinListUpdate(currency: "usd", page: 1));
         if (state["by"] == name) {
           isSelected = true;
           isDesc = state["desc"];

@@ -4,17 +4,29 @@ import 'package:flutter/material.dart';
 import '../../ui/colors/colors.dart';
 
 class CoinPercentageFormat extends Equatable {
-  final double percentage;
+  final double? percentage;
 
   const CoinPercentageFormat({required this.percentage});
+
   @override
   List<Object?> get props => [percentage];
 
-  bool get isPositive => percentage >= 0;
+  bool isPositive (){
+    if(percentage != null){
+      return percentage! >= 0;
+    }else {
+      return false;
+    }
+  }
 
-  Color get getColor => isPositive ? AppColors.mainGreen : AppColors.pureRed;
+  Color get getColor => isPositive() ? AppColors.mainGreen : AppColors.pureRed;
 
   String fixedPercentage() {
-    return percentage.abs().toStringAsFixed(2);
+    if(percentage != null){
+      return percentage!.abs().toStringAsFixed(2);
+    }else {
+      return "";
+    }
+    
   }
 }

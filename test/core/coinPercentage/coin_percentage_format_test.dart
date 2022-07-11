@@ -13,14 +13,14 @@ void main() {
     test('Should return true if percentage is positive', () {
       format = const CoinPercentageFormat(percentage: positive);
 
-      final result = format.isPositive;
+      final result = format.isPositive();
 
       expect(result, true);
     });
     test('Should return false if percentage is negative', () {
       format = const CoinPercentageFormat(percentage: negative);
 
-      final result = format.isPositive;
+      final result = format.isPositive();
 
       expect(result, false);
     });

@@ -53,7 +53,7 @@ class CoinPrice extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 PersoIcon(
-                  icon: formated7DPercentage!.isPositive
+                  icon: formated7DPercentage!.isPositive()
                       ? PersoIcons.arrowUp
                       : PersoIcons.arrowDown,
                   size: 9,

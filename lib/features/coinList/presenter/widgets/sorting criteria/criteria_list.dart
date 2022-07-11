@@ -6,7 +6,7 @@ List<Map<String, dynamic>> criteriaList = [
   {"by": 'Name', "desc": false}
 ];
 
-//! for test purpose
+//! for testing purpose
 const Map<String, dynamic> rankDesc = {"by": 'Rank', "desc": true};
 const Map<String, dynamic> rankAsc = {"by": 'Rank', "desc": false};
 

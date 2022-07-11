@@ -1,5 +1,3 @@
-
-// ignore: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,7 +9,7 @@ class PriceAndPercentage extends StatelessWidget {
   final double? percentage;
   late CoinPercentageFormat formatedPercentage;
   PriceAndPercentage({Key? key, required this.percentage}) : super(key: key) {
-    formatedPercentage = CoinPercentageFormat(percentage: percentage!);
+    formatedPercentage = CoinPercentageFormat(percentage: percentage);
   }
 
   @override
@@ -30,13 +28,16 @@ class PriceAndPercentage extends StatelessWidget {
           Row(
             children: [
               //! should handle lenght constraint
-              Text(
-                "\$ 40,803.900,000,000",
-                style: GoogleFonts.inter(
-                    fontSize: 24, fontWeight: FontWeight.w800),
-                overflow: TextOverflow.ellipsis,
+              Expanded(
+                child: Text(
+                  "\$40,803.900,000,000,000",
+                  style: GoogleFonts.inter(
+                      fontSize: 24, fontWeight: FontWeight.w800),
+                  // overflow: TextOverflow.fade,
+                ),
               ),
-              Expanded(child: Container()),
+              // Expanded(child: Container()),
+              const SizedBox(width: 10,),
               Container(
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(

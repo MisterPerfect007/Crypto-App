@@ -3,6 +3,7 @@ import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../../core/widgets/custom_network_image.dart';
 import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
 import 'coin_name.dart';
@@ -117,84 +118,6 @@ class _SingleCoinState extends State<SingleCoin> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomNetworkImage extends StatelessWidget {
-  const CustomNetworkImage({
-    Key? key,
-    required this.image,
-    required this.name,
-  }) : super(key: key);
-
-  final String? image;
-  final String name;
-
-  @override
-  Widget build(BuildContext context) {
-    return image != null? FadeInImage.assetNetwork(
-        fadeInDuration: const Duration(milliseconds: 100),
-        placeholder: '',
-        placeholderErrorBuilder:
-            (BuildContext context, Object object, StackTrace? stackTrace) {
-          return const CoinImageShimmer();
-        },
-        image: image!,
-        width: 40,
-        fit: BoxFit.fitWidth,
-        imageErrorBuilder: (context, error, stackTrace) {
-          return DefaultCoinImage(name: name);
-        }) : DefaultCoinImage(name: name);
-  }
-}
-
-class DefaultCoinImage extends StatelessWidget {
-  const DefaultCoinImage({
-    Key? key,
-    required this.name,
-  }) : super(key: key);
-
-  final String name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 40,
-      height: 40,
-      alignment: Alignment.center,
-      decoration: const BoxDecoration(
-          color: AppColors.secondGrey,
-          borderRadius: BorderRadius.all(Radius.circular(40))),
-      child: Text(
-        name[0],
-        style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: AppColors.mainWhite),
-      ),
-    );
-  }
-}
-
-class CoinImageShimmer extends StatelessWidget {
-  const CoinImageShimmer({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: AppColors.secondGrey,
-      highlightColor: const Color.fromARGB(255, 234, 234, 234),
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: const BoxDecoration(
-          color: AppColors.secondGrey,
-          borderRadius: BorderRadius.all(Radius.circular(40)),
         ),
       ),
     );

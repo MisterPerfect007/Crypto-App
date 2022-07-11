@@ -27,18 +27,23 @@ class CoinInfoPage extends StatelessWidget {
       body: Container(
         height: size.height,
         color: AppColors.lightBg,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const CoinNameImage(),
-              PriceAndPercentage(percentage: 99.0),
-              const SizedBox(height: 50),
-              const CoinChart(),
-              const TimeSlotsParent(),
-              const SizedBox(height: 30),
-              const ExtraInfos(),
-              const SizedBox(height: 30),
-            ],
+        child: ScrollConfiguration(
+          behavior: const ScrollBehavior(
+                        androidOverscrollIndicator:
+                            AndroidOverscrollIndicator.stretch),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const CoinNameImage(),
+                PriceAndPercentage(percentage: 19999.0),
+                const SizedBox(height: 50),
+                const CoinChart(),
+                const TimeSlotsParent(),
+                const SizedBox(height: 30),
+                const ExtraInfos(),
+                const SizedBox(height: 30),
+              ],
+            ),
           ),
         ),
       ),
