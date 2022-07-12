@@ -1,135 +1,69 @@
+import 'package:crypto_trends/core/widgets/animation/custom_opacity_animation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:crypto_trends/injection_container.dart' as di;
 
 import '../../../../ui/colors/colors.dart';
+import '../../../coinList/domain/entities/coin.dart';
+import '../../../coinList/presenter/bloc/coin_list_bloc.dart';
 import '../utils/coin_info_line_chart_data.dart';
 import '../utils/large_sample_data.dart';
 import '../widgets/coinChart/coin_line_chart.dart';
 import '../widgets/coinNameImage/coin_name_image.dart';
 import '../widgets/coin_info_app_bar.dart';
+import '../widgets/extraInfo/extra_infos.dart';
 import '../widgets/priceAndPercentage/price_and_percentage.dart';
 import '../widgets/timeSlots/time_slots_parent.dart';
 
 class CoinInfoPage extends StatelessWidget {
-  const CoinInfoPage({Key? key}) : super(key: key);
+  const CoinInfoPage({Key? key, required this.id}) : super(key: key);
+  final String id;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    print("object >>>>>>");
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(
           size.width,
           60,
         ),
-        child: const CoinInfoPageAppBar(),
+        child: const CustomOpacityAnimation(child: CoinInfoPageAppBar()),
       ),
-      body: Container(
-        height: size.height,
-        color: AppColors.lightBg,
-        child: ScrollConfiguration(
-          behavior: const ScrollBehavior(
-                        androidOverscrollIndicator:
-                            AndroidOverscrollIndicator.stretch),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const CoinNameImage(),
-                PriceAndPercentage(percentage: 19999.0),
-                const SizedBox(height: 50),
-                const CoinChart(),
-                const TimeSlotsParent(),
-                const SizedBox(height: 30),
-                const ExtraInfos(),
-                const SizedBox(height: 30),
-              ],
-            ),
-          ),
-        ),
+      body: CustomOpacityAnimation(
+              child: Container(
+                height: size.height,
+                color: AppColors.lightBg,
+                child: ScrollConfiguration(
+                  behavior: const ScrollBehavior(
+                      androidOverscrollIndicator:
+                          AndroidOverscrollIndicator.stretch),
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Column(
+                      children: [
+                        const CoinNameImage(
+                          image: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+                          name: "Name",
+                        ),
+                        PriceAndPercentage(
+                          price: 19762,
+                          percentage24h: 12,
+                          priceChange24h: 20.12,
+                        ),
+                        const SizedBox(height: 50),
+                        const CoinChart(),
+                        const TimeSlotsParent(),
+                        const SizedBox(height: 30),
+                        const ExtraInfos(),
+                        const SizedBox(height: 30),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
       ),
-    );
-  }
-}
-
-class ExtraInfos extends StatelessWidget {
-  const ExtraInfos({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double sidePadding = size.width / 25;
-    return Container(
-        padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
-        child: Column(
-          children: const [
-            ExtraInfo(
-              infoName: "Rank",
-              value: "1",
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ExtraInfo(
-              infoName: "High 24h",
-              value: "\$ 174.90",
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ExtraInfo(
-              infoName: "Low 24h",
-              value: "\$ 166.12",
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ExtraInfo(
-              infoName: "Vol.",
-              value: "\$ 790,864,928,782",
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ExtraInfo(
-              infoName: "Mkt. Cap.",
-              value: "\$ 790,864,928,782",
-            ),
-          ],
-        ));
-  }
-}
-
-class ExtraInfo extends StatelessWidget {
-  final String? value;
-  final String infoName;
-  const ExtraInfo({
-    Key? key,
-    required this.infoName,
-    this.value,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          infoName,
-          style: GoogleFonts.inter(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: AppColors.mainGrey),
-        ),
-        Expanded(child: Container()),
-        Text(
-          value!.toString(),
-          style: GoogleFonts.inter(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: AppColors.mainBlack),
-        )
-      ],
     );
   }
 }

@@ -30,7 +30,7 @@ void main() {
     test("Should return mainGreen color if % is positive", () {
       format = const CoinPercentageFormat(percentage: positive);
 
-      final result = format.getColor;
+      final result = format.getColor();
 
       expect(result, AppColors.mainGreen);
     });
@@ -38,7 +38,7 @@ void main() {
     test("Should return pureRed color if % is negative", () {
       format = const CoinPercentageFormat(percentage: negative);
 
-      final result = format.getColor;
+      final result = format.getColor();
 
       expect(result, AppColors.pureRed);
     });

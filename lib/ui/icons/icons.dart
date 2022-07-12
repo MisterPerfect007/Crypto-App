@@ -62,7 +62,7 @@ Map<PersoIcons, String> iconName = {
 class PersoIcon extends StatelessWidget {
   final Color? color;
   final double size;
-  final PersoIcons icon;
+  final PersoIcons? icon;
   const PersoIcon({
     Key? key,
     this.color = Colors.black,
@@ -72,13 +72,13 @@ class PersoIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return icon != null? SizedBox(
       child: Image.asset(
         iconName[icon]!,
         color: color,
         width: size,
         // scale: 12,
       ),
-    );
+    ) : Container();
   }
 }

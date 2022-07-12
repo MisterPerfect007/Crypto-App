@@ -11,22 +11,29 @@ class CoinPercentageFormat extends Equatable {
   @override
   List<Object?> get props => [percentage];
 
-  bool isPositive (){
-    if(percentage != null){
+  bool? isPositive() {
+    if (percentage != null) {
       return percentage! >= 0;
-    }else {
+    } else {
       return false;
     }
   }
 
-  Color get getColor => isPositive() ? AppColors.mainGreen : AppColors.pureRed;
+  Color getColor() {
+    if (isPositive() == true) {
+      return AppColors.mainGreen;
+    } else if (isPositive() == false) {
+      return AppColors.pureRed;
+    }else {
+      return AppColors.mainGrey;
+    }
+  }
 
   String fixedPercentage() {
-    if(percentage != null){
+    if (percentage != null) {
       return percentage!.abs().toStringAsFixed(2);
-    }else {
+    } else {
       return "";
     }
-    
   }
 }

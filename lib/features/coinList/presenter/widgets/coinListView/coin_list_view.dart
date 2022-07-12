@@ -47,8 +47,8 @@ class _CoinListViewState extends State<CoinListView> {
           itemCount: (widget.coinList.length + 1),
           itemBuilder: ((context, i) {
             final coinList = widget.coinList;
-            //To be able to put pagination widget to the of listview
-            i = i - 1;
+            //To be able to put pagination widget to the top of listview
+            i--;
             if (i == -1) {
               return const PaginationExpansionPanel();
             } else {

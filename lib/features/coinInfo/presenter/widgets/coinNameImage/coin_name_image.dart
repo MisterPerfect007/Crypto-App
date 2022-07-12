@@ -1,4 +1,3 @@
-
 import 'package:crypto_trends/core/widgets/custom_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +9,11 @@ import '../custom_ink_well_icon.dart';
 class CoinNameImage extends StatelessWidget {
   const CoinNameImage({
     Key? key,
+    required this.name,
+    required this.image,
   }) : super(key: key);
+  final String name;
+  final String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +30,17 @@ class CoinNameImage extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                const CustomNetworkImage(
-                  image: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579", 
-                  name: "name"),
+                CustomNetworkImage(
+                  image: image,
+                  name: name,
+                ),
                 const SizedBox(
                   width: 10,
                 ),
-                // Expanded(child: Container()),
                 //Name
                 Flexible(
                   child: Text(
-                    'Bitcoin',
+                    name,
                     style: GoogleFonts.inter(
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
@@ -47,7 +50,6 @@ class CoinNameImage extends StatelessWidget {
               ],
             ),
           ),
-          
           CustomInkWellIcon(
             onTap: () {},
             size: 45,

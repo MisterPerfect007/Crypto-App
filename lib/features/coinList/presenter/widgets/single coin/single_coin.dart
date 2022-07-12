@@ -6,6 +6,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../../core/widgets/custom_network_image.dart';
 import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
+import '../../../../coinInfo/presenter/page/coin_info.dart';
 import 'coin_name.dart';
 import 'coin_price.dart';
 import 'single_coin_line_chart.dart';
@@ -29,7 +30,8 @@ class SingleCoin extends StatefulWidget {
     this.marketCapRank,
     this.priceChangePercentage7dInCurrency,
     this.lastWeekData,
-    required this.id, this.isUpdate,
+    required this.id,
+    this.isUpdate,
   }) : super(key: key);
 
   @override
@@ -42,7 +44,12 @@ class _SingleCoinState extends State<SingleCoin> {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CoinInfoPage(id: widget.id)),
+        );
+      },
       child: Container(
         padding: EdgeInsets.only(
           left: sidePadding,
@@ -95,11 +102,12 @@ class _SingleCoinState extends State<SingleCoin> {
             CoinPrice(
               id: widget.id,
               currentPrice: widget.currentPrice,
-              formated7DPercentage: widget.priceChangePercentage7dInCurrency != null
-                  ? CoinPercentageFormat(
-                      percentage: widget.priceChangePercentage7dInCurrency!)
-                  : null,
-                      // percentage: calculate7DPercentage(widget.lastWeekData)!),
+              formated7DPercentage:
+                  widget.priceChangePercentage7dInCurrency != null
+                      ? CoinPercentageFormat(
+                          percentage: widget.priceChangePercentage7dInCurrency!)
+                      : null,
+              // percentage: calculate7DPercentage(widget.lastWeekData)!),
             ),
             const SizedBox(
               width: 5,

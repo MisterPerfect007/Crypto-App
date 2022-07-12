@@ -6,10 +6,14 @@ import '../../../../../ui/icons/icons.dart';
 
 // ignore: must_be_immutable
 class PriceAndPercentage extends StatelessWidget {
-  final double? percentage;
+  final double? percentage24h;
+  final double? price;
+  final double? priceChange24h;
   late CoinPercentageFormat formatedPercentage;
-  PriceAndPercentage({Key? key, required this.percentage}) : super(key: key) {
-    formatedPercentage = CoinPercentageFormat(percentage: percentage);
+  PriceAndPercentage(
+      {Key? key, required this.percentage24h, this.price, this.priceChange24h})
+      : super(key: key) {
+    formatedPercentage = CoinPercentageFormat(percentage: percentage24h);
   }
 
   @override
@@ -27,49 +31,59 @@ class PriceAndPercentage extends StatelessWidget {
           ),
           Row(
             children: [
-              //! should handle lenght constraint
+              //Price
               Expanded(
                 child: Text(
-                  "\$40,803.900,000,000,000",
+                  "\$${price?.toString() ?? 'Unknow'}",
                   style: GoogleFonts.inter(
                       fontSize: 24, fontWeight: FontWeight.w800),
-                  // overflow: TextOverflow.fade,
                 ),
               ),
-              // Expanded(child: Container()),
-              const SizedBox(width: 10,),
-              Container(
+              const SizedBox(
+                width: 10,
+              ),
+              //percentage
+              percentage24h != null ? Container(
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                      color: formatedPercentage.getColor.withOpacity(0.2),
+                      color: formatedPercentage.getColor().withOpacity(0.2),
                       borderRadius: const BorderRadius.all(Radius.circular(5))),
                   child: Row(children: [
-                    PersoIcon(
-                      icon: PersoIcons.arrowUp,
-                      size: 10,
-                      color: formatedPercentage.getColor,
+                    formatedPercentage.isPositive() != null
+                        ? PersoIcon(
+                            icon: formatedPercentage.isPositive()!
+                                ? PersoIcons.arrowUp
+                                : PersoIcons.arrowDown,
+                            size: 10,
+                            color: formatedPercentage.getColor(),
+                          )
+                        : Container(),
+                    const SizedBox(
+                      width: 5,
                     ),
-                    const SizedBox(width: 5,),
                     Text(
                       formatedPercentage.fixedPercentage() + "%",
                       style: GoogleFonts.inter(
-                        color: formatedPercentage.getColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600
-                      ),
+                          color: formatedPercentage.getColor(),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
                     )
-                  ]))
+                  ])) : Container()
             ],
           ),
-          const SizedBox(height: 5,),
-          Text(
-            '+\$ 320.90',
-            style: GoogleFonts.inter(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: formatedPercentage.getColor
-            ),
-          )
+          const SizedBox(
+            height: 5,
+          ),
+          (percentage24h != null && priceChange24h != null)
+              ? Text(
+                  (formatedPercentage.isPositive()! ? "+" : "-") +
+                      "\$${priceChange24h?.abs()}",
+                  style: GoogleFonts.inter(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: formatedPercentage.getColor()),
+                )
+              : Container()
         ],
       ),
     );
