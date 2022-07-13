@@ -53,15 +53,7 @@ class _CoinListViewState extends State<CoinListView> {
               return const PaginationExpansionPanel();
             } else {
               return SingleCoin(
-                id: coinList[i].id,
-                name: coinList[i].name,
-                image: coinList[i].image,
-                symbol: coinList[i].symbol,
-                currentPrice: coinList[i].currentPrice,
-                marketCapRank: coinList[i].marketCapRank,
-                priceChangePercentage7dInCurrency:
-                    coinList[i].priceChangePercentage7dInCurrency,
-                lastWeekData: coinList[i].sparklineIn7d?.price,
+                coin: coinList[i],
               );
             }
           })),

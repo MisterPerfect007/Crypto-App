@@ -1,3 +1,4 @@
+import 'package:crypto_trends/features/coinInfo/presenter/utils/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,7 +35,7 @@ class PriceAndPercentage extends StatelessWidget {
               //Price
               Expanded(
                 child: Text(
-                  "\$${price?.toString() ?? 'Unknow'}",
+                  "\$" + customFormater(price),
                   style: GoogleFonts.inter(
                       fontSize: 24, fontWeight: FontWeight.w800),
                 ),
@@ -77,7 +78,7 @@ class PriceAndPercentage extends StatelessWidget {
           (percentage24h != null && priceChange24h != null)
               ? Text(
                   (formatedPercentage.isPositive()! ? "+" : "-") +
-                      "\$${priceChange24h?.abs()}",
+                      "\$${customFormater(priceChange24h!.abs())}",
                   style: GoogleFonts.inter(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,

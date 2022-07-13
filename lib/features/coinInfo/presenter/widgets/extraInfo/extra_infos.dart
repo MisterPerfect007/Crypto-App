@@ -1,12 +1,15 @@
-
+import 'package:crypto_trends/features/coinInfo/presenter/utils/functions.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../coinList/domain/entities/coin.dart';
 import 'extra_info.dart';
 
 class ExtraInfos extends StatelessWidget {
   const ExtraInfos({
     Key? key,
+    required this.coin
   }) : super(key: key);
+  final Coin coin;
 
   @override
   Widget build(BuildContext context) {
@@ -16,38 +19,30 @@ class ExtraInfos extends StatelessWidget {
         padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
         width: size.width,
         child: Column(
-          children: const [
+          children: [
             ExtraInfo(
               infoName: "Rank",
-              value: "1",
+              value: (coin.marketCapRank ?? "??").toString(),
             ),
-            SizedBox(
-              height: 20,
+            ExtraInfo(
+              infoName: "Symbol",
+              value: coin.symbol.toUpperCase(),
             ),
             ExtraInfo(
               infoName: "High 24h",
-              value: "\$ 174.90",
-            ),
-            SizedBox(
-              height: 20,
+              value: "\$" + customFormater(coin.high24h),
             ),
             ExtraInfo(
               infoName: "Low 24h",
-              value: "\$ 166.12",
-            ),
-            SizedBox(
-              height: 20,
+              value: "\$" + customFormater(coin.low24h),
             ),
             ExtraInfo(
               infoName: "Vol.",
-              value: "\$790,864,928,782,790,864,928,782,790,864",
-            ),
-            SizedBox(
-              height: 20,
+              value: "\$" + customFormater(coin.totalVolume),
             ),
             ExtraInfo(
               infoName: "Mkt. Cap.",
-              value: "\$ 790,864,928,782",
+              value: "\$" + customFormater(coin.marketCap),
             ),
           ],
         ));

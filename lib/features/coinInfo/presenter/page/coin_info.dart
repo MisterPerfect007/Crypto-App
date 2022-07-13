@@ -16,13 +16,13 @@ import '../widgets/priceAndPercentage/price_and_percentage.dart';
 import '../widgets/timeSlots/time_slots_parent.dart';
 
 class CoinInfoPage extends StatelessWidget {
-  const CoinInfoPage({Key? key, required this.id}) : super(key: key);
-  final String id;
+  const CoinInfoPage({Key? key, required this.coin}) : super(key: key);
+  final Coin coin;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print("object >>>>>>");
+    print(coin);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(
@@ -43,20 +43,20 @@ class CoinInfoPage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 20),
                     child: Column(
                       children: [
-                        const CoinNameImage(
-                          image: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
-                          name: "Name",
+                        CoinNameImage(
+                          image: coin.image,
+                          name: coin.name,
                         ),
                         PriceAndPercentage(
-                          price: 19762,
-                          percentage24h: 12,
-                          priceChange24h: 20.12,
+                          price: coin.currentPrice,
+                          percentage24h: coin.priceChangePercentage24h,
+                          priceChange24h: coin.priceChange24h,
                         ),
                         const SizedBox(height: 50),
                         const CoinChart(),
                         const TimeSlotsParent(),
                         const SizedBox(height: 30),
-                        const ExtraInfos(),
+                        ExtraInfos(coin: coin),
                         const SizedBox(height: 30),
                       ],
                     ),

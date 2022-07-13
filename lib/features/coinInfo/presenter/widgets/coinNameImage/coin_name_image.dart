@@ -20,7 +20,7 @@ class CoinNameImage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
     return Container(
-      margin: const EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 30),
       padding: EdgeInsets.only(
         left: sidePadding,
         right: sidePadding,
@@ -33,6 +33,7 @@ class CoinNameImage extends StatelessWidget {
                 CustomNetworkImage(
                   image: image,
                   name: name,
+                  width: 50,
                 ),
                 const SizedBox(
                   width: 10,

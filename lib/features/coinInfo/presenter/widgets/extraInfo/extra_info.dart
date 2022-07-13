@@ -16,7 +16,8 @@ class ExtraInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SizedBox(
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
       width: size.width,
       child: Wrap(
         alignment: WrapAlignment.spaceBetween,
@@ -27,7 +28,7 @@ class ExtraInfo extends StatelessWidget {
           ),
           // Expanded(child: Container()),
           Text(
-            value!.toString(),
+            value!,
             style: GoogleFonts.inter(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,

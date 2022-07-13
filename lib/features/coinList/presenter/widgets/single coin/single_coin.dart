@@ -1,4 +1,5 @@
 import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
+import 'package:crypto_trends/features/coinList/domain/entities/coin.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_data.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -12,26 +13,10 @@ import 'coin_price.dart';
 import 'single_coin_line_chart.dart';
 
 class SingleCoin extends StatefulWidget {
-  final String name;
-  final String id;
-  final String? image;
-  final String symbol;
-  final double? currentPrice;
-  final int? marketCapRank;
-  final double? priceChangePercentage7dInCurrency;
-  final List<double>? lastWeekData;
-  final bool? isUpdate;
+  final Coin coin;
   const SingleCoin({
     Key? key,
-    required this.name,
-    this.image,
-    required this.symbol,
-    this.currentPrice,
-    this.marketCapRank,
-    this.priceChangePercentage7dInCurrency,
-    this.lastWeekData,
-    required this.id,
-    this.isUpdate,
+    required this.coin
   }) : super(key: key);
 
   @override
@@ -43,11 +28,12 @@ class _SingleCoinState extends State<SingleCoin> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
+    final coin = widget.coin;
     return InkWell(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => CoinInfoPage(id: widget.id)),
+          MaterialPageRoute(builder: (context) => CoinInfoPage(coin: coin)),
         );
       },
       child: Container(
@@ -62,8 +48,8 @@ class _SingleCoinState extends State<SingleCoin> {
         child: Row(
           children: [
             CustomNetworkImage(
-              image: widget.image,
-              name: widget.name,
+              image: coin.image,
+              name: coin.name,
             ),
             const SizedBox(
               width: 5,
@@ -71,16 +57,16 @@ class _SingleCoinState extends State<SingleCoin> {
             //Name and Rank
             //
             CoinName(
-              name: widget.name,
-              symbol: widget.symbol,
-              marketCapRank: widget.marketCapRank,
+              name: coin.name,
+              symbol: coin.symbol,
+              marketCapRank: coin.marketCapRank,
             ),
             //Chart
             //
             Expanded(
               child: Align(
                 alignment: Alignment.topLeft,
-                child: widget.lastWeekData!.isNotEmpty
+                child: coin.sparklineIn7d!.price.isNotEmpty
                     ? Container(
                         height: 20,
                         // constraints:
@@ -91,7 +77,7 @@ class _SingleCoinState extends State<SingleCoin> {
                         ),
                         child: SingleCoinLineChart(
                           chartData:
-                              CoinLineChartData(dataList: widget.lastWeekData!),
+                              CoinLineChartData(dataList: coin.sparklineIn7d!.price),
                         ),
                       )
                     : Container(),
@@ -100,12 +86,12 @@ class _SingleCoinState extends State<SingleCoin> {
             //Price and week evolution
             //
             CoinPrice(
-              id: widget.id,
-              currentPrice: widget.currentPrice,
+              id: coin.id,
+              currentPrice: coin.currentPrice,
               formated7DPercentage:
-                  widget.priceChangePercentage7dInCurrency != null
+                  coin.priceChangePercentage7dInCurrency != null
                       ? CoinPercentageFormat(
-                          percentage: widget.priceChangePercentage7dInCurrency!)
+                          percentage: coin.priceChangePercentage7dInCurrency!)
                       : null,
               // percentage: calculate7DPercentage(widget.lastWeekData)!),
             ),
