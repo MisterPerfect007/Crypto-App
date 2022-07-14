@@ -4,6 +4,7 @@
 
 import 'dart:async' as _i5;
 
+import 'package:crypto_trends/core/network/network_info.dart' as _i8;
 import 'package:crypto_trends/errors/failures.dart' as _i6;
 import 'package:crypto_trends/features/coinInfo/domain/entities/coin_market_chart.dart'
     as _i7;
@@ -57,4 +58,18 @@ class MockGetCoinMarketChart extends _i1.Mock
                   Future<_i3.Either<_i6.Failure, _i7.CoinMarketChart>>.value(
                       _FakeEither_1<_i6.Failure, _i7.CoinMarketChart>()))
           as _i5.Future<_i3.Either<_i6.Failure, _i7.CoinMarketChart>>);
+}
+
+/// A class which mocks [NetworkInfo].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockNetworkInfo extends _i1.Mock implements _i8.NetworkInfo {
+  MockNetworkInfo() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<bool> get isConnected =>
+      (super.noSuchMethod(Invocation.getter(#isConnected),
+          returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
 }

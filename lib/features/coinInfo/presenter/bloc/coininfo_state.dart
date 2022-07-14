@@ -20,4 +20,11 @@ class CoinInfoLoaded extends CoinInfoState {
   List<Object> get props => [coinMarketChart];
 }
 
-class CoinInfoError extends CoinInfoState {}
+class CoinInfoFailure extends CoinInfoState {
+  final ErrorType errorType;
+
+  const CoinInfoFailure(this.errorType);
+
+  @override
+  List<Object> get props => [errorType];
+}

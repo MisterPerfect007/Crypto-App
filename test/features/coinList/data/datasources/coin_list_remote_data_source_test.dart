@@ -68,4 +68,14 @@ void main() {
     expect(() => call(currency: tCurrency, page: tPage),
         throwsA(isA<ServerException>()));
   });
+
+  test("Should throw a NoConnectionException when something went wrong and an unexpected exception is throwed ", () {
+    when(client.get(any, headers: anyNamed("headers")))
+        .thenThrow(Exception());
+
+    final call = remote.getRemoteCoinList;
+
+    expect(() => call(currency: tCurrency, page: tPage),
+        throwsA(isA<NoConnectionException>()));
+  });
 }

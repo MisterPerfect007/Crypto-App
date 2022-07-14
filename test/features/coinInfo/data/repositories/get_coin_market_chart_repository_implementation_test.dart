@@ -66,10 +66,10 @@ void main() {
       dailyInterval: tDailyInterval,
     );
 
-    expect(Right(CoinMarketChartModel(prices: testCoinMarketChart)), equals(result));
+    expect(result, Right(CoinMarketChartModel(prices: testCoinMarketChart)));
   });
 
-  test("Should return a failure when something went wrong", () async {
+  test("Should return a server failure when the request fails", () async {
     when(
       dataSource.getRemote(
         id: anyNamed("id"),
@@ -87,5 +87,25 @@ void main() {
     );
 
     expect(result, left(ServerFailure()));
+  });
+
+  test("Should return a NoConnectionFailure when a NoConnectionException is throwed", () async {
+    when(
+      dataSource.getRemote(
+        id: anyNamed("id"),
+        currency: anyNamed("currency"),
+        days: anyNamed("days"),
+        dailyInterval: anyNamed("dailyInterval"),
+      ),
+    ).thenThrow(NoConnectionException());
+
+    final result = await repository.getRemoteCoinMarketChart(
+      id: tId,
+      currency: tCurrency,
+      days: tDays,
+      dailyInterval: tDailyInterval,
+    );
+
+    expect(result, left(NoConnectionFailure()));
   });
 }

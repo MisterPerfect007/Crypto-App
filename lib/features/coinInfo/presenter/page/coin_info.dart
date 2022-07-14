@@ -6,6 +6,7 @@ import 'package:crypto_trends/injection_container.dart' as di;
 import '../../../../ui/colors/colors.dart';
 import '../../../coinList/domain/entities/coin.dart';
 import '../../../coinList/presenter/bloc/coin_list_bloc.dart';
+import '../bloc/coininfo_bloc.dart';
 import '../utils/coin_info_line_chart_data.dart';
 import '../utils/large_sample_data.dart';
 import '../widgets/coinChart/coin_line_chart.dart';
@@ -22,7 +23,6 @@ class CoinInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print(coin);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(
@@ -31,7 +31,14 @@ class CoinInfoPage extends StatelessWidget {
         ),
         child: const CustomOpacityAnimation(child: CoinInfoPageAppBar()),
       ),
-      body: CustomOpacityAnimation(
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => di.sl<CoinInfoBloc>()),
+        ],
+        child: BlocBuilder<CoinInfoBloc, CoinInfoState>(
+          builder: (context, state) {
+            print(state);
+            return CustomOpacityAnimation(
               child: Container(
                 height: size.height,
                 color: AppColors.lightBg,
@@ -63,6 +70,9 @@ class CoinInfoPage extends StatelessWidget {
                   ),
                 ),
               ),
+            );
+          },
+        ),
       ),
     );
   }

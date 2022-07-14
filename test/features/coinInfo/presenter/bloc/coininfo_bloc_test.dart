@@ -1,4 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:crypto_trends/core/network/network_info.dart';
+import 'package:crypto_trends/errors/error_types.dart';
 import 'package:crypto_trends/errors/failures.dart';
 import 'package:crypto_trends/features/coinInfo/domain/entities/coin_market_chart.dart';
 import 'package:crypto_trends/features/coinInfo/domain/usescases/get_coin_market_chart.dart';
@@ -12,13 +14,16 @@ import '../../testData/coin_market_chart.dart';
 import 'coininfo_bloc_test.mocks.dart';
 
 @GenerateMocks([GetCoinMarketChart])
+@GenerateMocks([NetworkInfo])
 void main() {
   late CoinInfoBloc coinInfoBloc;
   late MockGetCoinMarketChart usecase;
+  late MockNetworkInfo networkInfo;
 
   setUp(() {
     usecase = MockGetCoinMarketChart();
-    coinInfoBloc = CoinInfoBloc(usecase: usecase);
+    networkInfo = MockNetworkInfo();
+    coinInfoBloc = CoinInfoBloc(usecase: usecase, network: networkInfo);
   });
   String tId = "bitcoin";
   String tCurrency = "usd";
@@ -37,7 +42,24 @@ void main() {
         days: anyNamed("days"),
         dailyInterval: anyNamed("dailyInterval"),
       )).thenAnswer((_) async => Right(coinMarketChart));
+      when(networkInfo.isConnected).thenAnswer((_) async => true);
   }
+  blocTest<CoinInfoBloc, CoinInfoState>(
+    "Should check networkInfo",
+    setUp: () {
+      whenSuccess();
+    },
+    build: () => coinInfoBloc,
+    act: (bloc) => bloc.add(GetCoinInfo(
+      currency: tCurrency,
+      id: tId,
+      days: tDays,
+      dailyInterval: tDailyInterval,
+    )),
+    verify: (_) {
+      verify(networkInfo.isConnected).called(1);
+    }
+  );
   blocTest<CoinInfoBloc, CoinInfoState>(
     "Should call usecase with corrent parameters",
     setUp: () {
@@ -62,7 +84,7 @@ void main() {
 
   blocTest<CoinInfoBloc, CoinInfoState>(
     """ Should emit [CoinInfoLoading, CoinInfoLoaded] when GetCoinInfo is triggered
-      and a correct CoinMarketChart is returned
+      with an internet connection and a correct CoinMarketChart is returned
     """,
     setUp: () {
       whenSuccess();
@@ -78,8 +100,8 @@ void main() {
   );
 
   blocTest<CoinInfoBloc, CoinInfoState>(
-    """ Should emit [CoinInfoLoading, CoinInfoError] when GetCoinInfo is triggered
-      and a ServerFailure is returned
+    """ Should emit [CoinInfoLoading, CoinInfoFailure(ErrorType.failedRequest)] when GetCoinInfo is triggered
+      with an internet connection and a ServerFailure is returned
     """,
     setUp: () {
       when(usecase.call(
@@ -88,6 +110,7 @@ void main() {
         days: anyNamed("days"),
         dailyInterval: anyNamed("dailyInterval"),
       )).thenAnswer((_) async => Left(ServerFailure()));
+      when(networkInfo.isConnected).thenAnswer((_) async => true);
     },
     build: () => coinInfoBloc,
     act: (bloc) => bloc.add(GetCoinInfo(
@@ -96,6 +119,53 @@ void main() {
       days: tDays,
       dailyInterval: tDailyInterval,
     )),
-    expect: () => [CoinInfoLoading(), CoinInfoError()]
+    expect: () => [CoinInfoLoading(), const CoinInfoFailure(ErrorType.failedRequest)]
+  );
+  blocTest<CoinInfoBloc, CoinInfoState>(
+    """ Should emit [CoinInfoLoading, CoinInfoFailure(ErrorType.noInternetConnection)] when GetCoinInfo is triggered
+      with an internet connection and a NoConnectionFailure is returned
+    """,
+    setUp: () {
+      when(usecase.call(
+        id: anyNamed("id"),
+        currency: anyNamed("currency"),
+        days: anyNamed("days"),
+        dailyInterval: anyNamed("dailyInterval"),
+      )).thenAnswer((_) async => Left(NoConnectionFailure()));
+      when(networkInfo.isConnected).thenAnswer((_) async => true);
+    },
+    build: () => coinInfoBloc,
+    act: (bloc) => bloc.add(GetCoinInfo(
+      currency: tCurrency,
+      id: tId,
+      days: tDays,
+      dailyInterval: tDailyInterval,
+    )),
+    expect: () => [CoinInfoLoading(), const CoinInfoFailure(ErrorType.noInternetConnection)]
+  );
+  blocTest<CoinInfoBloc, CoinInfoState>(
+    """ Should emit [CoinInfoLoading, CoinInfoFailure(ErrorType.noInternetConnection)] when GetCoinInfo is triggered
+      without an internet connection
+    """,
+    setUp: () {
+      when(networkInfo.isConnected).thenAnswer((_) async => false);
+    },
+    build: () => coinInfoBloc,
+    act: (bloc) => bloc.add(GetCoinInfo(
+      currency: tCurrency,
+      id: tId,
+      days: tDays,
+      dailyInterval: tDailyInterval,
+    )),
+    expect: () => [CoinInfoLoading(),
+            const CoinInfoFailure(ErrorType.noInternetConnection),],
+    verify: (_) {
+      verifyNever(usecase.call(
+        id: anyNamed("id"),
+        currency: anyNamed("currency"),
+        days: anyNamed("days"),
+        dailyInterval: anyNamed("dailyInterval"),
+      ));
+    }
   );
 }

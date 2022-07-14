@@ -6,6 +6,7 @@ import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'features/coinInfo/presenter/bloc/coininfo_bloc.dart';
 import 'features/coinInfo/presenter/page/coin_info.dart';
 import 'features/coinList/presenter/cubit/scrollposition_cubit.dart';
 import 'features/coinList/presenter/cubit/sorting_cubit.dart';

@@ -22,13 +22,13 @@ class CustomNetworkImage extends StatelessWidget {
         placeholder: '',
         placeholderErrorBuilder:
             (BuildContext context, Object object, StackTrace? stackTrace) {
-          return const CoinImageShimmer();
+          return CoinImageShimmer(width: width,);
         },
         image: image!,
         width: width,
         fit: BoxFit.fitWidth,
         imageErrorBuilder: (context, error, stackTrace) {
-          return DefaultCoinImage(name: name);
-        }) : DefaultCoinImage(name: name);
+          return DefaultCoinImage(name: name, width: width);
+        }) : DefaultCoinImage(name: name, width: width);
   }
 }

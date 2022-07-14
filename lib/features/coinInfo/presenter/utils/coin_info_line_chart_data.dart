@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../../ui/colors/colors.dart';
 import '../../domain/entities/coin_market_chart.dart';
 
+//tested class
 // ignore: must_be_immutable
 class CoinInfoLineChartData extends Equatable {
   final CoinMarketChart coinMarketChart;

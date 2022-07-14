@@ -33,14 +33,19 @@ class CoinMarketChartRemoteDataSourceImpl
     required String days,
     required bool dailyInterval,
   }) async {
-    final response = await client.get(
-        buildUrl(
-          id: id,
-          currency: currency,
-          days: days,
-          dailyInterval: dailyInterval,
-        ),
-        headers: defaultHeader);
+    final Response response;
+    try {
+      response = await client.get(
+          buildUrl(
+            id: id,
+            currency: currency,
+            days: days,
+            dailyInterval: dailyInterval,
+          ),
+          headers: defaultHeader);
+    } catch (e) {
+      throw NoConnectionException();
+    }
     if (response.statusCode == 200) {
       final responseBody = response.body;
       return CoinMarketChartModel.fromJson(jsonDecode(responseBody));
@@ -50,17 +55,17 @@ class CoinMarketChartRemoteDataSourceImpl
   }
 
   Map<String, String> get defaultHeader => {'Content-type': 'application/json'};
+}
 
-  Uri buildUrl({
-    required String id,
-    required String currency,
-    required String days,
-    required bool dailyInterval,
-  }) {
-    return Uri.https('api.coingecko.com', '/api/v3/coins/$id/market_chart', {
-      'vs_currency': currency,
-      'days': days,
-      'interval': dailyInterval ? 'daily' : ''
-    });
-  }
+Uri buildUrl({
+  required String id,
+  required String currency,
+  required String days,
+  required bool dailyInterval,
+}) {
+  return Uri.https('api.coingecko.com', '/api/v3/coins/$id/market_chart', {
+    'vs_currency': currency,
+    'days': days,
+    'interval': dailyInterval ? 'daily' : ''
+  });
 }

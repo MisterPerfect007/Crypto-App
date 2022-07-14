@@ -20,11 +20,16 @@ class GetCoinMarketChartRepositoryImpl implements GetCoinMarketChartRepository {
   }) async {
     try {
       final result = await remote.getRemote(
-          id: id, currency: currency, days: days, dailyInterval: dailyInterval);
+        id: id,
+        currency: currency,
+        days: days,
+        dailyInterval: dailyInterval,
+      );
       return Right(result);
     } on ServerException {
       return Left(ServerFailure());
+    } on NoConnectionException {
+      return Left(NoConnectionFailure());
     }
   }
 }
-

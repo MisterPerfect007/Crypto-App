@@ -14,7 +14,7 @@ part 'coin_list_state.dart';
 
 class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
   final GetRemoteCoinList getRemoteCoinList;
-  final NetworkInfoImpl network;
+  final NetworkInfo network;
   CoinListBloc({
     required this.getRemoteCoinList,
     required this.network,

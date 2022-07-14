@@ -30,19 +30,6 @@ void main() {
   final CoinMarketChartModel coinMarketChartModel =
       CoinMarketChartModel(prices: testCoinMarketChart);
 
-  Uri buildUrl({
-    required String id,
-    required String currency,
-    required String days,
-    required bool dailyInterval,
-  }) {
-    return Uri.https('api.coingecko.com', '/api/v3/coins/$id/market_chart', {
-      'vs_currency': currency,
-      'days': days,
-      'interval': dailyInterval ? 'daily' : ''
-    });
-  }
-
   test("Should make the API call with given parameters and headers", () async {
     when(
       client.get(any, headers: anyNamed("headers")),
@@ -82,7 +69,7 @@ void main() {
     expect(result, coinMarketChartModel);
   });
 
-  test("Should throw a ServerExeption when something went wrong", () async {
+  test("Should throw a ServerExeption when the request did not succeed (status != 200)", () async {
     when(
       client.get(any, headers: anyNamed("headers")),
     ).thenAnswer((_) async => http.Response(apiResponse, 404));
@@ -96,5 +83,21 @@ void main() {
             days: tDays,
             dailyInterval: tDailyInterval),
         throwsA(isA<ServerException>()));
+  });
+
+  test("Should throw a NoConnectionException when something went wrong and throw an unexpected exception", () async {
+    when(
+      client.get(any, headers: anyNamed("headers")),
+    ).thenThrow(Exception());
+
+    final call = remote.getRemote;
+
+    expect(
+      () =>  call(
+            id: tId,
+            currency: tCurrency,
+            days: tDays,
+            dailyInterval: tDailyInterval),
+        throwsA(isA<NoConnectionException>()));
   });
 }
