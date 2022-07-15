@@ -52,6 +52,8 @@ dependencies:
   shared_preferences: ^2.0.15
   #
   flutter_speed_dial: ^6.0.0
+  #
+  flutter_spinkit: ^5.1.0
   
 
 

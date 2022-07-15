@@ -15,28 +15,17 @@ import 'features/coinList/domain/usecases/get_coin_list.dart';
 import 'features/coinList/presenter/bloc/coin_list_bloc.dart';
 
 part 'features/coinInfo/injection_container.dart';
+part 'features/coinList/injection_container.dart';
 
 final GetIt sl = GetIt.instance;
 
 Future<void> init() async {
-  //!Presenter
-  //*Bloc
-  sl.registerFactory(() => CoinListBloc(getRemoteCoinList: sl(), network: sl()));
-
-  //!domain
-  //*usecase
-  sl.registerLazySingleton(() => GetRemoteCoinList(repository: sl()));
-
-  sl.registerLazySingleton<CoinListRepository>(
-      () => CoinListRepositoryImpl(remote: sl()));
-
-  //!data
-  sl.registerLazySingleton<CoinListRemoteDataSource>(
-    () => CoinListRemoteDataSourceImpl(client: sl()));
+  
 
   //!External
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(internetConnectionChecker: InternetConnectionChecker()));
-   //
-  initCoinInfo();
+   
+  await initCoinInfo();
+  await initCoinList();
 }

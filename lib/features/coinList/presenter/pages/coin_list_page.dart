@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/widgets/errors/failed_request.dart';
 import '../../../../errors/error_types.dart';
 import '../cubit/scrollposition_cubit.dart';
 import '../utils/utils_functions.dart';
@@ -14,7 +15,6 @@ import '../widgets/app_bar.dart';
 import '../widgets/coin_list_shimmer.dart';
 import '../widgets/coinListView/coin_list_view.dart';
 import '../widgets/customFloatingActionButton/custom_floating_action_button.dart';
-import '../widgets/errors/failed_request.dart';
 import '../widgets/sorting criteria/sorting_criteria.dart';
 
 class CoinListPage extends StatelessWidget {
@@ -95,7 +95,7 @@ class CoinListPage extends StatelessWidget {
                    */
                 } else if (state is CoinListFailure) {
                   if (state.errorType == ErrorType.noInternetConnection) {
-                    return OfflineError(
+                    return FailedRequest(
                       icon: PersoIcons.coloredNoWifi,
                       title: "You're currently offline",
                       secondTitle:
@@ -110,7 +110,7 @@ class CoinListPage extends StatelessWidget {
                       buttonText: "Refresh",
                     );
                   } else {
-                    return OfflineError(
+                    return FailedRequest(
                       icon: PersoIcons.coloredRemove,
                       title: "Something went wrong",
                       secondTitle:
@@ -120,7 +120,7 @@ class CoinListPage extends StatelessWidget {
                     );
                   }
                 } else {
-                  return OfflineError(
+                  return FailedRequest(
                     icon: PersoIcons.coloredRemove,
                     title: "Something went wrong",
                     secondTitle:

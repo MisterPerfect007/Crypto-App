@@ -1,49 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
 
-class OfflineError extends StatefulWidget {
+class FailedRequest extends StatelessWidget {
   final PersoIcons icon;
   final String title;
   final String secondTitle;
   final Function() buttonOnPressed;
   final String buttonText;
-  const OfflineError({
+  final bool small;
+  const FailedRequest({
     Key? key,
     required this.icon,
     required this.title,
     required this.secondTitle,
     required this.buttonOnPressed,
     required this.buttonText,
+    this.small = false,
   }) : super(key: key);
-
-  @override
-  State<OfflineError> createState() => _OfflineErrorState();
-}
-
-class _OfflineErrorState extends State<OfflineError> {
-  double _opacity = 0;
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      if (mounted) {
-        setState(() {
-          _opacity = 1;
-        });
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
-    return AnimatedOpacity(
-      opacity: _opacity,
-      duration: const Duration(milliseconds: 700),
+    return CustomOpacityAnimation(
       child: Container(
         padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
         child: Center(
@@ -51,46 +34,48 @@ class _OfflineErrorState extends State<OfflineError> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             PersoIcon(
-              icon: widget.icon,
+              icon: icon,
               color: null,
-              size: 150,
+              size: small ? 50 : 150,
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: small ? 10 : 20,
             ),
             Text(
-              widget.title,
+              title,
               textAlign: TextAlign.center,
               style: GoogleFonts.roboto(
-                fontSize: 25,
+                fontSize: small ? 12 : 25,
                 color: const Color.fromARGB(255, 46, 46, 46),
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: small ? 5 : 10,
             ),
             Text(
-              widget.secondTitle,
+              secondTitle,
               textAlign: TextAlign.center,
-              style:
-                  GoogleFonts.roboto(fontSize: 20, color: AppColors.mainGrey),
+              style: GoogleFonts.roboto(
+                fontSize: small? 10 : 20,
+                color: AppColors.mainGrey,
+              ),
             ),
-            const SizedBox(
-              height: 40,
+            SizedBox(
+              height: small? 10 : 40,
             ),
             ElevatedButton(
-              onPressed: widget.buttonOnPressed,
+              onPressed: buttonOnPressed,
               child: Text(
-                widget.buttonText,
+                buttonText,
                 style: GoogleFonts.inter(
-                  fontSize: 16,
+                  fontSize: small? 12 : 16,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               style: ElevatedButton.styleFrom(
                 primary: Colors.black,
-                minimumSize: const Size(150, 45),
+                minimumSize: small? const Size(50, 30) : const Size(150, 45),
               ),
             )
           ],

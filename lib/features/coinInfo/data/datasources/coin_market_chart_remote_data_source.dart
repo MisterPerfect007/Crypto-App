@@ -48,6 +48,7 @@ class CoinMarketChartRemoteDataSourceImpl
     }
     if (response.statusCode == 200) {
       final responseBody = response.body;
+      print(jsonDecode(responseBody));
       return CoinMarketChartModel.fromJson(jsonDecode(responseBody));
     } else {
       throw ServerException();

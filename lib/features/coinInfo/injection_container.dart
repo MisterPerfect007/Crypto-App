@@ -17,8 +17,4 @@ Future<void> initCoinInfo() async {
   //!data
   sl.registerLazySingleton(
     () => CoinMarketChartRemoteDataSourceImpl(client: sl()));
-
-  //!External
-  // sl.registerLazySingleton(() => http.Client());
-  // sl.registerLazySingleton(() => NetworkInfoImpl(internetConnectionChecker: InternetConnectionChecker()));
 }
