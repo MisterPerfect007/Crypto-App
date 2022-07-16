@@ -40,11 +40,10 @@ class CoinInfoLineChart extends StatelessWidget {
                           text: "\n${convertTime(spotData.x.toInt())}",
                           style: GoogleFonts.inter(
                             textStyle: const TextStyle(
-                              color: AppColors.mainGrey,
-                              fontSize: 11,
-                              height: 2,
-                              fontWeight: FontWeight.w500
-                            ),
+                                color: AppColors.mainGrey,
+                                fontSize: 11,
+                                height: 2,
+                                fontWeight: FontWeight.w500),
                           ),
                         ),
                       ]);
@@ -125,15 +124,19 @@ class CoinInfoLineChart extends StatelessWidget {
     if (price == null) {
       return '??';
     } else {
-      if (price < 0.9) {
-        if (price < 0.09) {
-          if (price < 0.00099) {
-            return NumberFormat("#.${'#' * 15}", "en_US").format(price);
+      if (price < 10) {
+        if (price < 0.9) {
+          if (price < 0.09) {
+            if (price < 0.00099) {
+              return NumberFormat("#.${'#' * 15}", "en_US").format(price);
+            } else {
+              return NumberFormat("#.${'#' * 5}", "en_US").format(price);
+            }
           } else {
-            return NumberFormat("#.${'#' * 5}", "en_US").format(price);
+            return NumberFormat("#.${'#' * 4}", "en_US").format(price);
           }
         } else {
-          return NumberFormat("#.${'#' * 4}", "en_US").format(price);
+          return NumberFormat("#,###.######", "en_US").format(price);
         }
       } else {
         return NumberFormat("#,###.##", "en_US").format(price);

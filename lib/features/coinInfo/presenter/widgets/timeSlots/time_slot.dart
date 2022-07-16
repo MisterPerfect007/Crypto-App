@@ -4,11 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../ui/colors/colors.dart';
+import '../../bloc/coininfo_bloc.dart';
+import '../../utils/functions.dart';
 
 class TimeSlot extends StatelessWidget {
-  const TimeSlot({Key? key, required this.slot})
-      : super(key: key);
+  const TimeSlot({
+    Key? key,
+    required this.slot,
+    required this.id,
+  }) : super(key: key);
   final String slot;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +47,7 @@ class TimeSlot extends StatelessWidget {
             child: InkWell(
               splashColor: AppColors.secondGreen,
               onTap: () {
-                context.read<TimeSlotCubit>().changeTimeSlot(slot);
+                handleTimeSlotChange(context);
               },
               radius: 5,
               borderRadius: const BorderRadius.all(Radius.circular(5)),
@@ -65,5 +71,22 @@ class TimeSlot extends StatelessWidget {
         );
       },
     );
+  }
+
+  void handleTimeSlotChange(BuildContext context) {
+    final oldState = context.read<TimeSlotCubit>().state;
+
+    context.read<TimeSlotCubit>().changeTimeSlot(slot);
+
+    final state = context.read<TimeSlotCubit>().state;
+
+    if (state != oldState) {
+      context.read<CoinInfoBloc>().add(GetCoinInfo(
+            id: id,
+            currency: "usd",
+            days: timeSlotToDaysNumber(state),
+            dailyInterval: false,
+          ));
+    }
   }
 }

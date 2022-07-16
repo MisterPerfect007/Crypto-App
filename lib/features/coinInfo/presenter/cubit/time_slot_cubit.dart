@@ -8,4 +8,8 @@ class TimeSlotCubit extends Cubit<String> {
   void changeTimeSlot(String slot){
     emit(slot);
   }
+  @override
+  void onChange(Change<String> change) {
+    super.onChange(change);
+  }
 }

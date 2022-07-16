@@ -4,12 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubit/time_slot_cubit.dart';
 
-List<String> timeSlotList = ["1D", "7D", "1M", "3M", "1Y", "1YTD", "ALL"];
+List<String> timeSlotList = ["1D", "7D", "1M", "3M", "1Y", "ALL"];
 
 class TimeSlotsParent extends StatelessWidget {
   const TimeSlotsParent({
     Key? key,
+    required this.id,
   }) : super(key: key);
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class TimeSlotsParent extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: timeSlotList.length,
               itemBuilder: ((context, index) {
-                return TimeSlot(slot: timeSlotList[index]);
+                return TimeSlot(slot: timeSlotList[index], id: id,);
               })),
         ),
         // ),
