@@ -20,12 +20,6 @@ class CoinInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // context.read<CoinInfoBloc>().add(GetCoinInfo(
-    //       id: coin.id,
-    //       currency: "usd",
-    //       days: "1",
-    //       dailyInterval: false,
-    //     ));
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(

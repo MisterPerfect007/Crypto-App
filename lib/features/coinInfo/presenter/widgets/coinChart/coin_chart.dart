@@ -10,6 +10,7 @@ import '../../../../../ui/icons/icons.dart';
 import '../../bloc/coininfo_bloc.dart';
 import '../../cubit/time_slot_cubit.dart';
 import '../../utils/coin_info_line_chart_data.dart';
+import '../../utils/functions.dart';
 import 'coin_line_chart.dart';
 
 class CoinChart extends StatefulWidget {
@@ -27,22 +28,11 @@ class _CoinChartState extends State<CoinChart> {
   @override
   void initState() {
     super.initState();
-    context.read<CoinInfoBloc>().add(GetCoinInfo(
-          id: widget.id,
-          currency: "usd",
-          days: "1",
-          dailyInterval: false,
-        ));
+    triggerGetCoinInfo(context: context, id: widget.id, days: "1");
   }
 
   @override
   Widget build(BuildContext context) {
-    // context.read<CoinInfoBloc>().add(GetCoinInfo(
-    //       id: id,
-    //       currency: "usd",
-    //       days: "1",
-    //       dailyInterval: false,
-    //     ));
     return CustomOpacityAnimation(
       duration: const Duration(seconds: 1),
       child: SizedBox(
@@ -50,19 +40,11 @@ class _CoinChartState extends State<CoinChart> {
         child: BlocBuilder<CoinInfoBloc, CoinInfoState>(
           builder: (context, state) {
             //*
-            if (state is CoinInfoLoading) {
-              return Container(
-                color: const Color.fromARGB(255, 241, 241, 241),
-                child: Shimmer.fromColors(
-                  baseColor: const Color.fromARGB(255, 241, 241, 241),
-                  highlightColor: const Color.fromARGB(255, 255, 255, 255),
-                  child: Container(
-                    color: const Color.fromARGB(255, 241, 241, 241),
-                  ),
-                ),
-              );
+            if (state is CoinInfoInitial) {
+              return buildCoinInfoLoadingWidget();
+            } else if (state is CoinInfoLoading) {
+              return buildCoinInfoLoadingWidget();
             } else if (state is CoinInfoLoaded) {
-              // print(state.coinMarketChart.prices);
               if (state.coinMarketChart.prices.length > 1) {
                 return CoinInfoLineChart(
                   chartData: CoinInfoLineChartData(
@@ -72,7 +54,7 @@ class _CoinChartState extends State<CoinChart> {
                 return Container(
                     color: const Color.fromARGB(255, 241, 241, 241),
                     child: Center(
-                      child: BlocBuilder<TimeSlotCubit, String>(
+                      child: BlocBuilder(
                         bloc: context.read<TimeSlotCubit>(),
                         builder: (context, state) {
                           return Text(
@@ -94,7 +76,10 @@ class _CoinChartState extends State<CoinChart> {
                   color: const Color.fromARGB(255, 241, 241, 241),
                   child: FailedRequest(
                     small: true,
-                    buttonOnPressed: () {},
+                    buttonOnPressed: () {
+                      final days = context.read<TimeSlotCubit>().state;
+                      triggerGetCoinInfo(context: context, id: widget.id, days: days);
+                    },
                     buttonText: "Refresh",
                     icon: PersoIcons.coloredNoWifi,
                     title: "You're currently offline",
@@ -108,7 +93,10 @@ class _CoinChartState extends State<CoinChart> {
               color: const Color.fromARGB(255, 241, 241, 241),
               child: FailedRequest(
                 small: true,
-                buttonOnPressed: () {},
+                buttonOnPressed: () {
+                  final days = context.read<TimeSlotCubit>().state;
+                  triggerGetCoinInfo(context: context, id: widget.id, days: days);
+                },
                 buttonText: "Try again",
                 icon: PersoIcons.coloredRemove,
                 title: "Something went wrong",
@@ -117,6 +105,19 @@ class _CoinChartState extends State<CoinChart> {
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+
+  Container buildCoinInfoLoadingWidget() {
+    return Container(
+      color: const Color.fromARGB(255, 241, 241, 241),
+      child: Shimmer.fromColors(
+        baseColor: const Color.fromARGB(255, 241, 241, 241),
+        highlightColor: const Color.fromARGB(255, 255, 255, 255),
+        child: Container(
+          color: const Color.fromARGB(255, 241, 241, 241),
         ),
       ),
     );

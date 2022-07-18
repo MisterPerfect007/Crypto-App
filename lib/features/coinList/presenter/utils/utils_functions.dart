@@ -85,7 +85,7 @@ List<Coin> sortCoinList(
 }
 
 //! to be tested
-Future<void> gettingOrRefringCoinList(BuildContext context) async {
+void gettingOrRefringCoinList(BuildContext context) {
   final coinListBloc = context.read<CoinListBloc>();
   final criteria = context.read<SortingCubit>().state;
   final state = coinListBloc.state;
@@ -93,9 +93,6 @@ Future<void> gettingOrRefringCoinList(BuildContext context) async {
   if (state is CoinListLoaded) {
     coinListBloc.add(CoinListUpdate(
         currency: "usd", page: pageToFetch, sortingCriteria: criteria));
-
-    //delay just for showing the loading spinner for 2s
-    await Future.delayed(const Duration(seconds: 2));
   } else {
     coinListBloc.add(CoinListGet(
         currency: "usd", page: pageToFetch, sortingCriteria: criteria));

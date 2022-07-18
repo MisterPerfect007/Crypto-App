@@ -1,5 +1,9 @@
 import 'package:decimal/decimal.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import '../bloc/coininfo_bloc.dart';
 
 String customFormater(double? price) {
   if (price == null) {
@@ -37,4 +41,13 @@ String timeSlotToDaysNumber(String timeSlot) {
     default:
       return "1";
   }
+}
+
+void triggerGetCoinInfo({required BuildContext context, required String id, required String days}) {
+  context.read<CoinInfoBloc>().add(GetCoinInfo(
+        id: id,
+        currency: "usd",
+        days: days,
+        dailyInterval: false,
+      ));
 }

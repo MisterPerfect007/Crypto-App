@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:crypto_trends/features/coinList/presenter/cubit/pagination_cubit.dart';
 import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.dart';
@@ -17,8 +19,21 @@ import '../widgets/coinListView/coin_list_view.dart';
 import '../widgets/customFloatingActionButton/custom_floating_action_button.dart';
 import '../widgets/sorting criteria/sorting_criteria.dart';
 
-class CoinListPage extends StatelessWidget {
+class CoinListPage extends StatefulWidget {
   const CoinListPage({Key? key}) : super(key: key);
+
+  @override
+  State<CoinListPage> createState() => _CoinListPageState();
+}
+
+class _CoinListPageState extends State<CoinListPage> {
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 20), (_) {
+      gettingOrRefringCoinList(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +95,10 @@ class CoinListPage extends StatelessWidget {
                       }),
                       child: RefreshIndicator(
                         onRefresh: () async {
-                          await gettingOrRefringCoinList(context);
+                          gettingOrRefringCoinList(context);
+
+                          //delay just for showing the loading spinner for 2s
+                          await Future.delayed(const Duration(seconds: 2));
                         },
                         color: AppColors.mainGreen,
                         child: CoinListView(
@@ -101,34 +119,22 @@ class CoinListPage extends StatelessWidget {
                       secondTitle:
                           "Check your internet connection and try to refresh.",
                       buttonOnPressed: () {
-                        context.read<CoinListBloc>().add(CoinListGet(
-                              currency: "usd",
-                              page: (context.read<PaginationCubit>().state),
-                              sortingCriteria: context.read<SortingCubit>().state,
-                            ));
+                        gettingOrRefringCoinList(context);
                       },
                       buttonText: "Refresh",
                     );
-                  } else {
-                    return FailedRequest(
-                      icon: PersoIcons.coloredRemove,
-                      title: "Something went wrong",
-                      secondTitle:
-                          "Something went wrong on the back side, please try again.",
-                      buttonOnPressed: () {},
-                      buttonText: "Try again",
-                    );
                   }
-                } else {
-                  return FailedRequest(
-                    icon: PersoIcons.coloredRemove,
-                    title: "Something went wrong",
-                    secondTitle:
-                        "Something went wrong on the back side, please try again.",
-                    buttonOnPressed: () {},
-                    buttonText: "Try again",
-                  );
                 }
+                return FailedRequest(
+                  icon: PersoIcons.coloredRemove,
+                  title: "Something went wrong",
+                  secondTitle:
+                      "Something went wrong on the back side, please try again.",
+                  buttonOnPressed: () {
+                    gettingOrRefringCoinList(context);
+                  },
+                  buttonText: "Try again",
+                );
               })),
             ),
           ],

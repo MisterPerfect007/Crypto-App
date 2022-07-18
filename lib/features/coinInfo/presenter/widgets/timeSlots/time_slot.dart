@@ -81,12 +81,7 @@ class TimeSlot extends StatelessWidget {
     final state = context.read<TimeSlotCubit>().state;
 
     if (state != oldState) {
-      context.read<CoinInfoBloc>().add(GetCoinInfo(
-            id: id,
-            currency: "usd",
-            days: timeSlotToDaysNumber(state),
-            dailyInterval: false,
-          ));
+      triggerGetCoinInfo(context: context, id: id, days: timeSlotToDaysNumber(state));
     }
   }
 }

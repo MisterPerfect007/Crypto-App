@@ -14,7 +14,7 @@ void main() {
 
   test("Should return result up to 2 floating when price > 1", () {
     final result = customFormater(1.28912);
-    expect(result, "1.29");
+    expect(result, "1.28912");
   });
   test("Should return result up to 6 floating when price > 0.001", () {
     final result = customFormater(0.01);
