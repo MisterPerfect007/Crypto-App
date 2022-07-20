@@ -124,7 +124,7 @@ void main() {
             currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
         expect: () => [CoinListLoaded(coinList: testCoins, isUpdate: true)]);
     blocTest<CoinListBloc, CoinListState>(
-        'Should emit [CoinListUpdateLoading, CoinListUpdateFailure] when GetCoinList is triggered and some failure is returned',
+        'Should emit any state when CoinListUpdate is triggered and some failure is returned',
         setUp: () {
           when(getRemoteCoinList(any, any))
               .thenAnswer((_) async => Left(ServerFailure()));
@@ -132,6 +132,6 @@ void main() {
         build: () => bloc,
         act: (bloc) => bloc.add(const CoinListUpdate(
             currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
-        expect: () => [const CoinListUpdateFailure(serverErrorMessage)]);
+        expect: () => []);
   });
 }

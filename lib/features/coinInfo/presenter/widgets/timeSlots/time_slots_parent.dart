@@ -1,7 +1,9 @@
 import 'package:crypto_trends/features/coinInfo/presenter/widgets/timeSlots/time_slot.dart';
 import 'package:flutter/material.dart';
 
-List<String> timeSlotList = ["24H", "7D", "1M", "3M", "1Y", "ALL"];
+import '../../utils/functions.dart';
+
+
 
 class TimeSlotsParent extends StatelessWidget {
   const TimeSlotsParent({

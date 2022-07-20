@@ -41,7 +41,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
         final coinListOrFailure =
             await getRemoteCoinList(event.currency, event.page);
         coinListOrFailure.fold(
-            (failure) => emit(const CoinListUpdateFailure(serverErrorMessage)),
+            (_){},
             (coinList) => emit(CoinListLoaded(
                 coinList: sortCoinList(
                     coinList: coinList, criteria: event.sortingCriteria),

@@ -43,27 +43,27 @@ class CoinInfoPage extends StatelessWidget {
                     androidOverscrollIndicator:
                         AndroidOverscrollIndicator.stretch),
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: Column(
-                    children: [
-                      CoinNameImage(
-                        image: coin.image,
-                        name: coin.name,
-                      ),
-                      PriceAndPercentage(
-                        price: coin.currentPrice,
-                        percentage24h: coin.priceChangePercentage24h,
-                        priceChange24h: coin.priceChange24h,
-                      ),
-                      const SizedBox(height: 30),
-                      CoinChart(
-                        id: coin.id,
-                      ),
-                      TimeSlotsParent(id: coin.id,),
-                      const SizedBox(height: 30),
-                      ExtraInfos(coin: coin),
-                      const SizedBox(height: 30),
-                    ],
+                  child: SafeArea(
+                    child: Column(
+                      children: [
+                        CoinNameImage(
+                          image: coin.image,
+                          name: coin.name,
+                        ),
+                        PriceAndPercentage(
+                          price: coin.currentPrice,
+                          percentage24h: coin.priceChangePercentage24h,
+                          priceChange24h: coin.priceChange24h,
+                        ),
+                        const SizedBox(height: 30),
+                        CoinChart(
+                          id: coin.id,
+                        ),
+                        TimeSlotsParent(id: coin.id,),
+                        const SizedBox(height: 30),
+                        ExtraInfos(coin: coin),
+                      ],
+                    ),
                   ),
                 ),
               ),

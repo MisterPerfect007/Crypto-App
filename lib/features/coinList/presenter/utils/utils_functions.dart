@@ -93,7 +93,7 @@ void gettingOrRefringCoinList(BuildContext context) {
   if (state is CoinListLoaded) {
     coinListBloc.add(CoinListUpdate(
         currency: "usd", page: pageToFetch, sortingCriteria: criteria));
-  } else {
+  } else if (state is! CoinListLoading) {
     coinListBloc.add(CoinListGet(
         currency: "usd", page: pageToFetch, sortingCriteria: criteria));
   }

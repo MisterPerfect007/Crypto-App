@@ -2,6 +2,7 @@ import 'package:crypto_trends/features/coinInfo/presenter/cubit/time_slot_cubit.
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:crypto_trends/features/coinList/presenter/cubit/pagination_cubit.dart';
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
+import 'package:crypto_trends/features/home/presenter/page/home_page.dart';
 import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,20 +31,20 @@ class MyApp extends StatelessWidget {
         // colorScheme: ColorScheme.fromSwatch(accentColor: Colors.red)
       ),
       // themeMode: ThemeMode.light,
-      home: 
+      home: HomePage(),
       // MultiBlocProvider(providers: [
       //   BlocProvider(create: ((context) => TimeSlotCubit()))
       // ],
       // child: const CoinInfoPage(),),
-      MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => di.sl<CoinListBloc>()),
-          BlocProvider(create: (context) => ScrollPositionCubit()),
-          BlocProvider(create: (context) => SortingCubit()),
-          BlocProvider(create: (context) => PaginationCubit()),
-        ],
-        child: const CoinListPage(),
-      ),
+      // // MultiBlocProvider(
+      // //   providers: [
+      // //     BlocProvider(create: (context) => di.sl<CoinListBloc>()),
+      // //     BlocProvider(create: (context) => ScrollPositionCubit()),
+      // //     BlocProvider(create: (context) => SortingCubit()),
+      // //     BlocProvider(create: (context) => PaginationCubit()),
+      // //   ],
+      // //   child: const CoinListPage(),
+      // // ),
     );
   }
 }

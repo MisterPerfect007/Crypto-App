@@ -19,5 +19,5 @@ class AppColors{
   static const Color grey1 = Color.fromARGB(255, 56, 56, 56);
 
   
-  static final Color secondGreen = const Color.fromARGB(255, 8, 168, 109).withOpacity(0.16);
+  static final Color secondGreen = Color.fromARGB(255, 8, 168, 56);
 }

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 
-import '../widgets/timeSlots/time_slots_parent.dart';
+import '../utils/functions.dart';
+
 
 class TimeSlotCubit extends Cubit<String> {
   TimeSlotCubit() : super(timeSlotList[0]);

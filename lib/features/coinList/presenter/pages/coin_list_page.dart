@@ -30,7 +30,7 @@ class _CoinListPageState extends State<CoinListPage> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(seconds: 20), (_) {
+    Timer.periodic(const Duration(seconds: 30), (_) {
       gettingOrRefringCoinList(context);
     });
   }
@@ -103,7 +103,7 @@ class _CoinListPageState extends State<CoinListPage> {
                         color: AppColors.mainGreen,
                         child: CoinListView(
                           scrollController: _scrollController,
-                          coinList: state.coinList,
+                          coinList: sortCoinList(coinList: state.coinList, criteria: context.read<SortingCubit>().state),
                         ),
                       ),
                     ),
