@@ -49,8 +49,10 @@ class MockGetRemoteCoinList extends _i1.Mock implements _i5.GetRemoteCoinList {
           returnValue: _FakeCoinListRepository_0()) as _i2.CoinListRepository);
   @override
   _i6.Future<_i3.Either<_i7.Failure, List<_i8.Coin>>> call(
-          String? currency, int? page) =>
-      (super.noSuchMethod(Invocation.method(#call, [currency, page]),
+          {String? currency, int? page, List<String>? ids}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #call, [], {#currency: currency, #page: page, #ids: ids}),
           returnValue: Future<_i3.Either<_i7.Failure, List<_i8.Coin>>>.value(
               _FakeEither_1<_i7.Failure, List<_i8.Coin>>())) as _i6
           .Future<_i3.Either<_i7.Failure, List<_i8.Coin>>>);

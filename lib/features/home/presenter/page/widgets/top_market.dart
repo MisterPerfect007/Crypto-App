@@ -20,7 +20,15 @@ class TopBanner extends StatelessWidget {
       width: size.width,
       padding: EdgeInsets.only(
           left: sidePadding, right: sidePadding, top: 20, bottom: 20),
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              color: AppColors.thirdGrey.withOpacity(0.3),
+              blurRadius: 2,
+              spreadRadius: 2,
+              offset: Offset(0,2)
+            ),
+        ],
         gradient: LinearGradient(
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,

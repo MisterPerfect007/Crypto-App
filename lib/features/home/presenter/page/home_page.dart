@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/widgets/custom_network_image.dart';
+import '../../../coinList/domain/entities/coin.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,49 +19,112 @@ class HomePage extends StatelessWidget {
         width: size.width,
         height: size.height,
         color: AppColors.lightBg,
-        child: SingleChildScrollView(
-            child: Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const TopBanner(),
-            Container(
-              padding: const EdgeInsets.only(top: 30),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: sidePadding),
-                      child: Text(
-                        "Trending Coins",
-                        style: GoogleFonts.inter(
-                            color: AppColors.mainBlack,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16),
-                      ),
+                    Container(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: sidePadding),
+                              child: Text(
+                                "Trending Coins",
+                                style: GoogleFonts.inter(
+                                    color: AppColors.mainBlack,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: sidePadding,
+                              ),
+                              child: Builder(
+                                builder: (BuildContext context) {
+                                  return Column(children: [
+                                    Row(children: [
+                                      CoinCart(
+                                          sidePadding: sidePadding, size: size),
+                                      SizedBox(
+                                        width: sidePadding,
+                                      ),
+                                      CoinCart(
+                                          sidePadding: sidePadding, size: size),
+                                    ]),
+                                    Row(children: [
+                                      CoinCart(
+                                          sidePadding: sidePadding, size: size),
+                                      // SizedBox(width: sidePadding,),
+                                      // CoinCart(sidePadding: sidePadding, size: size),
+                                    ])
+                                  ]);
+                                },
+                              ),
+                            ),
+                          ]),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    SingleChildScrollView(
-                      padding: EdgeInsets.only(left: sidePadding, right: sidePadding, top: 10, bottom: 10),
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          CoinCart(size: size, sidePadding: sidePadding),
-                          SizedBox(width: 20,),
-                          CoinCart(size: size, sidePadding: sidePadding),
-                          SizedBox(width: 20,),
-                          CoinCart(size: size, sidePadding: sidePadding),
-                          SizedBox(width: 20,),
-                          CoinCart(size: size, sidePadding: sidePadding),
-                        ],
-                      ),
+                    Container(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: sidePadding),
+                              child: Text(
+                                "Top 10 Coins",
+                                style: GoogleFonts.inter(
+                                    color: AppColors.mainBlack,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: sidePadding,
+                              ),
+                              child: Builder(
+                                builder: (BuildContext context) {
+                                  return Column(children: [
+                                    Row(children: [
+                                      CoinCart(
+                                          sidePadding: sidePadding, size: size),
+                                      SizedBox(
+                                        width: sidePadding,
+                                      ),
+                                      CoinCart(
+                                          sidePadding: sidePadding, size: size),
+                                    ]),
+                                    Row(children: [
+                                      CoinCart(
+                                          sidePadding: sidePadding, size: size),
+                                      // SizedBox(width: sidePadding,),
+                                      // CoinCart(sidePadding: sidePadding, size: size),
+                                    ])
+                                  ]);
+                                },
+                              ),
+                            ),
+                          ]),
                     )
-                    
-                  ]),
-            )
+                  ],
+                ),
+              ),
+            ),
           ],
-        )),
+        ),
       ),
     );
   }
@@ -80,21 +144,17 @@ class CoinCart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
-      width: (size.width / 2) - (sidePadding * 3),
-      decoration: BoxDecoration(
+      margin: const EdgeInsets.only(bottom: 15),
+      width: (size.width / 2) - sidePadding * 1.5,
+      decoration: const BoxDecoration(
           color: AppColors.mainWhite,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
-              color: AppColors.thirdGrey.withOpacity(0.1),
-              blurRadius: 2,
-              spreadRadius: 2,
-            ),
-            BoxShadow(
-              color: AppColors.thirdGrey.withOpacity(0.1),
-              blurRadius: 2,
-              spreadRadius: 2,
-            )
+                offset: Offset(0, 0),
+                blurRadius: 2,
+                spreadRadius: 1,
+                color: AppColors.secondGrey),
           ]),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const CustomNetworkImage(
@@ -113,23 +173,29 @@ class CoinCart extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 14),
         ),
-        // const SizedBox(height: 5,),
+        const SizedBox(
+          height: 5,
+        ),
         Row(
           children: [
-            Text(
-              "\$29,298.90",
-              style: GoogleFonts.inter(
-                  color: AppColors.mainBlack,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12),
+            Expanded(
+              child: Text(
+                "\$29,298,389,379,328.90",
+                style: GoogleFonts.inter(
+                    color: AppColors.mainBlack,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12),
+              ),
             ),
-            Expanded(child: Container()),
+            const SizedBox(
+              width: 10,
+            ),
             Container(
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
                   color: AppColors.mainGreen.withOpacity(0.1),
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
-              child: PersoIcon(
+              child: const PersoIcon(
                 icon: PersoIcons.arrowUp,
                 size: 12,
               ),
@@ -147,3 +213,9 @@ class CoinCart extends StatelessWidget {
     );
   }
 }
+
+List<Coin> dummyData = [
+  Coin(id: "id", symbol: "symbol", name: "Bitcoin", currentPrice: 23977.89),
+  Coin(id: "id", symbol: "symbol", name: "Bitcoin", currentPrice: 23977.89),
+  Coin(id: "id", symbol: "symbol", name: "Bitcoin", currentPrice: 23977.89),
+];

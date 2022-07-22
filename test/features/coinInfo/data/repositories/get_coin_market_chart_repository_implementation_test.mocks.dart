@@ -26,8 +26,6 @@ class _FakeClient_0 extends _i1.Fake implements _i2.Client {}
 class _FakeCoinMarketChartModel_1 extends _i1.Fake
     implements _i3.CoinMarketChartModel {}
 
-class _FakeUri_2 extends _i1.Fake implements Uri {}
-
 /// A class which mocks [CoinMarketChartRemoteDataSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -57,15 +55,4 @@ class MockCoinMarketChartRemoteDataSourceImpl extends _i1.Mock
               returnValue: Future<_i3.CoinMarketChartModel>.value(
                   _FakeCoinMarketChartModel_1()))
           as _i5.Future<_i3.CoinMarketChartModel>);
-  @override
-  Uri buildUrl(
-          {String? id, String? currency, String? days, bool? dailyInterval}) =>
-      (super.noSuchMethod(
-          Invocation.method(#buildUrl, [], {
-            #id: id,
-            #currency: currency,
-            #days: days,
-            #dailyInterval: dailyInterval
-          }),
-          returnValue: _FakeUri_2()) as Uri);
 }

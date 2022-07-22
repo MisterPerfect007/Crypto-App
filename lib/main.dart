@@ -6,14 +6,19 @@ import 'package:crypto_trends/features/home/presenter/page/home_page.dart';
 import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
 
 import 'features/coinInfo/presenter/bloc/coininfo_bloc.dart';
 import 'features/coinInfo/presenter/page/coin_info.dart';
 import 'features/coinList/presenter/cubit/scrollposition_cubit.dart';
 import 'features/coinList/presenter/cubit/sorting_cubit.dart';
+import 'features/home/data/trending_coin_remote_data_source.dart';
 
 void main() async {
   await di.init();
+  print("object");
+  final dataSource = TrendingCoinRemoteDataSource(client: Client());
+  print(await dataSource.getTrendingCoinsIds());
   runApp(const MyApp());
 }
 

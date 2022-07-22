@@ -9,7 +9,7 @@ abstract class CoinListRemoteDataSource {
   ///
   /// throw a [ServerException] or [NoConnectionException] when something went wrong
   Future<List<CoinModel>> getRemoteCoinList(
-      {required String currency, int? page});
+      {required String currency, int? page, List<String>? ids,});
 }
 
 /*
@@ -22,18 +22,11 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
   });
   @override
   Future<List<CoinModel>> getRemoteCoinList(
-      {required String currency, int? page}) async {
+      {required String currency, int? page, List<String>? ids}) async {
     const Map<String, String> defaultHeader = {
       'Content-type': 'application/json'
     };
-    final url = Uri.https('api.coingecko.com', '/api/v3/coins/markets', {
-      'vs_currency': currency,
-      'order': 'market_cap_desc',
-      'per_page': '100',
-      'page': page != null ? page.toString() : '1',
-      'sparkline': 'true',
-      'price_change_percentage': '7d',
-    });
+    final url = buildUrl(currency: currency, page: page, ids: ids);
 
     final Response response;
     try {
@@ -54,3 +47,15 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
 
   }
 }
+
+Uri buildUrl({required String currency, int? page, List<String>? ids}) {
+    return Uri.https('api.coingecko.com', '/api/v3/coins/markets', {
+      'vs_currency': currency,
+      'order': 'market_cap_desc',
+      'per_page': '100',
+      'page': page?.toString(),
+      'ids': ids?.join('%2C'),
+      'sparkline': 'true',
+      'price_change_percentage': '7d',
+    });
+  }

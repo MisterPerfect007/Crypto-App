@@ -22,7 +22,7 @@ void main() {
     when(repository.getRemoteCoinList(currency: testCurrency, page: testPage))
         .thenAnswer((_) async => Right(testCoins));
 
-    final result = await usecase(testCurrency, testPage);
+    final result = await usecase(currency: testCurrency, page: testPage);
 
     expect(result, Right(testCoins));
     verify(repository.getRemoteCoinList(currency: testCurrency, page: testPage))

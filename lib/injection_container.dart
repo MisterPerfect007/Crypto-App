@@ -21,7 +21,6 @@ final GetIt sl = GetIt.instance;
 
 Future<void> init() async {
   
-
   //!External
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(internetConnectionChecker: InternetConnectionChecker()));

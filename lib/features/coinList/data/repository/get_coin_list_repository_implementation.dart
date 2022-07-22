@@ -13,9 +13,9 @@ class CoinListRepositoryImpl implements CoinListRepository{
 
   CoinListRepositoryImpl({required this.remote});
   @override
-  Future<Either<Failure, List<Coin>>> getRemoteCoinList({required String currency, int? page}) async {
+  Future<Either<Failure, List<Coin>>> getRemoteCoinList({required String currency, int? page, List<String>? ids}) async {
     try {
-      final coinModelsList =  await remote.getRemoteCoinList(currency: currency, page: page);
+      final coinModelsList =  await remote.getRemoteCoinList(currency: currency, page: page, ids: ids);
       return Right(coinModelsList);
       
     } on ServerException {

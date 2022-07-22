@@ -16,7 +16,6 @@ import 'coin_list_bloc_test.mocks.dart';
 
 @GenerateMocks([GetRemoteCoinList])
 @GenerateMocks([NetworkInfoImpl])
-
 void main() {
   late CoinListBloc bloc;
   late MockGetRemoteCoinList getRemoteCoinList;
@@ -35,45 +34,49 @@ void main() {
   group(
     "CoinListGet",
     (() {
-      void whenAllStubSuccess(){
-        when(network.isConnected)
-                .thenAnswer((_) async => true);
-        when(getRemoteCoinList(any, any))
-                .thenAnswer((_) async => Right(testCoins));
+      void whenAllStubSuccess() {
+        when(network.isConnected).thenAnswer((_) async => true);
+        when(getRemoteCoinList(
+          currency: anyNamed("currency"),
+          page: anyNamed("page"),
+          ids: anyNamed("ids"),
+        )).thenAnswer((_) async => Right(testCoins));
       }
+
       blocTest<CoinListBloc, CoinListState>(
           'Should make call to the usecase with correct given arguments',
           setUp: () {
             whenAllStubSuccess();
           },
           build: () => bloc,
-          act: (bloc) =>
-              bloc.add(const CoinListGet(currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
+          act: (bloc) => bloc.add(const CoinListGet(
+              currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
           verify: (_) {
-            verify(getRemoteCoinList(tCurrency, tPage)).called(1);
+            verify(getRemoteCoinList(currency: tCurrency, page: tPage))
+                .called(1);
           });
-      blocTest<CoinListBloc, CoinListState>(
-          'Should check internet connection',
+      blocTest<CoinListBloc, CoinListState>('Should check internet connection',
           setUp: () {
             whenAllStubSuccess();
           },
           build: () => bloc,
-          act: (bloc) =>
-              bloc.add(const CoinListGet(currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
+          act: (bloc) => bloc.add(const CoinListGet(
+              currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
           verify: (_) {
             verify(network.isConnected).called(1);
           });
       blocTest<CoinListBloc, CoinListState>(
           'Should emit [CoinListLoading, CoinListFailure(ErrorType.noInternetConnection)] when there is no internet connection',
           setUp: () {
-            when(network.isConnected)
-                .thenAnswer((_) async => false);
+            when(network.isConnected).thenAnswer((_) async => false);
           },
           build: () => bloc,
-          act: (bloc) =>
-              bloc.add(const CoinListGet(currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
-          expect: () => [CoinListLoading(), const CoinListFailure(ErrorType.noInternetConnection)]
-          );
+          act: (bloc) => bloc.add(const CoinListGet(
+              currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
+          expect: () => [
+                CoinListLoading(),
+                const CoinListFailure(ErrorType.noInternetConnection)
+              ]);
 
       blocTest<CoinListBloc, CoinListState>(
           'Should emit [CoinListLoading, CoinListLoaded] when GetCoinList with internet connection is triggered with success response',
@@ -81,43 +84,57 @@ void main() {
             whenAllStubSuccess();
           },
           build: () => bloc,
-          act: (bloc) =>
-              bloc.add(const CoinListGet(currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
+          act: (bloc) => bloc.add(const CoinListGet(
+              currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
           expect: () =>
               [CoinListLoading(), CoinListLoaded(coinList: testCoins)]);
       blocTest<CoinListBloc, CoinListState>(
           'Should emit [CoinListLoading, CoinListFailure] when GetCoinList is triggered and some failure is returned',
           setUp: () {
-             when(network.isConnected)
-                .thenAnswer((_) async => true);
-            when(getRemoteCoinList(any, any))
-                .thenAnswer((_) async => Left(ServerFailure()));
+            when(network.isConnected).thenAnswer((_) async => true);
+            when(getRemoteCoinList(
+              currency: anyNamed("currency"),
+              page: anyNamed("page"),
+              ids: anyNamed("ids"),
+            )).thenAnswer((_) async => Left(ServerFailure()));
           },
           build: () => bloc,
-          act: (bloc) =>
-              bloc.add(const CoinListGet(currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
-          expect: () =>
-              [CoinListLoading(), const CoinListFailure(ErrorType.failedRequest)]);
+          act: (bloc) => bloc.add(const CoinListGet(
+              currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
+          expect: () => [
+                CoinListLoading(),
+                const CoinListFailure(ErrorType.failedRequest)
+              ]);
     }),
   );
   group("CoinListUpdate", () {
     blocTest<CoinListBloc, CoinListState>(
         'Should make call to the usecase with correct given arguments',
         setUp: () {
-          when(getRemoteCoinList(any, any))
-              .thenAnswer((_) async => Right(testCoins));
+          when(getRemoteCoinList(
+            currency: anyNamed("currency"),
+            page: anyNamed("page"),
+            ids: anyNamed("ids"),
+          )).thenAnswer((_) async => Right(testCoins));
         },
         build: () => bloc,
         act: (bloc) => bloc.add(const CoinListUpdate(
             currency: tCurrency, page: tPage, sortingCriteria: rankDesc)),
         verify: (_) {
-          verify(getRemoteCoinList(tCurrency, tPage)).called(1);
+          verify(getRemoteCoinList(
+            currency: anyNamed("currency"),
+            page: anyNamed("page"),
+            ids: anyNamed("ids"),
+          )).called(1);
         });
     blocTest<CoinListBloc, CoinListState>(
         'Should emit [CoinListUpdateLoading, CoinListUpdateLoaded] when CoinListupdate is triggered with success response',
         setUp: () {
-          when(getRemoteCoinList(any, any))
-              .thenAnswer((_) async => Right(testCoins));
+          when(getRemoteCoinList(
+            currency: anyNamed("currency"),
+            page: anyNamed("page"),
+            ids: anyNamed("ids"),
+          )).thenAnswer((_) async => Right(testCoins));
         },
         build: () => bloc,
         act: (bloc) => bloc.add(const CoinListUpdate(
@@ -126,8 +143,11 @@ void main() {
     blocTest<CoinListBloc, CoinListState>(
         'Should emit any state when CoinListUpdate is triggered and some failure is returned',
         setUp: () {
-          when(getRemoteCoinList(any, any))
-              .thenAnswer((_) async => Left(ServerFailure()));
+          when(getRemoteCoinList(
+            currency: anyNamed("currency"),
+            page: anyNamed("page"),
+            ids: anyNamed("ids"),
+          )).thenAnswer((_) async => Left(ServerFailure()));
         },
         build: () => bloc,
         act: (bloc) => bloc.add(const CoinListUpdate(
