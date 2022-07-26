@@ -1,11 +1,14 @@
-import 'package:crypto_trends/features/home/presenter/page/widgets/top_market.dart';
+import 'package:crypto_trends/features/home/presenter/widgets/coin_cart_shimmer.dart';
+import 'package:crypto_trends/features/home/presenter/widgets/trending_coin_cart.dart';
 import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:crypto_trends/ui/icons/icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/widgets/custom_network_image.dart';
 import '../../../coinList/domain/entities/coin.dart';
+import '../widgets/top_banner.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -53,20 +56,13 @@ class HomePage extends StatelessWidget {
                                 builder: (BuildContext context) {
                                   return Column(children: [
                                     Row(children: [
-                                      CoinCart(
-                                          sidePadding: sidePadding, size: size),
+                                      TrendingCoinCart(),
                                       SizedBox(
                                         width: sidePadding,
                                       ),
-                                      CoinCart(
-                                          sidePadding: sidePadding, size: size),
+                                      TrendingCoinCart(),
                                     ]),
-                                    Row(children: [
-                                      CoinCart(
-                                          sidePadding: sidePadding, size: size),
-                                      // SizedBox(width: sidePadding,),
-                                      // CoinCart(sidePadding: sidePadding, size: size),
-                                    ])
+                                    CoinCartShimmer()
                                   ]);
                                 },
                               ),
@@ -74,7 +70,7 @@ class HomePage extends StatelessWidget {
                           ]),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(top: 30),
+                      padding: const EdgeInsets.only(top: 20),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -110,8 +106,6 @@ class HomePage extends StatelessWidget {
                                     Row(children: [
                                       CoinCart(
                                           sidePadding: sidePadding, size: size),
-                                      // SizedBox(width: sidePadding,),
-                                      // CoinCart(sidePadding: sidePadding, size: size),
                                     ])
                                   ]);
                                 },
@@ -157,21 +151,42 @@ class CoinCart extends StatelessWidget {
                 color: AppColors.secondGrey),
           ]),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const CustomNetworkImage(
-          image:
-              'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
-          name: 'Bitcoin',
-          width: 30,
+        Row(
+          children: [
+            Container(
+                padding:
+                    const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
+                decoration: const BoxDecoration(
+                  color: AppColors.secondGrey,
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                ),
+                child: Text(
+                  "1",
+                  style: GoogleFonts.inter(
+                      color: AppColors.mainBlack,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12),
+                )),
+            Expanded(child: Container()),
+            const CustomNetworkImage(
+              image:
+                  'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
+              name: 'Bitcoin',
+              width: 30,
+            ),
+          ],
         ),
         const SizedBox(
           height: 5,
         ),
         Text(
           "Bitcoin",
+          textAlign: TextAlign.center,
           style: GoogleFonts.inter(
-              color: AppColors.mainBlack,
-              fontWeight: FontWeight.bold,
-              fontSize: 14),
+            color: AppColors.mainBlack,
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+          ),
         ),
         const SizedBox(
           height: 5,
@@ -195,10 +210,11 @@ class CoinCart extends StatelessWidget {
               decoration: BoxDecoration(
                   color: AppColors.mainGreen.withOpacity(0.1),
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
-              child: const PersoIcon(
-                icon: PersoIcons.arrowUp,
-                size: 12,
-              ),
+              child: SvgPicture.asset(
+                "assets/svg/chart-line-up.svg",
+                width: 10,
+                color: AppColors.mainGreen
+                ),
             )
           ],
         ),
