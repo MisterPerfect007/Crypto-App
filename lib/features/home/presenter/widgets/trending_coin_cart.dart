@@ -16,9 +16,12 @@ class TrendingCoinCart extends StatelessWidget {
   final Coin? coin;
 
   const TrendingCoinCart({
+
     Key? key,
-    this.isLoading, this.coin,
+    this.isLoading, this.coin, this.action
   }) : super(key: key);
+
+  final void Function()? action;
 
   @override
   Widget build(BuildContext context) {
@@ -29,24 +32,14 @@ class TrendingCoinCart extends StatelessWidget {
     CoinPercentageFormat percentage = CoinPercentageFormat(percentage: coin?.priceChangePercentage7dInCurrency);
 
     return InkWell(
-      onTap: () {
-        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>");
-      },
+      onTap: action,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.only(bottom: 15),
         width: (size.width / 2) - sidePadding * 1.5,
         decoration: const BoxDecoration(
             color: AppColors.mainWhite,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            boxShadow: [
-              BoxShadow(
-                  offset: Offset(0, 0),
-                  blurRadius: 2,
-                  spreadRadius: 1,
-                  color: AppColors.secondGrey),
-            ]),
+            ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

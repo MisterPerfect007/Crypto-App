@@ -65,7 +65,7 @@ dependencies:
   equatable: ^2.0.3
   dartz: ^0.10.1
   flutter_svg: ^1.0.3
-  animations: ^2.0.2
+  animations: ^2.0.3
 
 dev_dependencies:
   flutter_test:

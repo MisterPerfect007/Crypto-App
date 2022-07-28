@@ -7,6 +7,8 @@ import 'package:crypto_trends/injection_container.dart' as di;
 
 import '../../../../core/widgets/custom_network_image.dart';
 import '../../../coinList/domain/entities/coin.dart';
+import '../../../coinList/presenter/bloc/coin_list_bloc.dart';
+import '../../../coinList/presenter/cubit/sorting_cubit.dart';
 import '../bloc/trending_coin_bloc.dart';
 import '../widgets/top10Coins/top_10_coins.dart';
 import '../widgets/top_banner.dart';
@@ -25,7 +27,9 @@ class HomePage extends StatelessWidget {
 
     return MultiBlocProvider(
         providers: [
-          BlocProvider(create: ((context) => di.sl<TrendingCoinsBloc>()))
+          BlocProvider(create: ((context) => di.sl<TrendingCoinsBloc>())),
+          BlocProvider(create: ((context) => di.sl<CoinListBloc>())),
+          BlocProvider(create: ((context) => SortingCubit())),
         ],
         child: Scaffold(
           body: Container(

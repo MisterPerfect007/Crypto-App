@@ -15,7 +15,7 @@ class _CustomOpacityAnimationState extends State<CustomOpacityAnimation> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         setState(() {
           _opacity = 1;

@@ -1,6 +1,7 @@
 import 'package:crypto_trends/features/home/presenter/widgets/trending_coin_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:animations/animations.dart';
 
 import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../coinList/domain/entities/coin.dart';
@@ -15,7 +16,6 @@ class TrendingCoinsLoadedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
 
@@ -25,9 +25,29 @@ class TrendingCoinsLoadedWidget extends StatelessWidget {
         child: StaggeredGrid.count(
           crossAxisCount: 2,
           crossAxisSpacing: sidePadding,
-          children: 
-            List.generate(4, (index) => TrendingCoinCart(coin: coinList[index]),),
+          mainAxisSpacing: sidePadding,
+          children: List.generate(
+            4,
+            (index) => OpenContainer(
+              closedShape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+              closedElevation: 1,
+              closedBuilder: (context, action) =>
+                  TrendingCoinCart(coin: coinList[index], action: action),
+              openBuilder: (context, action) => Container(
+                  width: 500,
+                  height: 500,
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: action,
+                      child: Text("UGIUOGUGHLKJGLJKHGHGKL"),
+                    ),
+                  ),
+                ),
+            ),
+            // TrendingCoinCart(coin: coinList[index]),
           ),
+        ),
       ),
     );
   }

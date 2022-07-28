@@ -19,7 +19,8 @@ class TrendingCoins extends StatelessWidget {
     context.read<TrendingCoinsBloc>().add(GetTrendingCoins());
     return Container(
       padding: const EdgeInsets.only(top: 20),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      child: 
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
           child: Row(

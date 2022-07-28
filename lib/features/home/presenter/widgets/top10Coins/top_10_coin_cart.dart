@@ -29,13 +29,7 @@ class Top10CoinCart extends StatelessWidget {
       decoration: const BoxDecoration(
           color: AppColors.mainWhite,
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(0, 0),
-                blurRadius: 2,
-                spreadRadius: 1,
-                color: AppColors.secondGrey),
-          ]),
+          ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
