@@ -1,237 +1,59 @@
-import 'package:crypto_trends/features/home/presenter/widgets/coin_cart_shimmer.dart';
-import 'package:crypto_trends/features/home/presenter/widgets/trending_coin_cart.dart';
 import 'package:crypto_trends/ui/colors/colors.dart';
-import 'package:crypto_trends/ui/icons/icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:crypto_trends/injection_container.dart' as di;
 
 import '../../../../core/widgets/custom_network_image.dart';
 import '../../../coinList/domain/entities/coin.dart';
+import '../bloc/trending_coin_bloc.dart';
+import '../widgets/top10Coins/top_10_coins.dart';
 import '../widgets/top_banner.dart';
+import '../widgets/trendingCoins/trending_coins.dart';
+import '../widgets/trendingCoins/trending_coins_loaded_widget.dart';
+import '../widgets/trendingCoins/trending_coins_loading_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
-    return Scaffold(
-      body: Container(
-        width: size.width,
-        height: size.height,
-        color: AppColors.lightBg,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TopBanner(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(top: 30),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: sidePadding),
-                              child: Text(
-                                "Trending Coins",
-                                style: GoogleFonts.inter(
-                                    color: AppColors.mainBlack,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: sidePadding,
-                              ),
-                              child: Builder(
-                                builder: (BuildContext context) {
-                                  return Column(children: [
-                                    Row(children: [
-                                      TrendingCoinCart(),
-                                      SizedBox(
-                                        width: sidePadding,
-                                      ),
-                                      TrendingCoinCart(),
-                                    ]),
-                                    CoinCartShimmer()
-                                  ]);
-                                },
-                              ),
-                            ),
-                          ]),
+
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: ((context) => di.sl<TrendingCoinsBloc>()))
+        ],
+        child: Scaffold(
+          body: Container(
+            width: size.width,
+            height: size.height,
+            color: AppColors.lightBg,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TopBanner(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        TrendingCoins(),
+                        Top10Coins()
+                      ],
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: sidePadding),
-                              child: Text(
-                                "Top 10 Coins",
-                                style: GoogleFonts.inter(
-                                    color: AppColors.mainBlack,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: sidePadding,
-                              ),
-                              child: Builder(
-                                builder: (BuildContext context) {
-                                  return Column(children: [
-                                    Row(children: [
-                                      CoinCart(
-                                          sidePadding: sidePadding, size: size),
-                                      SizedBox(
-                                        width: sidePadding,
-                                      ),
-                                      CoinCart(
-                                          sidePadding: sidePadding, size: size),
-                                    ]),
-                                    Row(children: [
-                                      CoinCart(
-                                          sidePadding: sidePadding, size: size),
-                                    ])
-                                  ]);
-                                },
-                              ),
-                            ),
-                          ]),
-                    )
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CoinCart extends StatelessWidget {
-  const CoinCart({
-    Key? key,
-    required this.size,
-    required this.sidePadding,
-  }) : super(key: key);
-
-  final Size size;
-  final double sidePadding;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.only(bottom: 15),
-      width: (size.width / 2) - sidePadding * 1.5,
-      decoration: const BoxDecoration(
-          color: AppColors.mainWhite,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(0, 0),
-                blurRadius: 2,
-                spreadRadius: 1,
-                color: AppColors.secondGrey),
-          ]),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          children: [
-            Container(
-                padding:
-                    const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
-                decoration: const BoxDecoration(
-                  color: AppColors.secondGrey,
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                ),
-                child: Text(
-                  "1",
-                  style: GoogleFonts.inter(
-                      color: AppColors.mainBlack,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12),
-                )),
-            Expanded(child: Container()),
-            const CustomNetworkImage(
-              image:
-                  'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
-              name: 'Bitcoin',
-              width: 30,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Text(
-          "Bitcoin",
-          textAlign: TextAlign.center,
-          style: GoogleFonts.inter(
-            color: AppColors.mainBlack,
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
           ),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                "\$29,298,389,379,328.90",
-                style: GoogleFonts.inter(
-                    color: AppColors.mainBlack,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12),
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  color: AppColors.mainGreen.withOpacity(0.1),
-                  borderRadius: const BorderRadius.all(Radius.circular(20))),
-              child: SvgPicture.asset(
-                "assets/svg/chart-line-up.svg",
-                width: 10,
-                color: AppColors.mainGreen
-                ),
-            )
-          ],
-        ),
-        Text(
-          "+8.9%",
-          style: GoogleFonts.inter(
-              color: AppColors.mainGreen,
-              fontWeight: FontWeight.w500,
-              fontSize: 11),
-        ),
-      ]),
-    );
+        ));
   }
 }
 
-List<Coin> dummyData = [
-  Coin(id: "id", symbol: "symbol", name: "Bitcoin", currentPrice: 23977.89),
-  Coin(id: "id", symbol: "symbol", name: "Bitcoin", currentPrice: 23977.89),
-  Coin(id: "id", symbol: "symbol", name: "Bitcoin", currentPrice: 23977.89),
-];
+
+
+
+

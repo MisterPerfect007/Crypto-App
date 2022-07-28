@@ -43,15 +43,7 @@ class TrendingCoinsBloc extends Bloc<TrendingCoinsEvent, TrendingCoinsState> {
           } catch (_) {
             emit(const TrendingCoinsFailure(ErrorType.failedRequest));
           }
-
-          //if ids is not empty
-          //=>then get coin list with ids
-
-          //=> else emit TrendingCoinsFailure
         }
-        //get trending coins IDS (with internet connection)
-        //=> when failed emit [FAILURE state]
-        //=> when success then get coinlist with ids parameter
       }
     });
   }

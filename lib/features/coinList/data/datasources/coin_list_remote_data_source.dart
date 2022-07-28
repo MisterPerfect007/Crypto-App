@@ -54,7 +54,7 @@ Uri buildUrl({required String currency, int? page, List<String>? ids}) {
       'order': 'market_cap_desc',
       'per_page': '100',
       'page': page?.toString(),
-      'ids': ids?.join('%2C'),
+      'ids': ids?.join(','),
       'sparkline': 'true',
       'price_change_percentage': '7d',
     });

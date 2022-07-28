@@ -16,9 +16,6 @@ import 'features/home/data/trending_coin_remote_data_source.dart';
 
 void main() async {
   await di.init();
-  print("object");
-  final dataSource = TrendingCoinRemoteDataSource(client: Client());
-  print(await dataSource.getTrendingCoinsIds());
   runApp(const MyApp());
 }
 

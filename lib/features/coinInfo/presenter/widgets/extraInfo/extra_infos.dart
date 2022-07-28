@@ -1,6 +1,6 @@
-import 'package:crypto_trends/features/coinInfo/presenter/utils/functions.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/utils/price_formater.dart';
 import '../../../../coinList/domain/entities/coin.dart';
 import 'extra_info.dart';
 
@@ -30,19 +30,19 @@ class ExtraInfos extends StatelessWidget {
             ),
             ExtraInfo(
               infoName: "High 24h",
-              value: "\$" + customFormater(coin.high24h),
+              value: "\$" + formatWithSmallPrice(coin.high24h),
             ),
             ExtraInfo(
               infoName: "Low 24h",
-              value: "\$" + customFormater(coin.low24h),
+              value: "\$" + formatWithSmallPrice(coin.low24h),
             ),
             ExtraInfo(
               infoName: "Vol.",
-              value: "\$" + customFormater(coin.totalVolume),
+              value: "\$" + formatWithSmallPrice(coin.totalVolume),
             ),
             ExtraInfo(
               infoName: "Mkt. Cap.",
-              value: "\$" + customFormater(coin.marketCap),
+              value: "\$" + formatWithSmallPrice(coin.marketCap),
             ),
           ],
         ));

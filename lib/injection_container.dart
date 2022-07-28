@@ -13,9 +13,12 @@ import 'features/coinList/data/datasources/coin_list_remote_data_source.dart';
 import 'features/coinList/domain/repositories/get_coin_list_repository.dart';
 import 'features/coinList/domain/usecases/get_coin_list.dart';
 import 'features/coinList/presenter/bloc/coin_list_bloc.dart';
+import 'features/home/data/trending_coin_remote_data_source.dart';
+import 'features/home/presenter/bloc/trending_coin_bloc.dart';
 
 part 'features/coinInfo/injection_container.dart';
 part 'features/coinList/injection_container.dart';
+part 'features/home/injection_container.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -27,4 +30,5 @@ Future<void> init() async {
    
   await initCoinInfo();
   await initCoinList();
+  await initHome();
 }
