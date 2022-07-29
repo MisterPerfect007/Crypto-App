@@ -39,9 +39,7 @@ class CoinInfoPage extends StatelessWidget {
               height: size.height,
               color: AppColors.lightBg,
               child: ScrollConfiguration(
-                behavior: const ScrollBehavior(
-                    androidOverscrollIndicator:
-                        AndroidOverscrollIndicator.stretch),
+                behavior: const ScrollBehavior(),
                 child: SingleChildScrollView(
                   child: SafeArea(
                     child: Column(
