@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:crypto_trends/features/coinList/presenter/widgets/sorting%20criteria/sorting_criteria.dart';
+import 'package:crypto_trends/features/home/presenter/page/see_all_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -41,13 +42,7 @@ class Top10Coins extends StatelessWidget {
                     fontSize: 16),
               ),
               Expanded(child: Container()),
-              Text(
-                "See all",
-                style: GoogleFonts.inter(
-                    color: AppColors.mainGreen,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12),
-              ),
+              buildSeeAll(sidePadding),
             ],
           ),
         ),
@@ -74,24 +69,22 @@ class Top10Coins extends StatelessWidget {
             } else if (state is CoinListLoaded) {
               List<Coin> coinList = state.coinList;
               return CustomOpacityAnimation(
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(left: sidePadding, right: sidePadding),
-                  child: StaggeredGrid.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: sidePadding,
-                    mainAxisSpacing: sidePadding,
-                    children: List.generate(
-                      4,
-                      (index) => OpenContainer(
-                        closedShape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                        closedElevation: 1,
-                        closedBuilder: (context, action) => Top10CoinCart(
-                            coin: coinList[index], action: action),
-                        openBuilder: (context, action) => CoinInfoPage(coin: coinList[index]
-                      ),
-                      // TrendingCoinCart(coin: coinList[index]),
+                  child: Padding(
+                padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
+                child: StaggeredGrid.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: sidePadding,
+                  mainAxisSpacing: sidePadding,
+                  children: List.generate(
+                    4,
+                    (index) => OpenContainer(
+                      closedShape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      closedElevation: 1,
+                      closedBuilder: (context, action) =>
+                          Top10CoinCart(coin: coinList[index], action: action),
+                      openBuilder: (context, action) =>
+                          CoinInfoPage(coin: coinList[index]),
                     ),
                   ),
                 ),
@@ -103,5 +96,53 @@ class Top10Coins extends StatelessWidget {
         )
       ]),
     );
+  }
+
+  BlocBuilder<CoinListBloc, CoinListState> buildSeeAll(double sidePadding) {
+    return BlocBuilder<CoinListBloc, CoinListState>(builder: (context, state) {
+      if (state is CoinListLoaded) {
+        List<Coin> coinList = state.coinList;
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => SeeAllPage(
+                appBarTitle: "Top 10 Coins",
+                body: CustomOpacityAnimation(
+                    child: Padding(
+                  padding:
+                      EdgeInsets.only(left: sidePadding, right: sidePadding),
+                  child: StaggeredGrid.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: sidePadding,
+                    mainAxisSpacing: sidePadding,
+                    children: List.generate(
+                      10,
+                      (index) => OpenContainer(
+                        closedShape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        closedElevation: 1,
+                        closedBuilder: (context, action) => Top10CoinCart(
+                            coin: coinList[index], action: action),
+                        openBuilder: (context, action) =>
+                            CoinInfoPage(coin: coinList[index]),
+                      ),
+                    ),
+                  ),
+                )),
+              ),
+            ));
+          },
+          child: Text(
+            "See all",
+            style: GoogleFonts.inter(
+                color: AppColors.mainGreen,
+                fontWeight: FontWeight.w500,
+                fontSize: 12),
+          ),
+        );
+      } else {
+        return Container();
+      }
+    });
   }
 }

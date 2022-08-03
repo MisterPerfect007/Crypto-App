@@ -11,8 +11,12 @@ import '../../../../../ui/colors/colors.dart';
 import '../../../../coinList/domain/entities/coin.dart';
 
 class Top10CoinCart extends StatelessWidget {
-  const Top10CoinCart({Key? key, this.isLoading, this.action, this.coin,})
-      : super(key: key);
+  const Top10CoinCart({
+    Key? key,
+    this.isLoading,
+    this.action,
+    this.coin,
+  }) : super(key: key);
 
   final bool? isLoading;
   final void Function()? action;
@@ -25,7 +29,8 @@ class Top10CoinCart extends StatelessWidget {
 
     bool showLoading = isLoading ?? coin == null;
 
-    CoinPercentageFormat percentage = CoinPercentageFormat(percentage: coin?.priceChangePercentage7dInCurrency);
+    CoinPercentageFormat percentage = CoinPercentageFormat(
+        percentage: coin?.priceChangePercentage7dInCurrency);
 
     return GestureDetector(
       onTap: action,
@@ -61,9 +66,8 @@ class Top10CoinCart extends StatelessWidget {
                 const CoinImageShimmer(width: 30)
               else
                 CustomNetworkImage(
-                  image:
-                        coin?.image,
-                    name: coin?.name ?? "",
+                  image: coin?.image,
+                  name: coin?.name ?? "",
                   width: 30,
                 ),
             ],
@@ -118,15 +122,21 @@ class Top10CoinCart extends StatelessWidget {
           if (showLoading)
             const ContainerShimmer(width: 30, height: 12, radius: 5)
           else
-            Text(
-              percentage.fixedPercentage(),
-              style: GoogleFonts.inter(
-                  color: percentage.getColor(),
-                  fontWeight: FontWeight.w500,
-                  fontSize: 11),
-            ),
+            buildPercentage(percentage),
         ]),
       ),
     );
+  }
+
+  Widget buildPercentage(CoinPercentageFormat percentage) {
+    return coin?.priceChangePercentage7dInCurrency != null
+        ? Text(
+            percentage.signedPercentage(),
+            style: GoogleFonts.inter(
+                color: percentage.getColor(),
+                fontWeight: FontWeight.w500,
+                fontSize: 9),
+          )
+        : Container();
   }
 }

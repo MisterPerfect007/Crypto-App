@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
-                      children: [
+                      children: const [
                         TrendingCoins(),
                         Top10Coins()
                       ],

@@ -51,7 +51,7 @@ void main() {
       format = const CoinPercentageFormat(percentage: positive);
       final result = format.fixedPercentage();
 
-      expect(result, '+12.23');
+      expect(result, '12.23');
     });
 
     test(
@@ -60,7 +60,7 @@ void main() {
       format = const CoinPercentageFormat(percentage: negative);
       final result = format.fixedPercentage();
 
-      expect(result, '-12.23');
+      expect(result, '12.23');
     });
 
     test(
@@ -69,7 +69,7 @@ void main() {
       format = CoinPercentageFormat(percentage: positiveInt.toDouble());
       final result = format.fixedPercentage();
 
-      expect(result, '+12.00');
+      expect(result, '12.00');
     });
 
     test(
@@ -78,7 +78,7 @@ void main() {
       format = CoinPercentageFormat(percentage: negativeInt.toDouble());
       final result = format.fixedPercentage();
 
-      expect(result, '-12.00');
+      expect(result, '12.00');
     });
   });
 }

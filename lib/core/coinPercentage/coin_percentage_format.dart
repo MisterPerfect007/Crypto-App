@@ -31,6 +31,13 @@ class CoinPercentageFormat extends Equatable {
 
   String fixedPercentage() {
     if (percentage != null) {
+      return percentage!.abs().toStringAsFixed(2);
+    } else {
+      return "";
+    }
+  }
+  String signedPercentage() {
+    if (percentage != null) {
       return (isPositive()! ? "+" : "-") + percentage!.abs().toStringAsFixed(2) + "%";
     } else {
       return "";

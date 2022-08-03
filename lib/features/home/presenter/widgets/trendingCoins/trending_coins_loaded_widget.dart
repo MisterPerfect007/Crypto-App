@@ -4,7 +4,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:animations/animations.dart';
 
 import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
+import '../../../../coinInfo/presenter/page/coin_info.dart';
 import '../../../../coinList/domain/entities/coin.dart';
+import '../top10Coins/top_10_coin_cart.dart';
 
 class TrendingCoinsLoadedWidget extends StatelessWidget {
   const TrendingCoinsLoadedWidget({
@@ -34,16 +36,8 @@ class TrendingCoinsLoadedWidget extends StatelessWidget {
               closedElevation: 1,
               closedBuilder: (context, action) =>
                   TrendingCoinCart(coin: coinList[index], action: action),
-              openBuilder: (context, action) => Container(
-                  width: 500,
-                  height: 500,
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: action,
-                      child: Text("UGIUOGUGHLKJGLJKHGHGKL"),
-                    ),
-                  ),
-                ),
+              openBuilder: (context, action) =>
+                          CoinInfoPage(coin: coinList[index]),
             ),
             // TrendingCoinCart(coin: coinList[index]),
           ),

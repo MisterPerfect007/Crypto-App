@@ -61,7 +61,7 @@ class TrendingCoinCart extends StatelessWidget {
                   coin?.priceChangePercentage7dInCurrency != null ? Expanded(
                     child: Text(
                       // 7 days %
-                      percentage.fixedPercentage(),
+                      percentage.signedPercentage(),
                       textAlign: TextAlign.end,
                       style: GoogleFonts.inter(
                           color: percentage.getColor(),
@@ -103,6 +103,7 @@ class TrendingCoinCart extends StatelessWidget {
               const ContainerShimmer(
                   width: double.infinity, height: 47, radius: 5)
             else
+            //! if sparklineIn7d doesn't exist
               SizedBox(
                   height: 40,
                   child: SingleCoinLineChart(
