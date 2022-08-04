@@ -3,7 +3,6 @@ import 'package:crypto_trends/core/network/network_info.dart';
 import 'package:crypto_trends/core/utils/give_error_type.dart';
 import 'package:crypto_trends/errors/error_types.dart';
 import 'package:crypto_trends/features/coinList/domain/usecases/get_coin_list.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../coinList/domain/entities/coin.dart';

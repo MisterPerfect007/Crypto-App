@@ -14,7 +14,7 @@ class TrendingCoinRemoteDataSource {
   Future<List<String>> getTrendingCoinsIds() async {
     final Response response;
     try {
-      response = await client.get(_baseUri, headers: _defaultHeader);
+      response = await client.get(_baseUri, headers: _defaultHeader).timeout(const Duration(seconds: 60));
     } catch (e) {
       throw TrendingCoinException();
     }

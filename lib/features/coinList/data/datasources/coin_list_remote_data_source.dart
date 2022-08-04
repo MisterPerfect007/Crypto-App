@@ -30,7 +30,7 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
 
     final Response response;
     try {
-      response = await client.get(url, headers: defaultHeader);
+      response = await client.get(url, headers: defaultHeader).timeout(const Duration(seconds: 60));
     } catch (e) {
       throw NoConnectionException();
     }

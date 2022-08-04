@@ -26,3 +26,4 @@ class TrendingCoinsFailure extends TrendingCoinsState {
   @override
   List<Object> get props => [errorType];
 }
+

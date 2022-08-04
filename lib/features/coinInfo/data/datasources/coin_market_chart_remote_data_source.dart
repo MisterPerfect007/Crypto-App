@@ -42,7 +42,7 @@ class CoinMarketChartRemoteDataSourceImpl
             days: days,
             dailyInterval: dailyInterval,
           ),
-          headers: defaultHeader);
+          headers: defaultHeader).timeout(const Duration(seconds: 60));
     } catch (e) {
       throw NoConnectionException();
     }
