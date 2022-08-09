@@ -5,8 +5,9 @@ import 'package:crypto_trends/errors/error_types.dart';
 import 'package:crypto_trends/features/coinList/domain/usecases/get_coin_list.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../coinList/domain/entities/coin.dart';
-import '../../data/trending_coin_remote_data_source.dart';
+import '../../../../coinList/domain/entities/coin.dart';
+import '../../../data/trending_coin_remote_data_source.dart';
+
 
 part 'trending_coin_event.dart';
 part 'trending_coin_state.dart';

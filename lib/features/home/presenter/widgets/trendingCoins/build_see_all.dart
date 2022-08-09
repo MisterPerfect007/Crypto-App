@@ -8,7 +8,7 @@ import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../../ui/colors/colors.dart';
 import '../../../../coinInfo/presenter/page/coin_info.dart';
 import '../../../../coinList/domain/entities/coin.dart';
-import '../../bloc/trending_coin_bloc.dart';
+import '../../bloc/trending_coin/trending_coin_bloc.dart';
 import '../../page/see_all_page.dart';
 import '../trending_coin_cart.dart';
 

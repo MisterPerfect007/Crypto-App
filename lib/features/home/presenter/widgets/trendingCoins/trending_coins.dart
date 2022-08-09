@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
-import '../../bloc/trending_coin_bloc.dart';
+import '../../bloc/trending_coin/trending_coin_bloc.dart';
 import 'build_see_all.dart';
 import 'trending_coins_loaded_widget.dart';
 import 'trending_coins_loading_widget.dart';

@@ -5,7 +5,7 @@ import 'package:crypto_trends/injection_container.dart' as di;
 
 import '../../../coinList/presenter/bloc/coin_list_bloc.dart';
 import '../../../coinList/presenter/cubit/sorting_cubit.dart';
-import '../bloc/trending_coin_bloc.dart';
+import '../bloc/trending_coin/trending_coin_bloc.dart';
 import '../widgets/top10Coins/top_10_coins.dart';
 import '../widgets/top_banner.dart';
 import '../widgets/trendingCoins/trending_coins.dart';
