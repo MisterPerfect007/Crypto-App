@@ -37,10 +37,14 @@ class MockCoinListRemoteDataSourceImpl extends _i1.Mock
       returnValue: _FakeClient_0()) as _i2.Client);
   @override
   _i4.Future<List<_i5.CoinModel>> getRemoteCoinList(
-          {String? currency, int? page, List<String>? ids}) =>
+          {String? currency, int? page, List<String>? ids, int? perPage}) =>
       (super.noSuchMethod(
-              Invocation.method(#getRemoteCoinList, [],
-                  {#currency: currency, #page: page, #ids: ids}),
+              Invocation.method(#getRemoteCoinList, [], {
+                #currency: currency,
+                #page: page,
+                #ids: ids,
+                #perPage: perPage
+              }),
               returnValue: Future<List<_i5.CoinModel>>.value(<_i5.CoinModel>[]))
           as _i4.Future<List<_i5.CoinModel>>);
 }

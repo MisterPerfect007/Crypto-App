@@ -4,13 +4,13 @@ import 'package:crypto_trends/errors/error_types.dart';
 import 'package:crypto_trends/errors/failures.dart';
 import 'package:crypto_trends/features/coinList/domain/usecases/get_coin_list.dart';
 import 'package:crypto_trends/features/home/data/trending_coin_remote_data_source.dart';
-import 'package:crypto_trends/features/home/presenter/bloc/trending_coin_bloc.dart';
+import 'package:crypto_trends/features/home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../testData/coins_list_for_tests.dart';
+import '../../../../../testData/coins_list_for_tests.dart';
 import 'trending_coin_bloc_test.mocks.dart';
 
 @GenerateMocks([NetworkInfo])

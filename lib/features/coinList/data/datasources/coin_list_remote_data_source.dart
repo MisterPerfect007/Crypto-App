@@ -9,7 +9,7 @@ abstract class CoinListRemoteDataSource {
   ///
   /// throw a [ServerException] or [NoConnectionException] when something went wrong
   Future<List<CoinModel>> getRemoteCoinList(
-      {required String currency, int? page, List<String>? ids,});
+      {required String currency, int? page, List<String>? ids, int? perPage});
 }
 
 /*
@@ -21,8 +21,12 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
     required this.client,
   });
   @override
-  Future<List<CoinModel>> getRemoteCoinList(
-      {required String currency, int? page, List<String>? ids}) async {
+  Future<List<CoinModel>> getRemoteCoinList({
+    required String currency,
+    int? page,
+    List<String>? ids,
+    int? perPage,
+  }) async {
     const Map<String, String> defaultHeader = {
       'Content-type': 'application/json'
     };
@@ -30,7 +34,9 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
 
     final Response response;
     try {
-      response = await client.get(url, headers: defaultHeader).timeout(const Duration(seconds: 60));
+      response = await client
+          .get(url, headers: defaultHeader)
+          .timeout(const Duration(seconds: 60));
     } catch (e) {
       throw NoConnectionException();
     }
@@ -44,18 +50,18 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
     } else {
       throw ServerException();
     }
-
   }
 }
 
-Uri buildUrl({required String currency, int? page, List<String>? ids}) {
-    return Uri.https('api.coingecko.com', '/api/v3/coins/markets', {
-      'vs_currency': currency,
-      'order': 'market_cap_desc',
-      'per_page': '100',
-      'page': page?.toString(),
-      'ids': ids?.join(','),
-      'sparkline': 'true',
-      'price_change_percentage': '7d',
-    });
-  }
+Uri buildUrl(
+    {required String currency, int? page, List<String>? ids, int? perPage}) {
+  return Uri.https('api.coingecko.com', '/api/v3/coins/markets', {
+    'vs_currency': currency,
+    'order': 'market_cap_desc',
+    'per_page': perPage?.toString() ?? '100',
+    'page': page?.toString(),
+    'ids': ids?.join(','),
+    'sparkline': 'true',
+    'price_change_percentage': '7d',
+  });
+}

@@ -1,8 +1,15 @@
 part of 'top_10_bloc.dart';
 
-abstract class Top_10Event extends Equatable {
-  const Top_10Event();
+abstract class Top10Event extends Equatable {
+  const Top10Event();
 
   @override
   List<Object> get props => [];
+}
+
+class GetTop10Coins extends Top10Event {
+  final int perPage;
+  final String currency;
+  final int page;
+  const GetTop10Coins({required this.page, required this.currency, required this.perPage});
 }

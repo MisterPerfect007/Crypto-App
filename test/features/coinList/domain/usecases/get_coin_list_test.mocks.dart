@@ -35,10 +35,10 @@ class MockCoinListRepository extends _i1.Mock
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, List<_i6.Coin>>> getRemoteCoinList(
-          {String? currency, int? page, List<String>? ids}) =>
+          {String? currency, int? page, List<String>? ids, int? perPage}) =>
       (super.noSuchMethod(
           Invocation.method(#getRemoteCoinList, [],
-              {#currency: currency, #page: page, #ids: ids}),
+              {#currency: currency, #page: page, #ids: ids, #perPage: perPage}),
           returnValue: Future<_i2.Either<_i5.Failure, List<_i6.Coin>>>.value(
               _FakeEither_0<_i5.Failure, List<_i6.Coin>>())) as _i4
           .Future<_i2.Either<_i5.Failure, List<_i6.Coin>>>);

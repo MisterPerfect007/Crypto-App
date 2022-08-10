@@ -33,16 +33,7 @@ class MyApp extends StatelessWidget {
         // colorScheme: ColorScheme.fromSwatch(accentColor: Colors.red)
       ),
       // themeMode: ThemeMode.light,
-      home: 
-      MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => di.sl<CoinListBloc>()),
-          BlocProvider(create: (context) => ScrollPositionCubit()),
-          BlocProvider(create: (context) => SortingCubit()),
-          BlocProvider(create: (context) => PaginationCubit()),
-        ],
-        child: HomePage(),
-      ),
+      home: const HomePage(),
       
       // MultiBlocProvider(providers: [
       //   BlocProvider(create: ((context) => TimeSlotCubit()))

@@ -35,7 +35,7 @@ void main() {
 
     await remote.getRemoteCoinList(currency: tCurrency, page: tPage);
 
-    print(buildUrl(currency: tCurrency, page: null,).toString());
+    // print(buildUrl(currency: tCurrency, page: null,).toString());
 
     verify(client.get(buildUrl(currency: tCurrency, page: tPage,),
             headers: defaultHeader))
