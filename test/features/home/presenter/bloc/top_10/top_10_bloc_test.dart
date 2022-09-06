@@ -62,7 +62,7 @@ void main() {
   );
 
    blocTest<Top10Bloc, Top10State>(
-    "emit [Top10Loading] when there is internet",
+    "emit [Top10Loading, Top10Loaded] when there is internet",
     setUp: () {
       whenSuccess();
     },
@@ -70,6 +70,7 @@ void main() {
     act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
     expect: () => [
       Top10Loading(),
+      Top10Loaded(coinList: testCoinModels),
       // const Top10Failure(ErrorType.failedRequest)
     ],
   );

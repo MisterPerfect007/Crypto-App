@@ -20,7 +20,7 @@ class TrendingCoins extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
-    context.read<TrendingCoinsBloc>().add(GetTrendingCoins());
+    handleApiCall(context);
     return Container(
       padding: const EdgeInsets.only(top: 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -45,6 +45,7 @@ class TrendingCoins extends StatelessWidget {
         ),
         BlocBuilder<TrendingCoinsBloc, TrendingCoinsState>(
           builder: (context, state) {
+            print(state.runtimeType);
             //! Loading
             if (state is TrendingCoinsLoading) {
               return const TrendingCoinsLoadingWidget();
@@ -60,7 +61,7 @@ class TrendingCoins extends StatelessWidget {
                   secondTitle:
                       "Check your internet connection and try to refresh.",
                   buttonOnPressed: () {
-                    // gettingOrRefringCoinList(context);
+                    handleApiCall(context);
                   },
                   buttonText: "Refresh",
                 );
@@ -73,7 +74,7 @@ class TrendingCoins extends StatelessWidget {
               secondTitle:
                   "Something went wrong on the back side, please try again.",
               buttonOnPressed: () {
-                // gettingOrRefringCoinList(context);
+                handleApiCall(context);
               },
               buttonText: "Try again",
             );
@@ -81,5 +82,10 @@ class TrendingCoins extends StatelessWidget {
         ),
       ]),
     );
+  }
+  void handleApiCall(BuildContext context){
+    final state = context.read<TrendingCoinsBloc>().state;
+    if(state is TrendingCoinsLoading || state is TrendingCoinsLoaded) return;
+    context.read<TrendingCoinsBloc>().add(GetTrendingCoins());
   }
 }

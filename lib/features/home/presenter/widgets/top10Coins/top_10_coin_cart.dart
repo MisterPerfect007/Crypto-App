@@ -8,6 +8,7 @@ import '../../../../../core/coinPercentage/coin_percentage_format.dart';
 import '../../../../../core/utils/price_formater.dart';
 import '../../../../../core/widgets/custom_network_image.dart';
 import '../../../../../ui/colors/colors.dart';
+import '../../../../../ui/icons/svg-icons.dart';
 import '../../../../coinList/domain/entities/coin.dart';
 
 class Top10CoinCart extends StatelessWidget {
@@ -106,17 +107,21 @@ class Top10CoinCart extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              showLoading
-                  ? const ContainerShimmer(width: 20, height: 20, radius: 15)
-                  : Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          color: AppColors.mainGreen.withOpacity(0.1),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20))),
-                      child: SvgPicture.asset("assets/svg/chart-line-up.svg",
-                          width: 10, color: AppColors.mainGreen),
-                    )
+              if (showLoading)
+                const ContainerShimmer(width: 20, height: 20, radius: 15)
+              else if(coin?.priceChangePercentage7dInCurrency != null)
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      color: percentage.getColor() .withOpacity(0.1),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(20))),
+                  child: SvgIcon(
+                    icon: percentage.isPositive()! ? SvgIcons.chartLineUp : SvgIcons.chartLineDown,
+                    color: percentage.getColor(),
+                    size: 10
+                  ),
+                )
             ],
           ),
           if (showLoading)

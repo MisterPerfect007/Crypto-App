@@ -18,17 +18,18 @@ import '../../../../coinList/presenter/utils/utils_functions.dart';
 import 'build_see_all.dart';
 import 'top_10_coin_cart.dart';
 
-    void gettingTop10List(BuildContext context) {
-      final coinListBloc = context.read<CoinListBloc>();
-      final state = coinListBloc.state;
-      if (state is CoinListLoaded) {
-        coinListBloc.add(const CoinListUpdate(
-            currency: "usd", sortingCriteria: {"by": 'Rank', 'desc': true}));
-      } else if (state is! CoinListLoading) {
-        coinListBloc.add(const CoinListGet(
-            currency: "usd", sortingCriteria: {"by": 'Rank', 'desc': true}));
-      }
-    }
+void gettingTop10List(BuildContext context) {
+  final coinListBloc = context.read<CoinListBloc>();
+  final state = coinListBloc.state;
+  if (state is CoinListLoaded) {
+    coinListBloc.add(const CoinListUpdate(
+        currency: "usd", sortingCriteria: {"by": 'Rank', 'desc': true}));
+  } else if (state is! CoinListLoading) {
+    coinListBloc.add(const CoinListGet(
+        currency: "usd", sortingCriteria: {"by": 'Rank', 'desc': true}));
+  }
+}
+
 class Top10Coins extends StatelessWidget {
   const Top10Coins({
     Key? key,
@@ -38,7 +39,6 @@ class Top10Coins extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
-
 
     gettingTop10List(context);
 
@@ -51,8 +51,8 @@ class Top10Coins extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => CoinListPage()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const CoinListPage()));
                 },
                 child: Text(
                   "Top 10 Coins",
