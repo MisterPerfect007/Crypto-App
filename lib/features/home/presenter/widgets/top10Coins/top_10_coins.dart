@@ -13,8 +13,6 @@ import '../../../../../ui/icons/icons.dart';
 import '../../../../coinInfo/presenter/page/coin_info.dart';
 import '../../../../coinList/domain/entities/coin.dart';
 import '../../../../coinList/presenter/bloc/coin_list_bloc.dart';
-import '../../../../coinList/presenter/cubit/sorting_cubit.dart';
-import '../../../../coinList/presenter/utils/utils_functions.dart';
 import 'build_see_all.dart';
 import 'top_10_coin_cart.dart';
 
@@ -119,7 +117,7 @@ class Top10Coins extends StatelessWidget {
                   secondTitle:
                       "Check your internet connection and try to refresh.",
                   buttonOnPressed: () {
-                    // gettingOrRefringCoinList(context);
+                    gettingTop10List(context);
                   },
                   buttonText: "Refresh",
                 );
@@ -132,7 +130,7 @@ class Top10Coins extends StatelessWidget {
               secondTitle:
                   "Something went wrong on the back side, please try again.",
               buttonOnPressed: () {
-                // gettingOrRefringCoinList(context);
+                gettingTop10List(context);
               },
               buttonText: "Try again",
             );

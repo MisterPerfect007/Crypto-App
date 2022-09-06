@@ -50,7 +50,6 @@ class TrendingCoins extends StatelessWidget {
             if (state is TrendingCoinsLoading) {
               return const TrendingCoinsLoadingWidget();
             } else if (state is TrendingCoinsLoaded) {
-              //!!!!!!!!!!!!!!!!!!!!! CoinList > 4 !!!!!!!!!!!!!
               return TrendingCoinsLoadedWidget(coinList: state.coinList);
             } else if (state is TrendingCoinsFailure) {
               if (state.errorType == ErrorType.noInternetConnection) {
@@ -59,12 +58,17 @@ class TrendingCoins extends StatelessWidget {
                   icon: PersoIcons.coloredNoWifi,
                   title: "You're currently offline",
                   secondTitle:
-                      "Check your internet connection and try to refresh.",
+                      "Check your internet connection refresh.",
                   buttonOnPressed: () {
                     handleApiCall(context);
                   },
                   buttonText: "Refresh",
                 );
+                //!
+                //!
+                //!Should show snackbar when still offline
+                //!
+                //!
               }
             }
             return FailedRequest(
