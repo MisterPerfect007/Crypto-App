@@ -10,12 +10,12 @@ import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../../ui/colors/colors.dart';
 import '../../../../coinInfo/presenter/page/coin_info.dart';
 import '../../../../coinList/domain/entities/coin.dart';
-import '../../../../coinList/presenter/bloc/coin_list_bloc.dart';
+import '../../bloc/top10/top_10_bloc.dart';
 import '../../page/see_all_page.dart';
 
-BlocBuilder<CoinListBloc, CoinListState> buildTop10SeeAll(double sidePadding) {
-    return BlocBuilder<CoinListBloc, CoinListState>(builder: (context, state) {
-      if (state is CoinListLoaded) {
+BlocBuilder<Top10Bloc, Top10State> buildTop10SeeAll(double sidePadding) {
+    return BlocBuilder<Top10Bloc, Top10State>(builder: (context, state) {
+      if (state is Top10Loaded) {
         List<Coin> coinList = state.coinList;
         return GestureDetector(
           onTap: () {

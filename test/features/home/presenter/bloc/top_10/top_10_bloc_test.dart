@@ -2,6 +2,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:crypto_trends/core/network/network_info.dart';
 import 'package:crypto_trends/errors/error_types.dart';
+import 'package:crypto_trends/errors/failures.dart';
 import 'package:crypto_trends/features/coinList/domain/usecases/get_coin_list.dart';
 import 'package:crypto_trends/features/home/presenter/bloc/top10/top_10_bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -61,25 +62,10 @@ void main() {
     expect: () => [const Top10Failure(ErrorType.noInternetConnection)],
   );
 
-   blocTest<Top10Bloc, Top10State>(
-    "emit [Top10Loading, Top10Loaded] when there is internet",
-    setUp: () {
-      whenSuccess();
-    },
-    build: () => bloc,
-    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
-    expect: () => [
-      Top10Loading(),
-      Top10Loaded(coinList: testCoinModels),
-      // const Top10Failure(ErrorType.failedRequest)
-    ],
-  );
-
   blocTest<Top10Bloc, Top10State>(
     "call the remote coin list when there is internet connection",
     setUp: () {
       whenSuccess();
-      
     },
     build: () => bloc,
     act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
@@ -99,6 +85,36 @@ void main() {
     expect:() => [
       Top10Loading(),
       Top10Loaded(coinList: testCoinModels)
+    ],
+  );
+
+  blocTest<Top10Bloc, Top10State>(
+    "emit [Top10Loading, Top10Failure(ErrorType.failedRequest)] when the request failed (return a ServerFailure)",
+    setUp: () {
+      when(network.isConnected).thenAnswer((_) async => true);
+    when(getRemoteCoinList.call(currency: tCurrency, perPage: perPage, page: tPage))
+        .thenAnswer((_) async => Left(ServerFailure()));
+    },
+    build: () => bloc,
+    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
+    expect:() => [
+      Top10Loading(),
+      const Top10Failure(ErrorType.failedRequest)
+    ],
+  );
+
+  blocTest<Top10Bloc, Top10State>(
+    "emit [Top10Loading, Top10Failure(ErrorType.noInternetConnection)] when the request failed (return a NoConnectionFailure())",
+    setUp: () {
+      when(network.isConnected).thenAnswer((_) async => true);
+    when(getRemoteCoinList.call(currency: tCurrency, perPage: perPage, page: tPage))
+        .thenAnswer((_) async => Left(NoConnectionFailure()));
+    },
+    build: () => bloc,
+    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
+    expect:() => [
+      Top10Loading(),
+      const Top10Failure(ErrorType.noInternetConnection)
     ],
   );
 

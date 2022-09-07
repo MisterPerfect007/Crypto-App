@@ -10,13 +10,14 @@ import '../utils/market_trend.dart';
 class MarketTrendLoaded extends StatelessWidget {
   const MarketTrendLoaded({
     Key? key,
-    required this.fPercentage,
+    required this.percentage,
   }) : super(key: key);
 
-  final CoinPercentageFormat fPercentage;
+  final double percentage;
 
   @override
   Widget build(BuildContext context) {
+    CoinPercentageFormat fPercentage = CoinPercentageFormat(percentage: percentage);
     return SizedBox(
       width: double.infinity,
       child: Wrap(
@@ -27,8 +28,7 @@ class MarketTrendLoaded extends StatelessWidget {
             TextSpan(children: [
               const TextSpan(text: "Market is "),
               TextSpan(
-                  text: getMarketTrendAsString(
-                      double.parse(fPercentage.fixedPercentage())))
+                  text: getMarketTrendAsString(percentage))
             ]),
             style: GoogleFonts.inter(
                 color: AppColors.mainWhite.withOpacity(0.8),

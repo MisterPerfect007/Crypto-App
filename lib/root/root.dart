@@ -3,7 +3,8 @@ import 'package:crypto_trends/features/home/presenter/page/home_page.dart';
 import 'package:crypto_trends/ui/icons/svg-icons.dart';
 import 'package:flutter/material.dart';
 
-import 'ui/colors/colors.dart';
+import '../ui/colors/colors.dart';
+import 'widgets/bottom_bar_item.dart';
 
 class Root extends StatefulWidget {
   const Root({Key? key}) : super(key: key);
@@ -12,40 +13,56 @@ class Root extends StatefulWidget {
   State<Root> createState() => _RootState();
 }
 
-class _RootState extends State<Root> with TickerProviderStateMixin{
-  late AnimationController _animationController ;
+class _RootState extends State<Root> with TickerProviderStateMixin {
+  late AnimationController _animationController;
   late Animation<double> _animation;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1000));
+    _animationController = AnimationController(
+      value: 1,
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
 
-    _animation = CurvedAnimation(parent: _animationController, curve: Curves.easeInOut);
-
-    _animationController.animateTo(500);
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController);
   }
 
+  void _handlePageSwitch(int newindex) {
+    if (newindex != _currentIndex) {
+      setState(() {
+        _currentIndex = newindex;
+      });
+      _animationController.reset();
+      _animationController.forward();
+    }
+  }
 
   int _currentIndex = 0;
 
-  final List _itemList = [
-    ["Home", SvgIcons.homeFilled],
-    ["List", SvgIcons.listLine],
-    ["Settings", SvgIcons.settingsOutline]
+  final List<List<dynamic>> _itemList = [
+    ["Home", SvgIcons.homeRegular, SvgIcons.homeFilled],
+    ["List", SvgIcons.listLine, SvgIcons.listSolid],
+    ["Settings", SvgIcons.settingsOutline, SvgIcons.settingsFill]
   ];
 
   @override
   Widget build(BuildContext context) {
-  final List<Widget> _pages = [
-    ScaleTransition(child: HomePage(), scale: _animation),
-    CoinListPage()
+    //All pages
+    final List<Widget> _pages = [
+      const HomePage(),
+      const CoinListPage(),
+      //!Missing the Settings page
+    ]
+        .map((e) => CustomAnimatedWidget(animation: _animation, child: e))
+        .toList();
 
-  ];
     final double displayWidth = MediaQuery.of(context).size.width;
+    //
     return Scaffold(
       body: IndexedStack(
-        index:  _currentIndex,
+        index: _currentIndex,
         children: _pages,
       ),
       floatingActionButton: buildBottomNavigationBar(displayWidth),
@@ -80,12 +97,9 @@ class _RootState extends State<Root> with TickerProviderStateMixin{
           final bool itemIsSelected = _currentIndex == index;
           return BottomBarItem(
             label: _itemList[index][0],
-            icon: _itemList[index][1],
+            icon: itemIsSelected ? _itemList[index][2] : _itemList[index][1],
             color: itemIsSelected ? AppColors.mainGreen : AppColors.mainGrey,
-            onTap: () => setState(() {
-              _currentIndex = index;
-              _animationController.animateTo(500);
-            }),
+            onTap: () => _handlePageSwitch(index),
           );
         }).toList(),
       ),
@@ -93,42 +107,22 @@ class _RootState extends State<Root> with TickerProviderStateMixin{
   }
 }
 
-class BottomBarItem extends StatelessWidget {
-  final Function() onTap;
-  final String label;
-  final SvgIcons icon;
-  final Color color;
-  const BottomBarItem({
-    Key? key,
-    required this.label,
-    required this.icon,
-    required this.color,
-    required this.onTap,
-  }) : super(key: key);
+class CustomAnimatedWidget extends AnimatedWidget {
+  const CustomAnimatedWidget(
+      {key, required this.animation, required this.child})
+      : super(
+          key: key,
+          listenable: animation,
+        );
+
+  final Widget child;
+  final Animation<double> animation;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        splashColor: AppColors.mainGreen.withOpacity(0.5),
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgIcon(icon: icon, size: 18, color: color),
-              Text(
-                label,
-                style: TextStyle(fontSize: 9, color: color),
-              )
-            ],
-          ),
-        ),
-      ),
+    return Opacity(
+      opacity: animation.value,
+      child: child,
     );
   }
 }

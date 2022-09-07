@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../../core/coinPercentage/coin_percentage_format.dart';
 import '../../../../../../../core/widgets/custom_container_shimmer.dart';
-import '../../../../../../coinList/presenter/bloc/coin_list_bloc.dart';
-import '../../../../utils/functions.dart';
+import '../../../bloc/top10/top_10_bloc.dart';
+import '../../../utils/functions.dart';
 import 'market_trend_and_percentage.dart';
 
 class MarketTrendAndPercentage extends StatelessWidget {
@@ -14,10 +13,10 @@ class MarketTrendAndPercentage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final state = context.read<CoinListBloc>().state;
-    return BlocBuilder<CoinListBloc, CoinListState>(
+    // final state = context.read<Top10Bloc>().state;
+    return BlocBuilder<Top10Bloc, Top10State>(
       builder: (context, state) {
-        if (state is CoinListLoading) {
+        if (state is Top10Loading) {
           return Row(
             children: [
               const ContainerShimmer(
@@ -35,10 +34,8 @@ class MarketTrendAndPercentage extends StatelessWidget {
               ),
             ],
           );
-        } else if (state is CoinListLoaded) {
-          final fPercentage = CoinPercentageFormat(
-              percentage: getTop100Percentage(state.coinList));
-          return MarketTrendLoaded(fPercentage: fPercentage);
+        } else if (state is Top10Loaded) {
+          return MarketTrendLoaded(percentage: getTop100Percentage(state.coinList));
         }
         return Container();
       },

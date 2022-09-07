@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomOpacityAnimation extends StatefulWidget {
-  const CustomOpacityAnimation({ Key? key, required this.child, this.duration = const Duration(milliseconds: 500)}) : super(key: key);
+  const CustomOpacityAnimation({ Key? key, required this.child, this.duration = const Duration(milliseconds: 300)}) : super(key: key);
   final Widget child;
   final Duration duration;
 

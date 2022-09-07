@@ -45,7 +45,6 @@ class TrendingCoins extends StatelessWidget {
         ),
         BlocBuilder<TrendingCoinsBloc, TrendingCoinsState>(
           builder: (context, state) {
-            print(state.runtimeType);
             //! Loading
             if (state is TrendingCoinsLoading) {
               return const TrendingCoinsLoadingWidget();

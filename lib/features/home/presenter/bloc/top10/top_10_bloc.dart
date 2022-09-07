@@ -26,13 +26,21 @@ class Top10Bloc extends Bloc<Top10Event, Top10State> {
               page: event.page,
               perPage: event.perPage);
           coinListOrFailure.fold(
-            (l) => null,
+            (failure) => emit(Top10Failure(giveErrorType(failure))),
             (coinList) => emit(Top10Loaded(coinList: coinList)),
           );
         }
         //else
         //getCoinList
         //
+      }
+      if (event is RefreshTop10Coins) {
+        final coinListOrFailure = await getCoinList.call(
+            currency: event.currency, page: event.page, perPage: event.perPage);
+        coinListOrFailure.fold(
+          (failure) => null,
+          (coinList) => emit(Top10Loaded(coinList: coinList)),
+        );
       }
     });
   }

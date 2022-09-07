@@ -2,7 +2,7 @@ import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/top10Coins/top_10_coins.dart';
-import '../widgets/trendingCoins/topBanner/top_banner.dart';
+import '../widgets/topBanner/top_banner.dart';
 import '../widgets/trendingCoins/trending_coins.dart';
 
 class HomePage extends StatelessWidget {

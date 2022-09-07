@@ -13,3 +13,10 @@ class GetTop10Coins extends Top10Event {
   final int page;
   const GetTop10Coins({required this.page, required this.currency, required this.perPage});
 }
+
+class RefreshTop10Coins extends Top10Event {
+  final int perPage;
+  final String currency;
+  final int page;
+  const RefreshTop10Coins({required this.page, required this.currency, required this.perPage});
+}

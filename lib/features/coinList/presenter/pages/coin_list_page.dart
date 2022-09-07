@@ -30,6 +30,7 @@ class _CoinListPageState extends State<CoinListPage> {
   @override
   void initState() {
     super.initState();
+    gettingOrRefringCoinList(context);
     Timer.periodic(const Duration(seconds: 30), (_) {
       gettingOrRefringCoinList(context);
     });
@@ -37,111 +38,101 @@ class _CoinListPageState extends State<CoinListPage> {
 
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
-    gettingOrRefringCoinList(context);
     final ScrollController _scrollController = ScrollController();
+
     return Scaffold(
-          backgroundColor: AppColors.lightBg,
-          appBar: PreferredSize(
-            preferredSize: Size(
-              size.width,
-              100,
-            ),
-            child: const CoinPageAppBar(),
-          ),
-          // floatingActionButton:
-          //     CustomSpeedDial(scrollController: _scrollController),
-          body: SizedBox(
-            height: size.height,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SortingCriteria(),
-                Expanded(
-                  child: BlocBuilder<CoinListBloc, CoinListState>(
-                      builder: ((context, state) {
-                    /*
+      backgroundColor: AppColors.lightBg,
+      appBar: PreferredSize(
+        preferredSize: Size(
+          size.width,
+          100,
+        ),
+        child: const CoinPageAppBar(),
+      ),
+      // floatingActionButton:
+      //     CustomSpeedDial(scrollController: _scrollController),
+      body: SizedBox(
+        height: size.height,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SortingCriteria(),
+            Expanded(
+              child: BlocBuilder<CoinListBloc, CoinListState>(
+                  builder: ((context, state) {
+                /*
                     !CoinListInitial
                    */
-                    if (state is CoinListInitial) {
-                      return const Text('Initial state');
-                    } else if (state is CoinListLoading) {
-                      /*
+                if (state is CoinListInitial) {
+                  return const Text('Initial state');
+                } else if (state is CoinListLoading) {
+                  /*
                     !CoinListLoading 
                    */
-                      return const SizedBox(
-                        child: ScrollConfiguration(
-                          behavior: ScrollBehavior(
-                            androidOverscrollIndicator:
-                                AndroidOverscrollIndicator.stretch,
-                          ),
-                          child: CoinShimmer(),
-                        ),
-                      );
-                    } else if (state is CoinListLoaded) {
-                      /*
+                  return const SizedBox(
+                    child: CoinShimmer(),
+                  );
+                } else if (state is CoinListLoaded) {
+                  /*
                     !CoinListLoaded
                    */
-                      return ScrollConfiguration(
-                        behavior: const ScrollBehavior(
-                            androidOverscrollIndicator:
-                                AndroidOverscrollIndicator.stretch),
-                        child: NotificationListener(
-                          onNotification: ((notification) {
-                            context
-                                .read<ScrollPositionCubit>()
-                                .onScroll(_scrollController.position.pixels);
-                            return true;
-                          }),
-                          child: RefreshIndicator(
-                            onRefresh: () async {
-                              gettingOrRefringCoinList(context);
+                  return NotificationListener(
+                    onNotification: ((notification) {
+                      context
+                          .read<ScrollPositionCubit>()
+                          .onScroll(_scrollController.position.pixels);
+                      return true;
+                    }),
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        gettingOrRefringCoinList(context);
 
-                              //delay just for showing the loading spinner for 2s
-                              await Future.delayed(const Duration(seconds: 2));
-                            },
-                            color: AppColors.mainGreen,
-                            child: CoinListView(
-                              scrollController: _scrollController,
-                              coinList: sortCoinList(
-                                  coinList: state.coinList,
-                                  criteria: context.read<SortingCubit>().state),
-                            ),
-                          ),
-                        ),
-                      );
-                      /* 
+                        //delay just for showing the loading spinner for 2s
+                        await Future.delayed(const Duration(seconds: 2));
+                      },
+                      color: AppColors.mainGreen,
+                      child: CoinListView(
+                        scrollController: _scrollController,
+                        coinList: sortCoinList(
+                            coinList: state.coinList,
+                            criteria: context.read<SortingCubit>().state),
+                      ),
+                    ),
+                  );
+                  /* 
                     !CoinListFailure
                    */
-                    } else if (state is CoinListFailure) {
-                      if (state.errorType == ErrorType.noInternetConnection) {
-                        return FailedRequest(
-                          icon: PersoIcons.coloredNoWifi,
-                          title: "You're currently offline",
-                          secondTitle:
-                              "Check your internet connection and try to refresh.",
-                          buttonOnPressed: () {
-                            gettingOrRefringCoinList(context);
-                          },
-                          buttonText: "Refresh",
-                        );
-                      }
-                    }
+                } else if (state is CoinListFailure) {
+                  if (state.errorType == ErrorType.noInternetConnection) {
                     return FailedRequest(
-                      icon: PersoIcons.coloredRemove,
-                      title: "Something went wrong",
+                      icon: PersoIcons.coloredNoWifi,
+                      title: "You're currently offline",
                       secondTitle:
-                          "Something went wrong on the back side, please try again.",
+                          "Check your internet connection and try to refresh.",
                       buttonOnPressed: () {
                         gettingOrRefringCoinList(context);
                       },
-                      buttonText: "Try again",
+                      buttonText: "Refresh",
                     );
-                  })),
-                ),
-              ],
+                  }
+                }
+                return FailedRequest(
+                  icon: PersoIcons.coloredRemove,
+                  title: "Something went wrong",
+                  secondTitle:
+                      "Something went wrong on the back side, please try again.",
+                  buttonOnPressed: () {
+                    gettingOrRefringCoinList(context);
+                  },
+                  buttonText: "Try again",
+                );
+              })),
             ),
-          ),
-        );
+          ],
+        ),
+      ),
+    );
   }
 }

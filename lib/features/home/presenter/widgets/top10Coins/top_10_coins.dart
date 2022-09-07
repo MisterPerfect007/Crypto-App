@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animations/animations.dart';
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
 import 'package:flutter/material.dart';
@@ -12,33 +14,49 @@ import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
 import '../../../../coinInfo/presenter/page/coin_info.dart';
 import '../../../../coinList/domain/entities/coin.dart';
-import '../../../../coinList/presenter/bloc/coin_list_bloc.dart';
+import '../../bloc/top10/top_10_bloc.dart';
 import 'build_see_all.dart';
 import 'top_10_coin_cart.dart';
 
 void gettingTop10List(BuildContext context) {
-  final coinListBloc = context.read<CoinListBloc>();
-  final state = coinListBloc.state;
-  if (state is CoinListLoaded) {
-    coinListBloc.add(const CoinListUpdate(
-        currency: "usd", sortingCriteria: {"by": 'Rank', 'desc': true}));
-  } else if (state is! CoinListLoading) {
-    coinListBloc.add(const CoinListGet(
-        currency: "usd", sortingCriteria: {"by": 'Rank', 'desc': true}));
+  final top10Bloc = context.read<Top10Bloc>();
+  final state = top10Bloc.state;
+  top10Bloc.add(const GetTop10Coins(page: 1, currency: "usd", perPage: 100));
+  if (state is Top10Loaded) {
+    
   }
 }
+void refreshTop10List(BuildContext context) {
+  final top10Bloc = context.read<Top10Bloc>();
+  top10Bloc.add(const RefreshTop10Coins(page: 1, currency: "usd", perPage: 100));
+}
 
-class Top10Coins extends StatelessWidget {
+class Top10Coins extends StatefulWidget {
   const Top10Coins({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<Top10Coins> createState() => _Top10CoinsState();
+}
+
+class _Top10CoinsState extends State<Top10Coins> {
+
+  @override
+  void initState() {
+    super.initState();
+    gettingTop10List(context);
+    Timer.periodic(const Duration(seconds: 30), (_) {
+      refreshTop10List(context);
+      print("Refreshing the Top100........................");
+    });
+  }
+  
+  
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
-
-    gettingTop10List(context);
 
     return Container(
       padding: const EdgeInsets.only(top: 20),
@@ -68,9 +86,9 @@ class Top10Coins extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        BlocBuilder<CoinListBloc, CoinListState>(
+        BlocBuilder<Top10Bloc, Top10State>(
           builder: (context, state) {
-            if (state is CoinListLoading) {
+            if (state is Top10Loading) {
               return Padding(
                 padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
                 child: Row(children: [
@@ -85,8 +103,18 @@ class Top10Coins extends StatelessWidget {
                   ]),
                 ]),
               );
-            } else if (state is CoinListLoaded) {
+            } else if (state is Top10Loaded) {
               List<Coin> coinList = state.coinList;
+              
+              //To be sure that coin list is sorted by marketCapRank
+              coinList.sort((a, b) {
+                if(a.marketCapRank != null && b.marketCapRank != null){
+                  return a.marketCapRank!.compareTo(b.marketCapRank!);
+                }else{
+                  return 0;
+                }
+              });
+
               return CustomOpacityAnimation(
                   child: Padding(
                 padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
@@ -108,7 +136,7 @@ class Top10Coins extends StatelessWidget {
                   ),
                 ),
               ));
-            } else if (state is CoinListFailure) {
+            } else if (state is Top10Failure) {
               if (state.errorType == ErrorType.noInternetConnection) {
                 return FailedRequest(
                   small: true,

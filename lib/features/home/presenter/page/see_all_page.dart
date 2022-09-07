@@ -30,16 +30,14 @@ class SeeAllPage extends StatelessWidget {
         body: Container(
           height: size.height,
           color: AppColors.lightBg,
-          child: ScrollConfiguration(
-            behavior: const ScrollBehavior(),
-            child: SingleChildScrollView(
-              child: SafeArea(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    body
-                  ],
-                ),
+          child: SingleChildScrollView(
+            child: SafeArea(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  body,
+                  const SizedBox(height: 20),
+                ],
               ),
             ),
           ),

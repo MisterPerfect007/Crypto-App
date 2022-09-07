@@ -17,7 +17,7 @@ class TopBanner extends StatelessWidget {
       // height: 200,
       width: size.width,
       padding: EdgeInsets.only(
-          left: sidePadding, right: sidePadding, top: 20, bottom: 20),
+          left: sidePadding, right: sidePadding, top: 10, bottom: 20),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -56,13 +56,13 @@ class TopBanner extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const MarketTrendAndPercentage(),
-              const SizedBox(
-                height: 3,
-              ),
+              // const SizedBox(
+              //   height: 3,
+              // ),
               Text(
-                "In the last 24h (Top-100)",
+                "The last 24h (in the Top-100)",
                 style: GoogleFonts.inter(
-                    color: AppColors.mainWhite.withOpacity(0.7), fontSize: 12),
+                    color: AppColors.mainWhite.withOpacity(0.7), fontSize: 10),
               ),
             ],
           )
