@@ -8,7 +8,6 @@ import 'package:equatable/equatable.dart';
 import '../../../../coinList/domain/entities/coin.dart';
 import '../../../data/trending_coin_remote_data_source.dart';
 
-
 part 'trending_coin_event.dart';
 part 'trending_coin_state.dart';
 
@@ -44,6 +43,20 @@ class TrendingCoinsBloc extends Bloc<TrendingCoinsEvent, TrendingCoinsState> {
             emit(const TrendingCoinsFailure(ErrorType.failedRequest));
           }
         }
+      }
+      if (event is RefreshTrendingCoins) {
+        final List<String> ids;
+        try {
+          ids = await trendingCoinSource.getTrendingCoinsIds();
+          if (ids.isNotEmpty) {
+            final coinListOrFailure =
+                await getCoinList(currency: "usd", ids: ids);
+            coinListOrFailure.fold(
+              (failure) => null,
+              (coinList) => emit(TrendingCoinsLoaded(coinList: coinList)),
+            );
+          } else {}
+        } catch (_) {}
       }
     });
   }

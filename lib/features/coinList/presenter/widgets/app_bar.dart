@@ -1,13 +1,12 @@
+import 'package:crypto_trends/ui/icons/svg-icons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../ui/colors/colors.dart';
-import '../../../../ui/icons/icons.dart';
 
 class CoinPageAppBar extends StatelessWidget {
   const CoinPageAppBar({
     Key? key,
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -37,37 +36,37 @@ class CoinPageAppBar extends StatelessWidget {
             onTap: () {},
             child: Container(
               decoration: BoxDecoration(
-                color: AppColors.secondGreen,
+                color: AppColors.mainGreen.withOpacity(0.2),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
-              padding: const EdgeInsets.all(6),
-              child: const PersoIcon(
-                icon: PersoIcons.searchMd,
-                color: AppColors.mainGreen,
-                size: 25,
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          InkWell(
-            splashColor: const Color.fromARGB(255, 199, 199, 199),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(20),
-            ),
-            onTap: () {},
-            child: Container(
               padding: const EdgeInsets.all(10),
-              child: const PersoIcon(
-                icon: PersoIcons.more,
-                color: AppColors.pureBlack,
-                size: 17,
+              child: const SvgIcon(
+                icon: SvgIcons.search,
+                color: AppColors.mainGreen,
+                size: 18,
               ),
             ),
           ),
+          // const SizedBox(
+          //   width: 10,
+          // ),
+          // InkWell(
+          //   splashColor: const Color.fromARGB(255, 199, 199, 199),
+          //   borderRadius: const BorderRadius.all(
+          //     Radius.circular(20),
+          //   ),
+          //   onTap: () {},
+          //   child: Container(
+          //     padding: const EdgeInsets.all(10),
+          //     child: const PersoIcon(
+          //       icon: PersoIcons.more,
+          //       color: AppColors.pureBlack,
+          //       size: 17,
+          //     ),
+          //   ),
+          // ),
         ]),
       ),
     );

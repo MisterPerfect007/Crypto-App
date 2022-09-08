@@ -20,15 +20,15 @@ import 'top_10_coin_cart.dart';
 
 void gettingTop10List(BuildContext context) {
   final top10Bloc = context.read<Top10Bloc>();
-  final state = top10Bloc.state;
   top10Bloc.add(const GetTop10Coins(page: 1, currency: "usd", perPage: 100));
-  if (state is Top10Loaded) {
-    
-  }
 }
+
 void refreshTop10List(BuildContext context) {
   final top10Bloc = context.read<Top10Bloc>();
-  top10Bloc.add(const RefreshTop10Coins(page: 1, currency: "usd", perPage: 100));
+  final state = top10Bloc.state;
+  if (state is Top10Loaded) {
+    top10Bloc.add(const RefreshTop10Coins(page: 1, currency: "usd", perPage: 100));
+  }
 }
 
 class Top10Coins extends StatefulWidget {
@@ -48,7 +48,6 @@ class _Top10CoinsState extends State<Top10Coins> {
     gettingTop10List(context);
     Timer.periodic(const Duration(seconds: 30), (_) {
       refreshTop10List(context);
-      print("Refreshing the Top100........................");
     });
   }
   

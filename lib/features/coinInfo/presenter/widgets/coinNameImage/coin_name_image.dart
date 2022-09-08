@@ -51,16 +51,16 @@ class CoinNameImage extends StatelessWidget {
               ],
             ),
           ),
-          CustomInkWellIcon(
-            onTap: () {},
-            size: 45,
-            radius: 45,
-            child: const PersoIcon(
-              icon: PersoIcons.starOutline,
-              size: 25,
-              color: AppColors.mainGrey,
-            ),
-          )
+          // CustomInkWellIcon(
+          //   onTap: () {},
+          //   size: 45,
+          //   radius: 45,
+          //   child: const PersoIcon(
+          //     icon: PersoIcons.starOutline,
+          //     size: 25,
+          //     color: AppColors.mainGrey,
+          //   ),
+          // )
         ],
       ),
     );

@@ -9,7 +9,8 @@ enum SvgIcons {
   listLine,
   listSolid,
   settingsOutline,
-  settingsFill,
+  settingsFill,  
+  search,
 }
 
 Map<SvgIcons, String> svgLink = {
@@ -20,7 +21,8 @@ Map<SvgIcons, String> svgLink = {
   SvgIcons.listLine: 'assets/svg/list-line.svg',
   SvgIcons.listSolid: 'assets/svg/list-solid.svg',
   SvgIcons.settingsOutline: 'assets/svg/settings-outline.svg',
-  SvgIcons.settingsFill: 'assets/svg/settings-fill.svg',
+  SvgIcons.settingsFill: 'assets/svg/settings-fill.svg',  
+  SvgIcons.search: 'assets/svg/search.svg',
 };
 
 class SvgIcon extends StatelessWidget {

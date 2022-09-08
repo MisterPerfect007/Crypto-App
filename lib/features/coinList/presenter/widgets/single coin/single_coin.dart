@@ -65,12 +65,12 @@ class _SingleCoinState extends State<SingleCoin> {
             //
             Expanded(
               child: Align(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.center,
                 child: coin.sparklineIn7d!.price.isNotEmpty
                     ? Container(
                         height: 20,
-                        // constraints:
-                        //     const BoxConstraints(minWidth: 200, maxWidth: 300),
+                        constraints:
+                            const BoxConstraints(minWidth: 70, maxWidth: 300),
                         padding: const EdgeInsets.only(
                           left: 5,
                           right: 5,
@@ -95,22 +95,22 @@ class _SingleCoinState extends State<SingleCoin> {
                       : null,
               // percentage: calculate7DPercentage(widget.lastWeekData)!),
             ),
-            const SizedBox(
-              width: 5,
-            ),
-            //Favorite
-            //
-            InkWell(
-              onTap: () {},
-              borderRadius: const BorderRadius.all(Radius.circular(50)),
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                child: const PersoIcon(
-                  icon: PersoIcons.starOutline,
-                  color: AppColors.mainGrey,
-                ),
-              ),
-            ),
+            // const SizedBox(
+            //   width: 5,
+            // ),
+            // //Favorite
+            // //
+            // InkWell(
+            //   onTap: () {},
+            //   borderRadius: const BorderRadius.all(Radius.circular(50)),
+            //   child: Container(
+            //     padding: const EdgeInsets.all(10),
+            //     child: const PersoIcon(
+            //       icon: PersoIcons.starOutline,
+            //       color: AppColors.mainGrey,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

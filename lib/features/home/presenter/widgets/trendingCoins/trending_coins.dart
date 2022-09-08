@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:crypto_trends/core/widgets/errors/failed_request.dart';
 import 'package:crypto_trends/errors/error_types.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +13,32 @@ import 'build_see_all.dart';
 import 'trending_coins_loaded_widget.dart';
 import 'trending_coins_loading_widget.dart';
 
-class TrendingCoins extends StatelessWidget {
+class TrendingCoins extends StatefulWidget {
   const TrendingCoins({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<TrendingCoins> createState() => _TrendingCoinsState();
+}
+
+class _TrendingCoinsState extends State<TrendingCoins> {
+
+  @override
+  void initState() {
+    super.initState();
+    gettingTrendingCoins(context);
+    Timer.periodic(const Duration(seconds: 30), (_) {
+      refreshTop10List(context);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
-    handleApiCall(context);
+
     return Container(
       padding: const EdgeInsets.only(top: 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -59,7 +77,7 @@ class TrendingCoins extends StatelessWidget {
                   secondTitle:
                       "Check your internet connection refresh.",
                   buttonOnPressed: () {
-                    handleApiCall(context);
+                    gettingTrendingCoins(context);
                   },
                   buttonText: "Refresh",
                 );
@@ -77,7 +95,7 @@ class TrendingCoins extends StatelessWidget {
               secondTitle:
                   "Something went wrong on the back side, please try again.",
               buttonOnPressed: () {
-                handleApiCall(context);
+                gettingTrendingCoins(context);
               },
               buttonText: "Try again",
             );
@@ -86,9 +104,19 @@ class TrendingCoins extends StatelessWidget {
       ]),
     );
   }
-  void handleApiCall(BuildContext context){
-    final state = context.read<TrendingCoinsBloc>().state;
-    if(state is TrendingCoinsLoading || state is TrendingCoinsLoaded) return;
-    context.read<TrendingCoinsBloc>().add(GetTrendingCoins());
+
+  
+}
+
+void gettingTrendingCoins(BuildContext context) {
+  final trendingBloc = context.read<TrendingCoinsBloc>();
+  trendingBloc.add(GetTrendingCoins());
+}
+
+void refreshTop10List(BuildContext context) {
+  final top10Bloc = context.read<TrendingCoinsBloc>();
+  final state = top10Bloc.state;
+  if (state is TrendingCoinsLoaded) {
+    top10Bloc.add(RefreshTrendingCoins());
   }
 }

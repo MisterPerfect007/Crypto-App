@@ -9,3 +9,5 @@ abstract class TrendingCoinsEvent extends Equatable {
 
 class GetTrendingCoins extends TrendingCoinsEvent{}
 
+class RefreshTrendingCoins extends TrendingCoinsEvent{}
+
