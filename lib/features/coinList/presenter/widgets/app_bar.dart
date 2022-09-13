@@ -1,9 +1,12 @@
 import 'package:animations/animations.dart';
+import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:crypto_trends/features/search/presenter/page/search.dart';
 import 'package:crypto_trends/ui/icons/svg-icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../ui/colors/colors.dart';
+import '../../domain/entities/coin.dart';
 
 class CoinPageAppBar extends StatelessWidget {
   const CoinPageAppBar({
@@ -32,32 +35,37 @@ class CoinPageAppBar extends StatelessWidget {
             ),
           ),
           Expanded(child: Container()),
-          OpenContainer(
-            closedElevation: 0.0,
-            closedShape: const CircleBorder(),
-            closedBuilder: (context, action) => InkWell(
-              splashColor: const Color.fromARGB(255, 199, 199, 199),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(20),
-              ),
-              onTap: action,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.mainGreen.withOpacity(0.2),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                padding: const EdgeInsets.all(10),
-                child: const SvgIcon(
-                  icon: SvgIcons.search,
-                  color: AppColors.mainGreen,
-                  size: 18,
-                ),
-              ),
-            ),
-            openBuilder: (context, action) => const Search()
-          )
+          BlocBuilder<CoinListBloc, CoinListState>(builder: (context, state) {
+            List<Coin> coinList = [];
+            if(state is CoinListLoaded){
+              coinList = state.coinList;
+            }
+            return OpenContainer(
+                closedElevation: 0.0,
+                closedShape: const CircleBorder(),
+                closedBuilder: (context, action) => InkWell(
+                      splashColor: const Color.fromARGB(255, 199, 199, 199),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      onTap: action,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.mainGreen.withOpacity(0.2),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: const SvgIcon(
+                          icon: SvgIcons.search,
+                          color: AppColors.mainGreen,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                openBuilder: (context, action) => Search(coinList: coinList,));
+          }),
         ]),
       ),
     );

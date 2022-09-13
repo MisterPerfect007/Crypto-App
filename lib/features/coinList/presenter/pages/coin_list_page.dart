@@ -62,6 +62,7 @@ class _CoinListPageState extends State<CoinListPage> {
             Expanded(
               child: BlocBuilder<CoinListBloc, CoinListState>(
                   builder: ((context, state) {
+                // print(state);
                 /*
                     !CoinListInitial
                    */
