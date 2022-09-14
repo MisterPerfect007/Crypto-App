@@ -9,6 +9,9 @@ import 'features/coinList/presenter/cubit/scrollposition_cubit.dart';
 import 'features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'features/home/presenter/bloc/top10/top_10_bloc.dart';
 import 'features/home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
+import 'package:http/http.dart' as http;
+
+import 'features/search/data/datasources/search_item_data_source.dart';
 
 void main() async {
   await di.init();
@@ -21,6 +24,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final ser = SearchItemDataSourceImpl(client: http.Client());
+    ser.getSearchItem('bit');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

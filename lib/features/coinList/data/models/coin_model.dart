@@ -92,7 +92,7 @@ class CoinModel extends Coin {
       priceChangePercentage7dInCurrency:
           json["price_change_percentage_7d_in_currency"]?.toDouble(),
     );
-  }
+  } 
   Map<String, dynamic> toJson() {
     return {
       "id": id,

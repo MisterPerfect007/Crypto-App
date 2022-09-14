@@ -1,10 +1,10 @@
-import 'package:crypto_trends/features/coinInfo/presenter/widgets/coinNameImage/coin_name_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/custom_network_image.dart';
 import '../../../../ui/colors/colors.dart';
 import '../../../../ui/icons/svg-icons.dart';
 import '../../../coinList/domain/entities/coin.dart';
+import '../widgets/search_item.dart';
+import '../widgets/search_item_shimmer.dart';
 
 class Search extends StatelessWidget {
   final List<Coin>? coinList;
@@ -87,16 +87,14 @@ class Search extends StatelessWidget {
       ),
       body: Container(
         color: Colors.white,
+        height: double.infinity,
         child: SingleChildScrollView(
-          padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
           child: Column(
-            children: [
+            children: const [
+              SearchItemShimmer(),
               SearchItem(),
-              SizedBox(height: 5),
               SearchItem(),
-              SizedBox(height: 5),
               SearchItem(),
-              SizedBox(height: 5),
             ],
           ),
         ),
@@ -105,57 +103,4 @@ class Search extends StatelessWidget {
   }
 }
 
-class SearchItem extends StatelessWidget {
-  const SearchItem({
-    Key? key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        splashColor: AppColors.mainGrey,
-        child: Row(
-          children: [
-        const CustomNetworkImage(
-          image:
-              "https://assets.coingecko.com/coins/images/1/large/bitcoin.png",
-          name: "name",
-          width: 25,
-        ),
-        const SizedBox(width: 10),
-        const Text(
-          "Bitcoin",
-          style: TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(width: 5,),
-        const Text(
-          "BIT",
-          style: TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-            color: AppColors.mainGrey
-          ),
-        ),
-        Expanded(child: Container()),
-        const Text(
-          "#1",
-          style: TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-            color: AppColors.mainGrey
-          ),
-        ),
-          ],
-        ),
-      ),
-    );
-  }
-}
