@@ -16,3 +16,9 @@ class SearchCoinFailure extends SearchCoinState {
 
   const SearchCoinFailure(this.errorType);
 }
+
+class SearchCoinLoaded extends SearchCoinState {
+  final List<SearchCoin> coinsList;
+
+  const SearchCoinLoaded(this.coinsList);
+}

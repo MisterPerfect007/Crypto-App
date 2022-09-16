@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../core/network/network_info.dart';
 import '../../../coinList/domain/usecases/get_coin_list.dart';
+import '../../domain/entity/search_coin.dart';
 import '../../domain/usecases/get_search_coin.dart';
 
 part 'search_coin_event.dart';
@@ -24,6 +25,10 @@ class SearchCoinBloc extends Bloc<SearchCoinEvent, SearchCoinState> {
           emit(const SearchCoinFailure(ErrorType.noInternetConnection));
         } else{
           final coinsListOrFailure = await getSearchCoin(event.query);
+          coinsListOrFailure.fold(
+            (failure) => emit(const SearchCoinFailure(ErrorType.failedRequest)),
+            (coinsList) => emit(SearchCoinLoaded(coinsList))
+          );
         }
       }
     });
