@@ -1,26 +1,38 @@
+import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../ui/colors/colors.dart';
 import '../../../../ui/icons/svg-icons.dart';
+import '../bloc/search_coin_bloc.dart';
 
 class SearchAppBar extends StatelessWidget {
-  const SearchAppBar({
+  SearchAppBar({
     Key? key,
   }) : super(key: key);
 
+  final _serachController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-
     double width = MediaQuery.of(context).size.width;
     double sidePadding = width / 25;
 
     return SafeArea(
       child: Container(
           height: 50,
-          color: Colors.white,
           padding: EdgeInsets.only(left: 0, right: sidePadding),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  color: AppColors.mainGrey.withOpacity(0.2),
+                  offset: const Offset(0, 2),
+                  blurRadius: 1,
+                  spreadRadius: 0.2),
+            ],
+          ),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -34,8 +46,7 @@ class SearchAppBar extends StatelessWidget {
                       },
                       child: Container(
                           padding: const EdgeInsets.all(10),
-                          child: const SvgIcon(
-                              icon: SvgIcons.arrowLeft))),
+                          child: const SvgIcon(icon: SvgIcons.arrowLeft))),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -50,8 +61,8 @@ class SearchAppBar extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                       color: Colors.grey.shade200,
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(30))),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(30))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -62,6 +73,7 @@ class SearchAppBar extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: TextFormField(
+                          controller: _serachController,
                             cursorWidth: 1.0,
                             autofocus: true,
                             cursorColor: AppColors.mainGreen,
@@ -70,10 +82,15 @@ class SearchAppBar extends StatelessWidget {
                               border: InputBorder.none,
                               hintText: "Search coin...",
                               hintStyle: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  fontSize: 10),
+                                  fontStyle: FontStyle.italic, fontSize: 10),
                             ),
-                            style: const TextStyle(fontSize: 12)),
+                            style: const TextStyle(fontSize: 12),
+                            onChanged: (value) {
+                              if (value.isNotEmpty) {
+                                
+                                context.read<SearchCoinBloc>().add(GetSearchCoins(_serachController.text));
+                              }
+                            },),
                       ),
                     ],
                   ),
@@ -81,4 +98,5 @@ class SearchAppBar extends StatelessWidget {
               ])),
     );
   }
+
 }

@@ -1,20 +1,26 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/custom_network_image.dart';
 import '../../../../ui/colors/colors.dart';
 
 class SearchItem extends StatelessWidget {
+  final String? image;
+  final String name;
+  final String symbol;
+  final int? rank;
+
   const SearchItem({
     Key? key,
+    this.image,
+    required this.name,
+    required this.symbol,
+    this.rank,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double sidePadding = width / 25;
-
-    String name = "Bitcoin-vs";
 
     return Material(
       color: Colors.transparent,
@@ -30,10 +36,9 @@ class SearchItem extends StatelessWidget {
           ),
           child: Row(
             children: [
-              const CustomNetworkImage(
-                image:
-                    "https://assets.coingecko.com/coins/images/1/large/bitcoin.png",
-                name: "name",
+              CustomNetworkImage(
+                image: image,
+                name: name,
                 width: 25,
               ),
               const SizedBox(width: 10),
@@ -46,20 +51,22 @@ class SearchItem extends StatelessWidget {
                   style: const TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 12,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
               const SizedBox(
                 width: 5,
               ),
+              //id
               Container(
                 constraints: const BoxConstraints(maxWidth: 50),
-                child: const Text(
-                  "BTC",
+                child: Text(
+                  symbol.toUpperCase(),
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
-                  style: TextStyle(
+                  style: const TextStyle(
+                    
                       fontFamily: 'Inter',
                       fontSize: 8,
                       fontWeight: FontWeight.w600,
@@ -67,9 +74,9 @@ class SearchItem extends StatelessWidget {
                 ),
               ),
               Expanded(child: Container()),
-              const Text(
-                "#1",
-                style: TextStyle(
+              Text(
+                "#" + (rank?.toString() ?? "?"),
+                style: const TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 12,
                     fontWeight: FontWeight.w500,

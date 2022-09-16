@@ -4,8 +4,10 @@ import 'package:crypto_trends/features/search/presenter/page/search.dart';
 import 'package:crypto_trends/ui/icons/svg-icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:crypto_trends/injection_container.dart' as di;
 
 import '../../../../ui/colors/colors.dart';
+import '../../../search/presenter/bloc/search_coin_bloc.dart';
 import '../../domain/entities/coin.dart';
 
 class CoinPageAppBar extends StatelessWidget {
@@ -37,7 +39,7 @@ class CoinPageAppBar extends StatelessWidget {
           Expanded(child: Container()),
           BlocBuilder<CoinListBloc, CoinListState>(builder: (context, state) {
             List<Coin> coinList = [];
-            if(state is CoinListLoaded){
+            if (state is CoinListLoaded) {
               coinList = state.coinList;
             }
             return OpenContainer(
@@ -64,7 +66,12 @@ class CoinPageAppBar extends StatelessWidget {
                         ),
                       ),
                     ),
-                openBuilder: (context, action) => Search(coinList: coinList,));
+                openBuilder: (context, action) => BlocProvider(
+                      create: (context) => di.sl<SearchCoinBloc>(),
+                      child: Search(
+                        coinList: coinList,
+                      ),
+                    ));
           }),
         ]),
       ),

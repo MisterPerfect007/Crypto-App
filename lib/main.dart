@@ -24,8 +24,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final ser = SearchItemDataSourceImpl(client: http.Client());
-    ser.getSearchItem('bit');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

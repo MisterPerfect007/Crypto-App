@@ -19,6 +19,7 @@ class SearchCoinBloc extends Bloc<SearchCoinEvent, SearchCoinState> {
   }) : super(SearchCoinInitial()) {
     on<SearchCoinEvent>((event, emit) async {
       if (event is GetSearchCoins) {
+        print(event.query);
         emit(SearchCoinLoading());
         final isConnected = await network.isConnected;
         if(!isConnected){
