@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:crypto_trends/features/search/presenter/page/search.dart';
-import 'package:crypto_trends/ui/icons/svg-icons.dart';
+import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crypto_trends/injection_container.dart' as di;

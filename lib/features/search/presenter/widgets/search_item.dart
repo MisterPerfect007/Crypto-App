@@ -39,9 +39,10 @@ class SearchItem extends StatelessWidget {
               CustomNetworkImage(
                 image: image,
                 name: name,
-                width: 25,
+                width: 40,
               ),
               const SizedBox(width: 10),
+              //!name
               Container(
                 constraints: const BoxConstraints(maxWidth: 200),
                 child: Text(
@@ -50,15 +51,13 @@ class SearchItem extends StatelessWidget {
                   softWrap: false,
                   style: const TextStyle(
                     fontFamily: 'Inter',
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 5,
-              ),
-              //id
+              const SizedBox(width: 5),
+              //!id
               Container(
                 constraints: const BoxConstraints(maxWidth: 50),
                 child: Text(
@@ -66,14 +65,14 @@ class SearchItem extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
                   style: const TextStyle(
-                    
                       fontFamily: 'Inter',
-                      fontSize: 8,
+                      fontSize: 10,
                       fontWeight: FontWeight.w600,
                       color: AppColors.mainGrey),
                 ),
               ),
               Expanded(child: Container()),
+              //!rank
               Text(
                 "#" + (rank?.toString() ?? "?"),
                 style: const TextStyle(

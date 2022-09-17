@@ -8,7 +8,7 @@ import '../../../../../core/coinPercentage/coin_percentage_format.dart';
 import '../../../../../core/utils/price_formater.dart';
 import '../../../../../core/widgets/custom_network_image.dart';
 import '../../../../../ui/colors/colors.dart';
-import '../../../../../ui/icons/svg-icons.dart';
+import '../../../../../ui/icons/svg_icons.dart';
 import '../../../../coinList/domain/entities/coin.dart';
 
 class Top10CoinCart extends StatelessWidget {

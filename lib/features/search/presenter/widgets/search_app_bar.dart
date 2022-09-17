@@ -1,18 +1,24 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../ui/colors/colors.dart';
-import '../../../../ui/icons/svg-icons.dart';
+import '../../../../ui/icons/svg_icons.dart';
 import '../bloc/search_coin_bloc.dart';
 
-class SearchAppBar extends StatelessWidget {
-  SearchAppBar({
+class SearchAppBar extends StatefulWidget {
+  const SearchAppBar({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<SearchAppBar> createState() => _SearchAppBarState();
+}
+
+class _SearchAppBarState extends State<SearchAppBar> {
   final _serachController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String _lastTextFieldValue = "";
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +51,18 @@ class SearchAppBar extends StatelessWidget {
                         Navigator.of(context).pop();
                       },
                       child: Container(
-                          padding: const EdgeInsets.all(10),
-                          child: const SvgIcon(icon: SvgIcons.arrowLeft))),
+                          height: 50,
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          child: const SvgIcon(
+                            icon: SvgIcons.chevronLeft,
+                            size: 25,
+                          ))),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                     child: Container(
                   alignment: Alignment.center,
-                  height: 30,
+                  height: 40,
                   padding: const EdgeInsets.only(
                     left: 5,
                     right: 5,
@@ -67,14 +77,17 @@ class SearchAppBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SvgIcon(
-                          icon: SvgIcons.search,
-                          size: 15,
-                          color: Color.fromARGB(188, 0, 0, 0)),
+                        icon: SvgIcons.search,
+                        size: 25,
+                        // color: Color.fromARGB(188, 0, 0, 0)
+                      ),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: TextFormField(
-                          controller: _serachController,
-                            cursorWidth: 1.0,
+                        child: Form(
+                          key: _formKey,
+                          child: TextFormField(
+                            controller: _serachController,
+                            // cursorWidth: 1.0,
                             autofocus: true,
                             cursorColor: AppColors.mainGreen,
                             decoration: const InputDecoration(
@@ -82,15 +95,12 @@ class SearchAppBar extends StatelessWidget {
                               border: InputBorder.none,
                               hintText: "Search coin...",
                               hintStyle: TextStyle(
-                                  fontStyle: FontStyle.italic, fontSize: 10),
+                                  fontStyle: FontStyle.italic, fontSize: 14),
                             ),
-                            style: const TextStyle(fontSize: 12),
-                            onChanged: (value) {
-                              if (value.isNotEmpty) {
-                                
-                                context.read<SearchCoinBloc>().add(GetSearchCoins(_serachController.text));
-                              }
-                            },),
+                            style: const TextStyle(fontSize: 16),
+                            onChanged: (value) async => await handleOnChange(value),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -99,4 +109,16 @@ class SearchAppBar extends StatelessWidget {
     );
   }
 
+  Future<void> handleOnChange(String value) async {
+    if (value.isNotEmpty && _lastTextFieldValue != value) {
+      _lastTextFieldValue = value;
+      await Future.delayed(const Duration(milliseconds: 400));
+
+      context
+          .read<SearchCoinBloc>()
+          .add(GetSearchCoins(_serachController.text));
+
+      await Future.delayed(const Duration(milliseconds: 400));
+    }
+  }
 }

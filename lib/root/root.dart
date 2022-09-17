@@ -1,6 +1,6 @@
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
 import 'package:crypto_trends/features/home/presenter/page/home_page.dart';
-import 'package:crypto_trends/ui/icons/svg-icons.dart';
+import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/colors/colors.dart';

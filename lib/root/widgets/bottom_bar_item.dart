@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../../ui/colors/colors.dart';
-import '../../ui/icons/svg-icons.dart';
+import '../../ui/icons/svg_icons.dart';
 
 class BottomBarItem extends StatelessWidget {
   final VoidCallback onTap;
