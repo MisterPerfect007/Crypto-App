@@ -57,7 +57,7 @@ class _SearchState extends State<Search> {
   BlocBuilder<SearchCoinBloc, SearchCoinState> buildTop() {
     return BlocBuilder<SearchCoinBloc, SearchCoinState>(
       builder: (context, state) {
-        // print(state);
+        print(state.runtimeType);
         if (state is SearchCoinLoading) {
           return const NoInternet(
             duration: Duration(milliseconds: 200),
@@ -76,8 +76,11 @@ class _SearchState extends State<Search> {
           final requestTime = state.requestTime;
 
           // print(coinsList.first);
-          // print(
-          //     "at $requestTime : fisrt is ${coinsList.isNotEmpty ? coinsList.first : ""}");
+          print(
+              "at $requestTime : fisrt is ${coinsList.isNotEmpty ? coinsList.first : ""}");
+            print(">>>>>>>>>>>>>>>>>>$lastSearchResult >= $requestTime");
+          print(">>>>>>>>>>>>>>>>>>${lastSearchResult >= requestTime}");
+          print(">>>>>>>>>>>>>>>>>>${coinsList.isNotEmpty}");
           if (coinsList.isNotEmpty &&
               (requestTime >=
                   lastSearchResult) /* should show the latest result */) {
@@ -135,7 +138,7 @@ class _SearchState extends State<Search> {
             return widget.coinList!.isNotEmpty
                 ? Column(
                     children: List<SearchItem>.generate(
-                        7,
+                        10,
                         (index) => SearchItem(
                             name: widget.coinList![index].name,
                             symbol: widget.coinList![index].symbol,

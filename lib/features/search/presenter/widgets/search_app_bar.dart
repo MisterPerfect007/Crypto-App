@@ -22,9 +22,10 @@ class _SearchAppBarState extends State<SearchAppBar> {
 
   String _lastTextFieldValue = "";
 
+  ///To track the search request time
+  int time = 0;
   @override
   Widget build(BuildContext context) {
-    int time = 0;
     Timer.periodic(const Duration(milliseconds: 10), (timer) {
       time++;
     });
@@ -122,9 +123,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
   void handleOnChange(String value, int requestTime) {
     String currentValue = _serachController.text.trim();
     if (value.isNotEmpty &&
-        _lastTextFieldValue !=
-            currentValue /* This check is to prevent Api call when keyboard dismiss */
-            ) {
+            _lastTextFieldValue !=
+                currentValue /* This check is to prevent Api call when keyboard dismiss */
+        ) {
       _lastTextFieldValue = currentValue;
 
       context
