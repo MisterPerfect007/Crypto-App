@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:crypto_trends/errors/error_types.dart';
 import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
@@ -23,15 +21,11 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-
   List<SearchCoin> currentSearchResult = [];
-
-  
-
+  int lastSearchResult = 0;
 
   @override
   Widget build(BuildContext context) {
-    
     Size size = MediaQuery.of(context).size;
     // double sidePadding = size.width / 25;
 
@@ -49,7 +43,10 @@ class _SearchState extends State<Search> {
         child: SingleChildScrollView(
           child: SafeArea(
             child: Column(
-              children: [buildTop(), buildBottom()],
+              children: [
+                buildTop(),
+                buildBottom(),
+              ],
             ),
           ),
         ),
@@ -76,9 +73,16 @@ class _SearchState extends State<Search> {
         }
         if (state is SearchCoinLoaded) {
           final coinsList = state.coinsList;
+          final requestTime = state.requestTime;
+
           // print(coinsList.first);
-          if (coinsList.isNotEmpty) {
+          // print(
+          //     "at $requestTime : fisrt is ${coinsList.isNotEmpty ? coinsList.first : ""}");
+          if (coinsList.isNotEmpty &&
+              (requestTime >=
+                  lastSearchResult) /* should show the latest result */) {
             currentSearchResult = coinsList;
+            lastSearchResult = requestTime;
             return CustomOpacityAnimation(
               child: Column(
                   children: List<SearchItem>.generate(
@@ -89,8 +93,8 @@ class _SearchState extends State<Search> {
                           image: coinsList[index].image,
                           rank: coinsList[index].marketCapRank))),
             );
-          } else {
-            return const NoInternet(text: "No result");
+          } else if (coinsList.isEmpty) {
+            return NoInternet(text: "No result for ''${state.query}''");
           }
         }
         if (state is SearchCoinFailure) {
@@ -106,14 +110,16 @@ class _SearchState extends State<Search> {
     );
   }
 
-  ///When [SearchCoinInitial], [SearchCoinLoading], [SearchCoinFailure] or [SearchCoinLoaded] (with empty coin list) is emitted
+  ///When [SearchCoinInitial], [SearchCoinLoading], [SearchCoinFailure] or [SearchCoinLoaded] (with empty coin list or old request) is emitted
   BlocBuilder<SearchCoinBloc, SearchCoinState> buildBottom() {
     return BlocBuilder<SearchCoinBloc, SearchCoinState>(
       builder: (context, state) {
         if (state is SearchCoinFailure ||
             state is SearchCoinLoading ||
             state is SearchCoinInitial ||
-            (state is SearchCoinLoaded && state.coinsList.isEmpty)) {
+            (state is SearchCoinLoaded && state.coinsList.isEmpty) ||
+            (state is SearchCoinLoaded &&
+                state.requestTime < lastSearchResult)) {
           //if there is old data from prev. search
           if (currentSearchResult.isNotEmpty) {
             return Column(

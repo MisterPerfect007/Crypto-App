@@ -2,7 +2,7 @@ part of 'search_coin_bloc.dart';
 
 abstract class SearchCoinState extends Equatable {
   const SearchCoinState();
-  
+
   @override
   List<Object> get props => [];
 }
@@ -19,6 +19,11 @@ class SearchCoinFailure extends SearchCoinState {
 
 class SearchCoinLoaded extends SearchCoinState {
   final List<SearchCoin> coinsList;
+  final int requestTime;
+  final String query;
 
-  const SearchCoinLoaded(this.coinsList);
+  const SearchCoinLoaded({required this.coinsList, required this.requestTime, required this.query});
+
+  @override
+  List<Object> get props => [coinsList, requestTime, query];
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,6 +24,10 @@ class _SearchAppBarState extends State<SearchAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    int time = 0;
+    Timer.periodic(const Duration(milliseconds: 10), (timer) {
+      time++;
+    });
     double width = MediaQuery.of(context).size.width;
     double sidePadding = width / 25;
 
@@ -56,6 +62,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                           child: const SvgIcon(
                             icon: SvgIcons.chevronLeft,
                             size: 25,
+                            color: AppColors.mainGreen,
                           ))),
                 ),
                 const SizedBox(width: 10),
@@ -98,7 +105,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                                   fontStyle: FontStyle.italic, fontSize: 14),
                             ),
                             style: const TextStyle(fontSize: 16),
-                            onChanged: (value) async => await handleOnChange(value),
+                            onChanged: (value) => handleOnChange(value, time),
                           ),
                         ),
                       ),
@@ -109,16 +116,20 @@ class _SearchAppBarState extends State<SearchAppBar> {
     );
   }
 
-  Future<void> handleOnChange(String value) async {
-    if (value.isNotEmpty && _lastTextFieldValue != value) {
-      _lastTextFieldValue = value;
-      await Future.delayed(const Duration(milliseconds: 400));
+  ///Handle search
+  ///[value] is the query parameter for search
+  ///we use [requestTime] to know latest request so to show it's reponse to the user
+  void handleOnChange(String value, int requestTime) {
+    String currentValue = _serachController.text.trim();
+    if (value.isNotEmpty &&
+        _lastTextFieldValue !=
+            currentValue /* This check is to prevent Api call when keyboard dismiss */
+            ) {
+      _lastTextFieldValue = currentValue;
 
       context
           .read<SearchCoinBloc>()
-          .add(GetSearchCoins(_serachController.text));
-
-      await Future.delayed(const Duration(milliseconds: 400));
+          .add(GetSearchCoins(_serachController.text, requestTime));
     }
   }
 }

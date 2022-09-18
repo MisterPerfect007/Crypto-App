@@ -93,24 +93,7 @@ class _SingleCoinState extends State<SingleCoin> {
                       ? CoinPercentageFormat(
                           percentage: coin.priceChangePercentage7dInCurrency!)
                       : null,
-              // percentage: calculate7DPercentage(widget.lastWeekData)!),
             ),
-            // const SizedBox(
-            //   width: 5,
-            // ),
-            // //Favorite
-            // //
-            // InkWell(
-            //   onTap: () {},
-            //   borderRadius: const BorderRadius.all(Radius.circular(50)),
-            //   child: Container(
-            //     padding: const EdgeInsets.all(10),
-            //     child: const PersoIcon(
-            //       icon: PersoIcons.starOutline,
-            //       color: AppColors.mainGrey,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

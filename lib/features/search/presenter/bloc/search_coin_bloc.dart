@@ -3,7 +3,7 @@ import 'package:crypto_trends/errors/error_types.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/network/network_info.dart';
-import '../../../coinList/domain/usecases/get_coin_list.dart';
+import '../../../../core/utils/give_error_type.dart';
 import '../../domain/entity/search_coin.dart';
 import '../../domain/usecases/get_search_coin.dart';
 
@@ -19,17 +19,20 @@ class SearchCoinBloc extends Bloc<SearchCoinEvent, SearchCoinState> {
   }) : super(SearchCoinInitial()) {
     on<SearchCoinEvent>((event, emit) async {
       if (event is GetSearchCoins) {
-        print(event.query);
         emit(SearchCoinLoading());
         final isConnected = await network.isConnected;
-        if(!isConnected){
+        if (!isConnected) {
           emit(const SearchCoinFailure(ErrorType.noInternetConnection));
-        } else{
+        } else {
           final coinsListOrFailure = await getSearchCoin(event.query);
+
           coinsListOrFailure.fold(
-            (failure) => emit(const SearchCoinFailure(ErrorType.failedRequest)),
-            (coinsList) => emit(SearchCoinLoaded(coinsList))
-          );
+              (failure) => emit(SearchCoinFailure(giveErrorType(failure))),
+              (coinsList) => emit(SearchCoinLoaded(
+                    coinsList: coinsList,
+                    requestTime: event.requestTime,
+                    query: event.query
+                  )));
         }
       }
     });

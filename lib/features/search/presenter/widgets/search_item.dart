@@ -44,7 +44,7 @@ class SearchItem extends StatelessWidget {
               const SizedBox(width: 10),
               //!name
               Container(
-                constraints: const BoxConstraints(maxWidth: 200),
+                constraints: const BoxConstraints(maxWidth: 100),
                 child: Text(
                   name,
                   overflow: TextOverflow.ellipsis,
@@ -57,7 +57,7 @@ class SearchItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 5),
-              //!id
+              //!symbol
               Container(
                 constraints: const BoxConstraints(maxWidth: 50),
                 child: Text(
