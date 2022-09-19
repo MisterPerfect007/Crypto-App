@@ -1,11 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:crypto_trends/errors/errors_message.dart';
 import 'package:crypto_trends/features/coinList/domain/entities/coin.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/utils_functions.dart';
-import 'package:crypto_trends/features/coinList/presenter/widgets/sorting%20criteria/sorting_criteria.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/network/network_info.dart';
+import '../../../../core/utils/give_error_type.dart';
 import '../../../../errors/error_types.dart';
 import '../../domain/usecases/get_coin_list.dart';
 
@@ -27,7 +26,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
           final coinListOrFailure = await getRemoteCoinList(
               currency: event.currency, page: event.page);
           coinListOrFailure.fold(
-              (failure) => emit(const CoinListFailure(ErrorType.failedRequest)),
+              (failure) => emit(CoinListFailure(giveErrorType(failure))),
               (coinList) => emit(CoinListLoaded(
                     coinList: sortCoinList(
                         coinList: coinList, criteria: event.sortingCriteria),

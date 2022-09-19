@@ -3,9 +3,9 @@ import 'package:crypto_trends/core/utils/give_error_type.dart';
 import 'package:crypto_trends/errors/error_types.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/network/network_info.dart';
-import '../../domain/entities/coin_market_chart.dart';
-import '../../domain/usescases/get_coin_market_chart.dart';
+import '../../../../../core/network/network_info.dart';
+import '../../../domain/entities/coin_market_chart.dart';
+import '../../../domain/usescases/get_coin_market_chart.dart';
 
 part 'coininfo_event.dart';
 part 'coininfo_state.dart';

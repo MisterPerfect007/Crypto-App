@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
-import 'package:crypto_trends/features/coinList/presenter/cubit/pagination_cubit.dart';
 import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:crypto_trends/ui/icons/icons.dart';
@@ -15,9 +14,7 @@ import '../utils/utils_functions.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/coin_list_shimmer.dart';
 import '../widgets/coinListView/coin_list_view.dart';
-import '../widgets/customFloatingActionButton/custom_floating_action_button.dart';
 import '../widgets/sorting criteria/sorting_criteria.dart';
-import 'package:crypto_trends/injection_container.dart' as di;
 
 class CoinListPage extends StatefulWidget {
   const CoinListPage({Key? key}) : super(key: key);
@@ -31,7 +28,7 @@ class _CoinListPageState extends State<CoinListPage> {
   void initState() {
     super.initState();
     gettingOrRefringCoinList(context);
-    Timer.periodic(const Duration(seconds: 30), (_) {
+    Timer.periodic(const Duration(seconds: 60), (_) {
       gettingOrRefringCoinList(context);
     });
   }

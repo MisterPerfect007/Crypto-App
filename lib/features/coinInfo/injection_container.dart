@@ -6,6 +6,7 @@ Future<void> initCoinInfo() async {
   //!Presenter
   //*Bloc
   sl.registerFactory(() => CoinInfoBloc(network: sl(), usecase: sl()));
+  sl.registerFactory(() => CoinInfosBloc(network: sl(),  getRemoteCoinList: sl()));
 
   //!domain
   //*usecase

@@ -1,9 +1,11 @@
+import 'package:crypto_trends/features/coinInfo/presenter/page/coin_info.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/custom_network_image.dart';
 import '../../../../ui/colors/colors.dart';
 
 class SearchItem extends StatelessWidget {
+  final String id;
   final String? image;
   final String name;
   final String symbol;
@@ -14,7 +16,7 @@ class SearchItem extends StatelessWidget {
     this.image,
     required this.name,
     required this.symbol,
-    this.rank,
+    this.rank, required this.id,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,9 @@ class SearchItem extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => CoinInfoPage(coin: null, id: id,)));
+        },
         splashColor: AppColors.secondGrey,
         child: Padding(
           padding: EdgeInsets.only(

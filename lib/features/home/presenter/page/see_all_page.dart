@@ -20,7 +20,7 @@ class SeeAllPage extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: Size(
             size.width,
-            60,
+            50,
           ),
           child: CustomOpacityAnimation(
               child: SeeAllPageAppBar(

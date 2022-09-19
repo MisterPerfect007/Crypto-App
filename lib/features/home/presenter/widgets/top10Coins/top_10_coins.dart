@@ -45,8 +45,8 @@ class _Top10CoinsState extends State<Top10Coins> {
   @override
   void initState() {
     super.initState();
-    gettingTop10List(context);
-    Timer.periodic(const Duration(seconds: 30), (_) {
+    
+    Timer.periodic(const Duration(seconds: 60), (_) {
       refreshTop10List(context);
     });
   }
@@ -130,7 +130,7 @@ class _Top10CoinsState extends State<Top10Coins> {
                       closedBuilder: (context, action) =>
                           Top10CoinCart(coin: coinList[index], action: action),
                       openBuilder: (context, action) =>
-                          CoinInfoPage(coin: coinList[index]),
+                          CoinInfoPage(coin: coinList[index], id: '',),
                     ),
                   ),
                 ),

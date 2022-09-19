@@ -6,7 +6,6 @@ import 'package:animations/animations.dart';
 import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../coinInfo/presenter/page/coin_info.dart';
 import '../../../../coinList/domain/entities/coin.dart';
-import '../top10Coins/top_10_coin_cart.dart';
 
 class TrendingCoinsLoadedWidget extends StatelessWidget {
   const TrendingCoinsLoadedWidget({
@@ -37,7 +36,7 @@ class TrendingCoinsLoadedWidget extends StatelessWidget {
               closedBuilder: (context, action) =>
                   TrendingCoinCart(coin: coinList[index], action: action),
               openBuilder: (context, action) =>
-                          CoinInfoPage(coin: coinList[index]),
+                          CoinInfoPage(coin: coinList[index], id: '',),
             ),
             // TrendingCoinCart(coin: coinList[index]),
           ),

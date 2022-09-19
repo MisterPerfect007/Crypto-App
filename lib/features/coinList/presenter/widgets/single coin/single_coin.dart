@@ -2,11 +2,8 @@ import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
 import 'package:crypto_trends/features/coinList/domain/entities/coin.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_data.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../../../core/widgets/custom_network_image.dart';
-import '../../../../../ui/colors/colors.dart';
-import '../../../../../ui/icons/icons.dart';
 import '../../../../coinInfo/presenter/page/coin_info.dart';
 import 'coin_name.dart';
 import 'coin_price.dart';
@@ -33,7 +30,7 @@ class _SingleCoinState extends State<SingleCoin> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => CoinInfoPage(coin: coin)),
+          MaterialPageRoute(builder: (context) => CoinInfoPage(coin: coin, id: '',)),
         );
       },
       child: Container(

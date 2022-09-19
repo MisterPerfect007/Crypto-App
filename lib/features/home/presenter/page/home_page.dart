@@ -10,6 +10,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    gettingTrendingCoins(context);
+    gettingTop10List(context);
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(

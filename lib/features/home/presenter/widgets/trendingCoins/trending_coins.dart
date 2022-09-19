@@ -27,8 +27,8 @@ class _TrendingCoinsState extends State<TrendingCoins> {
   @override
   void initState() {
     super.initState();
-    gettingTrendingCoins(context);
-    Timer.periodic(const Duration(seconds: 30), (_) {
+    
+    Timer.periodic(const Duration(seconds: 60), (_) {
       refreshTop10List(context);
     });
   }

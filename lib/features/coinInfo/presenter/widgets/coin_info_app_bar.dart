@@ -1,5 +1,4 @@
-import 'package:crypto_trends/features/coinInfo/presenter/widgets/custom_ink_well_icon.dart';
-import 'package:crypto_trends/ui/icons/icons.dart';
+import 'package:crypto_trends/features/search/presenter/widgets/search_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../ui/colors/colors.dart';
@@ -23,19 +22,8 @@ class CoinInfoPageAppBar extends StatelessWidget {
           ],
         ),
         child: Row(
-          children: [
-            CustomInkWellIcon(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              size: 47,
-              radius: 47,
-              child: const PersoIcon(
-                icon: PersoIcons.arrowLeft,
-                color: AppColors.mainBlack,
-                size: 20,
-              ),
-            ),
+          children: const [
+            GoBack()
           ],
         ),
       ),

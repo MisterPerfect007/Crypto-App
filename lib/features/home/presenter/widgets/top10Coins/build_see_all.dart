@@ -39,7 +39,7 @@ BlocBuilder<Top10Bloc, Top10State> buildTop10SeeAll(double sidePadding) {
                         closedBuilder: (context, action) => Top10CoinCart(
                             coin: coinList[index], action: action),
                         openBuilder: (context, action) =>
-                            CoinInfoPage(coin: coinList[index]),
+                            CoinInfoPage(coin: coinList[index], id: '',),
                       ),
                     ),
                   ),

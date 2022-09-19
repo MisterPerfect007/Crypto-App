@@ -50,22 +50,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                      splashColor: Colors.grey,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                          height: 50,
-                          padding: const EdgeInsets.only(left: 15, right: 15),
-                          child: const SvgIcon(
-                            icon: SvgIcons.chevronLeft,
-                            size: 25,
-                            color: AppColors.mainGreen,
-                          ))),
-                ),
+                const GoBack(),
                 const SizedBox(width: 10),
                 Expanded(
                     child: Container(
@@ -132,5 +117,32 @@ class _SearchAppBarState extends State<SearchAppBar> {
           .read<SearchCoinBloc>()
           .add(GetSearchCoins(_serachController.text, requestTime));
     }
+  }
+}
+
+
+class GoBack extends StatelessWidget {
+  const GoBack({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+          splashColor: Colors.grey,
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Container(
+              height: 50,
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: const SvgIcon(
+                icon: SvgIcons.chevronLeft,
+                size: 25,
+                color: AppColors.mainGreen,
+              ))),
+    );
   }
 }

@@ -1,9 +1,8 @@
+import 'package:crypto_trends/features/search/presenter/widgets/search_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../ui/colors/colors.dart';
-import '../../../../ui/icons/icons.dart';
-import '../../../coinInfo/presenter/widgets/custom_ink_well_icon.dart';
 
 class SeeAllPageAppBar extends StatelessWidget {
   const SeeAllPageAppBar({Key? key, required this.title}) : super(key: key);
@@ -12,9 +11,12 @@ class SeeAllPageAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double sidePadding = width / 25;
     return SafeArea(
       child: Container(
         alignment: Alignment.centerLeft,
+        padding: EdgeInsets.only(left: 0, right: sidePadding),
         decoration: BoxDecoration(
           color: AppColors.lightBg,
           boxShadow: [
@@ -27,20 +29,9 @@ class SeeAllPageAppBar extends StatelessWidget {
         ),
         child: Row(
           children: [
-            CustomInkWellIcon(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              size: 47,
-              radius: 47,
-              child: const PersoIcon(
-                icon: PersoIcons.arrowLeft,
-                color: AppColors.mainBlack,
-                size: 20,
-              ),
-            ),
+            const GoBack(),
             Container(
-              margin: const EdgeInsets.only(left: 20),
+              margin: const EdgeInsets.only(left: 10),
               child: Center(
                 child: Text(
                   title,

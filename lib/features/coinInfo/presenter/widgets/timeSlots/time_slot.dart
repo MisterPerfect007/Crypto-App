@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../ui/colors/colors.dart';
-import '../../bloc/coininfo_bloc.dart';
 import '../../utils/functions.dart';
 
 class TimeSlot extends StatelessWidget {

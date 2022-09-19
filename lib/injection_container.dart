@@ -8,7 +8,8 @@ import 'features/coinInfo/data/datasources/coin_market_chart_remote_data_source.
 import 'features/coinInfo/data/repositories/get_coin_market_chart_repository_implementation.dart';
 import 'features/coinInfo/domain/repository/get_coin_market_chart_repository.dart';
 import 'features/coinInfo/domain/usescases/get_coin_market_chart.dart';
-import 'features/coinInfo/presenter/bloc/coininfo_bloc.dart';
+import 'features/coinInfo/presenter/bloc/coin_infos/coin_infos_bloc.dart';
+import 'features/coinInfo/presenter/bloc/coininfo/coininfo_bloc.dart';
 import 'features/coinList/data/datasources/coin_list_remote_data_source.dart';
 import 'features/coinList/domain/repositories/get_coin_list_repository.dart';
 import 'features/coinList/domain/usecases/get_coin_list.dart';

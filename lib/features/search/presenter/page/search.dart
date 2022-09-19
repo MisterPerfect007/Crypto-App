@@ -21,6 +21,7 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  
   List<SearchCoin> currentSearchResult = [];
   int lastSearchResult = 0;
 
@@ -57,7 +58,6 @@ class _SearchState extends State<Search> {
   BlocBuilder<SearchCoinBloc, SearchCoinState> buildTop() {
     return BlocBuilder<SearchCoinBloc, SearchCoinState>(
       builder: (context, state) {
-        print(state.runtimeType);
         if (state is SearchCoinLoading) {
           return const NoInternet(
             duration: Duration(milliseconds: 200),
@@ -76,11 +76,6 @@ class _SearchState extends State<Search> {
           final requestTime = state.requestTime;
 
           // print(coinsList.first);
-          print(
-              "at $requestTime : fisrt is ${coinsList.isNotEmpty ? coinsList.first : ""}");
-            print(">>>>>>>>>>>>>>>>>>$lastSearchResult >= $requestTime");
-          print(">>>>>>>>>>>>>>>>>>${lastSearchResult >= requestTime}");
-          print(">>>>>>>>>>>>>>>>>>${coinsList.isNotEmpty}");
           if (coinsList.isNotEmpty &&
               (requestTime >=
                   lastSearchResult) /* should show the latest result */) {
@@ -91,10 +86,12 @@ class _SearchState extends State<Search> {
                   children: List<SearchItem>.generate(
                       coinsList.length,
                       (index) => SearchItem(
-                          name: coinsList[index].name,
-                          symbol: coinsList[index].symbol,
-                          image: coinsList[index].image,
-                          rank: coinsList[index].marketCapRank))),
+                            name: coinsList[index].name,
+                            symbol: coinsList[index].symbol,
+                            image: coinsList[index].image,
+                            rank: coinsList[index].marketCapRank,
+                            id: coinsList[index].id,
+                          ))),
             );
           } else if (coinsList.isEmpty) {
             return NoInternet(text: "No result for ''${state.query}''");
@@ -129,6 +126,7 @@ class _SearchState extends State<Search> {
                 children: List<SearchItem>.generate(
                     currentSearchResult.length,
                     (index) => SearchItem(
+                      id: widget.coinList![index].id,
                         name: currentSearchResult[index].name,
                         symbol: currentSearchResult[index].symbol,
                         image: currentSearchResult[index].image,
@@ -140,6 +138,7 @@ class _SearchState extends State<Search> {
                     children: List<SearchItem>.generate(
                         10,
                         (index) => SearchItem(
+                          id: widget.coinList![index].id,
                             name: widget.coinList![index].name,
                             symbol: widget.coinList![index].symbol,
                             image: widget.coinList![index].image,

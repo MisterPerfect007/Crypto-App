@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/coininfo_bloc.dart';
+import '../bloc/coininfo/coininfo_bloc.dart';
+
 
 
 const List<String> timeSlotList = ["24H", "7D", "1M", "3M", "1Y", "ALL"];

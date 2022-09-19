@@ -39,7 +39,7 @@ BlocBuilder<TrendingCoinsBloc, TrendingCoinsState> buildSeeAll(
                       closedBuilder: (context, action) => TrendingCoinCart(
                           coin: coinList[index], action: action),
                       openBuilder: (context, action) =>
-                          CoinInfoPage(coin: coinList[index]),
+                          CoinInfoPage(coin: coinList[index], id: '',),
                     ),
                     // TrendingCoinCart(coin: coinList[index]),
                   ),

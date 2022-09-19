@@ -20,7 +20,7 @@ class CoinNameImage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
     return Container(
-      margin: const EdgeInsets.only(top: 30),
+      margin: const EdgeInsets.only(top: 10),
       padding: EdgeInsets.only(
         left: sidePadding,
         right: sidePadding,
@@ -51,16 +51,6 @@ class CoinNameImage extends StatelessWidget {
               ],
             ),
           ),
-          // CustomInkWellIcon(
-          //   onTap: () {},
-          //   size: 45,
-          //   radius: 45,
-          //   child: const PersoIcon(
-          //     icon: PersoIcons.starOutline,
-          //     size: 25,
-          //     color: AppColors.mainGrey,
-          //   ),
-          // )
         ],
       ),
     );

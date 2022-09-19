@@ -4,7 +4,7 @@ import 'package:crypto_trends/errors/error_types.dart';
 import 'package:crypto_trends/errors/failures.dart';
 import 'package:crypto_trends/features/coinInfo/domain/entities/coin_market_chart.dart';
 import 'package:crypto_trends/features/coinInfo/domain/usescases/get_coin_market_chart.dart';
-import 'package:crypto_trends/features/coinInfo/presenter/bloc/coininfo_bloc.dart';
+import 'package:crypto_trends/features/coinInfo/presenter/bloc/coininfo/coininfo_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
