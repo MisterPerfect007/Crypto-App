@@ -21,7 +21,6 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  
   List<SearchCoin> currentSearchResult = [];
   int lastSearchResult = 0;
 
@@ -126,7 +125,7 @@ class _SearchState extends State<Search> {
                 children: List<SearchItem>.generate(
                     currentSearchResult.length,
                     (index) => SearchItem(
-                      id: widget.coinList![index].id,
+                        id: currentSearchResult[index].id,
                         name: currentSearchResult[index].name,
                         symbol: currentSearchResult[index].symbol,
                         image: currentSearchResult[index].image,
@@ -138,7 +137,7 @@ class _SearchState extends State<Search> {
                     children: List<SearchItem>.generate(
                         10,
                         (index) => SearchItem(
-                          id: widget.coinList![index].id,
+                            id: widget.coinList![index].id,
                             name: widget.coinList![index].name,
                             symbol: widget.coinList![index].symbol,
                             image: widget.coinList![index].image,

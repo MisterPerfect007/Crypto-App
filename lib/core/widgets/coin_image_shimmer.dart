@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../ui/colors/colors.dart';
 
 class CoinImageShimmer extends StatelessWidget {
   const CoinImageShimmer({
