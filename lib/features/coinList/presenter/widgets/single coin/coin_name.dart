@@ -23,11 +23,12 @@ class CoinName extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            name.length > 8 ? "${name.substring(0, 8)}..": name,
-            style: GoogleFonts.inter(
-                color: AppColors.pureBlack,
-                fontWeight: FontWeight.w500,
-                fontSize: 15),
+            name.length > 8 ? "${name.substring(0, 8)}.." : name,
+            style: const TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           const SizedBox(
             height: 3,

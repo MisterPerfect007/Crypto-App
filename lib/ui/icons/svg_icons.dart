@@ -13,7 +13,8 @@ enum SvgIcons {
   search,  
   arrowLeft,  
   noWifiLine,  
-  chevronLeft,
+  chevronLeft,  
+  badO,
 }
 
 Map<SvgIcons, String> svgLink = {
@@ -28,7 +29,8 @@ Map<SvgIcons, String> svgLink = {
   SvgIcons.search: 'assets/svg/search.svg',  
   SvgIcons.arrowLeft: 'assets/svg/arrow-left.svg',  
   SvgIcons.noWifiLine: 'assets/svg/no-wifi-line.svg',  
-  SvgIcons.chevronLeft: 'assets/svg/chevron-left.svg',
+  SvgIcons.chevronLeft: 'assets/svg/chevron-left.svg',  
+  SvgIcons.badO: 'assets/svg/bad-o.svg',
 };
 
 class SvgIcon extends StatelessWidget {

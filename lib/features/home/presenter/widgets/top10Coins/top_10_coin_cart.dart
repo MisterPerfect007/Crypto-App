@@ -31,7 +31,7 @@ class Top10CoinCart extends StatelessWidget {
     bool showLoading = isLoading ?? coin == null;
 
     CoinPercentageFormat percentage = CoinPercentageFormat(
-        percentage: coin?.priceChangePercentage7dInCurrency);
+        percentage: coin?.priceChangePercentage24h);
 
     return GestureDetector(
       onTap: action,
@@ -109,7 +109,7 @@ class Top10CoinCart extends StatelessWidget {
               ),
               if (showLoading)
                 const ContainerShimmer(width: 20, height: 20, radius: 15)
-              else if(coin?.priceChangePercentage7dInCurrency != null)
+              else if(coin?.priceChangePercentage24h!= null)
                 Container(
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
@@ -134,7 +134,7 @@ class Top10CoinCart extends StatelessWidget {
   }
 
   Widget buildPercentage(CoinPercentageFormat percentage) {
-    return coin?.priceChangePercentage7dInCurrency != null
+    return coin?.priceChangePercentage24h != null
         ? Text(
             percentage.signedPercentage(),
             style: GoogleFonts.inter(

@@ -1,5 +1,6 @@
 import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:crypto_trends/root/root.dart';
+import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,8 +26,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        // colorScheme: ColorScheme.fromSwatch(accentColor: Colors.red)
+        primarySwatch: Colors.green,
+        colorScheme: ColorScheme.fromSwatch(accentColor: AppColors.mainGreen)
       ),
       // themeMode: ThemeMode.dark,
       home: MultiBlocProvider(

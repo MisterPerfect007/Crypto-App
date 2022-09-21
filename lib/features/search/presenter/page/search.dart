@@ -9,6 +9,7 @@ import '../../../../errors/error_types.dart';
 import '../../../coinList/domain/entities/coin.dart';
 import '../../domain/entity/search_coin.dart';
 import '../bloc/search_coin_bloc.dart';
+import '../widgets/no_internet.dart';
 import '../widgets/search_app_bar.dart';
 import '../widgets/search_item.dart';
 
@@ -57,6 +58,9 @@ class _SearchState extends State<Search> {
   BlocBuilder<SearchCoinBloc, SearchCoinState> buildTop() {
     return BlocBuilder<SearchCoinBloc, SearchCoinState>(
       builder: (context, state) {
+        //!
+        //! SearchCoinLoading
+        //!
         if (state is SearchCoinLoading) {
           return const NoInternet(
             duration: Duration(milliseconds: 200),
@@ -70,37 +74,48 @@ class _SearchState extends State<Search> {
             ),
           );
         }
+        //!
+        //! SearchCoinLoaded
+        //!
         if (state is SearchCoinLoaded) {
           final coinsList = state.coinsList;
           final requestTime = state.requestTime;
-
-          // print(coinsList.first);
           if (coinsList.isNotEmpty &&
               (requestTime >=
-                  lastSearchResult) /* should show the latest result */) {
+                  lastSearchResult) /*//! should show the latest result */) {
             currentSearchResult = coinsList;
             lastSearchResult = requestTime;
             return CustomOpacityAnimation(
               child: Column(
-                  children: List<SearchItem>.generate(
-                      coinsList.length,
-                      (index) => SearchItem(
-                            name: coinsList[index].name,
-                            symbol: coinsList[index].symbol,
-                            image: coinsList[index].image,
-                            rank: coinsList[index].marketCapRank,
-                            id: coinsList[index].id,
-                          ))),
+                children: List<SearchItem>.generate(
+                  coinsList.length,
+                  (index) => SearchItem(
+                    name: coinsList[index].name,
+                    symbol: coinsList[index].symbol,
+                    image: coinsList[index].image,
+                    rank: coinsList[index].marketCapRank,
+                    id: coinsList[index].id,
+                  ),
+                ),
+              ),
             );
           } else if (coinsList.isEmpty) {
             return NoInternet(text: "No result for ''${state.query}''");
           }
         }
+        //!
+        //! SearchCoinFailure
+        //!
         if (state is SearchCoinFailure) {
           if (state.errorType == ErrorType.noInternetConnection) {
             return const NoInternet(
               icon: SvgIcon(icon: SvgIcons.noWifiLine),
               text: "No internet",
+            );
+          } else {
+            return const NoInternet(
+              icon: SvgIcon(icon: SvgIcons.badO),
+              text: "Something went wrong",
             );
           }
         }
@@ -119,7 +134,7 @@ class _SearchState extends State<Search> {
             (state is SearchCoinLoaded && state.coinsList.isEmpty) ||
             (state is SearchCoinLoaded &&
                 state.requestTime < lastSearchResult)) {
-          //if there is old data from prev. search
+          //!if there is old data from prev. search
           if (currentSearchResult.isNotEmpty) {
             return Column(
                 children: List<SearchItem>.generate(
@@ -131,7 +146,7 @@ class _SearchState extends State<Search> {
                         image: currentSearchResult[index].image,
                         rank: currentSearchResult[index].marketCapRank)));
           } else if (widget.coinList != null) {
-            //Or coinList is not null
+            //!Or coinList is not null
             return widget.coinList!.isNotEmpty
                 ? Column(
                     children: List<SearchItem>.generate(
@@ -148,56 +163,5 @@ class _SearchState extends State<Search> {
         return Container();
       },
     );
-  }
-}
-
-class NoInternet extends StatefulWidget {
-  final Widget? icon;
-  final String? text;
-  final double? height;
-  final Duration? duration;
-  const NoInternet({
-    Key? key,
-    this.icon,
-    this.text,
-    this.height,
-    this.duration,
-  }) : super(key: key);
-
-  @override
-  State<NoInternet> createState() => _NoInternetState();
-}
-
-class _NoInternetState extends State<NoInternet> {
-  double _height = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        _height = widget.height ?? 40;
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-        duration: widget.duration ?? const Duration(milliseconds: 500),
-        height: _height,
-        color: AppColors.secondGrey.withOpacity(0.3),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              widget.icon ?? Container(),
-              const SizedBox(width: 10),
-              Text(
-                widget.text ?? "",
-                style: const TextStyle(fontFamily: 'Inter'),
-              )
-            ]),
-          ),
-        ));
   }
 }
