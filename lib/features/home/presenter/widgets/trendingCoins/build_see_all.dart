@@ -48,12 +48,15 @@ BlocBuilder<TrendingCoinsBloc, TrendingCoinsState> buildSeeAll(
             ),
           ));
         },
-        child: Text(
-          "See all",
-          style: GoogleFonts.inter(
-              color: AppColors.mainGreen,
-              fontWeight: FontWeight.w500,
-              fontSize: 12),
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            "See all",
+            style: GoogleFonts.inter(
+                color: AppColors.mainGreen,
+                fontWeight: FontWeight.w500,
+                fontSize: 12),
+          ),
         ),
       );
     } else {
