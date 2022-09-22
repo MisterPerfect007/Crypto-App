@@ -38,10 +38,11 @@ BlocBuilder<TrendingCoinsBloc, TrendingCoinsState> buildSeeAll(
                       closedElevation: 1,
                       closedBuilder: (context, action) => TrendingCoinCart(
                           coin: coinList[index], action: action),
-                      openBuilder: (context, action) =>
-                          CoinInfoPage(coin: coinList[index], id: '',),
+                      openBuilder: (context, action) => CoinInfoPage(
+                        coin: coinList[index],
+                        id: '',
+                      ),
                     ),
-                    // TrendingCoinCart(coin: coinList[index]),
                   ),
                 ),
               )),
@@ -49,7 +50,10 @@ BlocBuilder<TrendingCoinsBloc, TrendingCoinsState> buildSeeAll(
           ));
         },
         child: Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+          decoration: const BoxDecoration(
+            color: Colors.transparent,
+          ),
           child: Text(
             "See all",
             style: GoogleFonts.inter(

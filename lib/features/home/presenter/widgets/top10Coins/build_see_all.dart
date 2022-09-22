@@ -48,7 +48,10 @@ BlocBuilder<Top10Bloc, Top10State> buildTop10SeeAll(double sidePadding) {
             ));
           },
           child: Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+            decoration: const BoxDecoration(
+              color: Colors.transparent,
+            ),
             child: Text(
               "See all",
               style: GoogleFonts.inter(

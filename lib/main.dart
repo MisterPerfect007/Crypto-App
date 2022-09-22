@@ -10,6 +10,7 @@ import 'features/coinList/presenter/cubit/scrollposition_cubit.dart';
 import 'features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'features/home/presenter/bloc/top10/top_10_bloc.dart';
 import 'features/home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
+import 'features/search/presenter/bloc/search_coin_bloc.dart';
 
 void main() async {
   await di.init();
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: ((context) => di.sl<Top10Bloc>())),
           //
           BlocProvider(create: (context) => di.sl<CoinListBloc>()),
+          BlocProvider(create: (context) => di.sl<SearchCoinBloc>()),
           BlocProvider(create: (context) => ScrollPositionCubit()),
           BlocProvider(create: (context) => SortingCubit()),
           BlocProvider(create: (context) => PaginationCubit()),

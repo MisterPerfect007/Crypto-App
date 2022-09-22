@@ -1,5 +1,6 @@
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
 import 'package:crypto_trends/features/home/presenter/page/home_page.dart';
+import 'package:crypto_trends/features/search/presenter/page/search.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -44,15 +45,18 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
   final List<List<dynamic>> _itemList = [
     ["Home", SvgIcons.homeRegular, SvgIcons.homeFilled],
     ["List", SvgIcons.listLine, SvgIcons.listSolid],
-    ["Settings", SvgIcons.settingsOutline, SvgIcons.settingsFill]
+    ["Search", SvgIcons.search, SvgIcons.search]
   ];
 
   @override
   Widget build(BuildContext context) {
+    bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
+    
     //All pages
     final List<Widget> _pages = [
       const HomePage(),
       const CoinListPage(),
+      const Search()
       //!Missing the Settings page
     ]
         .map((e) => CustomAnimatedWidget(animation: _animation, child: e))
@@ -65,7 +69,7 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
         index: _currentIndex,
         children: _pages,
       ),
-      floatingActionButton: buildBottomNavigationBar(displayWidth),
+      floatingActionButton: keyboardIsOpened ? null : buildBottomNavigationBar(displayWidth),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
     );

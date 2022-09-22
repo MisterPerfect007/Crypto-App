@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../ui/colors/colors.dart';
@@ -22,7 +21,11 @@ class BottomBarItem extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: onTap,
+        onTap: () {
+          onTap();
+          //The first purpose is to unfocus the search input on search page when we navigate out of it
+          FocusScope.of(context).unfocus();
+        },
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         splashColor: AppColors.mainGreen.withOpacity(0.5),
         child: Container(

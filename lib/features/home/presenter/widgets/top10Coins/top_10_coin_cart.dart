@@ -1,7 +1,7 @@
 import 'package:crypto_trends/core/widgets/coin_image_shimmer.dart';
 import 'package:crypto_trends/core/widgets/custom_container_shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/coinPercentage/coin_percentage_format.dart';

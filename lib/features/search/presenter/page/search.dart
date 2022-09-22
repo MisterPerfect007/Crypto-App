@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../errors/error_types.dart';
-import '../../../coinList/domain/entities/coin.dart';
+import '../../../coinList/presenter/bloc/coin_list_bloc.dart';
 import '../../domain/entity/search_coin.dart';
 import '../bloc/search_coin_bloc.dart';
 import '../widgets/no_internet.dart';
@@ -14,8 +14,8 @@ import '../widgets/search_app_bar.dart';
 import '../widgets/search_item.dart';
 
 class Search extends StatefulWidget {
-  final List<Coin>? coinList;
-  const Search({Key? key, this.coinList}) : super(key: key);
+  const Search({Key? key,})
+      : super(key: key);
 
   @override
   State<Search> createState() => _SearchState();
@@ -47,6 +47,9 @@ class _SearchState extends State<Search> {
               children: [
                 buildTop(),
                 buildBottom(),
+                const SizedBox(
+                  height: 70,
+                )
               ],
             ),
           ),
@@ -80,9 +83,7 @@ class _SearchState extends State<Search> {
         if (state is SearchCoinLoaded) {
           final coinsList = state.coinsList;
           final requestTime = state.requestTime;
-          if (coinsList.isNotEmpty &&
-              (requestTime >=
-                  lastSearchResult) /*//! should show the latest result */) {
+          if (coinsList.isNotEmpty) {
             currentSearchResult = coinsList;
             lastSearchResult = requestTime;
             return CustomOpacityAnimation(
@@ -145,19 +146,25 @@ class _SearchState extends State<Search> {
                         symbol: currentSearchResult[index].symbol,
                         image: currentSearchResult[index].image,
                         rank: currentSearchResult[index].marketCapRank)));
-          } else if (widget.coinList != null) {
-            //!Or coinList is not null
-            return widget.coinList!.isNotEmpty
-                ? Column(
+          } else {
+            //!Or the [coinListBloc] emit [CoinListLoaded] state
+            return BlocBuilder<CoinListBloc, CoinListState>(
+                builder: (context, state) {
+              if (state is CoinListLoaded) {
+                final coinList = state.coinList;
+                coinList.shuffle();
+                return Column(
                     children: List<SearchItem>.generate(
-                        10,
+                        15,
                         (index) => SearchItem(
-                            id: widget.coinList![index].id,
-                            name: widget.coinList![index].name,
-                            symbol: widget.coinList![index].symbol,
-                            image: widget.coinList![index].image,
-                            rank: widget.coinList![index].marketCapRank)))
-                : Container();
+                            id: coinList[index].id,
+                            name: coinList[index].name,
+                            symbol: coinList[index].symbol,
+                            image: coinList[index].image,
+                            rank: coinList[index].marketCapRank)));
+              }
+              return Container();
+            });
           }
         }
         return Container();

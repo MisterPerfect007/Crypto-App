@@ -35,7 +35,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
     return SafeArea(
       child: Container(
           height: 50,
-          padding: EdgeInsets.only(left: 0, right: sidePadding),
+          padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -50,8 +50,6 @@ class _SearchAppBarState extends State<SearchAppBar> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const GoBack(),
-                const SizedBox(width: 10),
                 Expanded(
                     child: Container(
                   alignment: Alignment.center,
@@ -59,8 +57,6 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   padding: const EdgeInsets.only(
                     left: 5,
                     right: 5,
-                    // top:5,
-                    // bottom: 5
                   ),
                   decoration: BoxDecoration(
                       color: Colors.grey.shade200,
@@ -80,8 +76,6 @@ class _SearchAppBarState extends State<SearchAppBar> {
                           key: _formKey,
                           child: TextFormField(
                             controller: _serachController,
-                            // cursorWidth: 1.0,
-                            autofocus: true,
                             cursorColor: AppColors.mainGreen,
                             decoration: const InputDecoration(
                               isDense: true,
@@ -119,7 +113,6 @@ class _SearchAppBarState extends State<SearchAppBar> {
     }
   }
 }
-
 
 class GoBack extends StatelessWidget {
   const GoBack({
