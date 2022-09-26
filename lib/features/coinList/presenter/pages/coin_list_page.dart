@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'package:crypto_trends/ui/colors/colors.dart';
-import 'package:crypto_trends/ui/icons/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-import '../../../../core/widgets/errors/failed_request.dart';
+import '../../../../core/widgets/errors/error_message.dart';
 import '../../../../errors/error_types.dart';
+import '../../../../ui/icons/svg_icons.dart';
 import '../cubit/scrollposition_cubit.dart';
 import '../utils/utils_functions.dart';
 import '../widgets/app_bar.dart';
@@ -35,7 +37,6 @@ class _CoinListPageState extends State<CoinListPage> {
 
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
     final ScrollController _scrollController = ScrollController();
 
@@ -48,8 +49,6 @@ class _CoinListPageState extends State<CoinListPage> {
         ),
         child: const CoinPageAppBar(),
       ),
-      // floatingActionButton:
-      //     CustomSpeedDial(scrollController: _scrollController),
       body: SizedBox(
         height: size.height,
         child: Column(
@@ -104,27 +103,28 @@ class _CoinListPageState extends State<CoinListPage> {
                    */
                 } else if (state is CoinListFailure) {
                   if (state.errorType == ErrorType.noInternetConnection) {
-                    return FailedRequest(
-                      icon: PersoIcons.coloredNoWifi,
-                      title: "You're currently offline",
-                      secondTitle:
-                          "Check your internet connection and try to refresh.",
-                      buttonOnPressed: () {
-                        gettingOrRefringCoinList(context);
+                    return CustomErrorWidget(
+                      msg: 'No internet',
+                      icon: SvgIcons.noWifiLine,
+                      onPressed: () async {
+                        if (await InternetConnectionChecker().hasConnection) {
+                          gettingOrRefringCoinList(context);
+                        } else {
+                          Fluttertoast.showToast(
+                            msg: "You still Offline",
+                            toastLength: Toast.LENGTH_SHORT,
+                          );
+                        }
                       },
-                      buttonText: "Refresh",
                     );
                   }
                 }
-                return FailedRequest(
-                  icon: PersoIcons.coloredRemove,
-                  title: "Something went wrong",
-                  secondTitle:
-                      "Something went wrong on the back side, please try again.",
-                  buttonOnPressed: () {
+                return CustomErrorWidget(
+                  msg: 'Something went wrong',
+                  icon: SvgIcons.badO,
+                  onPressed: () async {
                     gettingOrRefringCoinList(context);
                   },
-                  buttonText: "Try again",
                 );
               })),
             ),

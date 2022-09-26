@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../core/widgets/custom_container_shimmer.dart';
+import '../../../../../../ui/colors/colors.dart';
 import '../../../bloc/top10/top_10_bloc.dart';
 import '../../../utils/functions.dart';
 import 'market_trend_and_percentage.dart';
@@ -13,7 +15,6 @@ class MarketTrendAndPercentage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final state = context.read<Top10Bloc>().state;
     return BlocBuilder<Top10Bloc, Top10State>(
       builder: (context, state) {
         if (state is Top10Loading) {
@@ -35,7 +36,18 @@ class MarketTrendAndPercentage extends StatelessWidget {
             ],
           );
         } else if (state is Top10Loaded) {
-          return MarketTrendLoaded(percentage: getTop100Percentage(state.coinList));
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MarketTrendLoaded(
+                  percentage: getTop100Percentage(state.coinList)),
+              Text(
+                "The last 24h (in the Top-100)",
+                style: GoogleFonts.inter(
+                    color: AppColors.mainWhite.withOpacity(0.7), fontSize: 10),
+              ),
+            ],
+          );
         }
         return Container();
       },

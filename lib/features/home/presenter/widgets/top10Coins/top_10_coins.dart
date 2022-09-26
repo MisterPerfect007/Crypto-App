@@ -5,13 +5,15 @@ import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
-import '../../../../../core/widgets/errors/failed_request.dart';
+import '../../../../../core/widgets/errors/error_message.dart';
 import '../../../../../errors/error_types.dart';
 import '../../../../../ui/colors/colors.dart';
-import '../../../../../ui/icons/icons.dart';
+import '../../../../../ui/icons/svg_icons.dart';
 import '../../../../coinInfo/presenter/page/coin_info.dart';
 import '../../../../coinList/domain/entities/coin.dart';
 import '../../bloc/top10/top_10_bloc.dart';
@@ -27,7 +29,8 @@ void refreshTop10List(BuildContext context) {
   final top10Bloc = context.read<Top10Bloc>();
   final state = top10Bloc.state;
   if (state is Top10Loaded) {
-    top10Bloc.add(const RefreshTop10Coins(page: 1, currency: "usd", perPage: 100));
+    top10Bloc
+        .add(const RefreshTop10Coins(page: 1, currency: "usd", perPage: 100));
   }
 }
 
@@ -41,17 +44,15 @@ class Top10Coins extends StatefulWidget {
 }
 
 class _Top10CoinsState extends State<Top10Coins> {
-
   @override
   void initState() {
     super.initState();
-    
+    gettingTop10List(context);
     Timer.periodic(const Duration(seconds: 60), (_) {
       refreshTop10List(context);
     });
   }
-  
-  
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -104,12 +105,12 @@ class _Top10CoinsState extends State<Top10Coins> {
               );
             } else if (state is Top10Loaded) {
               List<Coin> coinList = state.coinList;
-              
+
               //To be sure that coin list is sorted by marketCapRank
               coinList.sort((a, b) {
-                if(a.marketCapRank != null && b.marketCapRank != null){
+                if (a.marketCapRank != null && b.marketCapRank != null) {
                   return a.marketCapRank!.compareTo(b.marketCapRank!);
-                }else{
+                } else {
                   return 0;
                 }
               });
@@ -129,38 +130,38 @@ class _Top10CoinsState extends State<Top10Coins> {
                       closedElevation: 1,
                       closedBuilder: (context, action) =>
                           Top10CoinCart(coin: coinList[index], action: action),
-                      openBuilder: (context, action) =>
-                          CoinInfoPage(coin: coinList[index], id: '',),
+                      openBuilder: (context, action) => CoinInfoPage(
+                        coin: coinList[index],
+                        id: '',
+                      ),
                     ),
                   ),
                 ),
               ));
             } else if (state is Top10Failure) {
               if (state.errorType == ErrorType.noInternetConnection) {
-                return FailedRequest(
-                  small: true,
-                  icon: PersoIcons.coloredNoWifi,
-                  title: "You're currently offline",
-                  secondTitle:
-                      "Check your internet connection and try to refresh.",
-                  buttonOnPressed: () {
-                    gettingTop10List(context);
+                return CustomErrorWidget(
+                  msg: 'No internet',
+                  icon: SvgIcons.noWifiLine,
+                  onPressed: () async {
+                    if (await InternetConnectionChecker().hasConnection) {
+                      gettingTop10List(context);
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "You still Offline",
+                        toastLength: Toast.LENGTH_SHORT,
+                      );
+                    }
                   },
-                  buttonText: "Refresh",
                 );
               }
             }
-            return FailedRequest(
-              small: true,
-              icon: PersoIcons.coloredRemove,
-              title: "Something went wrong",
-              secondTitle:
-                  "Something went wrong on the back side, please try again.",
-              buttonOnPressed: () {
-                gettingTop10List(context);
-              },
-              buttonText: "Try again",
-            );
+            return CustomErrorWidget(
+                msg: 'Something went wrong',
+                icon: SvgIcons.badO,
+                onPressed: () {
+                  gettingTop10List(context);
+                });
           },
         )
       ]),

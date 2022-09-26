@@ -52,20 +52,7 @@ class TopBanner extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const MarketTrendAndPercentage(),
-              // const SizedBox(
-              //   height: 3,
-              // ),
-              Text(
-                "The last 24h (in the Top-100)",
-                style: GoogleFonts.inter(
-                    color: AppColors.mainWhite.withOpacity(0.7), fontSize: 10),
-              ),
-            ],
-          )
+          const MarketTrendAndPercentage()
         ],
       )),
     );

@@ -1,6 +1,7 @@
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
 import 'package:crypto_trends/features/home/presenter/page/home_page.dart';
 import 'package:crypto_trends/features/search/presenter/page/search.dart';
+import 'package:crypto_trends/features/settings/presenter/pages/settings_page.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -35,6 +36,7 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
       setState(() {
         _currentIndex = newindex;
       });
+      //do the animation
       _animationController.reset();
       _animationController.forward();
     }
@@ -45,7 +47,8 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
   final List<List<dynamic>> _itemList = [
     ["Home", SvgIcons.homeRegular, SvgIcons.homeFilled],
     ["List", SvgIcons.listLine, SvgIcons.listSolid],
-    ["Search", SvgIcons.search, SvgIcons.search]
+    ["Search", SvgIcons.search, SvgIcons.search],
+    ["Settings", SvgIcons.settingsOutline, SvgIcons.settingsFill]
   ];
 
   @override
@@ -56,7 +59,8 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     final List<Widget> _pages = [
       const HomePage(),
       const CoinListPage(),
-      const Search()
+      const Search(),
+      const SettingsPage()
       //!Missing the Settings page
     ]
         .map((e) => CustomAnimatedWidget(animation: _animation, child: e))

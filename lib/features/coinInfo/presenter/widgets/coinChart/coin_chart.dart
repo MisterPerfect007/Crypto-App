@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
-import '../../../../../core/widgets/errors/failed_request.dart';
+import '../../../../../core/widgets/errors/error_message.dart';
 import '../../../../../errors/error_types.dart';
-import '../../../../../ui/icons/icons.dart';
+import '../../../../../ui/icons/svg_icons.dart';
 import '../../bloc/coininfo/coininfo_bloc.dart';
 import '../../cubit/time_slot_cubit.dart';
 import '../../utils/coin_info_line_chart_data.dart';
@@ -40,9 +42,7 @@ class _CoinChartState extends State<CoinChart> {
         child: BlocBuilder<CoinInfoBloc, CoinInfoState>(
           builder: (context, state) {
             //*
-            if (state is CoinInfoInitial) {
-              return buildCoinInfoLoadingWidget();
-            } else if (state is CoinInfoLoading) {
+            if (state is CoinInfoInitial || state is CoinInfoLoading) {
               return buildCoinInfoLoadingWidget();
             } else if (state is CoinInfoLoaded) {
               if (state.coinMarketChart.prices.length > 1) {
@@ -74,34 +74,35 @@ class _CoinChartState extends State<CoinChart> {
               if (state.errorType == ErrorType.noInternetConnection) {
                 return Container(
                   color: const Color.fromARGB(255, 241, 241, 241),
-                  child: FailedRequest(
-                    small: true,
-                    buttonOnPressed: () {
+                  child: CustomErrorWidget(
+                    onPressed: () async {
                       final days = context.read<TimeSlotCubit>().state;
-                      triggerGetCoinInfo(context: context, id: widget.id, days: days);
+                      if (await InternetConnectionChecker().hasConnection) {
+                        triggerGetCoinInfo(
+                            context: context, id: widget.id, days: days);
+                      } else {
+                        Fluttertoast.showToast(
+                          msg: "You still Offline",
+                          toastLength: Toast.LENGTH_SHORT,
+                        );
+                      }
                     },
-                    buttonText: "Refresh",
-                    icon: PersoIcons.coloredNoWifi,
-                    title: "You're currently offline",
-                    secondTitle:
-                        "Check your internet connection and try to refresh.",
+                    icon: SvgIcons.noWifiLine,
+                    msg: "No internet",
                   ),
                 );
               }
             }
             return Container(
               color: const Color.fromARGB(255, 241, 241, 241),
-              child: FailedRequest(
-                small: true,
-                buttonOnPressed: () {
+              child: CustomErrorWidget(
+                onPressed: () async {
                   final days = context.read<TimeSlotCubit>().state;
-                  triggerGetCoinInfo(context: context, id: widget.id, days: days);
+                  triggerGetCoinInfo(
+                      context: context, id: widget.id, days: days);
                 },
-                buttonText: "Try again",
-                icon: PersoIcons.coloredRemove,
-                title: "Something went wrong",
-                secondTitle:
-                    "Something went wrong on the back side, please try again.",
+                icon: SvgIcons.badO,
+                msg: "Something went wrong",
               ),
             );
           },

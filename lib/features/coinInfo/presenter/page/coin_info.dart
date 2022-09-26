@@ -6,7 +6,7 @@ import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../../../ui/colors/colors.dart';
+import '../../../../core/widgets/errors/error_message.dart';
 import '../../../../ui/icons/svg_icons.dart';
 import '../../../coinList/domain/entities/coin.dart';
 
@@ -33,57 +33,57 @@ class CoinInfoPage extends StatelessWidget {
           ),
           child: const CustomOpacityAnimation(child: CoinInfoPageAppBar()),
         ),
-        body:  buildBody(), 
+        body: buildBody(),
       ),
     );
   }
 
-  StatelessWidget buildBody()  {
+  StatelessWidget buildBody() {
     if (coin != null) {
       return Body(coin: coin!);
     } else {
       return Builder(builder: (context) {
-            /* if coin is null so make a call to the API */
-              handleApiCall(context);
-              return BlocBuilder<CoinInfosBloc, CoinInfosState>(
-                builder: (context, state) {
-                  if (state is CoinInfosInitial ||
-                      state is CoinInfosLoading) {
-                    return const CustomOpacityAnimation(child: Center(child: CircularProgressIndicator(strokeWidth: 3.0)));
-                  } else if (state is CoinInfosLoaded) {
-                    return Body(coin: state.coin);
-                  } else if (state is CoinInfosFailure) {
-                    //When no internet
-                    if (state.errorType == ErrorType.noInternetConnection) {
-                      return CustomErrorWidget(
-                        msg: 'No internet',
-                        icon: SvgIcons.noWifiLine,
-                        onPressed: () async {
-                          if (await InternetConnectionChecker()
-                              .hasConnection) {
-                            handleApiCall(context);
-                          } else {
-                            Fluttertoast.showToast(
-                              msg: "You still Offline",
-                              toastLength: Toast.LENGTH_SHORT,
-                            );
-                          }
-                        },
-                      );
+        /* if coin is null so make a call to the API */
+        handleApiCall(context);
+        return BlocBuilder<CoinInfosBloc, CoinInfosState>(
+          builder: (context, state) {
+            if (state is CoinInfosInitial || state is CoinInfosLoading) {
+              return const CustomOpacityAnimation(
+                  child: Center(
+                      child: CircularProgressIndicator(strokeWidth: 3.0)));
+            } else if (state is CoinInfosLoaded) {
+              return Body(coin: state.coin);
+            } else if (state is CoinInfosFailure) {
+              //When no internet
+              if (state.errorType == ErrorType.noInternetConnection) {
+                return CustomErrorWidget(
+                  msg: 'No internet',
+                  icon: SvgIcons.noWifiLine,
+                  onPressed: () async {
+                    if (await InternetConnectionChecker().hasConnection) {
+                      handleApiCall(context);
                     } else {
-                      return CustomErrorWidget(
-                        msg: 'Some went wrong on the back side',
-                        icon: SvgIcons.badO,
-                        onPressed: () {
-                          handleApiCall(context);
-                        },
+                      Fluttertoast.showToast(
+                        msg: "You still Offline",
+                        toastLength: Toast.LENGTH_SHORT,
                       );
                     }
-                  }
-                  return Container();
-                },
-              );
-            });
+                  },
+                );
+              } else {
+                return CustomErrorWidget(
+                  msg: 'Some went wrong on the back side',
+                  icon: SvgIcons.badO,
+                  onPressed: () {
+                    handleApiCall(context);
+                  },
+                );
+              }
+            }
+            return Container();
+          },
+        );
+      });
     }
   }
 
@@ -94,39 +94,5 @@ class CoinInfoPage extends StatelessWidget {
           .read<CoinInfosBloc>()
           .add(CoinInfosGet(coinId: id, currency: 'usd'));
     }
-  }
-}
-
-class CustomErrorWidget extends StatelessWidget {
-  final Function()? onPressed;
-  final String msg;
-  final SvgIcons icon;
-  const CustomErrorWidget({
-    Key? key,
-    this.onPressed,
-    required this.msg,
-    required this.icon,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomOpacityAnimation(
-      child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgIcon(icon: icon, size: 50),
-              const SizedBox(height: 5),
-              Text(msg),
-              TextButton(
-                  onPressed: onPressed,
-                  child: const Text("Try again"),
-                  style: TextButton.styleFrom(primary: AppColors.mainGreen)),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

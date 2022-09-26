@@ -1,13 +1,15 @@
 import 'dart:async';
 
-import 'package:crypto_trends/core/widgets/errors/failed_request.dart';
 import 'package:crypto_trends/errors/error_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import '../../../../../core/widgets/errors/error_message.dart';
 import '../../../../../ui/colors/colors.dart';
-import '../../../../../ui/icons/icons.dart';
+import '../../../../../ui/icons/svg_icons.dart';
 import '../../bloc/trending_coin/trending_coin_bloc.dart';
 import 'build_see_all.dart';
 import 'trending_coins_loaded_widget.dart';
@@ -23,11 +25,10 @@ class TrendingCoins extends StatefulWidget {
 }
 
 class _TrendingCoinsState extends State<TrendingCoins> {
-
   @override
   void initState() {
     super.initState();
-    
+    gettingTrendingCoins(context);
     Timer.periodic(const Duration(seconds: 60), (_) {
       refreshTop10List(context);
     });
@@ -35,7 +36,6 @@ class _TrendingCoinsState extends State<TrendingCoins> {
 
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
 
@@ -70,42 +70,34 @@ class _TrendingCoinsState extends State<TrendingCoins> {
               return TrendingCoinsLoadedWidget(coinList: state.coinList);
             } else if (state is TrendingCoinsFailure) {
               if (state.errorType == ErrorType.noInternetConnection) {
-                return FailedRequest(
-                  small: true,
-                  icon: PersoIcons.coloredNoWifi,
-                  title: "You're currently offline",
-                  secondTitle:
-                      "Check your internet connection refresh.",
-                  buttonOnPressed: () {
-                    gettingTrendingCoins(context);
+                return CustomErrorWidget(
+                  msg: 'No internet',
+                  icon: SvgIcons.noWifiLine,
+                  onPressed: () async {
+                    if (await InternetConnectionChecker().hasConnection) {
+                      gettingTrendingCoins(context);
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "You still Offline",
+                        toastLength: Toast.LENGTH_SHORT,
+                      );
+                    }
                   },
-                  buttonText: "Refresh",
                 );
-                //!
-                //!
-                //!Should show snackbar when still offline
-                //!
-                //!
               }
             }
-            return FailedRequest(
-              small: true,
-              icon: PersoIcons.coloredRemove,
-              title: "Something went wrong",
-              secondTitle:
-                  "Something went wrong on the back side, please try again.",
-              buttonOnPressed: () {
+            return CustomErrorWidget(
+              msg: 'Something went wrong',
+              icon: SvgIcons.badO,
+              onPressed: () async {
                 gettingTrendingCoins(context);
               },
-              buttonText: "Try again",
             );
           },
         ),
       ]),
     );
   }
-
-  
 }
 
 void gettingTrendingCoins(BuildContext context) {
