@@ -97,6 +97,8 @@ flutter:
   assets:
     - assets/icons/
     - assets/icons/colorful-icons/
+    - assets/icons/currencies-icons/
+    - assets/icons/countries-flag/
     - assets/svg/
   #   - images/a_dot_ham.jpeg
 

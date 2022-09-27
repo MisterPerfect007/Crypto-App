@@ -55,7 +55,7 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                               text: "Page: ",
                             ),
                             TextSpan(
-                                text: currentPage.toString(),
+                                text: state.toString(),
                                 style: const TextStyle(
                                     color: AppColors.mainGreen)),
                             const TextSpan(
@@ -86,7 +86,7 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                           child: DropdownButton<int>(
                             menuMaxHeight: 300,
                             alignment: AlignmentDirectional.center,
-                            value: state,
+                            value: currentPage,
                             items: List<int>.generate(100, (index) => index + 1)
                                 .map(
                                   (index) => DropdownMenuItem<int>(
@@ -95,9 +95,12 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                                 )
                                 .toList(),
                             onChanged: (index) {
-                              context
-                                  .read<PaginationCubit>()
-                                  .changePage(index!);
+                              setState(() {
+                                if (index != null) {
+                                  currentPage = index;
+                                }
+                              });
+                              // context.read<PaginationCubit>().changePage(index!);
                             },
                           ),
                         ),
@@ -107,11 +110,15 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                       ),
                       ElevatedButton(
                         onPressed: () {
+                          context
+                              .read<PaginationCubit>()
+                              .changePage(currentPage);
                           //* New data with the current page
                           context.read<CoinListBloc>().add(CoinListGet(
                                 currency: "usd",
-                                page: state,
-                                sortingCriteria: context.read<SortingCubit>().state,
+                                page: currentPage,
+                                sortingCriteria:
+                                    context.read<SortingCubit>().state,
                               ));
                         },
                         child: const Text(
