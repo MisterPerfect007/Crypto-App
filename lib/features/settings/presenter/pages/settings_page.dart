@@ -19,54 +19,100 @@ class SettingsPage extends StatelessWidget {
         child: const AppBar(),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.only(
-                    left: sidePadding, right: sidePadding, top: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Currency',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Container(
-                      height: 40,
-                      width: 250,
-                      decoration: BoxDecoration(
-                          border: Border.all(),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5))),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          menuMaxHeight: 300,
-                          alignment: AlignmentDirectional.center,
-                          value: "USD",
-                          items: currenciesList
-                              .map((currency) => DropdownMenuItem<String>(
-                                    child: Row(),
-                                  ))
-                              .toList(),
-                          onChanged: (index) {
-                            // context.read<PaginationCubit>().changePage(index!);
-                          },
+        child: Container(
+          color: Colors.white,
+          height: size.height,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.only(
+                      left: sidePadding, right: sidePadding, top: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                       Text(
+                        'Currency',
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                    )
-                  ],
+                      SizedBox(height: 5),
+                      CurrencyDropdown()
+                    ],
+                  ),
                 ),
-              ),
-              // const SizedBox(height: 1500)
-            ],
+                // const SizedBox(height: 1500)
+                const SizedBox(height: 70)
+              ],
+            ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class CurrencyDropdown extends StatelessWidget {
+  const CurrencyDropdown({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      width: 200,
+      decoration: BoxDecoration(
+          border: Border.all(),
+          borderRadius:
+              const BorderRadius.all(Radius.circular(5))),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          isDense: true,
+          menuMaxHeight: 300,
+          alignment: AlignmentDirectional.center,
+          value: "USD",
+          items: currenciesList
+              .map((currency) => DropdownMenuItem<String>(
+                    alignment: AlignmentDirectional.center,
+                    value: currency.shortName,
+                    child: Row(
+                        mainAxisAlignment:
+                            MainAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            currency.image,
+                            width: 20,
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            currency.fullName,
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            currency.shortName,
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 9,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey
+                            ),
+                          )
+                        ]),
+                  ))
+              .toList(),
+          onChanged: (index) {
+            // context.read<PaginationCubit>().changePage(index!);
+          },
         ),
       ),
     );

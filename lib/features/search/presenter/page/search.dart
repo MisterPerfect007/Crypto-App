@@ -14,8 +14,9 @@ import '../widgets/search_app_bar.dart';
 import '../widgets/search_item.dart';
 
 class Search extends StatefulWidget {
-  const Search({Key? key,})
-      : super(key: key);
+  const Search({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<Search> createState() => _SearchState();
@@ -44,13 +45,7 @@ class _SearchState extends State<Search> {
         child: SingleChildScrollView(
           child: SafeArea(
             child: Column(
-              children: [
-                buildTop(),
-                buildBottom(),
-                const SizedBox(
-                  height: 70,
-                )
-              ],
+              children: [buildTop(), buildBottom(), const SizedBox(height: 70)],
             ),
           ),
         ),
