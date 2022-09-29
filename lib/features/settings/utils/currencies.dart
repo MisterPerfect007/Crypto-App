@@ -78,7 +78,35 @@ const currenciesList = [
     symbol: "Kč",
     image: "assets/icons/countries-flag/czech-republic.png",
   ),
-  
+  /* 
+  Danish Krone
+  DKK
+  KR
+   */
+
+  /* 
+  Hong Kong Dollar
+  HKD
+  \$
+   */
+
+  /* 
+  Hungarian Forint
+  HUF
+  Ft
+   */
+
+  /* 
+  Indonesian Rupiah
+  IDR
+  Rp
+   */
+
+  /* 
+  Israeli New Shekel
+  ILS
+  ₪
+   */
 ];
 
 

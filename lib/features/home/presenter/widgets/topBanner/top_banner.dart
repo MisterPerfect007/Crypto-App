@@ -43,7 +43,7 @@ class TopBanner extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Crypto Trend",
+                "Crypto Trends",
                 style: GoogleFonts.inter(
                     color: AppColors.mainWhite,
                     fontWeight: FontWeight.bold,

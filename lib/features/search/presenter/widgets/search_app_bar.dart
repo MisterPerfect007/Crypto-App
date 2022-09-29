@@ -40,10 +40,10 @@ class _SearchAppBarState extends State<SearchAppBar> {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                  color: AppColors.mainGrey.withOpacity(0.2),
-                  offset: const Offset(0, 2),
-                  blurRadius: 1,
-                  spreadRadius: 0.2),
+                  color: AppColors.mainGrey.withOpacity(0.1),
+                  offset: const Offset(0, 1),
+                  blurRadius: 0.5,
+                  spreadRadius: 0),
             ],
           ),
           child: Row(

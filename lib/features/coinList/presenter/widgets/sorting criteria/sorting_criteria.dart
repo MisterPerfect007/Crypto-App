@@ -28,10 +28,10 @@ class SortingCriteria extends StatelessWidget {
                   color: AppColors.lightBg,
                   boxShadow: [
                     BoxShadow(
-                        color: AppColors.mainGrey.withOpacity(0.2),
-                        offset: const Offset(0, 2),
-                        blurRadius: 1,
-                        spreadRadius: 0.2)
+                        color: AppColors.mainGrey.withOpacity(0.1),
+                        offset: const Offset(0, 1),
+                        blurRadius: 0.5,
+                        spreadRadius: 0),
                   ],
                 )
               : const BoxDecoration(
@@ -42,10 +42,10 @@ class SortingCriteria extends StatelessWidget {
             bottom: 5,
           ),
           child: ScrollConfiguration(
-            behavior: const ScrollBehavior(
-                androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
+            behavior: const ScrollBehavior(),
             child: ListView.builder(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, top: 10, bottom: 10),
               scrollDirection: Axis.horizontal,
               itemCount: criteriaList.length,
               itemBuilder: ((context, index) {
