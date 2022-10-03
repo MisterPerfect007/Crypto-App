@@ -32,7 +32,7 @@ class SettingsPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                       Text(
+                      Text(
                         'Currency',
                         style: TextStyle(
                           fontFamily: 'Inter',
@@ -45,7 +45,6 @@ class SettingsPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                // const SizedBox(height: 1500)
                 const SizedBox(height: 70)
               ],
             ),
@@ -56,10 +55,17 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
-class CurrencyDropdown extends StatelessWidget {
+class CurrencyDropdown extends StatefulWidget {
   const CurrencyDropdown({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<CurrencyDropdown> createState() => _CurrencyDropdownState();
+}
+
+class _CurrencyDropdownState extends State<CurrencyDropdown> {
+  Currency selectedCurrency = currenciesList.first;
 
   @override
   Widget build(BuildContext context) {
@@ -68,21 +74,19 @@ class CurrencyDropdown extends StatelessWidget {
       width: 200,
       decoration: BoxDecoration(
           border: Border.all(),
-          borderRadius:
-              const BorderRadius.all(Radius.circular(5))),
+          borderRadius: const BorderRadius.all(Radius.circular(5))),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           isDense: true,
           menuMaxHeight: 300,
           alignment: AlignmentDirectional.center,
-          value: "USD",
+          value: selectedCurrency.shortName,
           items: currenciesList
               .map((currency) => DropdownMenuItem<String>(
                     alignment: AlignmentDirectional.center,
                     value: currency.shortName,
                     child: Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
                             currency.image,
@@ -92,26 +96,27 @@ class CurrencyDropdown extends StatelessWidget {
                           Text(
                             currency.fullName,
                             style: const TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500
-                            ),
+                                fontFamily: 'Inter',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500),
                           ),
                           const SizedBox(width: 5),
                           Text(
                             currency.shortName,
                             style: const TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 9,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey
-                            ),
+                                fontFamily: 'Inter',
+                                fontSize: 9,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey),
                           )
                         ]),
                   ))
               .toList(),
-          onChanged: (index) {
-            // context.read<PaginationCubit>().changePage(index!);
+          onChanged: (shortName) {
+            setState(() {
+              selectedCurrency =
+                  currenciesList.firstWhere((c) => c.shortName == shortName);
+            });
           },
         ),
       ),
