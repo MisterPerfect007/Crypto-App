@@ -21,7 +21,6 @@ class GetCoinMarketChartRepositoryImpl implements GetCoinMarketChartRepository {
     try {
       final result = await remote.getRemote(
         id: id,
-        currency: currency,
         days: days,
         dailyInterval: dailyInterval,
       );

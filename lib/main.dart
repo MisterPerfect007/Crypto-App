@@ -13,7 +13,7 @@ import 'features/home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
 import 'features/search/presenter/bloc/search_coin_bloc.dart';
 
 void main() async {
-  // await di.init();
+  await di.init();
   runApp(const MyApp());
 }
 
@@ -30,44 +30,20 @@ class MyApp extends StatelessWidget {
         primarySwatch: AppColors.colorPrimarySwatch,
       ),
       // themeMode: ThemeMode.dark,
-      home: const SplashScreen(),
-    //   MultiBlocProvider(
-    //     providers: [
-    //       //HOMPAGE
-    //       BlocProvider(create: ((context) => di.sl<TrendingCoinsBloc>())),
-    //       BlocProvider(create: ((context) => di.sl<Top10Bloc>())),
-    //       //
-    //       BlocProvider(create: (context) => di.sl<CoinListBloc>()),
-    //       BlocProvider(create: (context) => di.sl<SearchCoinBloc>()),
-    //       BlocProvider(create: (context) => ScrollPositionCubit()),
-    //       BlocProvider(create: (context) => SortingCubit()),
-    //       BlocProvider(create: (context) => PaginationCubit()),
-          
-    //     ],
-    //     child: const Root(),
-    // ),
-    );
-  }
-}
-
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        color: Colors.green,
-        child: const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white,)),
+      home: MultiBlocProvider(
+        providers: [
+          //HOMPAGE
+          BlocProvider(create: ((context) => di.sl<TrendingCoinsBloc>())),
+          BlocProvider(create: ((context) => di.sl<Top10Bloc>())),
+          //
+          BlocProvider(create: (context) => di.sl<CoinListBloc>()),
+          BlocProvider(create: (context) => di.sl<SearchCoinBloc>()),
+          BlocProvider(create: (context) => ScrollPositionCubit()),
+          BlocProvider(create: (context) => SortingCubit()),
+          BlocProvider(create: (context) => PaginationCubit()),
+        ],
+        child: const Root(),
       ),
     );
   }
 }
-

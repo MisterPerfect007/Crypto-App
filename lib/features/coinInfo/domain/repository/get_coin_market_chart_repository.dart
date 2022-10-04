@@ -6,7 +6,6 @@ import '../entities/coin_market_chart.dart';
 abstract class GetCoinMarketChartRepository {
   Future<Either<Failure, CoinMarketChart>> getRemoteCoinMarketChart({
     required String id,
-    required String currency,
     required String days,
     required bool dailyInterval,
   });

@@ -2,7 +2,9 @@ import 'package:crypto_trends/features/coinList/data/repository/get_coin_list_re
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/localStorage/local_storage_key_value.dart';
 import 'core/network/network_info.dart';
 import 'features/coinInfo/data/datasources/coin_market_chart_remote_data_source.dart';
 import 'features/coinInfo/data/repositories/get_coin_market_chart_repository_implementation.dart';
@@ -27,6 +29,7 @@ part 'features/coinInfo/injection_container.dart';
 part 'features/coinList/injection_container.dart';
 part 'features/home/injection_container.dart';
 part 'features/search/injection_container.dart';
+part 'features/settings/injection_container.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -40,4 +43,5 @@ Future<void> init() async {
   await initCoinList();
   await initHome();
   await initSearchCoin();
+  await initSettings();
 }

@@ -1,252 +1,236 @@
-import 'package:equatable/equatable.dart';
+import '../data/models/currency_model.dart';
 
-class Currency extends Equatable {
-  final String fullName;
-  final String shortName;
-  final String symbol;
-  final String image;
-
-  const Currency({
-    required this.fullName,
-    required this.shortName,
-    required this.symbol,
-    required this.image,
-  });
-
-  @override
-  List<Object?> get props => [fullName, shortName, symbol, image];
-}
 
 const currenciesList = [
-  Currency(
+  CurrencyModel(
     fullName: "US Dollar",
     shortName: "USD",
     symbol: "\$",
     image: "assets/icons/currencies-icons/icons8-us-dollar-circled-90.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Euro",
     shortName: "EUR",
     symbol: "€",
     image: "assets/icons/currencies-icons/icons8-euro-90.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Pound Sterling",
     shortName: "GBP",
     symbol: "£",
     image: "assets/icons/currencies-icons/icons8-british-pound-96.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Australian Dollar",
     shortName: "AUD",
     symbol: "\$",
     image: "assets/icons/countries-flag/australia.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Brazilian Real",
     shortName: "BRL",
     symbol: "R\$",
     image: "assets/icons/countries-flag/brazil.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Canadian Dollar",
     shortName: "CAD",
     symbol: "\$",
     image: "assets/icons/countries-flag/canada.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Swiss Franc",
     shortName: "CHF",
     symbol: "Fr",
     image: "assets/icons/countries-flag/switzerland.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Chilean Peso",
     shortName: "CLP",
     symbol: "\$",
     image: "assets/icons/countries-flag/chile.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Chinese Yuan",
     shortName: "CNY",
     symbol: "¥",
     image: "assets/icons/countries-flag/china.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Czech Koruna",
     shortName: "CZK",
     symbol: "Kč",
     image: "assets/icons/countries-flag/czech-republic.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Danish Krone",
     shortName: "DKK",
     symbol: "KR",
     image: "assets/icons/countries-flag/denmark.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Hong Kong Dollar",
     shortName: "HKD",
     symbol: "\$",
     image: "assets/icons/countries-flag/hong-kong.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Hungarian Forint",
     shortName: "HUF",
     symbol: "Ft",
     image: "assets/icons/countries-flag/hungary.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Indonesian Rupiah",
     shortName: "IDR",
     symbol: "Rp",
     image: "assets/icons/countries-flag/indonesia.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Israeli New Shekel",
     shortName: "ILS",
     symbol: "₪",
     image: "assets/icons/countries-flag/israel.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Indian Rupee",
     shortName: "INR",
     symbol: "₹",
     image: "assets/icons/countries-flag/india.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Japanese Yen",
     shortName: "JPY",
     symbol: "¥",
     image: "assets/icons/countries-flag/japan.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "South Korean Won",
     shortName: "KRW",
     symbol: "₩",
     image: "assets/icons/countries-flag/south-korea.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Mexican Peso",
     shortName: "MXN",
     symbol: "\$",
     image: "assets/icons/countries-flag/mexican-flag.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Malaysian Ringgit",
     shortName: "MYR",
     symbol: "RM",
     image: "assets/icons/countries-flag/malaysia.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Norwegian Krone",
     shortName: "NOK",
     symbol: "kr",
     image: "assets/icons/countries-flag/norway.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "New Zealand Dollar",
     shortName: "NZD",
     symbol: "\$",
     image: "assets/icons/countries-flag/new-zeland.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Philippine Peso",
     shortName: "PHP",
     symbol: "₱",
     image: "assets/icons/countries-flag/philippines.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Pakistani Rupee",
     shortName: "PKR",
     symbol: "₨",
     image: "assets/icons/countries-flag/pakistan.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Polish Złoty",
     shortName: "PLN",
     symbol: "zł",
     image: "assets/icons/countries-flag/poland.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Russian Ruble",
     shortName: "RUB",
     symbol: "₽",
     image: "assets/icons/countries-flag/russia.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Swedish Krona",
     shortName: "SEK",
     symbol: "kr",
     image: "assets/icons/countries-flag/russia.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Singapore Dollar",
     shortName: "SGD",
     symbol: "S\$",
     image: "assets/icons/countries-flag/singapore.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Thai Baht",
     shortName: "THB",
     symbol: "฿",
     image: "assets/icons/countries-flag/thailand.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Turkish Lira",
     shortName: "TRY",
     symbol: "₺",
     image: "assets/icons/countries-flag/turkey.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "New Taiwan Dollar",
     shortName: "TWD",
     symbol: "NT\$",
     image: "assets/icons/countries-flag/taiwan.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "South African Rand",
     shortName: "ZAR",
     symbol: "R",
     image: "assets/icons/countries-flag/south-africa.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Vietnamese Dong",
     shortName: "VND",
     symbol: "₫",
     image: "assets/icons/countries-flag/vietnam.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Argentine Peso",
     shortName: "ARS",
     symbol: "ARS",
     image: "assets/icons/countries-flag/argentina.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Ukrainian Hryvnia",
     shortName: "UAH",
     symbol: "UAH",
     image: "assets/icons/countries-flag/ukraine.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Nigerian Naira",
     shortName: "NGN",
     symbol: "NGN",
     image: "assets/icons/countries-flag/nigeria.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "U. A. E. Dirham",
     shortName: "AED",
     symbol: "AED",
     image: "assets/icons/countries-flag/united-arab-emirates.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Saudi Riyal",
     shortName: "SAR",
     symbol: "SAR",
     image: "assets/icons/countries-flag/saudi-arabia.png",
   ),
-  Currency(
+  CurrencyModel(
     fullName: "Bangladeshi Taka",
     shortName: "BDT",
     symbol: "BDT",

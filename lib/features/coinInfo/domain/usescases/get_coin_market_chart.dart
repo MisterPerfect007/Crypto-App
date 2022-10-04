@@ -12,13 +12,11 @@ class GetCoinMarketChart {
 
   Future<Either<Failure, CoinMarketChart>> call({
     required String id,
-    required String currency,
     required String days,
     required bool dailyInterval,
   }) async {
     return await repository.getRemoteCoinMarketChart(
       id: id,
-      currency: currency,
       days: days,
       dailyInterval: dailyInterval,
     );

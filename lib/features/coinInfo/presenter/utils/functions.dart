@@ -19,7 +19,6 @@ void triggerGetCoinInfo(
     {required BuildContext context, required String id, required String days}) {
   context.read<CoinInfoBloc>().add(GetCoinInfo(
         id: id,
-        currency: "usd",
         days: days,
         dailyInterval: false,
       ));

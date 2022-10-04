@@ -18,22 +18,21 @@ class CoinInfoBloc extends Bloc<CoinInfoEvent, CoinInfoState> {
     required this.network,
   }) : super(CoinInfoInitial()) {
     on<CoinInfoEvent>((event, emit) async {
-      emit(CoinInfoLoading());
-      if (await network.isConnected) {
-        if (event is GetCoinInfo) {
-        final leftOrRight = await usecase.call(
-          id: event.id,
-          currency: event.currency,
-          days: event.days,
-          dailyInterval: event.dailyInterval,
-        );
-        leftOrRight.fold(
-          (failure) => emit(CoinInfoFailure(giveErrorType(failure))),
-          (chartData) => emit(CoinInfoLoaded(coinMarketChart: chartData)),
-        );
-      }
-      } else {
-         emit(const CoinInfoFailure(ErrorType.noInternetConnection));
+      if (event is GetCoinInfo) {
+        emit(CoinInfoLoading());
+        if (await network.isConnected) {
+          final leftOrRight = await usecase.call(
+            id: event.id,
+            days: event.days,
+            dailyInterval: event.dailyInterval,
+          );
+          leftOrRight.fold(
+            (failure) => emit(CoinInfoFailure(giveErrorType(failure))),
+            (chartData) => emit(CoinInfoLoaded(coinMarketChart: chartData)),
+          );
+        } else {
+          emit(const CoinInfoFailure(ErrorType.noInternetConnection));
+        }
       }
     });
   }

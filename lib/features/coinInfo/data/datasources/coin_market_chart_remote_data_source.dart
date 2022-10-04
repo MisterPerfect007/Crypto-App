@@ -4,6 +4,8 @@ import 'package:crypto_trends/errors/exceptions.dart';
 import 'package:crypto_trends/features/coinInfo/data/models/coin_market_chart_model.dart';
 import 'package:http/http.dart';
 
+import '../../../settings/utils/get_currency.dart';
+
 abstract class CoinMarketChartRemoteDataSource {
   ///Get coin market chart remote data
   ///
@@ -12,7 +14,6 @@ abstract class CoinMarketChartRemoteDataSource {
   ///Throws a [ServerException] when something went wrong
   Future<CoinMarketChartModel> getRemote({
     required String id,
-    required String currency,
     required String days,
     required bool dailyInterval,
   });
@@ -29,7 +30,6 @@ class CoinMarketChartRemoteDataSourceImpl
   @override
   Future<CoinMarketChartModel> getRemote({
     required String id,
-    required String currency,
     required String days,
     required bool dailyInterval,
   }) async {
@@ -38,7 +38,6 @@ class CoinMarketChartRemoteDataSourceImpl
       response = await client.get(
           buildUrl(
             id: id,
-            currency: currency,
             days: days,
             dailyInterval: dailyInterval,
           ),
@@ -59,12 +58,11 @@ class CoinMarketChartRemoteDataSourceImpl
 
 Uri buildUrl({
   required String id,
-  required String currency,
   required String days,
   required bool dailyInterval,
 }) {
   return Uri.https('api.coingecko.com', '/api/v3/coins/$id/market_chart', {
-    'vs_currency': currency,
+    'vs_currency': getCurrentCurrency().shortName,
     'days': days,
     'interval': dailyInterval ? 'daily' : ''
   });
