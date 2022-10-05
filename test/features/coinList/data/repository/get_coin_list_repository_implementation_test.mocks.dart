@@ -2,12 +2,13 @@
 // in crypto_trends/test/features/coinList/data/repository/get_coin_list_repository_implementation_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:crypto_trends/features/coinList/data/datasources/coin_list_remote_data_source.dart'
-    as _i3;
+    as _i4;
 import 'package:crypto_trends/features/coinList/data/models/coin_model.dart'
-    as _i5;
+    as _i6;
+import 'package:crypto_trends/features/settings/utils/get_currency.dart' as _i3;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -23,11 +24,13 @@ import 'package:mockito/mockito.dart' as _i1;
 
 class _FakeClient_0 extends _i1.Fake implements _i2.Client {}
 
+class _FakeCurrencyStorage_1 extends _i1.Fake implements _i3.CurrencyStorage {}
+
 /// A class which mocks [CoinListRemoteDataSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCoinListRemoteDataSourceImpl extends _i1.Mock
-    implements _i3.CoinListRemoteDataSourceImpl {
+    implements _i4.CoinListRemoteDataSourceImpl {
   MockCoinListRemoteDataSourceImpl() {
     _i1.throwOnMissingStub(this);
   }
@@ -36,15 +39,15 @@ class MockCoinListRemoteDataSourceImpl extends _i1.Mock
   _i2.Client get client => (super.noSuchMethod(Invocation.getter(#client),
       returnValue: _FakeClient_0()) as _i2.Client);
   @override
-  _i4.Future<List<_i5.CoinModel>> getRemoteCoinList(
-          {String? currency, int? page, List<String>? ids, int? perPage}) =>
+  _i3.CurrencyStorage get currencyStorage =>
+      (super.noSuchMethod(Invocation.getter(#currencyStorage),
+          returnValue: _FakeCurrencyStorage_1()) as _i3.CurrencyStorage);
+  @override
+  _i5.Future<List<_i6.CoinModel>> getRemoteCoinList(
+          {int? page, List<String>? ids, int? perPage}) =>
       (super.noSuchMethod(
-              Invocation.method(#getRemoteCoinList, [], {
-                #currency: currency,
-                #page: page,
-                #ids: ids,
-                #perPage: perPage
-              }),
-              returnValue: Future<List<_i5.CoinModel>>.value(<_i5.CoinModel>[]))
-          as _i4.Future<List<_i5.CoinModel>>);
+              Invocation.method(#getRemoteCoinList, [],
+                  {#page: page, #ids: ids, #perPage: perPage}),
+              returnValue: Future<List<_i6.CoinModel>>.value(<_i6.CoinModel>[]))
+          as _i5.Future<List<_i6.CoinModel>>);
 }

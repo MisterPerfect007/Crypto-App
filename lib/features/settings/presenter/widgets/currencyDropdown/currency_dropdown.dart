@@ -1,9 +1,11 @@
-import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
-import 'package:crypto_trends/features/home/presenter/bloc/top10/top_10_bloc.dart';
-import 'package:crypto_trends/features/home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../coinList/presenter/bloc/coin_list_bloc.dart';
+import '../../../../coinList/presenter/cubit/pagination_cubit.dart';
+import '../../../../coinList/presenter/cubit/sorting_cubit.dart';
+import '../../../../home/presenter/bloc/top10/top_10_bloc.dart';
+import '../../../../home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
 import '../../../data/models/currency_model.dart';
 import '../../../utils/currencies.dart';
 import '../../../utils/get_currency.dart';
@@ -18,7 +20,8 @@ class CurrencyDropdown extends StatefulWidget {
 }
 
 class _CurrencyDropdownState extends State<CurrencyDropdown> {
-  CurrencyModel selectedCurrency = currenciesList.first;
+  final currencyStorage = CurrencyStorage();
+  CurrencyModel selectedCurrency = CurrencyStorage().getCurrentCurrency();
 
   bool showReloadButton = false;
 
@@ -88,11 +91,26 @@ class _CurrencyDropdownState extends State<CurrencyDropdown> {
 
   void handleReloadData() {
     //store the currency localy
-    storeCurrencyLocaly(selectedCurrency);
+    currencyStorage.storeCurrencyLocaly(selectedCurrency);
 
-    // context.read<CoinListBloc>().add(event);
-    // context.read<TrendingCoinsBloc>().state;
-    // context.read<Top10Bloc>().state;
+    //! Update coin list
+    final int pageToFetch = context.read<PaginationCubit>().state;
+    final coinListBloc = context.read<CoinListBloc>();
+    final criteria = context.read<SortingCubit>().state;
+
+    coinListBloc.add(CoinListGet(page: pageToFetch, sortingCriteria: criteria));
+
+    //! Update top 10 coins on home page
+    final top10Bloc = context.read<Top10Bloc>();
+    top10Bloc.add(const GetTop10Coins(page: 1, perPage: 100));
+
+    //! Update trending coin
+    final trendingBloc = context.read<TrendingCoinsBloc>();
+    trendingBloc.add(GetTrendingCoins());
+
+    setState((){
+      showReloadButton = false;
+    });
   }
 
   void handleCurrencyChange(currencyShortName) {

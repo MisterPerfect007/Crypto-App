@@ -16,16 +16,16 @@ void main() {
     repository = MockCoinListRepository();
     usecase = GetRemoteCoinList(repository: repository);
   });
-  const testCurrency = "usd";
+  
   const testPage = 1;
   test("Should get coins from repository", () async {
-    when(repository.getRemoteCoinList(currency: testCurrency, page: testPage))
+    when(repository.getRemoteCoinList(page: testPage))
         .thenAnswer((_) async => Right(testCoins));
 
-    final result = await usecase(currency: testCurrency, page: testPage);
+    final result = await usecase(page: testPage);
 
     expect(result, Right(testCoins));
-    verify(repository.getRemoteCoinList(currency: testCurrency, page: testPage))
+    verify(repository.getRemoteCoinList(page: testPage))
         .called(1);
     verifyNoMoreInteractions(repository);
   });

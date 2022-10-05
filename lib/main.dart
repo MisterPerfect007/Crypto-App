@@ -11,8 +11,10 @@ import 'features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'features/home/presenter/bloc/top10/top_10_bloc.dart';
 import 'features/home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
 import 'features/search/presenter/bloc/search_coin_bloc.dart';
+import 'features/settings/utils/get_currency.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   runApp(const MyApp());
 }

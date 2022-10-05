@@ -3,7 +3,6 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../errors/failures.dart';
 import '../entities/coin_market_chart.dart';
-import '../repository/get_coin_market_chart_repository.dart';
 
 class GetCoinMarketChart {
   final GetCoinMarketChartRepository repository;

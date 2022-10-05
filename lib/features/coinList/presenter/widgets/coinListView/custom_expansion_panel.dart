@@ -115,7 +115,6 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                               .changePage(currentPage);
                           //* New data with the current page
                           context.read<CoinListBloc>().add(CoinListGet(
-                                currency: "usd",
                                 page: currentPage,
                                 sortingCriteria:
                                     context.read<SortingCubit>().state,
@@ -126,7 +125,7 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                           style: TextStyle(color: AppColors.mainGreen),
                         ),
                         style: ElevatedButton.styleFrom(
-                            primary: AppColors.mainGreen.withOpacity(0.2),
+                            backgroundColor: AppColors.mainGreen.withOpacity(0.2),
                             shadowColor: Colors.white.withOpacity(0.1)),
                       )
                     ],

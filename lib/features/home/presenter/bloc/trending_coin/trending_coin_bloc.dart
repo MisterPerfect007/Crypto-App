@@ -33,7 +33,7 @@ class TrendingCoinsBloc extends Bloc<TrendingCoinsEvent, TrendingCoinsState> {
               emit(const TrendingCoinsFailure(ErrorType.failedRequest));
             } else {
               final coinListOrFailure =
-                  await getCoinList(currency: "usd", ids: ids);
+                  await getCoinList(ids: ids);
               coinListOrFailure.fold(
                 (failure) => emit(TrendingCoinsFailure(giveErrorType(failure))),
                 (coinList) => emit(TrendingCoinsLoaded(coinList: coinList)),
@@ -50,7 +50,7 @@ class TrendingCoinsBloc extends Bloc<TrendingCoinsEvent, TrendingCoinsState> {
           ids = await trendingCoinSource.getTrendingCoinsIds();
           if (ids.isNotEmpty) {
             final coinListOrFailure =
-                await getCoinList(currency: "usd", ids: ids);
+                await getCoinList(ids: ids);
             coinListOrFailure.fold(
               (failure) => null,
               (coinList) => emit(TrendingCoinsLoaded(coinList: coinList)),

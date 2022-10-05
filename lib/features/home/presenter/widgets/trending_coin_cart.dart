@@ -10,6 +10,7 @@ import '../../../../ui/colors/colors.dart';
 import '../../../coinList/domain/entities/coin.dart';
 import '../../../coinList/presenter/utils/coin_line_chart_data.dart';
 import '../../../coinList/presenter/widgets/single coin/single_coin_line_chart.dart';
+import '../../../settings/utils/get_currency.dart';
 
 class TrendingCoinCart extends StatelessWidget {
   final bool? isLoading;
@@ -25,6 +26,9 @@ class TrendingCoinCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    //currency
+    final currency = CurrencyStorage().getCurrentCurrency();
 
     bool showLoading = isLoading ?? false;
     Size size = MediaQuery.of(context).size;
@@ -92,7 +96,7 @@ class TrendingCoinCart extends StatelessWidget {
               const ContainerShimmer(width: 40, height: 8, radius: 5)
             else
               Text(
-                "\$${formatWithSmallPrice(coin?.currentPrice)}",
+                currency.symbol + " " + formatWithSmallPrice(coin?.currentPrice),
                 style: GoogleFonts.inter(
                     color: AppColors.mainBlack,
                     fontWeight: FontWeight.w500,

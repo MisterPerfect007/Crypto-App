@@ -46,18 +46,14 @@ class MockGetCoinMarketChart extends _i1.Mock
           as _i2.GetCoinMarketChartRepository);
   @override
   _i5.Future<_i3.Either<_i6.Failure, _i7.CoinMarketChart>> call(
-          {String? id, String? currency, String? days, bool? dailyInterval}) =>
+          {String? id, String? days, bool? dailyInterval}) =>
       (super.noSuchMethod(
-              Invocation.method(#call, [], {
-                #id: id,
-                #currency: currency,
-                #days: days,
-                #dailyInterval: dailyInterval
-              }),
-              returnValue:
-                  Future<_i3.Either<_i6.Failure, _i7.CoinMarketChart>>.value(
-                      _FakeEither_1<_i6.Failure, _i7.CoinMarketChart>()))
-          as _i5.Future<_i3.Either<_i6.Failure, _i7.CoinMarketChart>>);
+          Invocation.method(
+              #call, [], {#id: id, #days: days, #dailyInterval: dailyInterval}),
+          returnValue:
+              Future<_i3.Either<_i6.Failure, _i7.CoinMarketChart>>.value(
+                  _FakeEither_1<_i6.Failure, _i7.CoinMarketChart>())) as _i5
+          .Future<_i3.Either<_i6.Failure, _i7.CoinMarketChart>>);
 }
 
 /// A class which mocks [NetworkInfo].

@@ -10,6 +10,7 @@ import '../../../../../core/widgets/custom_network_image.dart';
 import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/svg_icons.dart';
 import '../../../../coinList/domain/entities/coin.dart';
+import '../../../../settings/utils/get_currency.dart';
 
 class Top10CoinCart extends StatelessWidget {
   const Top10CoinCart({
@@ -30,8 +31,11 @@ class Top10CoinCart extends StatelessWidget {
 
     bool showLoading = isLoading ?? coin == null;
 
-    CoinPercentageFormat percentage = CoinPercentageFormat(
-        percentage: coin?.priceChangePercentage24h);
+    CoinPercentageFormat percentage =
+        CoinPercentageFormat(percentage: coin?.priceChangePercentage24h);
+
+    //currency
+    final currency = CurrencyStorage().getCurrentCurrency();
 
     return GestureDetector(
       onTap: action,
@@ -97,7 +101,7 @@ class Top10CoinCart extends StatelessWidget {
                 child: showLoading
                     ? const ContainerShimmer(width: 50, height: 15, radius: 5)
                     : Text(
-                        "\$${formatWithSmallPrice(coin?.currentPrice)}",
+                        currency.symbol + " " + formatWithSmallPrice(coin?.currentPrice),
                         style: GoogleFonts.inter(
                             color: AppColors.mainBlack,
                             fontWeight: FontWeight.w500,
@@ -109,18 +113,19 @@ class Top10CoinCart extends StatelessWidget {
               ),
               if (showLoading)
                 const ContainerShimmer(width: 20, height: 20, radius: 15)
-              else if(coin?.priceChangePercentage24h!= null)
+              else if (coin?.priceChangePercentage24h != null)
                 Container(
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                      color: percentage.getColor() .withOpacity(0.1),
+                      color: percentage.getColor().withOpacity(0.1),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20))),
                   child: SvgIcon(
-                    icon: percentage.isPositive()! ? SvgIcons.chartLineUp : SvgIcons.chartLineDown,
-                    color: percentage.getColor(),
-                    size: 10
-                  ),
+                      icon: percentage.isPositive()!
+                          ? SvgIcons.chartLineUp
+                          : SvgIcons.chartLineDown,
+                      color: percentage.getColor(),
+                      size: 10),
                 )
             ],
           ),

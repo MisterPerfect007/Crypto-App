@@ -38,7 +38,7 @@ void main() {
 
   void whenSuccess(){
     when(network.isConnected).thenAnswer((_) async => true);
-    when(getRemoteCoinList.call(currency: tCurrency, perPage: perPage, page: tPage))
+    when(getRemoteCoinList.call(perPage: perPage, page: tPage))
         .thenAnswer((_) async => Right(testCoinModels));
   }
 
@@ -70,7 +70,7 @@ void main() {
     build: () => bloc,
     act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
     verify: (_) {
-      verify(getRemoteCoinList.call(currency: tCurrency, perPage: perPage, page: tPage)).called(1);
+      verify(getRemoteCoinList.call(perPage: perPage, page: tPage)).called(1);
       verifyNoMoreInteractions(getRemoteCoinList);
     },
   );
@@ -92,7 +92,7 @@ void main() {
     "emit [Top10Loading, Top10Failure(ErrorType.failedRequest)] when the request failed (return a ServerFailure)",
     setUp: () {
       when(network.isConnected).thenAnswer((_) async => true);
-    when(getRemoteCoinList.call(currency: tCurrency, perPage: perPage, page: tPage))
+    when(getRemoteCoinList.call(perPage: perPage, page: tPage))
         .thenAnswer((_) async => Left(ServerFailure()));
     },
     build: () => bloc,
@@ -107,7 +107,7 @@ void main() {
     "emit [Top10Loading, Top10Failure(ErrorType.noInternetConnection)] when the request failed (return a NoConnectionFailure())",
     setUp: () {
       when(network.isConnected).thenAnswer((_) async => true);
-    when(getRemoteCoinList.call(currency: tCurrency, perPage: perPage, page: tPage))
+    when(getRemoteCoinList.call(perPage: perPage, page: tPage))
         .thenAnswer((_) async => Left(NoConnectionFailure()));
     },
     build: () => bloc,

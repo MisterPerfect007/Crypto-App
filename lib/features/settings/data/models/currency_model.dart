@@ -13,16 +13,16 @@ class CurrencyModel extends Equatable {
     required this.image,
   });
 
-  factory CurrencyModel.fromJson(Map<String, dynamic> json) {
+  factory CurrencyModel.fromJson(Map<String, String> json) {
     return CurrencyModel(
-      fullName: json["fullName"],
-      shortName: json["shortName"],
-      symbol: json["symbol"],
-      image: json["image"],
+      fullName: json["fullName"].toString(),
+      shortName: json["shortName"].toString(),
+      symbol: json["symbol"].toString(),
+      image: json["image"].toString(),
     );
   }
   
-  Map<String, dynamic> json(){
+  Map<String, String> json(){
     return {
       "fullName": fullName,
       "shortName": shortName,

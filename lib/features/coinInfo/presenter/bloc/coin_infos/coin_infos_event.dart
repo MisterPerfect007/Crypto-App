@@ -9,9 +9,8 @@ abstract class CoinInfosEvent extends Equatable {
 
 class CoinInfosGet extends CoinInfosEvent{
   final String coinId;
-  final String currency;
 
-  const CoinInfosGet({required this.coinId, required this.currency});
+  const CoinInfosGet({required this.coinId});
 
   @override
   List<Object> get props => [coinId];

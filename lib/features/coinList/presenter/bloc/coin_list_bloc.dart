@@ -23,8 +23,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
         emit(CoinListLoading());
         final isConnected = await network.isConnected;
         if (isConnected) {
-          final coinListOrFailure = await getRemoteCoinList(
-              currency: event.currency, page: event.page);
+          final coinListOrFailure = await getRemoteCoinList(page: event.page);
           coinListOrFailure.fold(
               (failure) => emit(CoinListFailure(giveErrorType(failure))),
               (coinList) => emit(CoinListLoaded(
@@ -38,7 +37,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
       //! on CoinListUpdate
       if (event is CoinListUpdate) {
         final coinListOrFailure =
-            await getRemoteCoinList(currency: event.currency, page: event.page);
+            await getRemoteCoinList(page: event.page);
         coinListOrFailure.fold(
             (_) {},
             (coinList) => emit(CoinListLoaded(

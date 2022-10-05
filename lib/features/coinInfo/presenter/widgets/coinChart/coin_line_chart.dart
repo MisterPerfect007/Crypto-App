@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../settings/utils/get_currency.dart';
 import '../../utils/coin_info_line_chart_data.dart';
 
 class CoinInfoLineChart extends StatelessWidget {
@@ -15,6 +16,10 @@ class CoinInfoLineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    //currency
+    final currency = CurrencyStorage().getCurrentCurrency();
+    
     return LineChart(
       LineChartData(
         lineTouchData: LineTouchData(
@@ -30,7 +35,7 @@ class CoinInfoLineChart extends StatelessWidget {
                       textAlign: TextAlign.left,
                       children: [
                         TextSpan(
-                          text: "\$ ${priceFormater(spotData.y)}",
+                          text: currency.symbol + " " + priceFormater(spotData.y),
                           style: GoogleFonts.inter(
                             textStyle: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 12),

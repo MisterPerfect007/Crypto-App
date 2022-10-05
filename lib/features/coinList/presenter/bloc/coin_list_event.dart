@@ -8,25 +8,23 @@ abstract class CoinListEvent extends Equatable {
 }
 
 class CoinListGet extends CoinListEvent{
-  final String currency;
   final int? page;
   final Map<String, dynamic> sortingCriteria;
 
-  const CoinListGet({required this.currency, this.page , required this.sortingCriteria});
+  const CoinListGet({this.page , required this.sortingCriteria});
 
   @override
-  List<Object> get props => [currency, page!, sortingCriteria];
+  List<Object> get props => [ page!, sortingCriteria];
 }
 
 class CoinListUpdate extends CoinListEvent{
-  final String currency;
   final int? page;
   final Map<String, dynamic> sortingCriteria;
 
-  const CoinListUpdate({required this.currency, this.page, required this.sortingCriteria});
+  const CoinListUpdate({this.page, required this.sortingCriteria});
 
   @override
-  List<Object> get props => [currency, page!, sortingCriteria];
+  List<Object> get props => [page!, sortingCriteria];
 }
 
 class CoinListSorting extends CoinListEvent{

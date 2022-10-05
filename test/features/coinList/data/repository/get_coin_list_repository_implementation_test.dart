@@ -19,35 +19,31 @@ void main() {
     remote = MockCoinListRemoteDataSourceImpl();
     repository = CoinListRepositoryImpl(remote: remote);
   });
-  const tCurrency = "usd";
   const tPage = 2;
 
   test(
       "Should call the getRemoteCoinList method with correct arguments",
       () async {
-    when(remote.getRemoteCoinList(
-            currency: anyNamed("currency"), page: anyNamed("page")))
+    when(remote.getRemoteCoinList(page: anyNamed("page")))
         .thenAnswer((_) async => testCoinModels);
 
-    await repository.getRemoteCoinList(currency: tCurrency, page: tPage);
+    await repository.getRemoteCoinList(page: tPage);
 
-    verify(remote.getRemoteCoinList(currency: tCurrency, page: tPage))
+    verify(remote.getRemoteCoinList(page: tPage))
         .called(1);
     verifyNoMoreInteractions(remote);
   });
   test("Should return a List of [Coin] when everything went good", () async {
-    when(remote.getRemoteCoinList(
-            currency: anyNamed("currency"), page: anyNamed("page")))
+    when(remote.getRemoteCoinList(page: anyNamed("page")))
         .thenAnswer((_) async => testCoinModels);
-    final result = await repository.getRemoteCoinList(currency: tCurrency, page: tPage);
+    final result = await repository.getRemoteCoinList(page: tPage);
 
     expect(result, Right(testCoinModels));
   });
   test("Should return a ServerFailure when a ServerException is thrown", () async {
-    when(remote.getRemoteCoinList(
-            currency: anyNamed("currency"), page: anyNamed("page")))
+    when(remote.getRemoteCoinList(page: anyNamed("page")))
         .thenThrow(ServerException());
-    final result = await repository.getRemoteCoinList(currency: tCurrency, page: tPage);
+    final result = await repository.getRemoteCoinList(page: tPage);
 
     expect(result, Left(ServerFailure()));
   });

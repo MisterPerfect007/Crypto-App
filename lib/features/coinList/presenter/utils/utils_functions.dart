@@ -91,10 +91,8 @@ void gettingOrRefringCoinList(BuildContext context) {
   final state = coinListBloc.state;
   final int pageToFetch = context.read<PaginationCubit>().state;
   if (state is CoinListLoaded) {
-    coinListBloc.add(CoinListUpdate(
-        currency: "usd", page: pageToFetch, sortingCriteria: criteria));
+    coinListBloc.add(CoinListUpdate(page: pageToFetch, sortingCriteria: criteria));
   } else if (state is! CoinListLoading) {
-    coinListBloc.add(CoinListGet(
-        currency: "usd", page: pageToFetch, sortingCriteria: criteria));
+    coinListBloc.add(CoinListGet(page: pageToFetch, sortingCriteria: criteria));
   }
 }

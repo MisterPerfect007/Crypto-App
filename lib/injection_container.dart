@@ -11,7 +11,7 @@ import 'features/coinInfo/data/repositories/get_coin_market_chart_repository_imp
 import 'features/coinInfo/domain/repository/get_coin_market_chart_repository.dart';
 import 'features/coinInfo/domain/usescases/get_coin_market_chart.dart';
 import 'features/coinInfo/presenter/bloc/coin_infos/coin_infos_bloc.dart';
-import 'features/coinInfo/presenter/bloc/coininfo/coininfo_bloc.dart';
+import 'features/coinInfo/presenter/bloc/coinChartInfo/coininfo_bloc.dart';
 import 'features/coinList/data/datasources/coin_list_remote_data_source.dart';
 import 'features/coinList/domain/repositories/get_coin_list_repository.dart';
 import 'features/coinList/domain/usecases/get_coin_list.dart';
@@ -24,6 +24,7 @@ import 'features/search/data/repository/get_search_item_impl.dart';
 import 'features/search/domain/repository/get_search_items.dart';
 import 'features/search/domain/usecases/get_search_coin.dart';
 import 'features/search/presenter/bloc/search_coin_bloc.dart';
+import 'features/settings/utils/get_currency.dart';
 
 part 'features/coinInfo/injection_container.dart';
 part 'features/coinList/injection_container.dart';
@@ -36,6 +37,10 @@ final GetIt sl = GetIt.instance;
 Future<void> init() async {
   
   //!External
+  final prefs = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => prefs);
+  sl.registerLazySingleton(() => CurrencyStorage());
+  
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(internetConnectionChecker: InternetConnectionChecker()));
    

@@ -14,7 +14,6 @@ class GetCoinMarketChartRepositoryImpl implements GetCoinMarketChartRepository {
   @override
   Future<Either<Failure, CoinMarketChart>> getRemoteCoinMarketChart({
     required String id,
-    required String currency,
     required String days,
     required bool dailyInterval,
   }) async {

@@ -21,10 +21,8 @@ class Top10Bloc extends Bloc<Top10Event, Top10State> {
           emit(const Top10Failure(ErrorType.noInternetConnection));
         } else {
           emit(Top10Loading());
-          final coinListOrFailure = await getCoinList.call(
-              currency: event.currency,
-              page: event.page,
-              perPage: event.perPage);
+          final coinListOrFailure =
+              await getCoinList.call(page: event.page, perPage: event.perPage);
           coinListOrFailure.fold(
             (failure) => emit(Top10Failure(giveErrorType(failure))),
             (coinList) => emit(Top10Loaded(coinList: coinList)),
@@ -35,8 +33,8 @@ class Top10Bloc extends Bloc<Top10Event, Top10State> {
         //
       }
       if (event is RefreshTop10Coins) {
-        final coinListOrFailure = await getCoinList.call(
-            currency: event.currency, page: event.page, perPage: event.perPage);
+        final coinListOrFailure =
+            await getCoinList.call(page: event.page, perPage: event.perPage);
         coinListOrFailure.fold(
           (failure) => null,
           (coinList) => emit(Top10Loaded(coinList: coinList)),

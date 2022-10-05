@@ -25,8 +25,9 @@ abstract class CoinMarketChartRemoteDataSource {
 class CoinMarketChartRemoteDataSourceImpl
     implements CoinMarketChartRemoteDataSource {
   final Client client;
+  final CurrencyStorage currencyStorage;
 
-  CoinMarketChartRemoteDataSourceImpl({required this.client});
+  CoinMarketChartRemoteDataSourceImpl({required this.client, required this.currencyStorage});
   @override
   Future<CoinMarketChartModel> getRemote({
     required String id,
@@ -39,6 +40,7 @@ class CoinMarketChartRemoteDataSourceImpl
           buildUrl(
             id: id,
             days: days,
+            currency: currencyStorage.getCurrentCurrency().shortName,
             dailyInterval: dailyInterval,
           ),
           headers: defaultHeader).timeout(const Duration(seconds: 60));
@@ -59,10 +61,11 @@ class CoinMarketChartRemoteDataSourceImpl
 Uri buildUrl({
   required String id,
   required String days,
+  required String currency,
   required bool dailyInterval,
 }) {
   return Uri.https('api.coingecko.com', '/api/v3/coins/$id/market_chart', {
-    'vs_currency': getCurrentCurrency().shortName,
+    'vs_currency': currency,
     'days': days,
     'interval': dailyInterval ? 'daily' : ''
   });

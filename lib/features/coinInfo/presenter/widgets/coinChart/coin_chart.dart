@@ -9,7 +9,7 @@ import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../../core/widgets/errors/error_message.dart';
 import '../../../../../errors/error_types.dart';
 import '../../../../../ui/icons/svg_icons.dart';
-import '../../bloc/coininfo/coininfo_bloc.dart';
+import '../../bloc/coinChartInfo/coininfo_bloc.dart';
 import '../../cubit/time_slot_cubit.dart';
 import '../../utils/coin_info_line_chart_data.dart';
 import '../../utils/functions.dart';

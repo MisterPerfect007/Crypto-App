@@ -92,7 +92,7 @@ class CoinInfoPage extends StatelessWidget {
     if (context.read<CoinInfosBloc>().state is! CoinInfosLoaded) {
       context
           .read<CoinInfosBloc>()
-          .add(CoinInfosGet(coinId: id, currency: 'usd'));
+          .add(CoinInfosGet(coinId: id));
     }
   }
 }

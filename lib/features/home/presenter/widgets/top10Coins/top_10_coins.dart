@@ -22,7 +22,7 @@ import 'top_10_coin_cart.dart';
 
 void gettingTop10List(BuildContext context) {
   final top10Bloc = context.read<Top10Bloc>();
-  top10Bloc.add(const GetTop10Coins(page: 1, currency: "usd", perPage: 100));
+  top10Bloc.add(const GetTop10Coins(page: 1, perPage: 100));
 }
 
 void refreshTop10List(BuildContext context) {
@@ -30,7 +30,7 @@ void refreshTop10List(BuildContext context) {
   final state = top10Bloc.state;
   if (state is Top10Loaded) {
     top10Bloc
-        .add(const RefreshTop10Coins(page: 1, currency: "usd", perPage: 100));
+        .add(const RefreshTop10Coins(page: 1, perPage: 100));
   }
 }
 
