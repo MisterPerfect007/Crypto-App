@@ -102,7 +102,7 @@ class TrendingCoinCart extends StatelessWidget {
             if (showLoading)
               const ContainerShimmer(
                   width: double.infinity, height: 47, radius: 5)
-            else
+            else if(coin!.sparklineIn7d != null)
             //! if sparklineIn7d doesn't exist
               SizedBox(
                   height: 40,
