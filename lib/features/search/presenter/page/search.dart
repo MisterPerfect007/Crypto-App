@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/animation/custom_opacity_animation.dart';
-import '../../../../errors/error_types.dart';
 import '../../../coinList/presenter/bloc/coin_list_bloc.dart';
 import '../../domain/entity/search_coin.dart';
 import '../bloc/search_coin_bloc.dart';
@@ -24,7 +23,6 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   List<SearchCoin> currentSearchResult = [];
-  int lastSearchResult = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -77,10 +75,8 @@ class _SearchState extends State<Search> {
         //!
         if (state is SearchCoinLoaded) {
           final coinsList = state.coinsList;
-          final requestTime = state.requestTime;
           if (coinsList.isNotEmpty) {
             currentSearchResult = coinsList;
-            lastSearchResult = requestTime;
             return CustomOpacityAnimation(
               child: Column(
                 children: List<SearchItem>.generate(
@@ -127,9 +123,7 @@ class _SearchState extends State<Search> {
         if (state is SearchCoinFailure ||
             state is SearchCoinLoading ||
             state is SearchCoinInitial ||
-            (state is SearchCoinLoaded && state.coinsList.isEmpty) ||
-            (state is SearchCoinLoaded &&
-                state.requestTime < lastSearchResult)) {
+            (state is SearchCoinLoaded && state.coinsList.isEmpty)) {
           //!if there is old data from prev. search
           if (currentSearchResult.isNotEmpty) {
             return Column(

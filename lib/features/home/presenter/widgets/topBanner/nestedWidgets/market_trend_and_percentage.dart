@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,7 +16,8 @@ class MarketTrendLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CoinPercentageFormat fPercentage = CoinPercentageFormat(percentage: percentage);
+    CoinPercentageFormat fPercentage =
+        CoinPercentageFormat(percentage: percentage);
     return SizedBox(
       width: double.infinity,
       child: Wrap(
@@ -26,9 +26,15 @@ class MarketTrendLoaded extends StatelessWidget {
         children: [
           Text.rich(
             TextSpan(children: [
-              const TextSpan(text: "Market is "),
-              TextSpan(
-                  text: getMarketTrendAsString(percentage))
+              const TextSpan(text: "Market "),
+              const TextSpan(
+                text: "(Top 100) ",
+                style: TextStyle(
+                  fontSize: 12
+                )
+              ),
+              const TextSpan(text: "is "),
+              TextSpan(text: getMarketTrendAsString(percentage))
             ]),
             style: GoogleFonts.inter(
                 color: AppColors.mainWhite.withOpacity(0.8),
@@ -37,8 +43,8 @@ class MarketTrendLoaded extends StatelessWidget {
           ),
           Container(
             constraints: const BoxConstraints(maxWidth: 115),
-            padding: const EdgeInsets.only(
-                top: 5, bottom: 5, left: 10, right: 10),
+            padding:
+                const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
             decoration: BoxDecoration(
                 color: AppColors.mainWhite.withOpacity(0.7),
                 borderRadius: const BorderRadius.all(Radius.circular(5))),

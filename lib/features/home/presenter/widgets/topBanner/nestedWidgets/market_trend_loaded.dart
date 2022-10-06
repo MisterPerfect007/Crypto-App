@@ -42,9 +42,9 @@ class MarketTrendAndPercentage extends StatelessWidget {
               MarketTrendLoaded(
                   percentage: getTop100Percentage(state.coinList)),
               Text(
-                "The last 24h (in the Top-100)",
+                "in the last 24h",
                 style: GoogleFonts.inter(
-                    color: AppColors.mainWhite.withOpacity(0.7), fontSize: 10),
+                    color: AppColors.mainWhite.withOpacity(0.7), fontSize: 11),
               ),
             ],
           );

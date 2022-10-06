@@ -17,7 +17,6 @@ class CurrencyStorage {
 
   ///Get the currency stored if there is
   CurrencyModel? getCurrencyFromStorage() {
-    // storage.remove(currencyKey);
     final String? currencyString = storage.getString(currencyKey);
     if (currencyString != null) {
       final currencyJson = Map<String, String>.from(jsonDecode(currencyString));
@@ -26,7 +25,7 @@ class CurrencyStorage {
     return null;
   }
 
-  ///Should return the stored currency or first one on currencies list (USD)
+  ///Should return the stored currency or else the first one on currencies list (USD)
   CurrencyModel getCurrentCurrency() {
     return getCurrencyFromStorage() ?? currenciesList.first;
   }

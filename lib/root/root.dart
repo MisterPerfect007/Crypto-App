@@ -61,7 +61,6 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
       const CoinListPage(),
       const Search(),
       const SettingsPage()
-      //!Missing the Settings page
     ]
         .map((e) => CustomAnimatedWidget(animation: _animation, child: e))
         .toList();
