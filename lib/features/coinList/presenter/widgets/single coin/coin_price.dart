@@ -1,4 +1,5 @@
 import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
+import 'package:crypto_trends/features/settings/utils/get_currency.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -20,8 +21,10 @@ class CoinPrice extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final textKey =
-        ValueKey<String>(priceFormater(currentPrice));
+
+    //currency
+    final currency = CurrencyStorage().getCurrentCurrency();
+
     return Container(
       constraints: const BoxConstraints(maxWidth: 100),
       // decoration: BoxDecoration(border: Border.all()),
@@ -29,18 +32,13 @@ class CoinPrice extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           //* Current price
-          AnimatedSwitcher(
-            transitionBuilder: AnimatedSwitcher.defaultTransitionBuilder,
-            duration: Duration(milliseconds: isUpdate!? 1 : 0),
-            child: Text(
-              '\$ ' +priceFormater(currentPrice),
-              key: textKey,
-              style: GoogleFonts.inter(
-                textStyle: const TextStyle(
-                    color: AppColors.mainBlack,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13),
-              ),
+          Text(
+            currency.symbol + " " + priceFormater(currentPrice),
+            style: GoogleFonts.inter(
+              textStyle: const TextStyle(
+                  color: AppColors.mainBlack,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13),
             ),
           ),
           const SizedBox(
@@ -94,7 +92,7 @@ class CoinPrice extends StatelessWidget {
             return NumberFormat("#.${'#' * 4}", "en_US").format(price);
           }
         } else {
-          return NumberFormat("#,###.00", "en_US").format(price);
+          return NumberFormat("#,###.##", "en_US").format(price);
         }
       } else {
         return NumberFormat.compact().format(price);

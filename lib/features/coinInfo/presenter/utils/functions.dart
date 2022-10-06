@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/coininfo/coininfo_bloc.dart';
+import '../bloc/coinChartInfo/coininfo_bloc.dart';
 
 const List<String> timeSlotList = ["24H", "7D", "1M", "3M", "1Y", "ALL"];
 const List<String> timeSlotDaysList = ["1", "7", "30", "90", "365", "max"];
@@ -19,7 +19,6 @@ void triggerGetCoinInfo(
     {required BuildContext context, required String id, required String days}) {
   context.read<CoinInfoBloc>().add(GetCoinInfo(
         id: id,
-        currency: "usd",
         days: days,
         dailyInterval: false,
       ));

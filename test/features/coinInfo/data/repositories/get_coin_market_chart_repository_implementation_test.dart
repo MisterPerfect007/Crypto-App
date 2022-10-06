@@ -22,7 +22,6 @@ void main() {
   });
 
   const tId = "bitcoin";
-  const tCurrency = "usd";
   const tDays = "7";
   const tDailyInterval = true;
 
@@ -30,7 +29,6 @@ void main() {
     when(
       dataSource.getRemote(
         id: anyNamed("id"),
-        currency: anyNamed("currency"),
         days: anyNamed("days"),
         dailyInterval: anyNamed("dailyInterval"),
       ),
@@ -43,13 +41,11 @@ void main() {
 
     await repository.getRemoteCoinMarketChart(
       id: tId,
-      currency: tCurrency,
       days: tDays,
       dailyInterval: tDailyInterval,
     );
     verify(dataSource.getRemote(
       id: tId,
-      currency: tCurrency,
       days: tDays,
       dailyInterval: tDailyInterval,
     )).called(1);
@@ -61,7 +57,6 @@ void main() {
 
     final result = await repository.getRemoteCoinMarketChart(
       id: tId,
-      currency: tCurrency,
       days: tDays,
       dailyInterval: tDailyInterval,
     );
@@ -73,7 +68,6 @@ void main() {
     when(
       dataSource.getRemote(
         id: anyNamed("id"),
-        currency: anyNamed("currency"),
         days: anyNamed("days"),
         dailyInterval: anyNamed("dailyInterval"),
       ),
@@ -81,7 +75,6 @@ void main() {
 
     final result = await repository.getRemoteCoinMarketChart(
       id: tId,
-      currency: tCurrency,
       days: tDays,
       dailyInterval: tDailyInterval,
     );
@@ -93,7 +86,6 @@ void main() {
     when(
       dataSource.getRemote(
         id: anyNamed("id"),
-        currency: anyNamed("currency"),
         days: anyNamed("days"),
         dailyInterval: anyNamed("dailyInterval"),
       ),
@@ -101,7 +93,6 @@ void main() {
 
     final result = await repository.getRemoteCoinMarketChart(
       id: tId,
-      currency: tCurrency,
       days: tDays,
       dailyInterval: tDailyInterval,
     );

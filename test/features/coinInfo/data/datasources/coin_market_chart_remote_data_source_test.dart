@@ -1,6 +1,8 @@
 import 'package:crypto_trends/errors/exceptions.dart';
 import 'package:crypto_trends/features/coinInfo/data/datasources/coin_market_chart_remote_data_source.dart';
 import 'package:crypto_trends/features/coinInfo/data/models/coin_market_chart_model.dart';
+import 'package:crypto_trends/features/settings/utils/currencies.dart';
+import 'package:crypto_trends/features/settings/utils/get_currency.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
@@ -10,19 +12,21 @@ import '../../../../testData/json/json_reader.dart';
 import '../../testData/coin_market_chart.dart';
 import 'coin_market_chart_remote_data_source_test.mocks.dart';
 
-@GenerateMocks([http.Client])
+@GenerateMocks([http.Client, CurrencyStorage])
 void main() {
   late MockClient client;
   late CoinMarketChartRemoteDataSourceImpl remote;
+  late MockCurrencyStorage localStorage;
+  
   final Map<String, String> defaultHeader = {
     'Content-type': 'application/json'
   };
   setUp(() {
     client = MockClient();
-    remote = CoinMarketChartRemoteDataSourceImpl(client: client);
+    localStorage = MockCurrencyStorage();
+    remote = CoinMarketChartRemoteDataSourceImpl(client: client, currencyStorage: localStorage);
   });
   const tId = "bitcoin";
-  const tCurrency = "usd";
   const tDays = "7";
   const tDailyInterval = true;
 
@@ -34,10 +38,10 @@ void main() {
     when(
       client.get(any, headers: anyNamed("headers")),
     ).thenAnswer((_) async => http.Response(apiResponse, 200));
+    when(localStorage.getCurrentCurrency()).thenReturn(currenciesList.first);
 
     await remote.getRemote(
       id: tId,
-      currency: tCurrency,
       days: tDays,
       dailyInterval: tDailyInterval,
     );
@@ -46,8 +50,8 @@ void main() {
       client.get(
           buildUrl(
             id: tId,
-            currency: tCurrency,
             days: tDays,
+            currency: "USD",
             dailyInterval: tDailyInterval,
           ),
           headers: defaultHeader),
@@ -58,10 +62,10 @@ void main() {
     when(
       client.get(any, headers: anyNamed("headers")),
     ).thenAnswer((_) async => http.Response(apiResponse, 200));
+    when(localStorage.getCurrentCurrency()).thenReturn(currenciesList.first);
 
     final result = await remote.getRemote(
       id: tId,
-      currency: tCurrency,
       days: tDays,
       dailyInterval: tDailyInterval,
     );
@@ -73,13 +77,13 @@ void main() {
     when(
       client.get(any, headers: anyNamed("headers")),
     ).thenAnswer((_) async => http.Response(apiResponse, 404));
+    when(localStorage.getCurrentCurrency()).thenReturn(currenciesList.first);
 
     final call = remote.getRemote;
 
     expect(
       () =>  call(
             id: tId,
-            currency: tCurrency,
             days: tDays,
             dailyInterval: tDailyInterval),
         throwsA(isA<ServerException>()));
@@ -95,7 +99,6 @@ void main() {
     expect(
       () =>  call(
             id: tId,
-            currency: tCurrency,
             days: tDays,
             dailyInterval: tDailyInterval),
         throwsA(isA<NoConnectionException>()));

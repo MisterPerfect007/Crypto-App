@@ -4,6 +4,8 @@ import 'package:crypto_trends/errors/exceptions.dart';
 import 'package:crypto_trends/features/coinInfo/data/models/coin_market_chart_model.dart';
 import 'package:http/http.dart';
 
+import '../../../settings/utils/get_currency.dart';
+
 abstract class CoinMarketChartRemoteDataSource {
   ///Get coin market chart remote data
   ///
@@ -12,7 +14,6 @@ abstract class CoinMarketChartRemoteDataSource {
   ///Throws a [ServerException] when something went wrong
   Future<CoinMarketChartModel> getRemote({
     required String id,
-    required String currency,
     required String days,
     required bool dailyInterval,
   });
@@ -24,12 +25,12 @@ abstract class CoinMarketChartRemoteDataSource {
 class CoinMarketChartRemoteDataSourceImpl
     implements CoinMarketChartRemoteDataSource {
   final Client client;
+  final CurrencyStorage currencyStorage;
 
-  CoinMarketChartRemoteDataSourceImpl({required this.client});
+  CoinMarketChartRemoteDataSourceImpl({required this.client, required this.currencyStorage});
   @override
   Future<CoinMarketChartModel> getRemote({
     required String id,
-    required String currency,
     required String days,
     required bool dailyInterval,
   }) async {
@@ -38,8 +39,8 @@ class CoinMarketChartRemoteDataSourceImpl
       response = await client.get(
           buildUrl(
             id: id,
-            currency: currency,
             days: days,
+            currency: currencyStorage.getCurrentCurrency().shortName,
             dailyInterval: dailyInterval,
           ),
           headers: defaultHeader).timeout(const Duration(seconds: 60));
@@ -59,8 +60,8 @@ class CoinMarketChartRemoteDataSourceImpl
 
 Uri buildUrl({
   required String id,
-  required String currency,
   required String days,
+  required String currency,
   required bool dailyInterval,
 }) {
   return Uri.https('api.coingecko.com', '/api/v3/coins/$id/market_chart', {

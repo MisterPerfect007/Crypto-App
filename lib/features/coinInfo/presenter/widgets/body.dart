@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../ui/colors/colors.dart';
 import '../../../coinList/domain/entities/coin.dart';
-import '../bloc/coininfo/coininfo_bloc.dart';
+import '../bloc/coinChartInfo/coininfo_bloc.dart';
 import '../cubit/time_slot_cubit.dart';
 import 'coinChart/coin_chart.dart';
 import 'coinNameImage/coin_name_image.dart';

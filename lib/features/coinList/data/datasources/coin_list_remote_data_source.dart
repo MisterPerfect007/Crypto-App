@@ -4,12 +4,14 @@ import 'package:crypto_trends/errors/exceptions.dart';
 import 'package:crypto_trends/features/coinList/data/models/coin_model.dart';
 import 'package:http/http.dart';
 
+import '../../../settings/utils/get_currency.dart';
+
 abstract class CoinListRemoteDataSource {
   /// Make a call to the coin list API enpoint: https://api.coingecko.com/api/v3/coins/markets?{ some given arguments}
   ///
   /// throw a [ServerException] or [NoConnectionException] when something went wrong
   Future<List<CoinModel>> getRemoteCoinList(
-      {required String currency, int? page, List<String>? ids, int? perPage});
+      {int? page, List<String>? ids, int? perPage});
 }
 
 /*
@@ -17,12 +19,14 @@ abstract class CoinListRemoteDataSource {
  */
 class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
   final Client client;
+  final CurrencyStorage currencyStorage;
+  
   const CoinListRemoteDataSourceImpl({
     required this.client,
+    required this.currencyStorage
   });
   @override
   Future<List<CoinModel>> getRemoteCoinList({
-    required String currency,
     int? page,
     List<String>? ids,
     int? perPage,
@@ -30,7 +34,7 @@ class CoinListRemoteDataSourceImpl implements CoinListRemoteDataSource {
     const Map<String, String> defaultHeader = {
       'Content-type': 'application/json'
     };
-    final url = buildUrl(currency: currency, page: page, ids: ids);
+    final url = buildUrl(page: page, ids: ids, currency: currencyStorage.getCurrentCurrency().shortName);
 
     final Response response;
     try {

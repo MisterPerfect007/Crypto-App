@@ -14,5 +14,5 @@ Future<void> initCoinList() async {
 
     //!data
     sl.registerLazySingleton<CoinListRemoteDataSource>(
-      () => CoinListRemoteDataSourceImpl(client: sl()));
+      () => CoinListRemoteDataSourceImpl(client: sl(), currencyStorage: sl()));
 }

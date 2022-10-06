@@ -20,14 +20,12 @@ void main() {
   });
 
   String id = "bitcoin";
-  String currency = "usd";
   String days = "7";
   bool dailyInterval = true;
 
   test("Should get coinMarketChart from repository", () async {
     when(repository.getRemoteCoinMarketChart(
       id: anyNamed("id"),
-      currency: anyNamed("currency"),
       days: anyNamed("days"),
       dailyInterval: anyNamed("dailyInterval"),
     )).thenAnswer(
@@ -36,13 +34,11 @@ void main() {
 
     final result = await usecase.call(
       id: id,
-      currency: currency,
       days: days,
       dailyInterval: dailyInterval,
     );
     verify(repository.getRemoteCoinMarketChart(
       id: id,
-      currency: currency,
       days: days,
       dailyInterval: dailyInterval,
     )).called(1);

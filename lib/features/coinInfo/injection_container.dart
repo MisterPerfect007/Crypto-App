@@ -17,5 +17,5 @@ Future<void> initCoinInfo() async {
 
   //!data
   sl.registerLazySingleton(
-    () => CoinMarketChartRemoteDataSourceImpl(client: sl()));
+    () => CoinMarketChartRemoteDataSourceImpl(client: sl(), currencyStorage: sl()));
 }

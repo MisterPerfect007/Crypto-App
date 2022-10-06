@@ -21,10 +21,10 @@ class SeeAllPageAppBar extends StatelessWidget {
           color: AppColors.lightBg,
           boxShadow: [
             BoxShadow(
-                color: AppColors.mainGrey.withOpacity(0.2),
-                offset: const Offset(0, 2),
-                blurRadius: 1,
-                spreadRadius: 0.2)
+                color: AppColors.mainGrey.withOpacity(0.1),
+                offset: const Offset(0, 1),
+                blurRadius: 0.5,
+                spreadRadius: 0),
           ],
         ),
         child: Row(
@@ -36,9 +36,9 @@ class SeeAllPageAppBar extends StatelessWidget {
                 child: Text(
                   title,
                   style: GoogleFonts.inter(
-                    color: AppColors.mainBlack,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16),
+                      color: AppColors.mainBlack,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16),
                 ),
               ),
             ),

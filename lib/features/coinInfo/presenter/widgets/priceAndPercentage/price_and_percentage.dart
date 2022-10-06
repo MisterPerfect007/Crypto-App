@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../core/coinPercentage/coin_percentage_format.dart';
 import '../../../../../core/utils/price_formater.dart';
 import '../../../../../ui/icons/icons.dart';
+import '../../../../settings/utils/get_currency.dart';
 
 // ignore: must_be_immutable
 class PriceAndPercentage extends StatelessWidget {
@@ -19,6 +20,9 @@ class PriceAndPercentage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //currency
+    final currency = CurrencyStorage().getCurrentCurrency();
+
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
     return Container(
@@ -35,7 +39,7 @@ class PriceAndPercentage extends StatelessWidget {
               //Price
               Expanded(
                 child: Text(
-                  "\$" + formatWithSmallPrice(price),
+                  currency.symbol + " " + formatWithSmallPrice(price),
                   style: GoogleFonts.inter(
                       fontSize: 24, fontWeight: FontWeight.w800),
                 ),
@@ -44,32 +48,35 @@ class PriceAndPercentage extends StatelessWidget {
                 width: 10,
               ),
               //percentage
-              percentage24h != null ? Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                      color: formatedPercentage.getColor().withOpacity(0.2),
-                      borderRadius: const BorderRadius.all(Radius.circular(5))),
-                  child: Row(children: [
-                    formatedPercentage.isPositive() != null
-                        ? PersoIcon(
-                            icon: formatedPercentage.isPositive()!
-                                ? PersoIcons.arrowUp
-                                : PersoIcons.arrowDown,
-                            size: 10,
-                            color: formatedPercentage.getColor(),
-                          )
-                        : Container(),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      formatedPercentage.fixedPercentage() + "%",
-                      style: GoogleFonts.inter(
-                          color: formatedPercentage.getColor(),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                    )
-                  ])) : Container()
+              percentage24h != null
+                  ? Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          color: formatedPercentage.getColor().withOpacity(0.2),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5))),
+                      child: Row(children: [
+                        formatedPercentage.isPositive() != null
+                            ? PersoIcon(
+                                icon: formatedPercentage.isPositive()!
+                                    ? PersoIcons.arrowUp
+                                    : PersoIcons.arrowDown,
+                                size: 10,
+                                color: formatedPercentage.getColor(),
+                              )
+                            : Container(),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          formatedPercentage.fixedPercentage() + "%",
+                          style: GoogleFonts.inter(
+                              color: formatedPercentage.getColor(),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600),
+                        )
+                      ]))
+                  : Container()
             ],
           ),
           const SizedBox(
@@ -78,7 +85,9 @@ class PriceAndPercentage extends StatelessWidget {
           (percentage24h != null && priceChange24h != null)
               ? Text(
                   (formatedPercentage.isPositive()! ? "+" : "-") +
-                      "\$${formatWithSmallPrice(priceChange24h!.abs())}",
+                      currency.symbol +
+                      " " +
+                      formatWithSmallPrice(priceChange24h!.abs()),
                   style: GoogleFonts.inter(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,

@@ -127,14 +127,13 @@ void main() {
           .thenAnswer((_) async => ids);
       when(network.isConnected).thenAnswer((_) async => true);
       when(getRemoteCoinList.call(
-        currency: anyNamed("currency"),
         ids: anyNamed("ids"),
       )).thenAnswer((_) async => Right(testCoinModels));
     },
     build: () => bloc,
     act: (bloc) => bloc.add(GetTrendingCoins()),
     verify: (_) {
-      verify(getRemoteCoinList.call(currency: "usd", ids: ['bitcoin']))
+      verify(getRemoteCoinList.call( ids: ['bitcoin']))
           .called(1);
     },
   );
@@ -147,7 +146,6 @@ void main() {
           .thenAnswer((_) async => ids);
       when(network.isConnected).thenAnswer((_) async => true);
       when(getRemoteCoinList.call(
-        currency: anyNamed("currency"),
         ids: anyNamed("ids"),
       )).thenAnswer((_) async => Right(testCoinModels));
     },
@@ -168,7 +166,6 @@ void main() {
           .thenAnswer((_) async => ids);
       when(network.isConnected).thenAnswer((_) async => true);
       when(getRemoteCoinList.call(
-        currency: anyNamed("currency"),
         ids: anyNamed("ids"),
       )).thenAnswer((_) async => Left(ServerFailure()));
     },
@@ -189,7 +186,6 @@ void main() {
           .thenAnswer((_) async => ids);
       when(network.isConnected).thenAnswer((_) async => true);
       when(getRemoteCoinList.call(
-        currency: anyNamed("currency"),
         ids: anyNamed("ids"),
       )).thenAnswer((_) async => Left(NoConnectionFailure()));
     },

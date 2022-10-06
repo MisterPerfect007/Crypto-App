@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/price_formater.dart';
 import '../../../../coinList/domain/entities/coin.dart';
+import '../../../../settings/utils/get_currency.dart';
 import 'extra_info.dart';
 
 class ExtraInfos extends StatelessWidget {
@@ -13,6 +14,9 @@ class ExtraInfos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //currency
+    final currency = CurrencyStorage().getCurrentCurrency();
+    
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
     return Container(
@@ -30,19 +34,19 @@ class ExtraInfos extends StatelessWidget {
             ),
             ExtraInfo(
               infoName: "High 24h",
-              value: "\$" + formatWithSmallPrice(coin.high24h),
+              value: currency.symbol + " " + formatWithSmallPrice(coin.high24h),
             ),
             ExtraInfo(
               infoName: "Low 24h",
-              value: "\$" + formatWithSmallPrice(coin.low24h),
+              value: currency.symbol + " " + formatWithSmallPrice(coin.low24h),
             ),
             ExtraInfo(
               infoName: "Vol.",
-              value: "\$" + formatWithSmallPrice(coin.totalVolume),
+              value: currency.symbol + " " + formatWithSmallPrice(coin.totalVolume),
             ),
             ExtraInfo(
               infoName: "Mkt. Cap.",
-              value: "\$" + formatWithSmallPrice(coin.marketCap),
+              value: currency.symbol + " " + formatWithSmallPrice(coin.marketCap),
             ),
           ],
         ));
