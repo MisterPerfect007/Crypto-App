@@ -34,7 +34,7 @@ class BottomBarItem extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgIcon(icon: icon, size: 18, color: color),
+              SvgIcon(icon: icon, color: color),
               Text(
                 label,
                 style: TextStyle(fontSize: 9, color: color),

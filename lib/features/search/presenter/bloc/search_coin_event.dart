@@ -9,9 +9,8 @@ abstract class SearchCoinEvent extends Equatable {
 
 class GetSearchCoins extends SearchCoinEvent{
   final String query;
-  final int requestTime;
-  const GetSearchCoins(this.query, this.requestTime);
+  const GetSearchCoins(this.query);
 
   @override
-  List<Object> get props => [query, requestTime];
+  List<Object> get props => [query];
 }

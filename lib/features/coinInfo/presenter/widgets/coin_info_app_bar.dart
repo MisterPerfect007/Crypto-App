@@ -1,6 +1,6 @@
-import 'package:crypto_trends/features/search/presenter/widgets/search_app_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/navigation/go_back_widget.dart';
 import '../../../../ui/colors/colors.dart';
 
 class CoinInfoPageAppBar extends StatelessWidget {

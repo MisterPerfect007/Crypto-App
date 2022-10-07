@@ -20,6 +20,7 @@ class CurrencyDropdown extends StatefulWidget {
 }
 
 class _CurrencyDropdownState extends State<CurrencyDropdown> {
+  //
   final currencyStorage = CurrencyStorage();
   CurrencyModel selectedCurrency = CurrencyStorage().getCurrentCurrency();
 
@@ -108,7 +109,8 @@ class _CurrencyDropdownState extends State<CurrencyDropdown> {
     final trendingBloc = context.read<TrendingCoinsBloc>();
     trendingBloc.add(GetTrendingCoins());
 
-    setState((){
+    //dismiss the button
+    setState(() {
       showReloadButton = false;
     });
   }

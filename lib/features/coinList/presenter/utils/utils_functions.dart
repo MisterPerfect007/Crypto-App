@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/entities/coin.dart';
 import '../bloc/coin_list_bloc.dart';
@@ -19,32 +18,6 @@ double? calculate7DPercentage(List<double>? lastWeekData) {
   }
 }
 
-///Should return true if price is up
-///
-///Should return false if price is down
-///
-///Should return null if none the case above
-//*Tested
-bool? isNewPriceUp({
-  required String id,
-  double? newPrice,
-  required SharedPreferences prefs,
-}) {
-  if (prefs.getDouble(id) != null) {
-    double oldPrice = prefs.getDouble(id)!;
-    if (newPrice != null) {
-      prefs.setDouble(id, newPrice);
-      if (newPrice > oldPrice) {
-        return true;
-      } else if (newPrice < oldPrice) {
-        return false;
-      }
-    }
-  } else {
-    prefs.setDouble(id, newPrice!);
-  }
-  return null;
-}
 
 ///Sort the [coinList] according to the given [criteria]
 ///
@@ -84,7 +57,7 @@ List<Coin> sortCoinList(
   return newCoinList;
 }
 
-//! to be tested
+
 void gettingOrRefringCoinList(BuildContext context) {
   final coinListBloc = context.read<CoinListBloc>();
   final criteria = context.read<SortingCubit>().state;

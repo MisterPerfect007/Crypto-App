@@ -1,4 +1,3 @@
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:crypto_trends/core/network/network_info.dart';
 import 'package:crypto_trends/errors/error_types.dart';
@@ -16,13 +15,12 @@ import '../../../../coinList/presenter/bloc/coin_list_bloc_test.mocks.dart';
 
 @GenerateMocks([NetworkInfo])
 @GenerateMocks([GetRemoteCoinList])
-
 void main() {
   late Top10Bloc bloc;
   late MockNetworkInfo network;
   late MockGetRemoteCoinList getRemoteCoinList;
 
-  setUp((){
+  setUp(() {
     network = MockNetworkInfo();
     getRemoteCoinList = MockGetRemoteCoinList();
     bloc = Top10Bloc(networkInfo: network, getCoinList: getRemoteCoinList);
@@ -33,10 +31,9 @@ void main() {
   });
 
   int perPage = 10;
-  String tCurrency = "usd";
   int tPage = 1;
 
-  void whenSuccess(){
+  void whenSuccess() {
     when(network.isConnected).thenAnswer((_) async => true);
     when(getRemoteCoinList.call(perPage: perPage, page: tPage))
         .thenAnswer((_) async => Right(testCoinModels));
@@ -47,7 +44,7 @@ void main() {
         when(network.isConnected).thenAnswer((_) async => false);
       },
       build: () => bloc,
-      act: (_) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
+      act: (_) => bloc.add(GetTop10Coins(perPage: perPage, page: tPage)),
       verify: (_) {
         verify(network.isConnected).called(1);
         verifyNoMoreInteractions(network);
@@ -58,7 +55,7 @@ void main() {
       when(network.isConnected).thenAnswer((_) async => false);
     },
     build: () => bloc,
-    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
+    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, page: tPage)),
     expect: () => [const Top10Failure(ErrorType.noInternetConnection)],
   );
 
@@ -68,7 +65,7 @@ void main() {
       whenSuccess();
     },
     build: () => bloc,
-    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
+    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, page: tPage)),
     verify: (_) {
       verify(getRemoteCoinList.call(perPage: perPage, page: tPage)).called(1);
       verifyNoMoreInteractions(getRemoteCoinList);
@@ -81,41 +78,32 @@ void main() {
       whenSuccess();
     },
     build: () => bloc,
-    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
-    expect:() => [
-      Top10Loading(),
-      Top10Loaded(coinList: testCoinModels)
-    ],
+    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, page: tPage)),
+    expect: () => [Top10Loading(), Top10Loaded(coinList: testCoinModels)],
   );
 
   blocTest<Top10Bloc, Top10State>(
     "emit [Top10Loading, Top10Failure(ErrorType.failedRequest)] when the request failed (return a ServerFailure)",
     setUp: () {
       when(network.isConnected).thenAnswer((_) async => true);
-    when(getRemoteCoinList.call(perPage: perPage, page: tPage))
-        .thenAnswer((_) async => Left(ServerFailure()));
+      when(getRemoteCoinList.call(perPage: perPage, page: tPage))
+          .thenAnswer((_) async => Left(ServerFailure()));
     },
     build: () => bloc,
-    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
-    expect:() => [
-      Top10Loading(),
-      const Top10Failure(ErrorType.failedRequest)
-    ],
+    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, page: tPage)),
+    expect: () => [Top10Loading(), const Top10Failure(ErrorType.failedRequest)],
   );
 
   blocTest<Top10Bloc, Top10State>(
     "emit [Top10Loading, Top10Failure(ErrorType.noInternetConnection)] when the request failed (return a NoConnectionFailure())",
     setUp: () {
       when(network.isConnected).thenAnswer((_) async => true);
-    when(getRemoteCoinList.call(perPage: perPage, page: tPage))
-        .thenAnswer((_) async => Left(NoConnectionFailure()));
+      when(getRemoteCoinList.call(perPage: perPage, page: tPage))
+          .thenAnswer((_) async => Left(NoConnectionFailure()));
     },
     build: () => bloc,
-    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, currency: tCurrency, page: tPage)),
-    expect:() => [
-      Top10Loading(),
-      const Top10Failure(ErrorType.noInternetConnection)
-    ],
+    act: (bloc) => bloc.add(GetTop10Coins(perPage: perPage, page: tPage)),
+    expect: () =>
+        [Top10Loading(), const Top10Failure(ErrorType.noInternetConnection)],
   );
-
 }

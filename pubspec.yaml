@@ -69,6 +69,8 @@ dependencies:
   animations: ^2.0.3
   cached_network_image: ^3.2.1
   fluttertoast: ^8.0.9
+  #
+  bloc_concurrency: ^0.2.0
   
 
 dev_dependencies:
@@ -94,7 +96,7 @@ flutter_native_splash:
 flutter_icons:
   android: true
   ios: true 
-  image_path: "assets/app/appIcon/app_icon_foreground.png"
+  image_path: "assets/app/appIcon/app_icon.png"
   adaptive_icon_foreground: "assets/app/appIcon/app_icon_foreground.png"
   adaptive_icon_background: "#ffffff"
 

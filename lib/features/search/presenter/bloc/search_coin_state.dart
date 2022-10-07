@@ -19,11 +19,10 @@ class SearchCoinFailure extends SearchCoinState {
 
 class SearchCoinLoaded extends SearchCoinState {
   final List<SearchCoin> coinsList;
-  final int requestTime;
   final String query;
 
-  const SearchCoinLoaded({required this.coinsList, required this.requestTime, required this.query});
+  const SearchCoinLoaded({required this.coinsList, required this.query});
 
   @override
-  List<Object> get props => [coinsList, requestTime, query];
+  List<Object> get props => [coinsList, query];
 }

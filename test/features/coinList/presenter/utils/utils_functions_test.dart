@@ -3,11 +3,9 @@ import 'package:crypto_trends/features/coinList/presenter/utils/utils_functions.
 import 'package:crypto_trends/features/coinList/presenter/widgets/sorting%20criteria/criteria_list.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../testData/coins_list_for_tests.dart';
-import 'utils_functions_test.mocks.dart';
 
 @GenerateMocks([SharedPreferences])
 // @GenerateMocks([SortingCubit])
@@ -34,51 +32,6 @@ void main() {
     });
   });
 
-  group("isNewPriceUp", () {
-    late MockSharedPreferences prefs;
-    setUp(() {
-      prefs = MockSharedPreferences();
-    });
-    test("Should return null when newPrice is null", () {
-      when(prefs.getDouble(any)).thenReturn(1);
-
-      final result = isNewPriceUp(id: 'id', prefs: prefs);
-
-      expect(result, null);
-    });
-    test("Should return null when there is not oldPrice", () {
-      when(prefs.getDouble(any)).thenReturn(null);
-      when(prefs.setDouble(any, any)).thenAnswer((_) async => true);
-
-      final result = isNewPriceUp(id: 'id', prefs: prefs, newPrice: 1);
-
-      expect(result, null);
-    });
-    test("Should return false when oldPrice > newPrice", () {
-      when(prefs.getDouble(any)).thenReturn(2.2);
-      when(prefs.setDouble(any, any)).thenAnswer((_) async => true);
-
-      final result = isNewPriceUp(id: 'id', prefs: prefs, newPrice: 1);
-
-      expect(result, false);
-    });
-    test("Should return null when oldPrice == newPrice", () {
-      when(prefs.getDouble(any)).thenReturn(1);
-      when(prefs.setDouble(any, any)).thenAnswer((_) async => true);
-
-      final result = isNewPriceUp(id: 'id', prefs: prefs, newPrice: 1);
-
-      expect(result, null);
-    });
-    test("Should return true when oldPrice < newPrice", () {
-      when(prefs.getDouble(any)).thenReturn(0.000000001);
-      when(prefs.setDouble(any, any)).thenAnswer((_) async => true);
-
-      final result = isNewPriceUp(id: 'id', prefs: prefs, newPrice: 1);
-
-      expect(result, true);
-    });
-  });
   group("sortCoinList", () {
     group("Rank", () {
       const testCoinWithNullRank = [

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,15 +18,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
   final _serachController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _lastTextFieldValue = "";
 
-  ///To track the search request time
-  int time = 0;
   @override
   Widget build(BuildContext context) {
-    Timer.periodic(const Duration(milliseconds: 10), (timer) {
-      time++;
-    });
     double width = MediaQuery.of(context).size.width;
     double sidePadding = width / 25;
 
@@ -60,82 +52,73 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   ),
                   decoration: BoxDecoration(
                       color: Colors.grey.shade200,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(30))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SvgIcon(
-                        icon: SvgIcons.search,
-                        size: 25,
-                        // color: Color.fromARGB(188, 0, 0, 0)
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          bottomLeft: Radius.circular(30))),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Form(
+                      key: _formKey,
+                      child: TextFormField(
+                        controller: _serachController,
+                        cursorColor: AppColors.mainGreen,
+                        decoration: const InputDecoration(
+                          isDense: true,
+                          border: InputBorder.none,
+                          hintText: "Search coin...",
+                          hintStyle: TextStyle(
+                              fontStyle: FontStyle.italic, fontSize: 14),
+                        ),
+                        style: const TextStyle(fontSize: 16),
+                        onFieldSubmitted: (value) {
+                          triggerSearch();
+                        },
                       ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Form(
-                          key: _formKey,
-                          child: TextFormField(
-                            controller: _serachController,
-                            cursorColor: AppColors.mainGreen,
-                            decoration: const InputDecoration(
-                              isDense: true,
-                              border: InputBorder.none,
-                              hintText: "Search coin...",
-                              hintStyle: TextStyle(
-                                  fontStyle: FontStyle.italic, fontSize: 14),
-                            ),
-                            style: const TextStyle(fontSize: 16),
-                            onChanged: (value) => handleOnChange(value, time),
-                          ),
+                    ),
+                  ),
+                )),
+                Container(
+                  height: 40,
+                  width: 40,
+                  decoration: const BoxDecoration(
+                      color: AppColors.mainGreen,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(30),
+                          bottomRight: Radius.circular(30))),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(30),
+                          bottomRight: Radius.circular(30)),
+                      onTap: () {
+                        triggerSearch();
+                      },
+                      splashColor: Colors.white.withOpacity(0.2),
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(30),
+                                bottomRight: Radius.circular(30))),
+                        child: const SvgIcon(
+                          icon: SvgIcons.search,
+                          color: Colors.white,
+                          // size: 2,
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ))
+                )
               ])),
     );
   }
 
   ///Handle search
-  ///[value] is the query parameter for search
-  ///we use [requestTime] to know latest request so to show it's reponse to the user
-  void handleOnChange(String value, int requestTime) {
-    String currentValue = _serachController.text.trim();
-    if (value.isNotEmpty &&
-            _lastTextFieldValue !=
-                currentValue /* This check is to prevent Api call when keyboard dismiss */
-        ) {
-      _lastTextFieldValue = currentValue;
-
-      context
-          .read<SearchCoinBloc>()
-          .add(GetSearchCoins(_serachController.text, requestTime));
+  void triggerSearch() {
+    String value = _serachController.text.trim();
+    if (value.isNotEmpty) {
+      context.read<SearchCoinBloc>().add(GetSearchCoins(value));
     }
-  }
-}
-
-class GoBack extends StatelessWidget {
-  const GoBack({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-          splashColor: Colors.grey,
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Container(
-              height: 50,
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: const SvgIcon(
-                icon: SvgIcons.chevronLeft,
-                size: 25,
-                color: AppColors.mainGreen,
-              ))),
-    );
   }
 }

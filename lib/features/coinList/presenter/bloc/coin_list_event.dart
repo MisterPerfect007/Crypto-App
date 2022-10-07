@@ -14,7 +14,7 @@ class CoinListGet extends CoinListEvent{
   const CoinListGet({this.page , required this.sortingCriteria});
 
   @override
-  List<Object> get props => [ page!, sortingCriteria];
+  List<Object> get props => [page!, sortingCriteria];
 }
 
 class CoinListUpdate extends CoinListEvent{

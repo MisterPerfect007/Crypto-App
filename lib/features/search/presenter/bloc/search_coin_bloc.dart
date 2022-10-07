@@ -30,7 +30,6 @@ class SearchCoinBloc extends Bloc<SearchCoinEvent, SearchCoinState> {
               (failure) => emit(SearchCoinFailure(giveErrorType(failure))),
               (coinsList) => emit(SearchCoinLoaded(
                     coinsList: coinsList,
-                    requestTime: event.requestTime,
                     query: event.query
                   )));
         }
