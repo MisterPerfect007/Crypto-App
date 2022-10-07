@@ -16,24 +16,21 @@ class TrendingCoinCart extends StatelessWidget {
   final bool? isLoading;
   final Coin? coin;
 
-  const TrendingCoinCart({
-
-    Key? key,
-    this.isLoading, this.coin, this.action
-  }) : super(key: key);
+  const TrendingCoinCart({Key? key, this.isLoading, this.coin, this.action})
+      : super(key: key);
 
   final void Function()? action;
 
   @override
   Widget build(BuildContext context) {
-
     //currency
     final currency = CurrencyStorage().getCurrentCurrency();
 
     bool showLoading = isLoading ?? false;
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
-    CoinPercentageFormat percentage = CoinPercentageFormat(percentage: coin?.priceChangePercentage7dInCurrency);
+    CoinPercentageFormat percentage = CoinPercentageFormat(
+        percentage: coin?.priceChangePercentage7dInCurrency);
 
     return InkWell(
       onTap: action,
@@ -42,8 +39,8 @@ class TrendingCoinCart extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         width: (size.width / 2) - sidePadding * 1.5,
         decoration: const BoxDecoration(
-            color: AppColors.mainWhite,
-            ),
+          color: AppColors.mainWhite,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -54,25 +51,26 @@ class TrendingCoinCart extends StatelessWidget {
                   const CoinImageShimmer(width: 25)
                 else
                   CustomNetworkImage(
-                    image:
-                        coin?.image,
+                    image: coin?.image,
                     name: coin?.name ?? "",
                     width: 25,
                   ),
                 if (showLoading)
                   const ContainerShimmer(width: 20, height: 8, radius: 5)
                 else
-                  coin?.priceChangePercentage7dInCurrency != null ? Expanded(
-                    child: Text(
-                      // 7 days %
-                      percentage.signedPercentage(),
-                      textAlign: TextAlign.end,
-                      style: GoogleFonts.inter(
-                          color: percentage.getColor(),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 9),
-                    ),
-                  ) : Container(),
+                  coin?.priceChangePercentage7dInCurrency != null
+                      ? Expanded(
+                          child: Text(
+                            // 7 days %
+                            percentage.signedPercentage(),
+                            textAlign: TextAlign.end,
+                            style: GoogleFonts.inter(
+                                color: percentage.getColor(),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 9),
+                          ),
+                        )
+                      : Container(),
               ],
             ),
             const SizedBox(
@@ -81,7 +79,7 @@ class TrendingCoinCart extends StatelessWidget {
             if (showLoading)
               const ContainerShimmer(width: 50, height: 8, radius: 5)
             else
-            //Name
+              //Name
               Text(
                 "${coin?.name}",
                 style: GoogleFonts.inter(
@@ -96,7 +94,9 @@ class TrendingCoinCart extends StatelessWidget {
               const ContainerShimmer(width: 40, height: 8, radius: 5)
             else
               Text(
-                currency.symbol + " " + formatWithSmallPrice(coin?.currentPrice),
+                currency.symbol +
+                    " " +
+                    formatWithSmallPrice(coin?.currentPrice),
                 style: GoogleFonts.inter(
                     color: AppColors.mainBlack,
                     fontWeight: FontWeight.w500,
@@ -106,14 +106,13 @@ class TrendingCoinCart extends StatelessWidget {
             if (showLoading)
               const ContainerShimmer(
                   width: double.infinity, height: 47, radius: 5)
-            else if(coin!.sparklineIn7d != null)
-            //! if sparklineIn7d doesn't exist
+            else if (coin!.sparklineIn7d != null)
+              //! if sparklineIn7d doesn't exist
               SizedBox(
                   height: 40,
                   child: SingleCoinLineChart(
-                    chartData: CoinLineChartData(
-                        dataList:
-                            coin!.sparklineIn7d!.price),
+                    chartData:
+                        CoinLineChartData(dataList: coin!.sparklineIn7d!.price),
                   ))
           ],
         ),

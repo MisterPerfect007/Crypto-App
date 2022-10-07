@@ -29,8 +29,12 @@ class MyApp extends StatelessWidget {
       title: 'Crypto Trends',
       theme: ThemeData(
         primarySwatch: AppColors.colorPrimarySwatch,
+        scaffoldBackgroundColor: AppColors.pureWhite,
+        bottomAppBarColor: AppColors.pureBlack,
+        disabledColor: AppColors.mainGrey,
+        errorColor: AppColors.pureRed,
       ),
-      // themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.dark,
       home: MultiBlocProvider(
         providers: [
           //HOMPAGE

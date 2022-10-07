@@ -5,6 +5,7 @@ class AppColors{
 
   static const Color pureBlack = Color.fromARGB(255, 0, 0, 0);
   static const Color pureRed = Color.fromARGB(255, 255, 0, 0);
+  static const Color pureWhite = Color.fromARGB(255, 255, 255, 255);
 
   static const Color mainGreen = Color(0xFF08A86D);
   static const Color mainWhite = Color.fromARGB(255, 255, 255, 255);

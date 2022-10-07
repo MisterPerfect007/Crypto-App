@@ -64,7 +64,7 @@ class _TrendingCoinsState extends State<TrendingCoins> {
         BlocBuilder<TrendingCoinsBloc, TrendingCoinsState>(
           builder: (context, state) {
             //! Loading
-            if (state is TrendingCoinsLoading) {
+            if (state is TrendingCoinsLoading || state is TrendingCoinsInitial) {
               return const TrendingCoinsLoadingWidget();
             } else if (state is TrendingCoinsLoaded) {
               return TrendingCoinsLoadedWidget(coinList: state.coinList);

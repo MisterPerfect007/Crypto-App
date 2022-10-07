@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
           body: Container(
             width: size.width,
             height: size.height,
-            color: AppColors.lightBg,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
