@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Crypto Trends',
       theme: ThemeData(
+
         primarySwatch: AppColors.colorPrimarySwatch,
         scaffoldBackgroundColor: AppColors.pureWhite,
         bottomAppBarColor: AppColors.pureBlack,
