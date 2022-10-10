@@ -12,7 +12,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../../core/widgets/errors/error_message.dart';
 import '../../../../../errors/error_types.dart';
-import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/svg_icons.dart';
 import '../../../../coinInfo/presenter/page/coin_info.dart';
 import '../../../../coinList/domain/entities/coin.dart';
@@ -29,8 +28,7 @@ void refreshTop10List(BuildContext context) {
   final top10Bloc = context.read<Top10Bloc>();
   final state = top10Bloc.state;
   if (state is Top10Loaded) {
-    top10Bloc
-        .add(const RefreshTop10Coins(page: 1, perPage: 100));
+    top10Bloc.add(const RefreshTop10Coins(page: 1, perPage: 100));
   }
 }
 
@@ -55,6 +53,9 @@ class _Top10CoinsState extends State<Top10Coins> {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
 
@@ -73,7 +74,7 @@ class _Top10CoinsState extends State<Top10Coins> {
                 child: Text(
                   "Top 10 Coins",
                   style: GoogleFonts.inter(
-                      color: AppColors.mainBlack,
+                      color: theme.primaryColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 16),
                 ),
@@ -125,6 +126,7 @@ class _Top10CoinsState extends State<Top10Coins> {
                   children: List.generate(
                     4,
                     (index) => OpenContainer(
+                      closedColor: theme.cardColor,
                       closedShape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                       closedElevation: 1,
@@ -148,9 +150,10 @@ class _Top10CoinsState extends State<Top10Coins> {
                       gettingTop10List(context);
                     } else {
                       Fluttertoast.showToast(
-                        msg: "You still Offline",
-                        toastLength: Toast.LENGTH_SHORT,
-                      );
+                          msg: "You still Offline",
+                          toastLength: Toast.LENGTH_LONG,
+                          backgroundColor: theme.primaryColor,
+                          textColor: theme.scaffoldBackgroundColor);
                     }
                   },
                 );

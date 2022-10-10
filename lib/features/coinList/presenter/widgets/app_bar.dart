@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../ui/colors/colors.dart';
 
 class CoinPageAppBar extends StatelessWidget {
   const CoinPageAppBar({
@@ -9,6 +8,9 @@ class CoinPageAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Container(
@@ -17,13 +19,13 @@ class CoinPageAppBar extends StatelessWidget {
           right: size.width / 25,
         ),
         height: 50,
-        child: Row(children: const [
+        child: Row(children: [
            Text(
             "Coin List",
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              color: AppColors.pureBlack,
+              color: theme.primaryColor,
             ),
           ),
           

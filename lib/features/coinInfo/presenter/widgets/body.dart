@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/animation/custom_opacity_animation.dart';
-import '../../../../ui/colors/colors.dart';
 import '../../../coinList/domain/entities/coin.dart';
 import '../bloc/coinChartInfo/coininfo_bloc.dart';
 import '../cubit/time_slot_cubit.dart';
@@ -23,11 +22,14 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     Size size = MediaQuery.of(context).size;
     return CustomOpacityAnimation(
       child: Container(
         height: size.height,
-        color: AppColors.lightBg,
+        color: theme.scaffoldBackgroundColor,
         child: SingleChildScrollView(
           child: SafeArea(
             child: Column(

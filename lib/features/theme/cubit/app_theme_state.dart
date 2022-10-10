@@ -7,4 +7,7 @@ abstract class AppThemeState extends Equatable {
   List<Object> get props => [];
 }
 
-class AppThemeInitial extends AppThemeState {}
+class AppThemeCurrent extends AppThemeState {
+  final ThemeData appTheme;
+  const AppThemeCurrent(this.appTheme);
+}

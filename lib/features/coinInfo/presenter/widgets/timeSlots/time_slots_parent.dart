@@ -21,8 +21,7 @@ class TimeSlotsParent extends StatelessWidget {
       width: size.width,
       height: 50,
       child: ScrollConfiguration(
-        behavior: const ScrollBehavior(
-            androidOverscrollIndicator: AndroidOverscrollIndicator.stretch),
+        behavior: const ScrollBehavior(),
         child: ListView.builder(
             padding: const EdgeInsets.only(
                 left: 10, top: 10, right: 10, bottom: 10),

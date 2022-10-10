@@ -23,6 +23,8 @@ class TrendingCoinCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
     //currency
     final currency = CurrencyStorage().getCurrentCurrency();
 
@@ -35,12 +37,9 @@ class TrendingCoinCart extends StatelessWidget {
     return InkWell(
       onTap: action,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.all(10),
         width: (size.width / 2) - sidePadding * 1.5,
-        decoration: const BoxDecoration(
-          color: AppColors.mainWhite,
-        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -83,7 +82,7 @@ class TrendingCoinCart extends StatelessWidget {
               Text(
                 "${coin?.name}",
                 style: GoogleFonts.inter(
-                    color: AppColors.mainBlack,
+                    color: theme.primaryColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 10),
               ),
@@ -98,7 +97,7 @@ class TrendingCoinCart extends StatelessWidget {
                     " " +
                     formatWithSmallPrice(coin?.currentPrice),
                 style: GoogleFonts.inter(
-                    color: AppColors.mainBlack,
+                    color: theme.primaryColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 9),
               ),
@@ -108,7 +107,8 @@ class TrendingCoinCart extends StatelessWidget {
                   width: double.infinity, height: 47, radius: 5)
             else if (coin!.sparklineIn7d != null)
               //! if sparklineIn7d doesn't exist
-              SizedBox(
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
                   height: 40,
                   child: SingleCoinLineChart(
                     chartData:

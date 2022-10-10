@@ -36,6 +36,9 @@ class _TrendingCoinsState extends State<TrendingCoins> {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
 
@@ -49,7 +52,7 @@ class _TrendingCoinsState extends State<TrendingCoins> {
               Text(
                 "Trending Coins",
                 style: GoogleFonts.inter(
-                    color: AppColors.mainBlack,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.w600,
                     fontSize: 16),
               ),
@@ -64,7 +67,8 @@ class _TrendingCoinsState extends State<TrendingCoins> {
         BlocBuilder<TrendingCoinsBloc, TrendingCoinsState>(
           builder: (context, state) {
             //! Loading
-            if (state is TrendingCoinsLoading || state is TrendingCoinsInitial) {
+            if (state is TrendingCoinsLoading ||
+                state is TrendingCoinsInitial) {
               return const TrendingCoinsLoadingWidget();
             } else if (state is TrendingCoinsLoaded) {
               return TrendingCoinsLoadedWidget(coinList: state.coinList);
@@ -78,9 +82,10 @@ class _TrendingCoinsState extends State<TrendingCoins> {
                       gettingTrendingCoins(context);
                     } else {
                       Fluttertoast.showToast(
-                        msg: "You still Offline",
-                        toastLength: Toast.LENGTH_SHORT,
-                      );
+                          msg: "You still Offline",
+                          toastLength: Toast.LENGTH_LONG,
+                          backgroundColor: theme.primaryColor,
+                          textColor: theme.scaffoldBackgroundColor);
                     }
                   },
                 );

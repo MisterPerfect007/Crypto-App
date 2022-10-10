@@ -2,9 +2,6 @@ import 'package:crypto_trends/core/widgets/custom_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../ui/colors/colors.dart';
-import '../../../../../ui/icons/icons.dart';
-import '../custom_ink_well_icon.dart';
 
 class CoinNameImage extends StatelessWidget {
   const CoinNameImage({
@@ -17,6 +14,9 @@ class CoinNameImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
     return Container(
@@ -45,7 +45,7 @@ class CoinNameImage extends StatelessWidget {
                     style: GoogleFonts.inter(
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
-                        color: AppColors.mainBlack),
+                        color: theme.primaryColor),
                   ),
                 ),
               ],

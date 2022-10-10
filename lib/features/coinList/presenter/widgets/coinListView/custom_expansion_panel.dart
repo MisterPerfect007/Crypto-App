@@ -31,6 +31,9 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     return BlocBuilder(
       bloc: context.read<PaginationCubit>(),
       builder: (context, int state) {
@@ -43,6 +46,7 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
             }),
             children: [
               ExpansionPanel(
+                backgroundColor: theme.scaffoldBackgroundColor,
                   isExpanded: _isExpanded,
                   canTapOnHeader: true,
                   headerBuilder: ((context, isExpanded) {
@@ -84,6 +88,7 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                         height: 40,
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<int>(
+                            dropdownColor: theme.disabledColor,
                             menuMaxHeight: 300,
                             alignment: AlignmentDirectional.center,
                             value: currentPage,
@@ -91,7 +96,7 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                                 .map(
                                   (index) => DropdownMenuItem<int>(
                                       value: index,
-                                      child: Text(index.toString())),
+                                      child: Text(index.toString(), style: TextStyle(color: theme.primaryColor),)),
                                 )
                                 .toList(),
                             onChanged: (index) {

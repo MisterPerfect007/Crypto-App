@@ -8,6 +8,9 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     final Size size = MediaQuery.of(context).size;
     final double sidePadding = size.width / 25;
     return Scaffold(
@@ -20,7 +23,7 @@ class SettingsPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
-          color: Colors.white,
+          color: theme.scaffoldBackgroundColor,
           height: size.height,
           child: SingleChildScrollView(
             child: Column(
@@ -31,17 +34,17 @@ class SettingsPage extends StatelessWidget {
                       left: sidePadding, right: sidePadding, top: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         'Currency',
                         style: TextStyle(
                           fontFamily: 'Inter',
-                          color: Colors.black54,
+                          color: theme.primaryColor,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 5),
-                      CurrencyDropdown()
+                      const SizedBox(height: 5),
+                      const CurrencyDropdown()
                     ],
                   ),
                 ),

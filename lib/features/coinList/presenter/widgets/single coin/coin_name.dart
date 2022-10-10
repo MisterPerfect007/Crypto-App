@@ -16,6 +16,9 @@ class CoinName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     return Container(
       constraints: const BoxConstraints(maxWidth: 80, minWidth: 80),
       // decoration: BoxDecoration(border: Border.all()),
@@ -24,10 +27,11 @@ class CoinName extends StatelessWidget {
         children: [
           Text(
             name.length > 8 ? "${name.substring(0, 8)}.." : name,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 14,
               fontWeight: FontWeight.w600,
+              color: theme.primaryColor,
             ),
           ),
           const SizedBox(

@@ -18,8 +18,11 @@ class CustomNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    //
     if (image != null) {
-      return /* FadeInImage.assetNetwork(
+      return
+          /* FadeInImage.assetNetwork(
         fadeInDuration: const Duration(milliseconds: 100),
         placeholder: '',
         placeholderErrorBuilder:
@@ -32,14 +35,17 @@ class CustomNetworkImage extends StatelessWidget {
         imageErrorBuilder: (context, error, stackTrace) {
           return DefaultCoinImage(name: name, width: width);
         }) */
-          CachedNetworkImage(
-        width: width,
-        imageUrl: image!,
-        placeholder: (context, url) => CoinImageShimmer(width: width),
-        errorWidget: (context, url, error) =>
-            DefaultCoinImage(name: name, width: width),
-        fadeOutDuration: const Duration(milliseconds: 300),
-        fadeInDuration: const Duration(milliseconds: 300),
+          Container(
+        color: isDarkMode ? const Color.fromARGB(27, 245, 245, 245) : null,
+        child: CachedNetworkImage(
+          width: width,
+          imageUrl: image!,
+          placeholder: (context, url) => CoinImageShimmer(width: width),
+          errorWidget: (context, url, error) =>
+              DefaultCoinImage(name: name, width: width),
+          fadeOutDuration: const Duration(milliseconds: 300),
+          fadeInDuration: const Duration(milliseconds: 300),
+        ),
       );
     } else {
       return DefaultCoinImage(name: name, width: width);

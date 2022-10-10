@@ -28,6 +28,9 @@ class _CurrencyDropdownState extends State<CurrencyDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     return SizedBox(
       width: double.infinity,
       child: Wrap(
@@ -38,10 +41,12 @@ class _CurrencyDropdownState extends State<CurrencyDropdown> {
             height: 40,
             width: 200,
             decoration: BoxDecoration(
-                border: Border.all(),
+              color: theme.disabledColor,
+                border: Border.all(color: theme.primaryColor),
                 borderRadius: const BorderRadius.all(Radius.circular(5))),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
+                dropdownColor: theme.disabledColor,
                 isDense: true,
                 menuMaxHeight: 300,
                 alignment: AlignmentDirectional.center,

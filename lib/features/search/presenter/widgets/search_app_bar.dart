@@ -21,6 +21,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+
     double width = MediaQuery.of(context).size.width;
     double sidePadding = width / 25;
 
@@ -29,7 +32,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
           height: 50,
           padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: theme.scaffoldBackgroundColor,
             boxShadow: [
               BoxShadow(
                   color: AppColors.mainGrey.withOpacity(0.1),
@@ -51,7 +54,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                     right: 5,
                   ),
                   decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
+                      color: theme.disabledColor,
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(30),
                           bottomLeft: Radius.circular(30))),
@@ -62,12 +65,12 @@ class _SearchAppBarState extends State<SearchAppBar> {
                       child: TextFormField(
                         controller: _serachController,
                         cursorColor: AppColors.mainGreen,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           isDense: true,
                           border: InputBorder.none,
                           hintText: "Search coin...",
                           hintStyle: TextStyle(
-                              fontStyle: FontStyle.italic, fontSize: 14),
+                              fontStyle: FontStyle.italic, fontSize: 14, color: theme.primaryColor),
                         ),
                         style: const TextStyle(fontSize: 16),
                         onFieldSubmitted: (value) {

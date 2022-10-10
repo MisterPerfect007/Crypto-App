@@ -9,6 +9,9 @@ class SettingsAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     final Size size = MediaQuery.of(context).size;
     final double sidePadding = size.width / 25;
     return SafeArea(
@@ -17,7 +20,7 @@ class SettingsAppBar extends StatelessWidget {
           padding: EdgeInsets.only(
               left: sidePadding, right: sidePadding, top: 10, bottom: 10),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: theme.scaffoldBackgroundColor,
             boxShadow: [
               BoxShadow(
                   color: AppColors.mainGrey.withOpacity(0.1),
@@ -26,12 +29,12 @@ class SettingsAppBar extends StatelessWidget {
                   spreadRadius: 0),
             ],
           ),
-          child: const Text(
+          child: Text(
             "Settings",
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              color: AppColors.pureBlack,
+              color: theme.primaryColor,
             ),
           )),
     );

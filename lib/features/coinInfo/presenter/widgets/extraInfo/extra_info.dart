@@ -15,6 +15,9 @@ class ExtraInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
@@ -32,7 +35,7 @@ class ExtraInfo extends StatelessWidget {
             style: GoogleFonts.inter(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: AppColors.mainBlack),
+                color: theme.primaryColor),
           )
         ],
       ),

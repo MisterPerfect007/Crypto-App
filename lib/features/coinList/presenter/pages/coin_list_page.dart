@@ -37,11 +37,14 @@ class _CoinListPageState extends State<CoinListPage> {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+
     Size size = MediaQuery.of(context).size;
     final ScrollController _scrollController = ScrollController();
 
     return Scaffold(
-      backgroundColor: AppColors.lightBg,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: PreferredSize(
         preferredSize: Size(
           size.width,
@@ -62,9 +65,7 @@ class _CoinListPageState extends State<CoinListPage> {
                 /*
                     !CoinListInitial
                    */
-                if (state is CoinListInitial) {
-                  return const Text('Initial state');
-                } else if (state is CoinListLoading) {
+                if (state is CoinListInitial || state is CoinListLoading){
                   /*
                     !CoinListLoading 
                    */
@@ -112,7 +113,9 @@ class _CoinListPageState extends State<CoinListPage> {
                         } else {
                           Fluttertoast.showToast(
                             msg: "You still Offline",
-                            toastLength: Toast.LENGTH_SHORT,
+                            toastLength: Toast.LENGTH_LONG,
+                            backgroundColor: theme.primaryColor,
+                            textColor: theme.scaffoldBackgroundColor
                           );
                         }
                       },

@@ -1,4 +1,3 @@
-import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/top10Coins/top_10_coins.dart';

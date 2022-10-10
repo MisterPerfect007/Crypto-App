@@ -17,6 +17,9 @@ class TimeSlot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     bool isSelected;
     return BlocBuilder<TimeSlotCubit, String>(
       bloc: context.read<TimeSlotCubit>(),
@@ -27,18 +30,18 @@ class TimeSlot extends StatelessWidget {
           decoration: BoxDecoration(
               color: isSelected
                   ? AppColors.mainGreen.withOpacity(0.1)
-                  : AppColors.mainWhite,
+                  : theme.scaffoldBackgroundColor,
               borderRadius: const BorderRadius.all(
                 Radius.circular(5),
               ),
               boxShadow: isSelected
                   ? null
                   : [
-                      const BoxShadow(
-                          offset: Offset(0, 0),
+                      BoxShadow(
+                          offset: const Offset(0, 0),
                           blurRadius: 2,
                           spreadRadius: 1,
-                          color: AppColors.secondGrey),
+                          color: theme.disabledColor),
                     ]),
           child: Material(
             color: Colors.transparent,
@@ -80,7 +83,8 @@ class TimeSlot extends StatelessWidget {
     final timeSlot = context.read<TimeSlotCubit>().state;
 
     if (timeSlot != oldTimeSlot) {
-      triggerGetCoinInfo(context: context, id: id, days: timeSlotToDaysNumber(timeSlot));
+      triggerGetCoinInfo(
+          context: context, id: id, days: timeSlotToDaysNumber(timeSlot));
     }
   }
 }

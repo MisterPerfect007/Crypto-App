@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../ui/colors/colors.dart';
 import '../../../ui/icons/svg_icons.dart';
 
 class GoBack extends StatelessWidget {
@@ -11,6 +10,9 @@ class GoBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -21,10 +23,10 @@ class GoBack extends StatelessWidget {
           child: Container(
               height: 50,
               padding: const EdgeInsets.only(left: 15, right: 15),
-              child: const SvgIcon(
+              child: SvgIcon(
                 icon: SvgIcons.chevronLeft,
                 size: 25,
-                color: AppColors.pureBlack,
+                color: theme.primaryColor,
               ))),
     );
   }

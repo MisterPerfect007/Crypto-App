@@ -21,6 +21,8 @@ class CoinPrice extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
 
     //currency
     final currency = CurrencyStorage().getCurrentCurrency();
@@ -35,10 +37,11 @@ class CoinPrice extends StatelessWidget {
           Text(
             currency.symbol + " " + priceFormater(currentPrice),
             style: GoogleFonts.inter(
-              textStyle: const TextStyle(
-                  color: AppColors.mainBlack,
+              textStyle: TextStyle(
+                  color: theme.primaryColor,
                   fontWeight: FontWeight.w600,
-                  fontSize: 13),
+                  fontSize: 13,
+                  ),
             ),
           ),
           const SizedBox(

@@ -30,6 +30,7 @@ class TrendingCoinsLoadedWidget extends StatelessWidget {
           children: List.generate(
             4,
             (index) => OpenContainer(
+              closedColor: Theme.of(context).cardColor,
               closedShape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               closedElevation: 1,

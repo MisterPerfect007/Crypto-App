@@ -43,6 +43,9 @@ class CoinInfoPage extends StatelessWidget {
       return Body(coin: coin!);
     } else {
       return Builder(builder: (context) {
+        //
+        final theme = Theme.of(context);
+        //
         /* if coin is null so make a call to the API */
         handleApiCall(context);
         return BlocBuilder<CoinInfosBloc, CoinInfosState>(
@@ -64,9 +67,10 @@ class CoinInfoPage extends StatelessWidget {
                       handleApiCall(context);
                     } else {
                       Fluttertoast.showToast(
-                        msg: "You still Offline",
-                        toastLength: Toast.LENGTH_SHORT,
-                      );
+                          msg: "You still Offline",
+                          toastLength: Toast.LENGTH_LONG,
+                          backgroundColor: theme.primaryColor,
+                          textColor: theme.scaffoldBackgroundColor);
                     }
                   },
                 );
@@ -90,9 +94,7 @@ class CoinInfoPage extends StatelessWidget {
   ///Should trigger the [CoinInfosGet] event if the state is not [CoinInfosLoaded]
   void handleApiCall(BuildContext context) {
     if (context.read<CoinInfosBloc>().state is! CoinInfosLoaded) {
-      context
-          .read<CoinInfosBloc>()
-          .add(CoinInfosGet(coinId: id));
+      context.read<CoinInfosBloc>().add(CoinInfosGet(coinId: id));
     }
   }
 }

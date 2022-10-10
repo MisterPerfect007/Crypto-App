@@ -26,6 +26,8 @@ class Top10CoinCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
 
@@ -43,7 +45,7 @@ class Top10CoinCart extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         width: (size.width / 2) - sidePadding * 1.5,
         decoration: const BoxDecoration(
-          color: AppColors.mainWhite,
+          // color: AppColors.mainWhite,
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -87,7 +89,7 @@ class Top10CoinCart extends StatelessWidget {
               "${coin?.name}",
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
-                color: AppColors.mainBlack,
+                color: theme.primaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),
@@ -103,7 +105,7 @@ class Top10CoinCart extends StatelessWidget {
                     : Text(
                         currency.symbol + " " + formatWithSmallPrice(coin?.currentPrice),
                         style: GoogleFonts.inter(
-                            color: AppColors.mainBlack,
+                            color: theme.primaryColor,
                             fontWeight: FontWeight.w500,
                             fontSize: 12),
                       ),

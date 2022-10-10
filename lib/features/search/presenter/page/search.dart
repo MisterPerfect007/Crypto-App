@@ -26,6 +26,9 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+
     Size size = MediaQuery.of(context).size;
     // double sidePadding = size.width / 25;
 
@@ -38,7 +41,7 @@ class _SearchState extends State<Search> {
         child: const SearchAppBar(),
       ),
       body: Container(
-        color: Colors.white,
+        color: theme.scaffoldBackgroundColor,
         height: double.infinity,
         child: SingleChildScrollView(
           child: SafeArea(

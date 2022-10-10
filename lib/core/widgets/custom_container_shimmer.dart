@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../ui/colors/colors.dart';
+
 
 class ContainerShimmer extends StatelessWidget {
   const ContainerShimmer({
@@ -21,8 +23,8 @@ class ContainerShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: baseColor,
-      highlightColor: highlightColor,
+      baseColor: AppColors.pureBlack,
+      highlightColor: Color.fromARGB(255, 40, 40, 40),
       child: Container(
         width: width,
         height: height,

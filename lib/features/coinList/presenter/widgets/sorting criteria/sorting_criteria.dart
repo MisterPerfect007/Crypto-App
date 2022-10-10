@@ -13,6 +13,9 @@ class SortingCriteria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     Size size = MediaQuery.of(context).size;
     // double sidePadding = size.width / 25;
 
@@ -25,7 +28,7 @@ class SortingCriteria extends StatelessWidget {
           width: size.width,
           decoration: (context.read<ScrollPositionCubit>().state > 0)
               ? BoxDecoration(
-                  color: AppColors.lightBg,
+                  color: theme.scaffoldBackgroundColor,
                   boxShadow: [
                     BoxShadow(
                         color: AppColors.mainGrey.withOpacity(0.1),
@@ -34,8 +37,8 @@ class SortingCriteria extends StatelessWidget {
                         spreadRadius: 0),
                   ],
                 )
-              : const BoxDecoration(
-                  color: AppColors.lightBg,
+              :  BoxDecoration(
+                  color: theme.scaffoldBackgroundColor,
                 ),
           // margin: EdgeInsets.only(bottom: 10),
           padding: const EdgeInsets.only(

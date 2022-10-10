@@ -21,6 +21,9 @@ class SearchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+
     double width = MediaQuery.of(context).size.width;
     double sidePadding = width / 25;
 
@@ -53,10 +56,11 @@ class SearchItem extends StatelessWidget {
                   name,
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
+                    color: theme.primaryColor
                   ),
                 ),
               ),

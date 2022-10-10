@@ -33,6 +33,7 @@ BlocBuilder<TrendingCoinsBloc, TrendingCoinsState> buildSeeAll(
                   children: List.generate(
                     coinList.length,
                     (index) => OpenContainer(
+                      closedColor: Theme.of(context).cardColor,
                       closedShape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                       closedElevation: 1,

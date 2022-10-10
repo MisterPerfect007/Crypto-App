@@ -53,8 +53,9 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    //
     bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
-    
+
     //All pages
     final List<Widget> _pages = [
       const HomePage(),
@@ -72,13 +73,16 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
         index: _currentIndex,
         children: _pages,
       ),
-      floatingActionButton: keyboardIsOpened ? null : buildBottomNavigationBar(displayWidth),
+      floatingActionButton:
+          keyboardIsOpened ? null : buildBottomNavigationBar(displayWidth),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
     );
   }
 
   SafeArea buildBottomNavigationBar(double displayWidth) {
+    //
+    final theme = Theme.of(context);
     return SafeArea(
         child: Container(
       constraints: const BoxConstraints(
@@ -90,12 +94,12 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
       width: displayWidth * 0.6,
       height: 50,
       decoration: BoxDecoration(
-          color: Colors.black,
+          color: theme.bottomAppBarColor,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
-                color: Colors.black.withOpacity(0.4),
-                blurRadius: 2,
+                color: theme.primaryColor.withOpacity(0.4),
+                blurRadius: 0.5,
                 offset: const Offset(0, 0))
           ]),
       child: Row(

@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 
-import '../../../ui/colors/colors.dart';
 import '../../../ui/icons/svg_icons.dart';
 import '../animation/custom_opacity_animation.dart';
 
@@ -19,19 +17,21 @@ class CustomErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);    
     return CustomOpacityAnimation(
       child: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgIcon(icon: icon, size: iconSize,),
+              SvgIcon(icon: icon, size: iconSize, color: theme.primaryColor,),
               const SizedBox(height: 5),
               Text(msg),
               TextButton(
                   onPressed: onPressed,
                   child: const Text("Try again"),
-                  style: TextButton.styleFrom(primary: AppColors.mainGreen)),
+                  /* style: TextButton.styleFrom(primarys: AppColors.mainGreen) */),
             ],
           ),
         ),

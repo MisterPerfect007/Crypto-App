@@ -13,12 +13,15 @@ class SeeAllPageAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double sidePadding = width / 25;
+    //
+    final theme = Theme.of(context);
+
     return SafeArea(
       child: Container(
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.only(left: 0, right: sidePadding),
         decoration: BoxDecoration(
-          color: AppColors.lightBg,
+          color: theme.scaffoldBackgroundColor,
           boxShadow: [
             BoxShadow(
                 color: AppColors.mainGrey.withOpacity(0.1),
@@ -36,7 +39,7 @@ class SeeAllPageAppBar extends StatelessWidget {
                 child: Text(
                   title,
                   style: GoogleFonts.inter(
-                      color: AppColors.mainBlack,
+                      color: theme.primaryColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 16),
                 ),

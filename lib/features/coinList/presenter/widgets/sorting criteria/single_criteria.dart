@@ -19,6 +19,9 @@ class SingleCriteria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     return BlocBuilder(
       bloc: context.read<SortingCubit>(),
       builder: (context, Map<String, dynamic> state) {
@@ -33,18 +36,20 @@ class SingleCriteria extends StatelessWidget {
           decoration: BoxDecoration(
               color: isSelected
                   ? AppColors.mainGreen.withOpacity(0.1)
-                  : AppColors.mainWhite,
+                  : theme.scaffoldBackgroundColor,
               borderRadius: const BorderRadius.all(
                 Radius.circular(5),
               ),
               boxShadow: isSelected
                   ? null
                   : [
-                      const BoxShadow(
-                          offset: Offset(0, 0),
+                      BoxShadow(
+                          offset: const Offset(0, 0),
                           blurRadius: 2,
                           spreadRadius: 1,
-                          color: AppColors.secondGrey),
+                          color: theme.disabledColor,
+                          // color: AppColors.secondGrey,
+                          ),
                     ]),
           child: Material(
             color: Colors.transparent,
@@ -91,9 +96,10 @@ class SingleCriteria extends StatelessWidget {
                             margin: const EdgeInsets.only(left: 5),
                             child: RotatedBox(
                               quarterTurns: (isSelected && !isDesc) ? 0 : 2,
-                              child: const PersoIcon(
+                              child: PersoIcon(
                                 icon: PersoIcons.arrowUp1,
                                 size: 10,
+                                color: theme.primaryColor,
                               ),
                             ))
                         : Container()

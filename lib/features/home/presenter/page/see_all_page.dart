@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/animation/custom_opacity_animation.dart';
-import '../../../../ui/colors/colors.dart';
 import '../widgets/see_all_page_app_bar.dart';
 
 class SeeAllPage extends StatelessWidget {
@@ -16,7 +15,10 @@ class SeeAllPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    //
+    final theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
         appBar: PreferredSize(
           preferredSize: Size(
             size.width,
@@ -27,9 +29,8 @@ class SeeAllPage extends StatelessWidget {
             title: appBarTitle,
           )),
         ),
-        body: Container(
+        body: SizedBox(
           height: size.height,
-          color: AppColors.lightBg,
           child: SingleChildScrollView(
             child: SafeArea(
               child: Column(

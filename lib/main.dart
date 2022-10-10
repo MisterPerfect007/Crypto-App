@@ -1,6 +1,5 @@
 import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:crypto_trends/root/root.dart';
-import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +10,7 @@ import 'features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'features/home/presenter/bloc/top10/top_10_bloc.dart';
 import 'features/home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
 import 'features/search/presenter/bloc/search_coin_bloc.dart';
+import 'features/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,15 +27,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Crypto Trends',
-      theme: ThemeData(
-
-        primarySwatch: AppColors.colorPrimarySwatch,
-        scaffoldBackgroundColor: AppColors.pureWhite,
-        bottomAppBarColor: AppColors.pureBlack,
-        disabledColor: AppColors.mainGrey,
-        errorColor: AppColors.pureRed,
-      ),
-      themeMode: ThemeMode.dark,
+      theme: AppTheme.darkTheme,
+      // themeMode: ThemeMode.dark,
       home: MultiBlocProvider(
         providers: [
           //HOMPAGE

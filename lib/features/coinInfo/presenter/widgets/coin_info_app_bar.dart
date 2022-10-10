@@ -8,11 +8,14 @@ class CoinInfoPageAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     return SafeArea(
       child: Container(
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
-          color: AppColors.lightBg,
+          color: theme.scaffoldBackgroundColor,
           boxShadow: [
             BoxShadow(
                 color: AppColors.mainGrey.withOpacity(0.1),
