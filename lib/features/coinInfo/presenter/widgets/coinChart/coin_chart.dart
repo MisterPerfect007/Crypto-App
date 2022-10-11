@@ -1,3 +1,4 @@
+import 'package:crypto_trends/core/widgets/custom_container_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -111,16 +112,7 @@ class _CoinChartState extends State<CoinChart> {
     );
   }
 
-  Container buildCoinInfoLoadingWidget() {
-    return Container(
-      color: const Color.fromARGB(255, 241, 241, 241),
-      child: Shimmer.fromColors(
-        baseColor: const Color.fromARGB(255, 241, 241, 241),
-        highlightColor: const Color.fromARGB(255, 255, 255, 255),
-        child: Container(
-          color: const Color.fromARGB(255, 241, 241, 241),
-        ),
-      ),
-    );
+  Widget buildCoinInfoLoadingWidget() {
+    return const ContainerShimmer(width: double.infinity, height: 200, radius: 0);
   }
 }

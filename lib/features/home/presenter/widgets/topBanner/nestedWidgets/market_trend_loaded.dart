@@ -24,14 +24,12 @@ class MarketTrendAndPercentage extends StatelessWidget {
                 width: 100,
                 height: 25,
                 radius: 5,
-                baseColor: Color.fromARGB(176, 255, 255, 255),
               ),
               Flexible(child: Container()),
               const ContainerShimmer(
                 width: 80,
                 height: 25,
                 radius: 5,
-                baseColor: Color.fromARGB(176, 255, 255, 255),
               ),
             ],
           );

@@ -10,7 +10,7 @@ import 'features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'features/home/presenter/bloc/top10/top_10_bloc.dart';
 import 'features/home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
 import 'features/search/presenter/bloc/search_coin_bloc.dart';
-import 'features/theme/app_theme.dart';
+import 'features/theme/cubit/app_theme_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,24 +24,31 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Crypto Trends',
-      theme: AppTheme.darkTheme,
-      // themeMode: ThemeMode.dark,
-      home: MultiBlocProvider(
-        providers: [
-          //HOMPAGE
-          BlocProvider(create: ((context) => di.sl<TrendingCoinsBloc>())),
-          BlocProvider(create: ((context) => di.sl<Top10Bloc>())),
-          //
-          BlocProvider(create: (context) => di.sl<CoinListBloc>()),
-          BlocProvider(create: (context) => di.sl<SearchCoinBloc>()),
-          BlocProvider(create: (context) => ScrollPositionCubit()),
-          BlocProvider(create: (context) => SortingCubit()),
-          BlocProvider(create: (context) => PaginationCubit()),
-        ],
-        child: const Root(),
+    return BlocProvider(
+      create: (context) => AppThemeCubit(),
+      child: BlocBuilder<AppThemeCubit, ThemeData>(
+        builder: (context, state) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Crypto Trends',
+            theme: state,
+            // themeMode: ThemeMode.dark,
+            home: MultiBlocProvider(
+              providers: [
+                //HOMPAGE
+                BlocProvider(create: ((context) => di.sl<TrendingCoinsBloc>())),
+                BlocProvider(create: ((context) => di.sl<Top10Bloc>())),
+                //
+                BlocProvider(create: (context) => di.sl<CoinListBloc>()),
+                BlocProvider(create: (context) => di.sl<SearchCoinBloc>()),
+                BlocProvider(create: (context) => ScrollPositionCubit()),
+                BlocProvider(create: (context) => SortingCubit()),
+                BlocProvider(create: (context) => PaginationCubit()),
+              ],
+              child: const Root(),
+            ),
+          );
+        },
       ),
     );
   }

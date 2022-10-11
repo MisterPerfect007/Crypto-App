@@ -13,23 +13,32 @@ class TopBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double sidePadding = size.width / 25;
+    //
+    final theme = Theme.of(context);
+    //
+    final isDarkMode = theme.brightness == Brightness.dark;
+
     return Container(
       // height: 200,
       width: size.width,
       padding: EdgeInsets.only(
           left: sidePadding, right: sidePadding, top: 10, bottom: 20),
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-              color: AppColors.thirdGrey.withOpacity(0.3),
-              blurRadius: 2,
-              spreadRadius: 2,
-              offset: const Offset(0, 2)),
-        ],
-        gradient: const LinearGradient(
+        // boxShadow: [
+        //   BoxShadow(
+        //       color: AppColors.thirdGrey.withOpacity(0.3),
+        //       blurRadius: 2,
+        //       spreadRadius: 2,
+        //       offset: const Offset(0, 2)),
+        // ],
+        gradient:  LinearGradient(
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
-          colors: [
+          colors: isDarkMode ? [
+            theme.disabledColor,
+            theme.disabledColor,
+            // theme.primaryColor,
+          ] : [
             AppColors.mainGreen,
             Color.fromARGB(255, 0, 251, 121),
           ],
