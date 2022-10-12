@@ -90,11 +90,18 @@ dev_dependencies:
 
 flutter_native_splash:
   color: "#ffffff"
+  color_dark: "#000000"
   image: "assets/app/splash/splash.png"
+
+  android_12:
+    image: "assets/app/splash/splash.png"
+    icon_background_color: "#ffffff"
+    image_dark: "assets/app/splash/splash.png"
+    icon_background_color_dark: "#000000"
 
 
 flutter_icons:
-  android: true
+  android: "launcher_icon"
   ios: true 
   image_path: "assets/app/appIcon/app_icon.png"
   adaptive_icon_foreground: "assets/app/appIcon/app_icon_foreground.png"

@@ -2,6 +2,7 @@ import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:crypto_trends/root/root.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'features/coinList/presenter/cubit/pagination_cubit.dart';
@@ -13,9 +14,11 @@ import 'features/search/presenter/bloc/search_coin_bloc.dart';
 import 'features/theme/cubit/app_theme_cubit.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await di.init();
   runApp(const MyApp());
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {

@@ -37,7 +37,7 @@ class CoinInfoBloc extends Bloc<CoinInfoEvent, CoinInfoState> {
           }
         }
       },
-      transformer: sequential(),
+      transformer: restartable(),
     );
   }
 }
