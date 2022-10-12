@@ -18,7 +18,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await di.init();
   runApp(const MyApp());
-  FlutterNativeSplash.remove();
+  
 }
 
 class MyApp extends StatelessWidget {

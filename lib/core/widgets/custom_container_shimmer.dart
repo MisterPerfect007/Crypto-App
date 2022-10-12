@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../ui/colors/colors.dart';
-
 //Dark mode colors
 const Color darkBaseColor = Color.fromARGB(255, 17, 17, 17);
 const Color darkHighlightColor = Color.fromARGB(255, 36, 36, 36);
 
 //Light mode colors
-const Color lightBaseColor = AppColors.secondGrey;
+const Color lightBaseColor = Color.fromARGB(255, 239, 239, 239);
 const Color lightHighlightColor = Color.fromARGB(255, 251, 251, 251);
 
 

@@ -36,6 +36,9 @@ class _CoinChartState extends State<CoinChart> {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final theme = Theme.of(context);
+    //
     return CustomOpacityAnimation(
       duration: const Duration(seconds: 1),
       child: SizedBox(
@@ -53,7 +56,7 @@ class _CoinChartState extends State<CoinChart> {
                 );
               } else {
                 return Container(
-                    color: const Color.fromARGB(255, 241, 241, 241),
+                    color: theme.disabledColor,
                     child: Center(
                       child: BlocBuilder(
                         bloc: context.read<TimeSlotCubit>(),
@@ -74,7 +77,7 @@ class _CoinChartState extends State<CoinChart> {
               //*
               if (state.errorType == ErrorType.noInternetConnection) {
                 return Container(
-                  color: const Color.fromARGB(255, 241, 241, 241),
+                  color: theme.disabledColor,
                   child: CustomErrorWidget(
                     onPressed: () async {
                       final days = context.read<TimeSlotCubit>().state;
@@ -85,6 +88,8 @@ class _CoinChartState extends State<CoinChart> {
                         Fluttertoast.showToast(
                           msg: "You still Offline",
                           toastLength: Toast.LENGTH_SHORT,
+                          textColor: theme.scaffoldBackgroundColor,
+                          backgroundColor: theme.primaryColor
                         );
                       }
                     },
@@ -95,7 +100,7 @@ class _CoinChartState extends State<CoinChart> {
               }
             }
             return Container(
-              color: const Color.fromARGB(255, 241, 241, 241),
+              color: theme.disabledColor,
               child: CustomErrorWidget(
                 onPressed: () async {
                   final days = context.read<TimeSlotCubit>().state;

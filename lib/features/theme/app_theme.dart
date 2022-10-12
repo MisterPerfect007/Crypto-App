@@ -21,6 +21,7 @@ class AppTheme {
     disabledColor: const Color.fromARGB(255, 57, 57, 57),
     errorColor: AppColors.pureRed,
     primaryColor: const Color(0xDBFFFFFF),
-    cardColor: const Color.fromARGB(255, 39, 39, 39),
+    cardColor: const Color.fromARGB(83, 50, 50, 50),
+    // cardColor: const Color.fromARGB(255, 39, 39, 39),
   );
 }

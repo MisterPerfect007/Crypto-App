@@ -4,6 +4,7 @@ import 'package:crypto_trends/features/search/presenter/page/search.dart';
 import 'package:crypto_trends/features/settings/presenter/pages/settings_page.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import '../ui/colors/colors.dart';
 import 'widgets/bottom_bar_item.dart';
@@ -29,6 +30,10 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     );
 
     _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController);
+
+    //! Remove the splash screen
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => FlutterNativeSplash.remove());
   }
 
   void _handlePageSwitch(int newindex) {
@@ -98,8 +103,9 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
-                color: theme.primaryColor.withOpacity(0.4),
-                blurRadius: 0.5,
+                color: theme.primaryColor.withOpacity(1),
+                blurRadius: 1,
+                spreadRadius: 0.5,
                 offset: const Offset(0, 0))
           ]),
       child: Row(
