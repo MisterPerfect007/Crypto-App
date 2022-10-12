@@ -39,9 +39,8 @@ class _CurrencyDropdownState extends State<CurrencyDropdown> {
         children: [
           Container(
             height: 40,
-            width: 200,
             decoration: BoxDecoration(
-              color: theme.disabledColor,
+                color: theme.disabledColor,
                 border: Border.all(color: theme.primaryColor),
                 borderRadius: const BorderRadius.all(Radius.circular(5))),
             child: DropdownButtonHideUnderline(
@@ -63,6 +62,7 @@ class _CurrencyDropdownState extends State<CurrencyDropdown> {
                                 Text(
                                   currency.fullName,
                                   style: const TextStyle(
+                                      overflow: TextOverflow.ellipsis,
                                       fontFamily: 'Inter',
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500),

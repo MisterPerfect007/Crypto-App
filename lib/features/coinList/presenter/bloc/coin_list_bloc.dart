@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:crypto_trends/features/coinList/domain/entities/coin.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/utils_functions.dart';
 import 'package:equatable/equatable.dart';
@@ -18,40 +19,42 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
     required this.getRemoteCoinList,
     required this.network,
   }) : super(CoinListInitial()) {
-    on<CoinListEvent>((event, emit) async {
-      if (event is CoinListGet) {
-        emit(CoinListLoading());
-        final isConnected = await network.isConnected;
-        if (isConnected) {
+    on<CoinListEvent>(
+      (event, emit) async {
+        if (event is CoinListGet) {
+          emit(CoinListLoading());
+          final isConnected = await network.isConnected;
+          if (isConnected) {
+            final coinListOrFailure = await getRemoteCoinList(page: event.page);
+            coinListOrFailure.fold(
+                (failure) => emit(CoinListFailure(giveErrorType(failure))),
+                (coinList) => emit(CoinListLoaded(
+                      coinList: sortCoinList(
+                          coinList: coinList, criteria: event.sortingCriteria),
+                    )));
+          } else {
+            emit(const CoinListFailure(ErrorType.noInternetConnection));
+          }
+        }
+        //! on CoinListUpdate
+        if (event is CoinListUpdate) {
           final coinListOrFailure = await getRemoteCoinList(page: event.page);
           coinListOrFailure.fold(
-              (failure) => emit(CoinListFailure(giveErrorType(failure))),
+              (_) {},
               (coinList) => emit(CoinListLoaded(
-                    coinList: sortCoinList(
-                        coinList: coinList, criteria: event.sortingCriteria),
-                  )));
-        } else {
-          emit(const CoinListFailure(ErrorType.noInternetConnection));
+                  coinList: sortCoinList(
+                      coinList: coinList, criteria: event.sortingCriteria),
+                  isUpdate: true)));
         }
-      }
-      //! on CoinListUpdate
-      if (event is CoinListUpdate) {
-        final coinListOrFailure =
-            await getRemoteCoinList(page: event.page);
-        coinListOrFailure.fold(
-            (_) {},
-            (coinList) => emit(CoinListLoaded(
-                coinList: sortCoinList(
-                    coinList: coinList, criteria: event.sortingCriteria),
-                isUpdate: true)));
-      }
 
-      //! on CoinListSorting
-      if (event is CoinListSorting) {
-        emit(CoinListLoaded(
-            coinList: sortCoinList(
-                coinList: event.coinList, criteria: event.criteria)));
-      }
-    });
+        //! on CoinListSorting
+        if (event is CoinListSorting) {
+          emit(CoinListLoaded(
+              coinList: sortCoinList(
+                  coinList: event.coinList, criteria: event.criteria)));
+        }
+      },
+      transformer: restartable(),
+    );
   }
 }
