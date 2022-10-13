@@ -39,7 +39,7 @@ class Top10CoinCart extends StatelessWidget {
     //currency
     final currency = CurrencyStorage().getCurrentCurrency();
 
-    return GestureDetector(
+    return InkWell(
       onTap: action,
       child: Container(
         padding: const EdgeInsets.all(10),

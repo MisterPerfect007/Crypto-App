@@ -33,7 +33,6 @@ class SearchItem extends StatelessWidget {
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => CoinInfoPage(coin: null, id: id,)));
         },
-        splashColor: AppColors.secondGrey,
         child: Padding(
           padding: EdgeInsets.only(
             top: 5,

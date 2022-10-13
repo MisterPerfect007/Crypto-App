@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../../core/widgets/errors/error_message.dart';
@@ -83,7 +82,7 @@ class _CoinChartState extends State<CoinChart> {
                       final days = context.read<TimeSlotCubit>().state;
                       if (await InternetConnectionChecker().hasConnection) {
                         triggerGetCoinInfo(
-                            context: context, id: widget.id, days: days);
+                            context: context, id: widget.id, days: timeSlotToDaysNumber(days));
                       } else {
                         Fluttertoast.showToast(
                           msg: "You still Offline",
@@ -105,7 +104,7 @@ class _CoinChartState extends State<CoinChart> {
                 onPressed: () async {
                   final days = context.read<TimeSlotCubit>().state;
                   triggerGetCoinInfo(
-                      context: context, id: widget.id, days: days);
+                      context: context, id: widget.id, days: timeSlotToDaysNumber(days));
                 },
                 icon: SvgIcons.badO,
                 msg: "Something went wrong",

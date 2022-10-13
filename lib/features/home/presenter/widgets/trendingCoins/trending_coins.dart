@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../../../../core/widgets/errors/error_message.dart';
-import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/svg_icons.dart';
 import '../../bloc/trending_coin/trending_coin_bloc.dart';
 import 'build_see_all.dart';
