@@ -1,7 +1,5 @@
 import 'package:crypto_trends/core/widgets/custom_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 
 class CoinNameImage extends StatelessWidget {
   const CoinNameImage({
@@ -42,7 +40,8 @@ class CoinNameImage extends StatelessWidget {
                 Flexible(
                   child: Text(
                     name,
-                    style: GoogleFonts.inter(
+                    style: TextStyle(
+                        fontFamily: 'Inter',
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
                         color: theme.primaryColor),

@@ -1,7 +1,6 @@
 import 'package:crypto_trends/features/coinInfo/presenter/cubit/time_slot_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../ui/colors/colors.dart';
 import '../../utils/functions.dart';
@@ -61,7 +60,8 @@ class TimeSlot extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   slot,
-                  style: GoogleFonts.inter(
+                  style: TextStyle(
+                    fontFamily: 'Inter',
                     color:
                         isSelected ? AppColors.mainGreen : AppColors.mainGrey,
                     fontSize: 12,
@@ -83,8 +83,7 @@ class TimeSlot extends StatelessWidget {
     final timeSlot = context.read<TimeSlotCubit>().state;
 
     if (timeSlot != oldTimeSlot) {
-      triggerGetCoinInfo(
-          context: context, id: id, days: timeSlotToDaysNumber(timeSlot));
+      triggerGetCoinInfo(context: context, id: id);
     }
   }
 }

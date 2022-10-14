@@ -1,12 +1,10 @@
 import 'package:crypto_trends/core/widgets/coin_image_shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/coinPercentage/coin_percentage_format.dart';
 import '../../../../core/utils/price_formater.dart';
 import '../../../../core/widgets/custom_container_shimmer.dart';
 import '../../../../core/widgets/custom_network_image.dart';
-import '../../../../ui/colors/colors.dart';
 import '../../../coinList/domain/entities/coin.dart';
 import '../../../coinList/presenter/utils/coin_line_chart_data.dart';
 import '../../../coinList/presenter/widgets/single coin/single_coin_line_chart.dart';
@@ -63,7 +61,8 @@ class TrendingCoinCart extends StatelessWidget {
                             // 7 days %
                             percentage.signedPercentage(),
                             textAlign: TextAlign.end,
-                            style: GoogleFonts.inter(
+                            style: TextStyle(
+              fontFamily: 'Inter',
                                 color: percentage.getColor(),
                                 fontWeight: FontWeight.w500,
                                 fontSize: 9),
@@ -81,7 +80,8 @@ class TrendingCoinCart extends StatelessWidget {
               //Name
               Text(
                 "${coin?.name}",
-                style: GoogleFonts.inter(
+                style: TextStyle(
+              fontFamily: 'Inter',
                     color: theme.primaryColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 10),
@@ -96,7 +96,8 @@ class TrendingCoinCart extends StatelessWidget {
                 currency.symbol +
                     " " +
                     formatWithSmallPrice(coin?.currentPrice),
-                style: GoogleFonts.inter(
+                style: TextStyle(
+              fontFamily: 'Inter',
                     color: theme.primaryColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 9),

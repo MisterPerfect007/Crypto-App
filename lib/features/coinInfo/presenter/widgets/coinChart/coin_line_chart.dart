@@ -1,7 +1,6 @@
 import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../settings/utils/get_currency.dart';
@@ -16,10 +15,9 @@ class CoinInfoLineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     //currency
     final currency = CurrencyStorage().getCurrentCurrency();
-    
+
     return LineChart(
       LineChartData(
         lineTouchData: LineTouchData(
@@ -35,21 +33,21 @@ class CoinInfoLineChart extends StatelessWidget {
                       textAlign: TextAlign.left,
                       children: [
                         TextSpan(
-                          text: currency.symbol + " " + priceFormater(spotData.y),
-                          style: GoogleFonts.inter(
-                            textStyle: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 12),
-                          ),
+                          text:
+                              currency.symbol + " " + priceFormater(spotData.y),
+                          style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12),
                         ),
                         TextSpan(
                           text: "\n${convertTime(spotData.x.toInt())}",
-                          style: GoogleFonts.inter(
-                            textStyle: const TextStyle(
-                                color: AppColors.mainGrey,
-                                fontSize: 11,
-                                height: 2,
-                                fontWeight: FontWeight.w500),
-                          ),
+                          style: const TextStyle(
+                              fontFamily: 'Inter',
+                              color: AppColors.mainGrey,
+                              fontSize: 11,
+                              height: 2,
+                              fontWeight: FontWeight.w500),
                         ),
                       ]);
                 }).toList();

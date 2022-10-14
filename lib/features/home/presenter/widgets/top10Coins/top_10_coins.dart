@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
@@ -72,8 +71,9 @@ class _Top10CoinsState extends State<Top10Coins> {
                       builder: (context) => const CoinListPage()));
                 },
                 child: Text(
-                  "Top 10 Coins",
-                  style: GoogleFonts.inter(
+                  "Top 10 Coins 🔝",
+                  style: TextStyle(
+                      fontFamily: 'Inter',
                       color: theme.primaryColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 16),

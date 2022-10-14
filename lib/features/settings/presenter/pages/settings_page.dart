@@ -38,7 +38,7 @@ class SettingsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Currency',
+                        'Currency 💱',
                         style: TextStyle(
                           fontFamily: 'Inter',
                           color: theme.primaryColor,
@@ -91,6 +91,15 @@ class _ThemeToggleState extends State<ThemeToggle> {
                 fontFamily: 'Inter',
                 color: widget.theme.primaryColor,
                 fontWeight: FontWeight.w500,
+              ),
+            ),
+            Text(
+              ' 🕶️',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                color: widget.theme.primaryColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 30
               ),
             ),
             Expanded(child: Container()),

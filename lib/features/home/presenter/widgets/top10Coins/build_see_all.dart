@@ -3,7 +3,6 @@ import 'package:crypto_trends/features/home/presenter/widgets/top10Coins/top_10_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../../ui/colors/colors.dart';
@@ -22,7 +21,7 @@ BlocBuilder<Top10Bloc, Top10State> buildTop10SeeAll(double sidePadding) {
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => SeeAllPage(
-              appBarTitle: "Top 10 Coins",
+              appBarTitle: "Top 10 Coins 🔝",
               body: CustomOpacityAnimation(
                   child: Padding(
                 padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
@@ -55,9 +54,10 @@ BlocBuilder<Top10Bloc, Top10State> buildTop10SeeAll(double sidePadding) {
           decoration: const BoxDecoration(
             color: Colors.transparent,
           ),
-          child: Text(
+          child: const Text(
             "See all",
-            style: GoogleFonts.inter(
+            style: TextStyle(
+              fontFamily: 'Inter',
                 color: AppColors.mainGreen,
                 fontWeight: FontWeight.w500,
                 fontSize: 12),

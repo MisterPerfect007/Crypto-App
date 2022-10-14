@@ -1,10 +1,8 @@
 import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
 import 'package:crypto_trends/features/settings/utils/get_currency.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
 
 class CoinPrice extends StatelessWidget {
@@ -17,7 +15,8 @@ class CoinPrice extends StatelessWidget {
     Key? key,
     required this.currentPrice,
     this.formated7DPercentage,
-    required this.id, this.isUpdate = false,
+    required this.id,
+    this.isUpdate = false,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -36,12 +35,11 @@ class CoinPrice extends StatelessWidget {
           //* Current price
           Text(
             currency.symbol + " " + priceFormater(currentPrice),
-            style: GoogleFonts.inter(
-              textStyle: TextStyle(
-                  color: theme.primaryColor,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13,
-                  ),
+            style: TextStyle(
+              fontFamily: 'Inter',
+              color: theme.primaryColor,
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
             ),
           ),
           const SizedBox(
@@ -65,12 +63,11 @@ class CoinPrice extends StatelessWidget {
                 ),
                 Text(
                   formated7DPercentage!.fixedPercentage() + '%',
-                  style: GoogleFonts.inter(
-                    textStyle: TextStyle(
-                      color: formated7DPercentage!.getColor(),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 11,
-                    ),
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: formated7DPercentage!.getColor(),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
                   ),
                 )
               ],

@@ -30,7 +30,7 @@ class SettingsAppBar extends StatelessWidget {
             ],
           ),
           child: Text(
-            "Settings",
+            "Settings 🗝️",
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../ui/colors/colors.dart';
 import '../../../../../ui/icons/icons.dart';
@@ -44,12 +43,12 @@ class SingleCriteria extends StatelessWidget {
                   ? null
                   : [
                       BoxShadow(
-                          offset: const Offset(0, 0),
-                          blurRadius: 2,
-                          spreadRadius: 1,
-                          color: theme.disabledColor,
-                          // color: AppColors.secondGrey,
-                          ),
+                        offset: const Offset(0, 0),
+                        blurRadius: 2,
+                        spreadRadius: 1,
+                        color: theme.disabledColor,
+                        // color: AppColors.secondGrey,
+                      ),
                     ]),
           child: Material(
             color: Colors.transparent,
@@ -83,7 +82,8 @@ class SingleCriteria extends StatelessWidget {
                   children: [
                     Text(
                       name,
-                      style: GoogleFonts.inter(
+                      style: TextStyle(
+                        fontFamily: 'Inter',
                         fontSize: 12,
                         color: isSelected
                             ? AppColors.mainGreen

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/coinPercentage/coin_percentage_format.dart';
 import '../../../../../core/utils/price_formater.dart';
@@ -40,8 +39,10 @@ class PriceAndPercentage extends StatelessWidget {
               Expanded(
                 child: Text(
                   currency.symbol + " " + formatWithSmallPrice(price),
-                  style: GoogleFonts.inter(
-                      fontSize: 24, fontWeight: FontWeight.w800),
+                  style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800),
                 ),
               ),
               const SizedBox(
@@ -70,7 +71,8 @@ class PriceAndPercentage extends StatelessWidget {
                         ),
                         Text(
                           formatedPercentage.fixedPercentage() + "%",
-                          style: GoogleFonts.inter(
+                          style: TextStyle(
+                              fontFamily: 'Inter',
                               color: formatedPercentage.getColor(),
                               fontSize: 14,
                               fontWeight: FontWeight.w600),
@@ -79,16 +81,15 @@ class PriceAndPercentage extends StatelessWidget {
                   : Container()
             ],
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           (percentage24h != null && priceChange24h != null)
               ? Text(
                   (formatedPercentage.isPositive()! ? "+" : "-") +
                       currency.symbol +
                       " " +
                       formatWithSmallPrice(priceChange24h!.abs()),
-                  style: GoogleFonts.inter(
+                  style: TextStyle(
+                      fontFamily: 'Inter',
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color: formatedPercentage.getColor()),

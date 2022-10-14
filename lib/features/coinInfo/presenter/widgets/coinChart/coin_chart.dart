@@ -2,7 +2,6 @@ import 'package:crypto_trends/core/widgets/custom_container_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
@@ -62,7 +61,8 @@ class _CoinChartState extends State<CoinChart> {
                         builder: (context, state) {
                           return Text(
                             "No historical data for $state",
-                            style: GoogleFonts.inter(
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -79,17 +79,14 @@ class _CoinChartState extends State<CoinChart> {
                   color: theme.disabledColor,
                   child: CustomErrorWidget(
                     onPressed: () async {
-                      final days = context.read<TimeSlotCubit>().state;
                       if (await InternetConnectionChecker().hasConnection) {
-                        triggerGetCoinInfo(
-                            context: context, id: widget.id, days: timeSlotToDaysNumber(days));
+                        triggerGetCoinInfo(context: context, id: widget.id);
                       } else {
                         Fluttertoast.showToast(
-                          msg: "You still Offline",
-                          toastLength: Toast.LENGTH_SHORT,
-                          textColor: theme.scaffoldBackgroundColor,
-                          backgroundColor: theme.primaryColor
-                        );
+                            msg: "You still Offline",
+                            toastLength: Toast.LENGTH_SHORT,
+                            textColor: theme.scaffoldBackgroundColor,
+                            backgroundColor: theme.primaryColor);
                       }
                     },
                     icon: SvgIcons.noWifiLine,
@@ -102,9 +99,7 @@ class _CoinChartState extends State<CoinChart> {
               color: theme.disabledColor,
               child: CustomErrorWidget(
                 onPressed: () async {
-                  final days = context.read<TimeSlotCubit>().state;
-                  triggerGetCoinInfo(
-                      context: context, id: widget.id, days: timeSlotToDaysNumber(days));
+                  triggerGetCoinInfo(context: context, id: widget.id);
                 },
                 icon: SvgIcons.badO,
                 msg: "Something went wrong",
@@ -117,6 +112,7 @@ class _CoinChartState extends State<CoinChart> {
   }
 
   Widget buildCoinInfoLoadingWidget() {
-    return const ContainerShimmer(width: double.infinity, height: 200, radius: 0);
+    return const ContainerShimmer(
+        width: double.infinity, height: 200, radius: 0);
   }
 }

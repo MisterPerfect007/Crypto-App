@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 import '../../../../core/widgets/navigation/go_back_widget.dart';
 import '../../../../ui/colors/colors.dart';
@@ -38,7 +38,8 @@ class SeeAllPageAppBar extends StatelessWidget {
               child: Center(
                 child: Text(
                   title,
-                  style: GoogleFonts.inter(
+                  style: TextStyle(
+              fontFamily: 'Inter',
                       color: theme.primaryColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 16),

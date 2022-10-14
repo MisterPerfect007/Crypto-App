@@ -68,9 +68,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
                         decoration: InputDecoration(
                           isDense: true,
                           border: InputBorder.none,
-                          hintText: "Search coin...",
+                          hintText: "Search coin... 👀",
                           hintStyle: TextStyle(
-                              fontStyle: FontStyle.italic, fontSize: 14, color: theme.primaryColor),
+                              /* fontStyle: FontStyle.italic, */ fontSize: 14, color: theme.primaryColor),
                         ),
                         style: const TextStyle(fontSize: 16),
                         onFieldSubmitted: (value) {

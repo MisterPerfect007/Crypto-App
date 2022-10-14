@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../ui/colors/colors.dart';
 
@@ -52,7 +51,8 @@ class CoinName extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(3))),
                 child: Text(
                   marketCapRank != null ? marketCapRank.toString() : '?',
-                  style: GoogleFonts.inter(
+                  style: const TextStyle(
+              fontFamily: 'Inter',
                     color: AppColors.grey1,
                     fontWeight: FontWeight.w500,
                     fontSize: 11,
@@ -66,7 +66,8 @@ class CoinName extends StatelessWidget {
               //Symbol
               Text(
                 symbol.toUpperCase(),
-                style: GoogleFonts.inter(
+                style: const TextStyle(
+              fontFamily: 'Inter',
                   color: AppColors.mainGrey,
                   fontWeight: FontWeight.w500,
                   fontSize: 10,

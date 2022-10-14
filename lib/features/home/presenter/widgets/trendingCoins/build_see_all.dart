@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 import '../../../../../core/widgets/animation/custom_opacity_animation.dart';
 import '../../../../../ui/colors/colors.dart';
@@ -22,7 +22,7 @@ BlocBuilder<TrendingCoinsBloc, TrendingCoinsState> buildSeeAll(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => SeeAllPage(
-              appBarTitle: "Trending Coins",
+              appBarTitle: "Trending Coins 🔥",
               body: CustomOpacityAnimation(
                   child: Padding(
                 padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
@@ -55,9 +55,10 @@ BlocBuilder<TrendingCoinsBloc, TrendingCoinsState> buildSeeAll(
           decoration: const BoxDecoration(
             color: Colors.transparent,
           ),
-          child: Text(
+          child: const Text(
             "See all",
-            style: GoogleFonts.inter(
+            style: TextStyle(
+              fontFamily: 'Inter',
                 color: AppColors.mainGreen,
                 fontWeight: FontWeight.w500,
                 fontSize: 12),

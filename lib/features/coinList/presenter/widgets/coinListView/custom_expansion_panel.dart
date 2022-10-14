@@ -2,7 +2,6 @@ import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.da
 import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../ui/colors/colors.dart';
 import '../../cubit/pagination_cubit.dart';
@@ -46,7 +45,7 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
             }),
             children: [
               ExpansionPanel(
-                backgroundColor: theme.scaffoldBackgroundColor,
+                  backgroundColor: theme.scaffoldBackgroundColor,
                   isExpanded: _isExpanded,
                   canTapOnHeader: true,
                   headerBuilder: ((context, isExpanded) {
@@ -66,8 +65,10 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                               text: " / 100",
                             ),
                           ],
-                          style: GoogleFonts.inter(
-                              fontSize: 13, color: AppColors.mainGrey),
+                          style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 13,
+                              color: AppColors.mainGrey),
                         )),
                         Expanded(child: Container()),
                       ],
@@ -96,7 +97,11 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                                 .map(
                                   (index) => DropdownMenuItem<int>(
                                       value: index,
-                                      child: Text(index.toString(), style: TextStyle(color: theme.primaryColor),)),
+                                      child: Text(
+                                        index.toString(),
+                                        style: TextStyle(
+                                            color: theme.primaryColor),
+                                      )),
                                 )
                                 .toList(),
                             onChanged: (index) {
@@ -130,7 +135,8 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                           style: TextStyle(color: AppColors.mainGreen),
                         ),
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.mainGreen.withOpacity(0.2),
+                            backgroundColor:
+                                AppColors.mainGreen.withOpacity(0.2),
                             shadowColor: Colors.white.withOpacity(0.1)),
                       )
                     ],

@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../ui/colors/colors.dart';
 
@@ -27,12 +26,14 @@ class ExtraInfo extends StatelessWidget {
         children: [
           Text(
             infoName,
-            style: GoogleFonts.inter(fontSize: 14, color: AppColors.mainGrey),
+            style: const TextStyle(
+              fontFamily: 'Inter',fontSize: 14, color: AppColors.mainGrey),
           ),
           // Expanded(child: Container()),
           Text(
             value!,
-            style: GoogleFonts.inter(
+            style: TextStyle(
+              fontFamily: 'Inter',
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 color: theme.primaryColor),

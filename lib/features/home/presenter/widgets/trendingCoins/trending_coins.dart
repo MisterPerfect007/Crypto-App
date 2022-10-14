@@ -4,7 +4,7 @@ import 'package:crypto_trends/errors/error_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../../../../core/widgets/errors/error_message.dart';
@@ -49,8 +49,9 @@ class _TrendingCoinsState extends State<TrendingCoins> {
           child: Row(
             children: [
               Text(
-                "Trending Coins",
-                style: GoogleFonts.inter(
+                "Trending Coins 🔥",
+                style: TextStyle(
+              fontFamily: 'Inter',
                     color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.w600,
                     fontSize: 16),

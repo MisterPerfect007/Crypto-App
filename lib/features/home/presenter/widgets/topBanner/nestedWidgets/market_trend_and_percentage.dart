@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../core/coinPercentage/coin_percentage_format.dart';
 import '../../../../../../../ui/colors/colors.dart';
@@ -36,7 +35,8 @@ class MarketTrendLoaded extends StatelessWidget {
               const TextSpan(text: "is "),
               TextSpan(text: getMarketTrendAsString(percentage))
             ]),
-            style: GoogleFonts.inter(
+            style: TextStyle(
+              fontFamily: 'Inter',
                 color: AppColors.mainWhite.withOpacity(0.8),
                 fontWeight: FontWeight.w600,
                 fontSize: 18),
@@ -61,7 +61,8 @@ class MarketTrendLoaded extends StatelessWidget {
                 child: Center(
                   child: Text(
                     fPercentage.fixedPercentage() + '%',
-                    style: GoogleFonts.inter(
+                    style: TextStyle(
+              fontFamily: 'Inter',
                         color: fPercentage.getColor(),
                         fontWeight: FontWeight.w600),
                   ),

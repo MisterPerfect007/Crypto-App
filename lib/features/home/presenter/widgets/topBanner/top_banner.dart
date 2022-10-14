@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../ui/colors/colors.dart';
 import 'nestedWidgets/market_trend_loaded.dart';
@@ -40,7 +39,7 @@ class TopBanner extends StatelessWidget {
             // theme.primaryColor,
           ] : [
             AppColors.mainGreen,
-            Color.fromARGB(255, 0, 251, 121),
+            const Color.fromARGB(255, 0, 251, 121),
           ],
         ),
       ),
@@ -50,10 +49,11 @@ class TopBanner extends StatelessWidget {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: const [
               Text(
-                "Crypto Trends",
-                style: GoogleFonts.inter(
+                "Crypto Trends 📈",
+                style: TextStyle(
+              fontFamily: 'Inter',
                     color: AppColors.mainWhite,
                     fontWeight: FontWeight.bold,
                     fontSize: 25),

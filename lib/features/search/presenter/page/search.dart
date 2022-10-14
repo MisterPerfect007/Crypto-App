@@ -30,7 +30,7 @@ class _SearchState extends State<Search> {
     final theme = Theme.of(context);
 
     Size size = MediaQuery.of(context).size;
-    // double sidePadding = size.width / 25;
+    // double sidePadding = size.width / 25; 
 
     return Scaffold(
       appBar: PreferredSize(

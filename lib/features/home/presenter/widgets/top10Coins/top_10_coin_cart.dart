@@ -2,7 +2,6 @@ import 'package:crypto_trends/core/widgets/coin_image_shimmer.dart';
 import 'package:crypto_trends/core/widgets/custom_container_shimmer.dart';
 import 'package:flutter/material.dart';
 
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/coinPercentage/coin_percentage_format.dart';
 import '../../../../../core/utils/price_formater.dart';
@@ -63,7 +62,8 @@ class Top10CoinCart extends StatelessWidget {
                     ),
                     child: Text(
                       "${coin?.marketCapRank}",
-                      style: GoogleFonts.inter(
+                      style: const TextStyle(
+                          fontFamily: 'Inter',
                           color: AppColors.mainBlack,
                           fontWeight: FontWeight.w600,
                           fontSize: 12),
@@ -88,7 +88,8 @@ class Top10CoinCart extends StatelessWidget {
             Text(
               "${coin?.name}",
               textAlign: TextAlign.center,
-              style: GoogleFonts.inter(
+              style: TextStyle(
+                fontFamily: 'Inter',
                 color: theme.primaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
@@ -103,8 +104,11 @@ class Top10CoinCart extends StatelessWidget {
                 child: showLoading
                     ? const ContainerShimmer(width: 50, height: 15, radius: 5)
                     : Text(
-                        currency.symbol + " " + formatWithSmallPrice(coin?.currentPrice),
-                        style: GoogleFonts.inter(
+                        currency.symbol +
+                            " " +
+                            formatWithSmallPrice(coin?.currentPrice),
+                        style: TextStyle(
+                            fontFamily: 'Inter',
                             color: theme.primaryColor,
                             fontWeight: FontWeight.w500,
                             fontSize: 12),
@@ -144,7 +148,8 @@ class Top10CoinCart extends StatelessWidget {
     return coin?.priceChangePercentage24h != null
         ? Text(
             percentage.signedPercentage(),
-            style: GoogleFonts.inter(
+            style: TextStyle(
+                fontFamily: 'Inter',
                 color: percentage.getColor(),
                 fontWeight: FontWeight.w500,
                 fontSize: 9),

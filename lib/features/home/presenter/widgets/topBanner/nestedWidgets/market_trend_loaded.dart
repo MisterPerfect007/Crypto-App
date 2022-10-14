@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../core/widgets/custom_container_shimmer.dart';
 import '../../../../../../ui/colors/colors.dart';
@@ -41,7 +40,8 @@ class MarketTrendAndPercentage extends StatelessWidget {
                   percentage: getTop100Percentage(state.coinList)),
               Text(
                 "in the last 24h",
-                style: GoogleFonts.inter(
+                style: TextStyle(
+              fontFamily: 'Inter',
                     color: AppColors.mainWhite.withOpacity(0.7), fontSize: 11),
               ),
             ],
