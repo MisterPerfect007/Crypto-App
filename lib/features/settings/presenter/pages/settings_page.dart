@@ -49,9 +49,12 @@ class SettingsPage extends StatelessWidget {
                       const CurrencyDropdown(),
                       const SizedBox(height: 25),
                       ThemeToggle(theme: theme),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 25),
                     ],
                   ),
+                ),
+                RichText(
+                  text: const TextSpan(),
                 ),
                 const SizedBox(height: 70)
               ],
@@ -96,11 +99,10 @@ class _ThemeToggleState extends State<ThemeToggle> {
             Text(
               ' 🕶️',
               style: TextStyle(
-                fontFamily: 'Inter',
-                color: widget.theme.primaryColor,
-                fontWeight: FontWeight.w500,
-                fontSize: 30
-              ),
+                  fontFamily: 'Inter',
+                  color: widget.theme.primaryColor,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 30),
             ),
             Expanded(child: Container()),
             Switch.adaptive(

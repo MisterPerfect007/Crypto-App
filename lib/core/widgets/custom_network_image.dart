@@ -21,21 +21,7 @@ class CustomNetworkImage extends StatelessWidget {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     //
     if (image != null) {
-      return
-          /* FadeInImage.assetNetwork(
-        fadeInDuration: const Duration(milliseconds: 100),
-        placeholder: '',
-        placeholderErrorBuilder:
-            (BuildContext context, Object object, StackTrace? stackTrace) {
-          return CoinImageShimmer(width: width,);
-        },
-        image: image!,
-        width: width,
-        fit: BoxFit.fitWidth,
-        imageErrorBuilder: (context, error, stackTrace) {
-          return DefaultCoinImage(name: name, width: width);
-        }) */
-          Container(
+      return Container(
         color: isDarkMode ? const Color.fromARGB(27, 245, 245, 245) : null,
         child: CachedNetworkImage(
           width: width,

@@ -18,7 +18,8 @@ class CoinPercentageFormat extends Equatable {
       return false;
     }
   }
-
+  
+  ///Get the percentage color
   Color getColor() {
     if (isPositive() == true) {
       return AppColors.mainGreen;

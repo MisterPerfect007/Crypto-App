@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../ui/icons/svg_icons.dart';
 
+///Pop the top-most route off the navigator.
 class GoBack extends StatelessWidget {
   const GoBack({
     Key? key,

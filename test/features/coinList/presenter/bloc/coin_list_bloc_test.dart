@@ -1,7 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:crypto_trends/core/network/network_info.dart';
 import 'package:crypto_trends/errors/error_types.dart';
-import 'package:crypto_trends/errors/errors_message.dart';
 import 'package:crypto_trends/errors/failures.dart';
 import 'package:crypto_trends/features/coinList/domain/usecases/get_coin_list.dart';
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
