@@ -23,10 +23,11 @@ class SettingsAppBar extends StatelessWidget {
             color: theme.scaffoldBackgroundColor,
             boxShadow: [
               BoxShadow(
-                  color: AppColors.mainGrey.withOpacity(0.1),
-                  offset: const Offset(0, 1),
-                  blurRadius: 0.5,
-                  spreadRadius: 0),
+                color: AppColors.mainGrey.withOpacity(0.1),
+                offset: const Offset(0, 1),
+                blurRadius: 0.5,
+                spreadRadius: 0,
+              ),
             ],
           ),
           child: Text(

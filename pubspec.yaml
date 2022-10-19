@@ -41,7 +41,7 @@ dependencies:
   #Getit
   get_it: ^7.2.0
   #
-  transparent_image: ^2.0.0
+  # transparent_image: ^2.0.0
   #
   shimmer: ^2.0.0
   #decimal
@@ -116,6 +116,7 @@ flutter:
     - assets/icons/currencies-icons/
     - assets/icons/countries-flag/
     - assets/svg/
+    - assets/logos/
     
   fonts:
     - family: Inter

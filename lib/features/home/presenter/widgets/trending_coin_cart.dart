@@ -62,7 +62,7 @@ class TrendingCoinCart extends StatelessWidget {
                             percentage.signedPercentage(),
                             textAlign: TextAlign.end,
                             style: TextStyle(
-              fontFamily: 'Inter',
+                                fontFamily: 'Inter',
                                 color: percentage.getColor(),
                                 fontWeight: FontWeight.w500,
                                 fontSize: 9),
@@ -81,7 +81,7 @@ class TrendingCoinCart extends StatelessWidget {
               Text(
                 "${coin?.name}",
                 style: TextStyle(
-              fontFamily: 'Inter',
+                    fontFamily: 'Inter',
                     color: theme.primaryColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 10),
@@ -97,7 +97,7 @@ class TrendingCoinCart extends StatelessWidget {
                     " " +
                     formatWithSmallPrice(coin?.currentPrice),
                 style: TextStyle(
-              fontFamily: 'Inter',
+                    fontFamily: 'Inter',
                     color: theme.primaryColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 9),
@@ -106,15 +106,17 @@ class TrendingCoinCart extends StatelessWidget {
             if (showLoading)
               const ContainerShimmer(
                   width: double.infinity, height: 47, radius: 5)
-            else if (coin!.sparklineIn7d != null)
-              //! if sparklineIn7d doesn't exist
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                  height: 40,
-                  child: SingleCoinLineChart(
-                    chartData:
-                        CoinLineChartData(dataList: coin!.sparklineIn7d!.price),
-                  ))
+            else
+            //! if sparklineIn7d doesn't exist == null or price empty
+            if (coin!.sparklineIn7d != null)
+              if (coin!.sparklineIn7d!.price.isNotEmpty)
+                AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    height: 40,
+                    child: SingleCoinLineChart(
+                      chartData: CoinLineChartData(
+                          dataList: coin!.sparklineIn7d!.price),
+                    ))
           ],
         ),
       ),
