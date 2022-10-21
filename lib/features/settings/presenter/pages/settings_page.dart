@@ -1,6 +1,6 @@
+import 'package:crypto_trends/core/widgets/appBar/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/app_bar.dart';
 import '../widgets/currencyDropdown/currency_dropdown.dart';
 import '../widgets/custom_infos.dart';
 import '../widgets/theme_toggle.dart';
@@ -21,7 +21,7 @@ class SettingsPage extends StatelessWidget {
           size.width,
           50,
         ),
-        child: const SettingsAppBar(),
+        child: const CustomAppBar(title: "Settings 🗝️"),
       ),
       body: SafeArea(
         child: Container(

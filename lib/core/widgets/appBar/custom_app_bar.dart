@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../ui/colors/colors.dart';
+import '../../../ui/colors/colors.dart';
 
-class SettingsAppBar extends StatelessWidget {
-  const SettingsAppBar({
-    Key? key,
+class CustomAppBar extends StatelessWidget {
+  final String title;
+  const CustomAppBar({
+    Key? key, required this.title,
   }) : super(key: key);
 
   @override
@@ -31,9 +32,9 @@ class SettingsAppBar extends StatelessWidget {
             ],
           ),
           child: Text(
-            "Settings 🗝️",
+            title,
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 23,
               fontWeight: FontWeight.bold,
               color: theme.primaryColor,
             ),

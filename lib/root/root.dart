@@ -1,7 +1,9 @@
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
+import 'package:crypto_trends/features/favorites/presenter/pages/favorite_page.dart';
 import 'package:crypto_trends/features/home/presenter/page/home_page.dart';
 import 'package:crypto_trends/features/search/presenter/page/search.dart';
 import 'package:crypto_trends/features/settings/presenter/pages/settings_page.dart';
+import 'package:crypto_trends/root/widgets/custom_animated_widget.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -53,7 +55,8 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     ["Home", SvgIcons.homeRegular, SvgIcons.homeFilled],
     ["List", SvgIcons.listLine, SvgIcons.listSolid],
     ["Search", SvgIcons.search, SvgIcons.search],
-    ["Settings", SvgIcons.settingsOutline, SvgIcons.settingsFill]
+    ["Favorites", SvgIcons.favoriteLine, SvgIcons.favoriteSolid],
+    ["Settings", SvgIcons.settingsOutline, SvgIcons.settingsFill],
   ];
 
   @override
@@ -66,13 +69,14 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
       const HomePage(),
       const CoinListPage(),
       const Search(),
-      const SettingsPage()
+      const FavoritePage(),
+      const SettingsPage(),
     ]
         .map((e) => CustomAnimatedWidget(animation: _animation, child: e))
         .toList();
 
     final double displayWidth = MediaQuery.of(context).size.width;
-    //
+    //!
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
@@ -91,19 +95,18 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     return SafeArea(
         child: Container(
       constraints: const BoxConstraints(
-        maxWidth: 300,
-        minWidth: 150,
+        maxWidth: 350,
+        // minWidth: 200,
       ),
       margin: const EdgeInsets.only(bottom: 10),
-      // padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-      width: displayWidth * 0.6,
+      width: displayWidth * 0.8,
       height: 50,
       decoration: BoxDecoration(
           color: theme.bottomAppBarColor,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
-                color: theme.primaryColor.withOpacity(1),
+                color: theme.primaryColor,
                 blurRadius: 1,
                 spreadRadius: 0.5,
                 offset: const Offset(0, 0))
@@ -121,25 +124,5 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
         }).toList(),
       ),
     ));
-  }
-}
-
-class CustomAnimatedWidget extends AnimatedWidget {
-  const CustomAnimatedWidget(
-      {key, required this.animation, required this.child})
-      : super(
-          key: key,
-          listenable: animation,
-        );
-
-  final Widget child;
-  final Animation<double> animation;
-
-  @override
-  Widget build(BuildContext context) {
-    return Opacity(
-      opacity: animation.value,
-      child: child,
-    );
   }
 }

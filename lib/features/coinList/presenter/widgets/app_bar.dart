@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 
-class CoinPageAppBar extends StatelessWidget {
-  const CoinPageAppBar({
+class CoinListAppBar extends StatelessWidget {
+  const CoinListAppBar({
     Key? key,
   }) : super(key: key);
 
@@ -18,12 +18,12 @@ class CoinPageAppBar extends StatelessWidget {
           left: size.width / 25,
           right: size.width / 25,
         ),
-        height: 50,
+        height: 40,
         child: Row(children: [
            Text(
             "Coin List 📋",
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 23,
               fontWeight: FontWeight.bold,
               color: theme.primaryColor,
             ),

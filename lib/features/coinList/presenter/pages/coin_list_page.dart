@@ -50,7 +50,7 @@ class _CoinListPageState extends State<CoinListPage> {
           size.width,
           100,
         ),
-        child: const CoinPageAppBar(),
+        child: const CoinListAppBar(),
       ),
       body: SizedBox(
         height: size.height,

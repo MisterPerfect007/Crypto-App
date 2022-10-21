@@ -15,6 +15,8 @@ enum SvgIcons {
   noWifiLine,  
   chevronLeft,  
   badO,
+  favoriteLine,  
+  favoriteSolid,
 }
 
 Map<SvgIcons, String> svgLink = {
@@ -31,6 +33,8 @@ Map<SvgIcons, String> svgLink = {
   SvgIcons.noWifiLine: 'assets/svg/no-wifi-line.svg',  
   SvgIcons.chevronLeft: 'assets/svg/chevron-left.svg',  
   SvgIcons.badO: 'assets/svg/bad-o.svg',
+  SvgIcons.favoriteLine: 'assets/svg/favorite-line.svg',  
+  SvgIcons.favoriteSolid: 'assets/svg/favorite-solid.svg',
 };
 
 class SvgIcon extends StatelessWidget {

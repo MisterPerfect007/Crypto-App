@@ -65,9 +65,9 @@ class _SingleCoinState extends State<SingleCoin> {
                 alignment: Alignment.center,
                 child: coin.sparklineIn7d!.price.isNotEmpty
                     ? Container(
-                        height: 20,
+                        height: 30,
                         constraints:
-                            const BoxConstraints(minWidth: 70, maxWidth: 300),
+                            const BoxConstraints(minWidth: 50, maxWidth: 200),
                         padding: const EdgeInsets.only(
                           left: 5,
                           right: 5,
