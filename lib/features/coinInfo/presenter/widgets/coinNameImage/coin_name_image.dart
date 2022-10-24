@@ -1,7 +1,10 @@
 import 'package:crypto_trends/core/widgets/custom_network_image.dart';
 import 'package:flutter/material.dart';
 
-class CoinNameImage extends StatelessWidget {
+import '../../../../../ui/colors/colors.dart';
+import '../../../../../ui/icons/svg_icons.dart';
+
+class CoinNameImage extends StatefulWidget {
   const CoinNameImage({
     Key? key,
     required this.name,
@@ -9,6 +12,13 @@ class CoinNameImage extends StatelessWidget {
   }) : super(key: key);
   final String name;
   final String? image;
+
+  @override
+  State<CoinNameImage> createState() => _CoinNameImageState();
+}
+
+class _CoinNameImageState extends State<CoinNameImage> {
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +31,16 @@ class CoinNameImage extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10),
       padding: EdgeInsets.only(
         left: sidePadding,
-        right: sidePadding,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: Row(
               children: [
                 CustomNetworkImage(
-                  image: image,
-                  name: name,
+                  image: widget.image,
+                  name: widget.name,
                   width: 50,
                 ),
                 const SizedBox(
@@ -39,7 +49,7 @@ class CoinNameImage extends StatelessWidget {
                 //Name
                 Flexible(
                   child: Text(
-                    name,
+                    widget.name,
                     style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 20,
@@ -50,6 +60,28 @@ class CoinNameImage extends StatelessWidget {
               ],
             ),
           ),
+          //Favorite
+          //! to be extract
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  isFavorite = !isFavorite;
+                });
+              },
+              child: Container(
+                padding: EdgeInsets.only(
+                    left: sidePadding, right: sidePadding, top: 10, bottom: 10),
+                child: SvgIcon(
+                  icon: isFavorite
+                      ? SvgIcons.favoriteSolid
+                      : SvgIcons.favoriteLine,
+                  color: isFavorite ? Colors.amber : AppColors.mainGrey,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

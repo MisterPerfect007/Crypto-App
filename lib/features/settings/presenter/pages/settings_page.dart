@@ -1,4 +1,5 @@
 import 'package:crypto_trends/core/widgets/appBar/custom_app_bar.dart';
+import 'package:crypto_trends/features/loginAndRegister/presenter/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/currencyDropdown/currency_dropdown.dart';
@@ -61,6 +62,13 @@ class SettingsPage extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       fontSize: 18),
                 ),
+                //
+                //!
+                TextButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                }, child: Text("Login")),
+
+                //!
                 const SizedBox(height: 25),
                 CustomInfos(theme: theme),
                 const SizedBox(height: 70)

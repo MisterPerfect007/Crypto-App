@@ -117,6 +117,7 @@ flutter:
     - assets/icons/countries-flag/
     - assets/svg/
     - assets/logos/
+    - assets/app/logos/
     
   fonts:
     - family: Inter

@@ -1,6 +1,8 @@
 import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
 import 'package:crypto_trends/features/coinList/domain/entities/coin.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_data.dart';
+import 'package:crypto_trends/ui/colors/colors.dart';
+import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/widgets/custom_network_image.dart';
@@ -11,16 +13,14 @@ import 'single_coin_line_chart.dart';
 
 class SingleCoin extends StatefulWidget {
   final Coin coin;
-  const SingleCoin({
-    Key? key,
-    required this.coin
-  }) : super(key: key);
+  const SingleCoin({Key? key, required this.coin}) : super(key: key);
 
   @override
   State<SingleCoin> createState() => _SingleCoinState();
 }
 
 class _SingleCoinState extends State<SingleCoin> {
+  bool isFavorite = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -30,13 +30,17 @@ class _SingleCoinState extends State<SingleCoin> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => CoinInfoPage(coin: coin, id: '',)),
+          MaterialPageRoute(
+              builder: (context) => CoinInfoPage(
+                    coin: coin,
+                    id: '',
+                  )),
         );
       },
       child: Container(
         padding: EdgeInsets.only(
           left: sidePadding,
-          right: sidePadding,
+          // right: sidePadding,
           bottom: 10,
         ),
         margin: const EdgeInsets.only(
@@ -73,8 +77,8 @@ class _SingleCoinState extends State<SingleCoin> {
                           right: 5,
                         ),
                         child: SingleCoinLineChart(
-                          chartData:
-                              CoinLineChartData(dataList: coin.sparklineIn7d!.price),
+                          chartData: CoinLineChartData(
+                              dataList: coin.sparklineIn7d!.price),
                         ),
                       )
                     : Container(),
@@ -91,6 +95,25 @@ class _SingleCoinState extends State<SingleCoin> {
                           percentage: coin.priceChangePercentage7dInCurrency!)
                       : null,
             ),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  isFavorite = !isFavorite;
+                });
+              },
+              child: Container(
+                  padding: EdgeInsets.only(
+                      left: sidePadding,
+                      right: sidePadding,
+                      top: 10,
+                      bottom: 10),
+                  child: SvgIcon(
+                    icon: isFavorite
+                        ? SvgIcons.favoriteSolid
+                        : SvgIcons.favoriteLine,
+                    color: isFavorite ? Colors.amber : AppColors.mainGrey,
+                  )),
+            )
           ],
         ),
       ),

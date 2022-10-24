@@ -17,6 +17,8 @@ enum SvgIcons {
   badO,
   favoriteLine,  
   favoriteSolid,
+  eyeOpen,
+  eyeSlashed,
 }
 
 Map<SvgIcons, String> svgLink = {
@@ -35,6 +37,8 @@ Map<SvgIcons, String> svgLink = {
   SvgIcons.badO: 'assets/svg/bad-o.svg',
   SvgIcons.favoriteLine: 'assets/svg/favorite-line.svg',  
   SvgIcons.favoriteSolid: 'assets/svg/favorite-solid.svg',
+  SvgIcons.eyeOpen: 'assets/svg/eye-open.svg',
+  SvgIcons.eyeSlashed: 'assets/svg/eye-slashed.svg',
 };
 
 class SvgIcon extends StatelessWidget {
