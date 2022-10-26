@@ -65,6 +65,7 @@ dependencies:
   fluttertoast: ^8.0.9
   #
   bloc_concurrency: ^0.2.0
+  email_validator: ^2.1.17
   
 
 dev_dependencies:
@@ -118,6 +119,7 @@ flutter:
     - assets/svg/
     - assets/logos/
     - assets/app/logos/
+    - assets/social_media_logos/
     
   fonts:
     - family: Inter

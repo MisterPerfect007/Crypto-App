@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "694288874012",
+    "project_id": "crypto-trends-3d892",
+    "storage_bucket": "crypto-trends-3d892.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694288874012:android:49dff2bbdcd02594957dd9",
+        "android_client_info": {
+          "package_name": "com.example.crypto_trends"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "694288874012-helkk580a9phfqasipn0m15tmolojn2v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQTSBjANl3eIV0v9n7gtncWzV0-1ERqzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "694288874012-helkk580a9phfqasipn0m15tmolojn2v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "694288874012-p10f8e075mr0icleir2e30a6om9uo404.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cryptoTrends"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
