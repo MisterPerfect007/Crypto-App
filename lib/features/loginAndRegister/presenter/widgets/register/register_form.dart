@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
 
 import '../formFields/custom_password_form_field.dart';
 import '../formFields/custom_text_form_field.dart';
@@ -53,7 +52,7 @@ class _RegisterFormState extends State<RegisterForm> {
           //!
           //
           ElevatedButton(
-            onPressed: validate,
+            onPressed: (){},
             child: const Text("Continue with Email and Password"),
             style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 40),
@@ -68,11 +67,12 @@ class _RegisterFormState extends State<RegisterForm> {
     );
   }
 
-  void validate() {
+  /* void validate() {
+    di.sl<FireAuth>().registerWithEmailAndPassword("leneodepart@gmail.com", "password");
     setState(() {
       isEmailValid = EmailValidator.validate(emailValue) ? true : false;
       isPwdValid = pwdValue.length >= 8 ? true : false;
     });
 
-  }
+  } */
 }

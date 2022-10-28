@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:crypto_trends/injection_container.dart' as di;
 
+import '../../../../../services/firebase/auth/auth.dart';
 import '../formFields/custom_password_form_field.dart';
 import '../formFields/custom_text_form_field.dart';
 import '../form_field_error.dart';
@@ -61,6 +63,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void validate() {
+    di.sl<FireAuth>().signInWithEmailAndPassword(emailValue.trim(), pwdValue.trim());
     setState(() {
       isEmailValid = EmailValidator.validate(emailValue) ? true : false;
       isPwdValid = pwdValue.length >= 8 ? true : false;

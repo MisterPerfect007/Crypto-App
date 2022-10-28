@@ -66,6 +66,13 @@ dependencies:
   #
   bloc_concurrency: ^0.2.0
   email_validator: ^2.1.17
+  #firebase
+  firebase_core: ^2.1.0
+  #firebase auth
+  firebase_auth: ^4.0.2
+  #google sign in
+  google_sign_in: ^5.4.2
+  flutter_facebook_auth: ^4.4.1+1
   
 
 dev_dependencies:

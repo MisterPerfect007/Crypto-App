@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 
 class SocialMediaField extends StatelessWidget {
+  final Function() onPressed;
   final Widget logo;
   final String text;
   const SocialMediaField({
-    Key? key, required this.logo, required this.text,
+    Key? key, required this.logo, required this.text, required this.onPressed,
   }) : super(key: key);
 
 
@@ -29,7 +30,7 @@ class SocialMediaField extends StatelessWidget {
               Border.all(color: theme.primaryColor.withOpacity(0.1))),
       height: 40,
       child: TextButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: TextButton.styleFrom(
             minimumSize: const Size(double.infinity, 0)),
         child: Row(

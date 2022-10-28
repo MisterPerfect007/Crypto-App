@@ -1,4 +1,6 @@
 import 'package:crypto_trends/features/coinList/data/repository/get_coin_list_repository_implementation.dart';
+import 'package:crypto_trends/services/firebase/auth/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -43,6 +45,10 @@ Future<void> init() async {
   
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(internetConnectionChecker: InternetConnectionChecker()));
+
+  //!firebase auth
+  sl.registerLazySingleton(() => FirebaseAuth.instance);
+  sl.registerLazySingleton(() => FireAuth(sl()));
    
   await initCoinInfo();
   await initCoinList();

@@ -46,14 +46,14 @@ class RegisterPage extends StatelessWidget {
                 SocialMediaField(
                   logo: SvgPicture.asset("assets/social_media_logos/google.svg",
                       width: 20),
-                  text: 'Continue with Google',
+                  text: 'Continue with Google', onPressed: () {  },
                 ),
                 const SizedBox(height: 15),
                 SocialMediaField(
                   logo: SvgPicture.asset(
                       "assets/social_media_logos/facebook.svg",
                       width: 20),
-                  text: 'Continue with Facebook',
+                  text: 'Continue with Facebook', onPressed: () {  },
                 ),
                 const SizedBox(height: 20),
                 const OrSeparator(),
@@ -61,7 +61,7 @@ class RegisterPage extends StatelessWidget {
                 //email and password
                 //!
                 const SizedBox(height: 20),
-                const RegisterForm(),
+                // const RegisterForm(),
                 //!
                 //
                 Row(

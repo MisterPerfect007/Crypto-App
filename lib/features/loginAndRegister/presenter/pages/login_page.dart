@@ -1,10 +1,11 @@
 import 'package:crypto_trends/features/loginAndRegister/presenter/widgets/login/login_form.dart';
+import 'package:crypto_trends/services/firebase/auth/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../widgets/app_bar.dart';
-import '../widgets/formFields/custom_password_form_field.dart';
-import '../widgets/formFields/custom_text_form_field.dart';
 import '../widgets/formFields/social_media_field.dart';
 import '../widgets/formWidgets/form_header.dart';
 import '../widgets/formWidgets/or_separator.dart';
@@ -39,7 +40,7 @@ class LoginPage extends StatelessWidget {
                 const FormHeader(title: 'Log in'),
                 const SizedBox(height: 15),
                 //Login
-                const LoginForm(),
+                // const LoginForm(),
                 const SizedBox(height: 20),
                 const OrSeparator(),
                 const SizedBox(height: 20),
@@ -49,6 +50,9 @@ class LoginPage extends StatelessWidget {
                     width: 20,
                   ),
                   text: 'Continue with Facebook',
+                  onPressed: () async {
+                    await facebookLoginAndRegister();
+                  },
                 ),
                 const SizedBox(height: 15),
                 SocialMediaField(
@@ -57,6 +61,9 @@ class LoginPage extends StatelessWidget {
                     width: 20,
                   ),
                   text: 'Continue with Google',
+                  onPressed: () async {
+                    await googleLoginAndRegister();
+                  },
                 ),
                 const SizedBox(height: 40),
               ],
