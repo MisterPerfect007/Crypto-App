@@ -20,7 +20,7 @@ Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
     final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
     try {
-      final userCredential =
+      final UserCredential userCredential =
           await firebaseAuth.signInWithCredential(credential);
       
       return Right(userCredential);
