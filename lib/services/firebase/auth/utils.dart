@@ -29,6 +29,7 @@ Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
     }
   } catch (e) {
     //
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error google --> 1 try");
   }
 
   return Left(defaultError);

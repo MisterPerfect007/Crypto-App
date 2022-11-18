@@ -76,6 +76,9 @@ class _LoginPageState extends State<LoginPage> {
                 text: 'Google',
                 onPressed: !isProceeding
                     ? () async {
+                      setState(() {
+                          isProceeding = true;
+                        });
                         await handleSignIn(context,
                             signInMethod: googleLoginAndRegister);
                         setState(() {
