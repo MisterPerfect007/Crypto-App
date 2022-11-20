@@ -14,7 +14,10 @@ Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
   //! should wrap in try{} catch block
   try {
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    if (googleUser == null) return Left(defaultError);
+    if (googleUser == null) {
+      return Left(defaultError);
+    }
+
     final googleAuth = await googleUser.authentication;
 
     final credential = GoogleAuthProvider.credential(
@@ -22,36 +25,52 @@ Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
     try {
       final UserCredential userCredential =
           await firebaseAuth.signInWithCredential(credential);
-      
+
       return Right(userCredential);
     } on FirebaseAuthException catch (e) {
+      // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error firebase ::: ${e.code}");
       return Left(errorMsgFromCode(e.code));
     }
   } catch (e) {
     //
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error google --> 1 try");
+    // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error google --> 1 try");
   }
-
   return Left(defaultError);
 }
 
 Future<Either<List<String>, UserCredential>> facebookLoginAndRegister() async {
-  try {
-    //
-    final LoginResult loginResult = await FacebookAuth.instance.login();
+  // try {
+  //
+  final LoginResult loginResult = await FacebookAuth.instance.login();
+  // loginResult.status
+  if(loginResult.status != LoginStatus.success){
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login failed ><<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
-    final credential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
-    try {
-      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-
-      return Right(userCredential);
-    } on FirebaseAuthException catch (e) {
-      return Left(errorMsgFromCode(e.code));
-    }
-  } catch (e) {
-    //
   }
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> status: ${loginResult.status}");
+  print(
+      ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error facebook accessToken :: ${loginResult}");
+  //
+  if (loginResult.accessToken == null) {
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> accessToken = null");
+    return Left(defaultError);
+  }
+
+  final credential =
+      FacebookAuthProvider.credential(loginResult.accessToken!.token);
+  // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error credential:: ${credential}");
+  try {
+    final userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    return Right(userCredential);
+  } on FirebaseAuthException catch (e) {
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error firebase:: ${e.code}");
+    return Left(errorMsgFromCode(e.code));
+  }
+  // } catch (e) {
+  //   //
+  // }
   return Left(defaultError);
 }
 

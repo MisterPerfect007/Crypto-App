@@ -1,4 +1,4 @@
-
+import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +53,8 @@ Future showCustomDialog(
   } else {
     icon = type == CustomDialog.warning ? Icons.warning : Icons.close;
   }
+  //
+  // final theme = Theme.of(context);
   return showDialog(
     barrierDismissible: false,
     context: context,
@@ -82,7 +84,7 @@ Future showCustomDialog(
             width: double.infinity,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.lightBg,
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(radius),
                     bottomRight: Radius.circular(radius))),
@@ -92,12 +94,16 @@ Future showCustomDialog(
                 Text(title,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w600)),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    )),
                 const SizedBox(height: 20),
                 Text(bodyText,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 14,
+                      color: Colors.black,
                     )),
                 const SizedBox(height: 20),
                 TextButton(
