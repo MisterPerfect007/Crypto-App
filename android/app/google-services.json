@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "694288874012-30a7cucve1qb18036j8an3idjcqfvq84.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crypto_trends",
+            "certificate_hash": "6301924adc92a60dce16a5ead9f394fc9536bfa8"
+          }
+        },
+        {
           "client_id": "694288874012-d896pqumes3e8auikoc98occ4i7l5sbm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
