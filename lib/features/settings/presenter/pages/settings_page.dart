@@ -66,7 +66,7 @@ class SettingsPage extends StatelessWidget {
                 //
                 //!
                 TextButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
                 }, child: const Text("Login")),
 
                 //!

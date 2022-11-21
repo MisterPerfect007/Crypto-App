@@ -16,14 +16,15 @@ class FormHeader extends StatelessWidget {
           width: double.infinity,
           child: Image.asset(
             "assets/app/logos/logo.png",
-            height: 70,
+            height: 90,
           ),
         ),
+        const SizedBox(height: 40,), 
         Text(
           title,
           style: const TextStyle(
             fontFamily: 'Inter',
-            fontSize: 24,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
         ),
