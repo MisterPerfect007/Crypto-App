@@ -53,18 +53,27 @@ class _LoginPageState extends State<LoginPage> {
                   "assets/social_media_logos/facebook.svg",
                   width: 20,
                 ),
+                text: "Facebook",
+                onPressed: !isProceeding
+                    ? () async {
+                      setState(() {
+                          isProceeding = true;
+                        });
+                        await handleSignIn(context,
+                            signInMethod: facebookLoginAndRegister);
+                        setState(() {
+                          isProceeding = false;
+                        });
+                      }
+                    : () {},
+                ),
                 const SizedBox(height: 15),
                 SocialMediaField(
                   logo: SvgPicture.asset(
                     "assets/social_media_logos/google.svg",
                     width: 20,
                   ),
-                  text: 'Continue with Google',
-                  onPressed: () async {
-                    await googleLoginAndRegister();
-                  },
-                ),
-                text: 'Google',
+                  text: 'Google',
                 onPressed: !isProceeding
                     ? () async {
                       setState(() {
@@ -77,12 +86,14 @@ class _LoginPageState extends State<LoginPage> {
                         });
                       }
                     : () {},
-              ),
+                ),
+            ]
+              )
               // const SizedBox(height: 40),
-            ],
+            ,
           ),
         ),
-      ),
-    );
+      );
+    ;
   }
 }

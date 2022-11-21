@@ -38,40 +38,32 @@ Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
   return Left(defaultError);
 }
 
+
 Future<Either<List<String>, UserCredential>> facebookLoginAndRegister() async {
-  // try {
-  //
-  final LoginResult loginResult = await FacebookAuth.instance.login();
-  // loginResult.status
-  if(loginResult.status != LoginStatus.success){
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> login failed ><<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-
-  }
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> status: ${loginResult.status}");
-  print(
-      ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error facebook accessToken :: ${loginResult}");
-  //
-  if (loginResult.accessToken == null) {
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> accessToken = null");
-    return Left(defaultError);
-  }
-
-
-  final credential =
-      FacebookAuthProvider.credential(loginResult.accessToken!.token);
-  // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error credential:: ${credential}");
+  FacebookAuth.instance.logOut();
   try {
-    final userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
+    //
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+      print(loginResult.status);
+    if (loginResult.status == LoginStatus.success) {
+      final credential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      try {
+        final userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
 
-    return Right(userCredential);
-  } on FirebaseAuthException catch (e) {
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error firebase:: ${e.code}");
-    return Left(errorMsgFromCode(e.code));
+        return Right(userCredential);
+      } on FirebaseAuthException catch (e) {
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>${e.code}");
+        return Left(errorMsgFromCode(e.code));
+      }
+    }
+    //
+
+  } catch (e) {
+    //
+    print(">>>>>>>>>>>>>>>>>> try");
   }
-  // } catch (e) {
-  //   //
-  // }
   return Left(defaultError);
 }
 
