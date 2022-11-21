@@ -24,8 +24,12 @@ Future<UserCredential?> facebookLoginAndRegister() async {
   // final userData = await FacebookAuth.instance.getUserData();
 
   final credential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+  // print("Credential ::::$credential");
   try {
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+    print("userCredential ::::$userCredential");
+    return userCredential;
+
   } on FirebaseAuthException catch (e) {
     print("error code ::${e.code}");
   }

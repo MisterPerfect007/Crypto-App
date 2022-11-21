@@ -62,6 +62,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   text: 'Continue with Google',
                   onPressed: () async {
+                    // GoogleSignIn().signOut();
                     await googleLoginAndRegister();
                   },
                 ),

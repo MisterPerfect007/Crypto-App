@@ -1,6 +1,9 @@
 import 'package:crypto_trends/features/loginAndRegister/presenter/pages/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../widgets/app_bar.dart';
 import '../widgets/formFields/custom_password_form_field.dart';
@@ -46,14 +49,22 @@ class RegisterPage extends StatelessWidget {
                 SocialMediaField(
                   logo: SvgPicture.asset("assets/social_media_logos/google.svg",
                       width: 20),
-                  text: 'Continue with Google', onPressed: () {  },
+                  text: 'Continue with Google',
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                    await GoogleSignIn().signOut();
+                  },
                 ),
                 const SizedBox(height: 15),
                 SocialMediaField(
                   logo: SvgPicture.asset(
                       "assets/social_media_logos/facebook.svg",
                       width: 20),
-                  text: 'Continue with Facebook', onPressed: () {  },
+                  text: 'Continue with Facebook',
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                    await FacebookAuth.instance.logOut();
+                  },
                 ),
                 const SizedBox(height: 20),
                 const OrSeparator(),
