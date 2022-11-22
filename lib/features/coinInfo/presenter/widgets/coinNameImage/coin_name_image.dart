@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_trends/core/widgets/custom_network_image.dart';
+import 'package:crypto_trends/core/widgets/favorite/favorite.dart';
+
 import 'package:flutter/material.dart';
 
-import '../../../../../ui/colors/colors.dart';
-import '../../../../../ui/icons/svg_icons.dart';
+import '../../../../../services/firebase/auth/utils.dart';
 
 class CoinNameImage extends StatefulWidget {
   const CoinNameImage({
@@ -66,20 +68,19 @@ class _CoinNameImageState extends State<CoinNameImage> {
             color: Colors.transparent,
             child: InkWell(
               onTap: () {
+                //TODOS : Check if user is Signed in
+                if (isUserSignedIn()) {
+                  // set data in firestore
+                  CollectionReference favoriteCol = FirebaseFirestore.instance.collection('favorite');
+                  favoriteCol.doc();
+                  
+                }
+
                 setState(() {
                   isFavorite = !isFavorite;
                 });
               },
-              child: Container(
-                padding: EdgeInsets.only(
-                    left: sidePadding, right: sidePadding, top: 10, bottom: 10),
-                child: SvgIcon(
-                  icon: isFavorite
-                      ? SvgIcons.favoriteSolid
-                      : SvgIcons.favoriteLine,
-                  color: isFavorite ? Colors.amber : AppColors.mainGrey,
-                ),
-              ),
+              child: Favorite(isFavorite: isFavorite),
             ),
           )
         ],

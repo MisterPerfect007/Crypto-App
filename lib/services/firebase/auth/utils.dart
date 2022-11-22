@@ -99,3 +99,10 @@ List<String> errorMsgFromCode(String code) {
   }
   return errorMsg;
 }
+
+bool isUserSignedIn(){
+  if (FirebaseAuth.instance.currentUser != null) {
+    return true;
+  }
+  return false;
+}
