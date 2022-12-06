@@ -14,9 +14,11 @@ Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
   //! should wrap in try{} catch block
   try {
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      print(">>>>>>>>>>>>>>>>googleUser ==$googleUser");
     if (googleUser == null) {
       return Left(defaultError);
     }
+    
 
     final googleAuth = await googleUser.authentication;
 
@@ -28,23 +30,22 @@ Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
 
       return Right(userCredential);
     } on FirebaseAuthException catch (e) {
-      // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error firebase ::: ${e.code}");
+      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error firebase ::: ${e.code}");
       return Left(errorMsgFromCode(e.code));
     }
   } catch (e) {
     //
-    // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error google --> 1 try");
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error google --> 1 try $e");
   }
   return Left(defaultError);
 }
-
 
 Future<Either<List<String>, UserCredential>> facebookLoginAndRegister() async {
   FacebookAuth.instance.logOut();
   try {
     //
     final LoginResult loginResult = await FacebookAuth.instance.login();
-      print(loginResult.status);
+    print(loginResult.status);
     if (loginResult.status == LoginStatus.success) {
       final credential =
           FacebookAuthProvider.credential(loginResult.accessToken!.token);
@@ -100,7 +101,7 @@ List<String> errorMsgFromCode(String code) {
   return errorMsg;
 }
 
-bool isUserSignedIn(){
+bool isUserSignedIn() {
   if (FirebaseAuth.instance.currentUser != null) {
     return true;
   }

@@ -38,6 +38,14 @@
           }
         },
         {
+          "client_id": "694288874012-i6v466ul0jbdbe2d4a032ocpecq3ka4l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crypto_trends",
+            "certificate_hash": "268788a3e06b2e8c4de2286f809b4387ca1b8aa0"
+          }
+        },
+        {
           "client_id": "694288874012-helkk580a9phfqasipn0m15tmolojn2v.apps.googleusercontent.com",
           "client_type": 3
         }

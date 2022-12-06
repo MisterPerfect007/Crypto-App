@@ -69,12 +69,49 @@ class _CoinNameImageState extends State<CoinNameImage> {
             child: InkWell(
               onTap: () {
                 //TODOS : Check if user is Signed in
-                if (isUserSignedIn()) {
-                  // set data in firestore
-                  CollectionReference favoriteCol = FirebaseFirestore.instance.collection('favorite');
-                  favoriteCol.doc();
-                  
-                }
+                print(">>>>>>>>>>>>>>>>>> sifn");
+                // set data in firestore
+                CollectionReference favoriteCol =
+                    FirebaseFirestore.instance.collection('favorite');
+
+                favoriteCol.doc("my-new-").get().then((doc) {
+                  //! doc.data() could be Null
+                  final mapData = doc.data();
+
+                  Map<String, dynamic> formatedMapData = {};
+                  if (mapData != null) {
+                    //TODOS: need to add or remove te given coin ID
+                    formatedMapData = mapData as Map<String, dynamic>;
+                    //
+                    List<String>? favoriteArray;
+                    if (formatedMapData["favorites"] != null) {
+                      favoriteArray =
+                          List<String>.from(formatedMapData["favorites"]);
+                    }else{
+                      //array not found
+                      //todo: set an array 
+                    }
+                    if (favoriteArray == null) {
+                      favoriteCol.doc("my-new-doc").set({
+                        "favorites": ["bitcoin", "new-id"]
+                      }).onError((error, stackTrace) =>
+                          print("=====================>$error"));
+                    }
+                  } else {
+                    //doc no found
+                    // Todo: So add new id array with a single element
+                  }
+                  //! favoriteArray could Null
+                  //! if favoriteArray == null so need to set new array with current value (coin id)
+                  //! formatedMapData["favorites"] could be null
+
+                  //
+                  //
+                  //print(
+                  //  ">>>>>>>success :: $favoriteArray, ${favoriteArray.runtimeType}, ${favoriteArray.runtimeType}");
+                }).onError((error, stackTrace) async {
+                  print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$error");
+                }).catchError(() => print(">>>>>>>>>>>>>>>><< Error catched"));
 
                 setState(() {
                   isFavorite = !isFavorite;
@@ -88,3 +125,12 @@ class _CoinNameImageState extends State<CoinNameImage> {
     );
   }
 }
+
+//1 => set a loader
+//if sended ? show yellow star :otherwise show an error message
+//
+//
+//
+//
+//
+//
