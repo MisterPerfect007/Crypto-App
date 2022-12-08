@@ -5,15 +5,18 @@ import 'package:crypto_trends/core/widgets/favorite/favorite.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../services/firebase/auth/utils.dart';
+import '../../../../loginAndRegister/utils/utils.dart';
 
 class CoinNameImage extends StatefulWidget {
   const CoinNameImage({
     Key? key,
     required this.name,
     required this.image,
+    required this.id,
   }) : super(key: key);
   final String name;
   final String? image;
+  final String id;
 
   @override
   State<CoinNameImage> createState() => _CoinNameImageState();
@@ -68,56 +71,13 @@ class _CoinNameImageState extends State<CoinNameImage> {
             color: Colors.transparent,
             child: InkWell(
               onTap: () {
-                //TODOS : Check if user is Signed in
-                print(">>>>>>>>>>>>>>>>>> sifn");
-                // set data in firestore
-                CollectionReference favoriteCol =
-                    FirebaseFirestore.instance.collection('favorite');
-
-                favoriteCol.doc("my-new-").get().then((doc) {
-                  //! doc.data() could be Null
-                  final mapData = doc.data();
-
-                  Map<String, dynamic> formatedMapData = {};
-                  if (mapData != null) {
-                    //TODOS: need to add or remove te given coin ID
-                    formatedMapData = mapData as Map<String, dynamic>;
-                    //
-                    List<String>? favoriteArray;
-                    if (formatedMapData["favorites"] != null) {
-                      favoriteArray =
-                          List<String>.from(formatedMapData["favorites"]);
-                    }else{
-                      //array not found
-                      //todo: set an array 
-                    }
-                    if (favoriteArray == null) {
-                      favoriteCol.doc("my-new-doc").set({
-                        "favorites": ["bitcoin", "new-id"]
-                      }).onError((error, stackTrace) =>
-                          print("=====================>$error"));
-                    }
-                  } else {
-                    //doc no found
-                    // Todo: So add new id array with a single element
-                  }
-                  //! favoriteArray could Null
-                  //! if favoriteArray == null so need to set new array with current value (coin id)
-                  //! formatedMapData["favorites"] could be null
-
-                  //
-                  //
-                  //print(
-                  //  ">>>>>>>success :: $favoriteArray, ${favoriteArray.runtimeType}, ${favoriteArray.runtimeType}");
-                }).onError((error, stackTrace) async {
-                  print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$error");
-                }).catchError(() => print(">>>>>>>>>>>>>>>><< Error catched"));
-
+                handleFavorite(context, widget.id);
+                //
                 setState(() {
                   isFavorite = !isFavorite;
                 });
               },
-              child: Favorite(isFavorite: isFavorite),
+              child: Favorite(id: widget.id),
             ),
           )
         ],
@@ -129,8 +89,72 @@ class _CoinNameImageState extends State<CoinNameImage> {
 //1 => set a loader
 //if sended ? show yellow star :otherwise show an error message
 //
-//
-//
-//
-//
-//
+void handleFavorite(BuildContext context, String id) {
+  //TODOS : Check if user is Signed in
+
+  //
+  final String? userUid = getUserUid();
+
+  //check if user is loged in
+  if (userUid == null) {
+    //User should logged in
+    showCustomDialog(
+      context,
+      type: CustomDialog.warning,
+      bodyText: 'Log in and enjoy',
+      onSubmit: () {},
+      submitText: 'Log in',
+      title: 'You are not Logged in',
+    );
+  } else {
+    CollectionReference favoriteCol =
+        FirebaseFirestore.instance.collection('favorite');
+    //
+    final doc = favoriteCol.doc(userUid);
+
+    doc.get().then((doc) {
+      //! doc.data() could be Null
+      final mapData = doc.data();
+
+      Map<String, dynamic> formatedMapData = {};
+
+      if (mapData != null) {
+        //TODOS: need to add or remove the given coin ID
+        formatedMapData = mapData as Map<String, dynamic>;
+        //
+        List<String>? favoriteArray;
+        //
+        if (formatedMapData["favorites"] != null) {
+          //todo: add or remove element
+          favoriteArray = List<String>.from(formatedMapData["favorites"]);
+          if (favoriteArray.contains(id)) {
+            favoriteArray.remove(id);
+          } else {
+            favoriteArray.add(id);
+          }
+          favoriteCol.doc(userUid).update({'favorites': favoriteArray});
+        } else {
+          //array not found
+          //todo: set a new array
+          favoriteCol.doc(userUid).update({
+            'favorites': [id]
+          });
+        }
+        //
+        if (favoriteArray == null) {
+          favoriteCol.doc(userUid).set({
+            'favorites': [id]
+          });
+        }
+      } else {
+        //doc no found
+        // Todo: So add new id array with a single element
+        favoriteCol.doc(userUid).set({
+          'favorites': [id]
+        });
+      }
+    }).onError((error, stackTrace) async {
+      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$error");
+    }).catchError(() => print(">>>>>>>>>>>>>>>><< Error catched"));
+  }
+}

@@ -14,11 +14,10 @@ Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
   //! should wrap in try{} catch block
   try {
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      print(">>>>>>>>>>>>>>>>googleUser ==$googleUser");
+    print(">>>>>>>>>>>>>>>>googleUser ==$googleUser");
     if (googleUser == null) {
       return Left(defaultError);
     }
-    
 
     final googleAuth = await googleUser.authentication;
 
@@ -106,4 +105,12 @@ bool isUserSignedIn() {
     return true;
   }
   return false;
+}
+
+String? getUserUid() {
+  final User? user = FirebaseAuth.instance.currentUser;
+  if (user != null) {
+    return user.uid;
+  }
+  return null;
 }

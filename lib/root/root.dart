@@ -1,13 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
 import 'package:crypto_trends/features/favorites/presenter/pages/favorite_page.dart';
 import 'package:crypto_trends/features/home/presenter/page/home_page.dart';
 import 'package:crypto_trends/features/search/presenter/page/search.dart';
 import 'package:crypto_trends/features/settings/presenter/pages/settings_page.dart';
 import 'package:crypto_trends/root/widgets/custom_animated_widget.dart';
+import 'package:crypto_trends/services/firebase/auth/utils.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../features/favorites/utils/utils.dart';
 import '../ui/colors/colors.dart';
 import 'widgets/bottom_bar_item.dart';
 
@@ -36,6 +39,8 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     //! Remove the splash screen
     WidgetsBinding.instance
         .addPostFrameCallback((_) => FlutterNativeSplash.remove());
+    //
+    
   }
 
   void _handlePageSwitch(int newindex) {

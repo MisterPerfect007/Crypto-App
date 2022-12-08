@@ -37,6 +37,7 @@ class Body extends StatelessWidget {
                 CoinNameImage(
                   image: coin.image,
                   name: coin.name,
+                  id: coin.id,
                 ),
                 PriceAndPercentage(
                   price: coin.currentPrice,

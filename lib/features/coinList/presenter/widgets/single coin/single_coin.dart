@@ -2,10 +2,12 @@ import 'package:crypto_trends/core/coinPercentage/coin_percentage_format.dart';
 import 'package:crypto_trends/features/coinList/domain/entities/coin.dart';
 import 'package:crypto_trends/features/coinList/presenter/utils/coin_line_chart_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/widgets/custom_network_image.dart';
 import '../../../../../core/widgets/favorite/favorite.dart';
 import '../../../../coinInfo/presenter/page/coin_info.dart';
+import '../../../../favorites/presenter/bloc/favorite_bloc.dart';
 import 'coin_name.dart';
 import 'coin_price.dart';
 import 'single_coin_line_chart.dart';
@@ -97,11 +99,14 @@ class _SingleCoinState extends State<SingleCoin> {
             //Favorite
             InkWell(
               onTap: () {
-                setState(() {
-                  isFavorite = !isFavorite;
-                });
+                
               },
-              child: Favorite(isFavorite: isFavorite),
+              child: BlocProvider(
+                create: (context) => FavoriteBloc(),
+                child: Favorite(
+                  id: coin.id,
+                ),
+              ),
             )
           ],
         ),

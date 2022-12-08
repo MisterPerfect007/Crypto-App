@@ -15,8 +15,9 @@ Future<void> handleSignIn(BuildContext context,
     showCustomDialog(context,
         title: error[0],
         bodyText: error[1],
-        onBtnTap: () {},
-        type: CustomDialog.failed);
+        onSubmit: () {},
+        type: CustomDialog.failed,
+        submitText: 'OK');
   },
       //
       (userCredential) {
@@ -27,9 +28,9 @@ Future<void> handleSignIn(BuildContext context,
     String bodyText = isNewUser
         ? "Your account have been created successfuly, and you are signed in now.\nThanks to you."
         : "You are now signed in.\nThanks to you";
-    showCustomDialog(context, title: title, bodyText: bodyText, onBtnTap: () {
+    showCustomDialog(context, title: title, bodyText: bodyText, onSubmit: () {
       // Navigator.of(context).pop();
-    }, type: CustomDialog.success);
+    }, type: CustomDialog.success, submitText: 'Go back!');
   });
 }
 
@@ -38,7 +39,10 @@ Future showCustomDialog(
   required CustomDialog type,
   required String title,
   required String bodyText,
-  required Function() onBtnTap,
+  required String submitText,
+  required Function() onSubmit,
+  String? cancelText,
+  Function()? onCancel,
 }) async {
   double radius = 10;
   Color color;
@@ -106,12 +110,23 @@ Future showCustomDialog(
                       color: Colors.black,
                     )),
                 const SizedBox(height: 20),
-                TextButton(
-                    onPressed: () {
-                      onBtnTap();
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("OK"))
+                Row(
+                  children: [
+                    if (onCancel != null)
+                      TextButton(
+                          onPressed: () {
+                            onCancel();
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(cancelText?? "")),
+                    TextButton(
+                        onPressed: () {
+                          onSubmit();
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(submitText)),
+                  ],
+                ),
               ],
             ),
           )

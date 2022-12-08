@@ -1,5 +1,7 @@
 import 'package:crypto_trends/core/widgets/animation/custom_opacity_animation.dart';
+import 'package:crypto_trends/core/widgets/favorite/favorite.dart';
 import 'package:crypto_trends/errors/error_types.dart';
+import 'package:crypto_trends/features/favorites/presenter/bloc/favorite_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crypto_trends/injection_container.dart' as di;
@@ -23,8 +25,11 @@ class CoinInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocProvider(
-      create: (context) => di.sl<CoinInfosBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => di.sl<CoinInfosBloc>()),
+        BlocProvider(create: (context) => FavoriteBloc()),
+        ],
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size(
