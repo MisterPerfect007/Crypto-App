@@ -23,7 +23,6 @@ class CoinNameImage extends StatefulWidget {
 }
 
 class _CoinNameImageState extends State<CoinNameImage> {
-  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +64,8 @@ class _CoinNameImageState extends State<CoinNameImage> {
           ),
           //Favorite
           //! to be extract
-          Favorite(id: widget.id)
+
+          Favorite(id: widget.id),
         ],
       ),
     );
@@ -80,6 +80,7 @@ void handleFavorite(BuildContext context, String id) {
 
   //
   final String? userUid = getUserUid();
+  print("$userUid >>>>>>>>>>>>>>>>>>>>>>>>>");
 
   //check if user is loged in
   if (userUid == null) {

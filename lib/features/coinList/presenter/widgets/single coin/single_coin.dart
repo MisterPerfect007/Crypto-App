@@ -20,7 +20,6 @@ class SingleCoin extends StatefulWidget {
 }
 
 class _SingleCoinState extends State<SingleCoin> {
-  bool isFavorite = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -31,10 +30,8 @@ class _SingleCoinState extends State<SingleCoin> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => CoinInfoPage(
-                    coin: coin,
-                    id: '',
-                  )),
+            builder: (context) => CoinInfoPage(coin: coin, id: ''),
+          ),
         );
       },
       child: Container(
@@ -96,9 +93,8 @@ class _SingleCoinState extends State<SingleCoin> {
                       : null,
             ),
             //Favorite
-            Favorite(
-                id: coin.id,
-              )
+
+            Favorite(id: coin.id)
           ],
         ),
       ),

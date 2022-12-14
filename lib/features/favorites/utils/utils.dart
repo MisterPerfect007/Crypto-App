@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../controllers/get/favorite_controller.dart';
 
 ///set a listener to favorite document on FireStore
+
 void listenToFavorite() {
   final FavoriteController favoriteController = Get.put(FavoriteController());
 
@@ -28,4 +29,5 @@ void listenToFavorite() {
     }
   });
   // }
+
 }

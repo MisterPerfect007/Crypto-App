@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
 import '../../../features/favorites/controllers/get/favorite_controller.dart';
+
 import '../../../ui/colors/colors.dart';
 import '../../../ui/icons/svg_icons.dart';
 
@@ -43,5 +45,6 @@ class _FavoriteState extends State<Favorite> {
             color: isFavorite ? Colors.amber : AppColors.mainGrey,
           ));
     });
+
   }
 }

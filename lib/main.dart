@@ -10,7 +10,6 @@ import 'features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'features/coinList/presenter/cubit/pagination_cubit.dart';
 import 'features/coinList/presenter/cubit/scrollposition_cubit.dart';
 import 'features/coinList/presenter/cubit/sorting_cubit.dart';
-import 'features/favorites/utils/utils.dart';
 import 'features/home/presenter/bloc/top10/top_10_bloc.dart';
 import 'features/home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
 import 'features/search/presenter/bloc/search_coin_bloc.dart';

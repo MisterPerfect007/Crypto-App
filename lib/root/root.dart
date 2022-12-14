@@ -9,6 +9,7 @@ import 'package:crypto_trends/features/settings/presenter/pages/settings_page.da
 import 'package:crypto_trends/root/widgets/custom_animated_widget.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 
@@ -44,6 +45,8 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     //! Remove the splash screen
     WidgetsBinding.instance
         .addPostFrameCallback((_) => FlutterNativeSplash.remove());
+        //
+    //listen to change on firestore (favorites)
     //
     //**Listening to user document in favorite collection on firestore*/
     CollectionReference favoriteCol =
@@ -69,6 +72,7 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     listener.cancel();
     favoriteController.dispose();
   }
+
 
   void _handlePageSwitch(int newindex) {
     if (newindex != _currentIndex) {

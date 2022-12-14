@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_trends/core/widgets/animation/custom_opacity_animation.dart';
 import 'package:crypto_trends/errors/error_types.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crypto_trends/injection_container.dart' as di;
@@ -7,6 +9,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../core/widgets/errors/error_message.dart';
+import '../../../../services/firebase/auth/utils.dart';
 import '../../../../ui/icons/svg_icons.dart';
 import '../../../coinList/domain/entities/coin.dart';
 
@@ -14,11 +17,23 @@ import '../bloc/coin_infos/coin_infos_bloc.dart';
 import '../widgets/body.dart';
 import '../widgets/coin_info_app_bar.dart';
 
-class CoinInfoPage extends StatelessWidget {
+class CoinInfoPage extends StatefulWidget {
   const CoinInfoPage({Key? key, required this.coin, required this.id})
       : super(key: key);
   final Coin? coin;
   final String id;
+
+  @override
+  State<CoinInfoPage> createState() => _CoinInfoPageState();
+}
+
+class _CoinInfoPageState extends State<CoinInfoPage> {
+  //
+  //
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +43,22 @@ class CoinInfoPage extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<CoinInfosBloc>()),
         ],
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(
-            size.width,
-            50,
+          appBar: PreferredSize(
+            preferredSize: Size(
+              size.width,
+              50,
+            ),
+            child: const CustomOpacityAnimation(child: CoinInfoPageAppBar()),
+
           ),
-          child: const CustomOpacityAnimation(child: CoinInfoPageAppBar()),
-        ),
-        body: buildBody(),
-      ),
-    );
+          body: buildBody(),
+        )
+      );
   }
 
   StatelessWidget buildBody() {
-    if (coin != null) {
-      return Body(coin: coin!);
+    if (widget.coin != null) {
+      return Body(coin: widget.coin!);
     } else {
       return Builder(builder: (context) {
         //
@@ -96,7 +112,7 @@ class CoinInfoPage extends StatelessWidget {
   ///Should trigger the [CoinInfosGet] event if the state is not [CoinInfosLoaded]
   void handleApiCall(BuildContext context) {
     if (context.read<CoinInfosBloc>().state is! CoinInfosLoaded) {
-      context.read<CoinInfosBloc>().add(CoinInfosGet(coinId: id));
+      context.read<CoinInfosBloc>().add(CoinInfosGet(coinId: widget.id));
     }
   }
 }
