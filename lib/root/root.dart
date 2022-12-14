@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_trends/features/coinList/presenter/pages/coin_list_page.dart';
 import 'package:crypto_trends/features/favorites/presenter/pages/favorite_page.dart';
@@ -5,12 +7,12 @@ import 'package:crypto_trends/features/home/presenter/page/home_page.dart';
 import 'package:crypto_trends/features/search/presenter/page/search.dart';
 import 'package:crypto_trends/features/settings/presenter/pages/settings_page.dart';
 import 'package:crypto_trends/root/widgets/custom_animated_widget.dart';
-import 'package:crypto_trends/services/firebase/auth/utils.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:get/get.dart';
 
-import '../features/favorites/utils/utils.dart';
+import '../features/favorites/controllers/get/favorite_controller.dart';
 import '../ui/colors/colors.dart';
 import 'widgets/bottom_bar_item.dart';
 
@@ -22,12 +24,15 @@ class Root extends StatefulWidget {
 }
 
 class _RootState extends State<Root> with TickerProviderStateMixin {
+  final FavoriteController favoriteController = Get.put(FavoriteController());
   late AnimationController _animationController;
   late Animation<double> _animation;
+  late StreamSubscription<DocumentSnapshot<Object?>> listener;
 
   @override
   void initState() {
     super.initState();
+
     _animationController = AnimationController(
       value: 1,
       vsync: this,
@@ -40,7 +45,29 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     WidgetsBinding.instance
         .addPostFrameCallback((_) => FlutterNativeSplash.remove());
     //
-    
+    //**Listening to user document in favorite collection on firestore*/
+    CollectionReference favoriteCol =
+        FirebaseFirestore.instance.collection('favorite');
+    listener = favoriteCol
+        .doc("doc1")
+        .snapshots(includeMetadataChanges: true)
+        .listen((event) {
+      try {
+        final data = event.data() as Map<String, dynamic>;
+        final ids = List<String>.from(data["favorites"]);
+        favoriteController.favorites.value = ids;
+      } catch (e) {
+        //
+      }
+    });
+  }
+
+  //
+  @override
+  void dispose() {
+    super.dispose();
+    listener.cancel();
+    favoriteController.dispose();
   }
 
   void _handlePageSwitch(int newindex) {

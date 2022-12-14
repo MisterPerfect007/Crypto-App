@@ -34,9 +34,7 @@ class _CoinNameImageState extends State<CoinNameImage> {
     double sidePadding = size.width / 25;
     return Container(
       margin: const EdgeInsets.only(top: 10),
-      padding: EdgeInsets.only(
-        left: sidePadding,
-      ),
+      padding: EdgeInsets.only(left: sidePadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -67,19 +65,7 @@ class _CoinNameImageState extends State<CoinNameImage> {
           ),
           //Favorite
           //! to be extract
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: () {
-                handleFavorite(context, widget.id);
-                //
-                setState(() {
-                  isFavorite = !isFavorite;
-                });
-              },
-              child: Favorite(id: widget.id),
-            ),
-          )
+          Favorite(id: widget.id)
         ],
       ),
     );

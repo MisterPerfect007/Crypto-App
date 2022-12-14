@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/widgets/custom_network_image.dart';
 import '../../../../../core/widgets/favorite/favorite.dart';
 import '../../../../coinInfo/presenter/page/coin_info.dart';
-import '../../../../favorites/presenter/bloc/favorite_bloc.dart';
 import 'coin_name.dart';
 import 'coin_price.dart';
 import 'single_coin_line_chart.dart';
@@ -97,17 +96,9 @@ class _SingleCoinState extends State<SingleCoin> {
                       : null,
             ),
             //Favorite
-            InkWell(
-              onTap: () {
-                
-              },
-              child: BlocProvider(
-                create: (context) => FavoriteBloc(),
-                child: Favorite(
-                  id: coin.id,
-                ),
-              ),
-            )
+            Favorite(
+                id: coin.id,
+              )
           ],
         ),
       ),
