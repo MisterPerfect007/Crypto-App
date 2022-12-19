@@ -7,6 +7,7 @@ import 'package:crypto_trends/features/home/presenter/page/home_page.dart';
 import 'package:crypto_trends/features/search/presenter/page/search.dart';
 import 'package:crypto_trends/features/settings/presenter/pages/settings_page.dart';
 import 'package:crypto_trends/root/widgets/custom_animated_widget.dart';
+import 'package:crypto_trends/services/firebase/auth/utils.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +53,7 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     CollectionReference favoriteCol =
         FirebaseFirestore.instance.collection('favorite');
     listener = favoriteCol
-        .doc("doc1")
+        .doc(getUserUid())
         .snapshots(includeMetadataChanges: true)
         .listen((event) {
       try {

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_trends/core/widgets/animation/custom_opacity_animation.dart';
 import 'package:crypto_trends/errors/error_types.dart';
 
@@ -9,7 +8,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../core/widgets/errors/error_message.dart';
-import '../../../../services/firebase/auth/utils.dart';
 import '../../../../ui/icons/svg_icons.dart';
 import '../../../coinList/domain/entities/coin.dart';
 

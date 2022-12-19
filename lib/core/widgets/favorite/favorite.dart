@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 
 import '../../../features/favorites/controllers/get/favorite_controller.dart';
 
+import '../../../features/favorites/utils/utils.dart';
+import '../../../features/loginAndRegister/utils/utils.dart';
+import '../../../services/firebase/auth/utils.dart';
 import '../../../ui/colors/colors.dart';
 import '../../../ui/icons/svg_icons.dart';
 
@@ -37,14 +40,37 @@ class _FavoriteState extends State<Favorite> {
       final favorites = favoriteController.favorites;
       isFavorite = favorites.contains(widget.id);
 
-      return Container(
-          padding: EdgeInsets.only(
-              left: sidePadding, right: sidePadding, top: 10, bottom: 10),
-          child: SvgIcon(
-            icon: isFavorite ? SvgIcons.favoriteSolid : SvgIcons.favoriteLine,
-            color: isFavorite ? Colors.amber : AppColors.mainGrey,
-          ));
+      return Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            //
+            final String? userUid = getUserUid();
+            //check if user is loged in
+            if (userUid == null) {
+              //User should logged in
+              showCustomDialog(
+                context,
+                type: CustomDialog.warning,
+                bodyText: 'Log in and enjoy',
+                onSubmit: () {},
+                submitText: 'Log in',
+                title: 'You are not Logged in',
+              );
+            } else {
+              handleFavorite(userUid, widget.id);
+            }
+          },
+          child: Container(
+              padding: EdgeInsets.only(
+                  left: sidePadding, right: sidePadding, top: 10, bottom: 10),
+              child: SvgIcon(
+                icon:
+                    isFavorite ? SvgIcons.favoriteSolid : SvgIcons.favoriteLine,
+                color: isFavorite ? Colors.amber : AppColors.mainGrey,
+              )),
+        ),
+      );
     });
-
   }
 }

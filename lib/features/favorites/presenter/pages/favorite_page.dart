@@ -42,8 +42,6 @@ class _FavoriteInfoState extends State<FavoriteInfo> {
     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-        print(snapshot.data?.docs);
         if (snapshot.hasError) {
           return const Text('Something went wrong');
         }
