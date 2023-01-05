@@ -13,7 +13,8 @@ import 'single_coin_line_chart.dart';
 
 class SingleCoin extends StatefulWidget {
   final Coin coin;
-  const SingleCoin({Key? key, required this.coin}) : super(key: key);
+  final void Function()? onFavoriteTap;
+  const SingleCoin({Key? key, required this.coin, required this.onFavoriteTap}) : super(key: key);
 
   @override
   State<SingleCoin> createState() => _SingleCoinState();
@@ -35,23 +36,12 @@ class _SingleCoinState extends State<SingleCoin> {
         );
       },
       child: Container(
-        padding: EdgeInsets.only(
-          left: sidePadding,
-          // right: sidePadding,
-          bottom: 10,
-        ),
-        margin: const EdgeInsets.only(
-          top: 10,
-        ),
+        padding: EdgeInsets.only(left: sidePadding, bottom: 10),
+        margin: const EdgeInsets.only(top: 10),
         child: Row(
           children: [
-            CustomNetworkImage(
-              image: coin.image,
-              name: coin.name,
-            ),
-            const SizedBox(
-              width: 5,
-            ),
+            CustomNetworkImage(image: coin.image, name: coin.name),
+            const SizedBox(width: 5),
             //Name and Rank
             //
             CoinName(
@@ -94,7 +84,7 @@ class _SingleCoinState extends State<SingleCoin> {
             ),
             //Favorite
 
-            Favorite(id: coin.id)
+            Favorite(id: coin.id, onPressed: widget.onFavoriteTap,)
           ],
         ),
       ),

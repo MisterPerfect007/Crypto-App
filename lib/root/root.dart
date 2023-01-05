@@ -46,7 +46,7 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     //! Remove the splash screen
     WidgetsBinding.instance
         .addPostFrameCallback((_) => FlutterNativeSplash.remove());
-        //
+    //
     //listen to change on firestore (favorites)
     //
     //**Listening to user document in favorite collection on firestore*/
@@ -62,6 +62,8 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
         favoriteController.favorites.value = ids;
       } catch (e) {
         //
+        favoriteController.favorites.value = [];
+        // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ppppp");
       }
     });
   }
@@ -73,7 +75,6 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     listener.cancel();
     favoriteController.dispose();
   }
-
 
   void _handlePageSwitch(int newindex) {
     if (newindex != _currentIndex) {

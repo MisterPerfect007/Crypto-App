@@ -18,6 +18,7 @@ import 'features/coinList/data/datasources/coin_list_remote_data_source.dart';
 import 'features/coinList/domain/repositories/get_coin_list_repository.dart';
 import 'features/coinList/domain/usecases/get_coin_list.dart';
 import 'features/coinList/presenter/bloc/coin_list_bloc.dart';
+import 'features/favorites/presenter/bloc/favorite_list_bloc.dart';
 import 'features/home/data/trending_coin_remote_data_source.dart';
 import 'features/home/presenter/bloc/top10/top_10_bloc.dart';
 import 'features/home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
@@ -37,19 +38,23 @@ part 'features/settings/injection_container.dart';
 final GetIt sl = GetIt.instance;
 
 Future<void> init() async {
-  
   //!External
   final prefs = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => prefs);
   sl.registerLazySingleton(() => CurrencyStorage());
-  
+
   sl.registerLazySingleton(() => http.Client());
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(internetConnectionChecker: InternetConnectionChecker()));
+  sl.registerLazySingleton<NetworkInfo>(() =>
+      NetworkInfoImpl(internetConnectionChecker: InternetConnectionChecker()));
 
   //!firebase auth
   sl.registerLazySingleton(() => FirebaseAuth.instance);
   sl.registerLazySingleton(() => FireAuth(sl()));
-   
+
+  //! for favorite feature
+  sl.registerLazySingleton(
+      () => FavoriteListBloc(getRemoteCoinList: sl(), network: sl()));
+
   await initCoinInfo();
   await initCoinList();
   await initHome();

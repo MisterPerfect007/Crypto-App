@@ -4,6 +4,8 @@ import 'package:crypto_trends/core/widgets/favorite/favorite.dart';
 
 import 'package:flutter/material.dart';
 
+import '../../../../../core/utils/favorites_utils.dart';
+
 
 class CoinNameImage extends StatefulWidget {
   const CoinNameImage({
@@ -63,7 +65,7 @@ class _CoinNameImageState extends State<CoinNameImage> {
           //Favorite
           //! to be extract
 
-          Favorite(id: widget.id),
+          Favorite(id: widget.id, onPressed: () => addOrRemoveFavorite(context, widget.id),),
         ],
       ),
     );
