@@ -1,3 +1,4 @@
+import 'package:crypto_trends/core/widgets/toast/toast.dart';
 import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:crypto_trends/core/widgets/appBar/custom_app_bar.dart';
 import 'package:crypto_trends/features/favorites/presenter/bloc/favorite_list_bloc.dart';
@@ -5,7 +6,10 @@ import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/network/network_info.dart';
+import '../../../../core/utils/favorites_utils.dart';
 import '../../../../core/widgets/errors/error_message.dart';
+import '../../../../services/firebase/auth/utils.dart';
 import '../../../coinList/domain/entities/coin.dart';
 import '../../../coinList/presenter/widgets/single coin/single_coin.dart';
 import '../../utils/utils.dart';
@@ -98,6 +102,7 @@ class _BodyState extends State<Body> {
     super.initState();
     //
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // await Future.delayed(Duration(seconds: 5));
       final favoritesOrError = await getFavoritesFromFirestore();
       favoritesOrError.fold((error) {
         isSomeFirestoreError = true;
@@ -164,18 +169,24 @@ class _BodyState extends State<Body> {
       sizeFactor: animation,
       child: SingleCoin(
         coin: coin,
-        onFavoriteTap: () {
-          _removeSingleItems(index);
-        },
+        onFavoriteTap: () async{
+
+        final networkInfo = di.sl<NetworkInfo>();
+          if (await networkInfo.isConnected) {
+            print("Connected >>>>>>>>>>>>>>>>>>>>>");
+            addOrRemoveFavorite(context, coin.id);
+            _removeSingleItems(index);
+          } else {
+            CustomToast.defaultToast(context, "No internet connection");
+          }
+        }
+        ,
       ),
     );
   }
 
   void _removeSingleItems(int removeIndex) {
     Coin removedItem = coinList.removeAt(removeIndex);
-    // This builder is just so that the animation has something
-    // to work with before it disappears from view since the
-    // original has already been deleted.
     builder(context, animation) {
       // A method to build the Card widget.
       return _buildListItem(animation, removedItem, removeIndex);

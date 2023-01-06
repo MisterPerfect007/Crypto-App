@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:crypto_trends/core/widgets/toast/toast.dart';
 import 'package:crypto_trends/features/coinList/presenter/bloc/coin_list_bloc.dart';
 import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.dart';
 import 'package:crypto_trends/ui/colors/colors.dart';
@@ -65,7 +66,7 @@ class _CoinListPageState extends State<CoinListPage> {
                 /*
                     !CoinListInitial
                    */
-                if (state is CoinListInitial || state is CoinListLoading){
+                if (state is CoinListInitial || state is CoinListLoading) {
                   /*
                     !CoinListLoading 
                    */
@@ -111,12 +112,7 @@ class _CoinListPageState extends State<CoinListPage> {
                         if (await InternetConnectionChecker().hasConnection) {
                           gettingOrRefringCoinList(context);
                         } else {
-                          Fluttertoast.showToast(
-                            msg: "You still Offline",
-                            toastLength: Toast.LENGTH_LONG,
-                            backgroundColor: theme.primaryColor,
-                            textColor: theme.scaffoldBackgroundColor
-                          );
+                          CustomToast.defaultToast(context, "You still offline");
                         }
                       },
                     );

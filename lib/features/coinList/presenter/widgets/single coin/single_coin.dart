@@ -13,7 +13,7 @@ import 'single_coin_line_chart.dart';
 
 class SingleCoin extends StatefulWidget {
   final Coin coin;
-  final void Function()? onFavoriteTap;
+  final Future<void> Function()? onFavoriteTap;
   const SingleCoin({Key? key, required this.coin, required this.onFavoriteTap}) : super(key: key);
 
   @override

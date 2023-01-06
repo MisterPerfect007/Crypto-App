@@ -14,7 +14,7 @@ class Favorite extends StatefulWidget {
     required this.onPressed,
   }) : super(key: key);
   final String id;
-  final void Function()? onPressed;
+  final Future<void> Function()? onPressed;
 
   @override
   State<Favorite> createState() => _FavoriteState();
@@ -42,8 +42,8 @@ class _FavoriteState extends State<Favorite> {
       return Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap:
-            widget.onPressed,
+          onTap: () async => await
+            widget.onPressed!(),
           child: Container(
               padding: EdgeInsets.only(
                   left: sidePadding, right: sidePadding, top: 10, bottom: 10),
