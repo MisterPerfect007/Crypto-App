@@ -60,8 +60,12 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
         final data = event.data() as Map<String, dynamic>;
         final ids = List<String>.from(data["favorites"]);
         favoriteController.favorites.value = ids;
+        /* print("------------------------------------");
+        print(ids); */
       } catch (e) {
         //
+        print("=====================================");
+        print(e);
         favoriteController.favorites.value = [];
         // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ppppp");
       }

@@ -5,6 +5,7 @@ import 'package:crypto_trends/features/favorites/presenter/bloc/favorite_list_bl
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/network/network_info.dart';
 import '../../../../core/utils/favorites_utils.dart';
@@ -12,6 +13,8 @@ import '../../../../core/widgets/errors/error_message.dart';
 import '../../../../services/firebase/auth/utils.dart';
 import '../../../coinList/domain/entities/coin.dart';
 import '../../../coinList/presenter/widgets/single coin/single_coin.dart';
+import '../../controllers/get/favorite_controller.dart';
+import '../../controllers/get/newly_added_controller.dart';
 import '../../utils/utils.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -45,19 +48,6 @@ class _FavoritePageState extends State<FavoritePage> {
           //! some favorite
 
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!new request!!!!!!!!!!!!!!!
-          //make request with ids
-
-          //&& when add new id make ==> request and add it
-
-          //  SizedBox(
-          //     height: size.height,
-          //     child: AnimatedList(
-          //       key: _listKey,
-          //       initialItemCount: 5,
-          //       itemBuilder: (context, index, animation) {
-          //         return _buildListItem(animation, index);
-          //       },
-          //     )),
         ));
   }
 
@@ -91,9 +81,18 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
+  //
+  final FavoriteController favoriteController = Get.put(FavoriteController());
+  final FavoriteNewlyAddedController newlyAddedController =
+      Get.put(FavoriteNewlyAddedController());
+  //
   late List<String> favoritesIds = [];
+  //
+  late List<String> newlyAddedFavoritesIds = [];
 
-  late List<Coin> coinList;
+  late List<Coin> coinList = [];
+
+  //
 
   bool isSomeFirestoreError = false;
 
@@ -110,58 +109,86 @@ class _BodyState extends State<Body> {
         setState(() {
           favoritesIds = favorites;
         });
-        //! load favorite ids
+        //! load favorite
         if (favoritesIds.isNotEmpty && !isSomeFirestoreError) {
           context.read<FavoriteListBloc>().add(GetFavoriteList(favoritesIds));
         }
       });
+      if (!isSomeFirestoreError) {
+        favoriteController.favorites.listen(handleFavoriteChanges);
+      }
     });
     //
+    //
+  }
+
+  //
+  //
+  ///
+  void handleFavoriteChanges(newList) {
+    if (newList.length > favoritesIds.length) {
+      //so new favorite added
+      final List<String> idsToAdd =
+          newList.where((element) => !favoritesIds.contains(element)).toList();
+      //
+      favoritesIds.addAll(idsToAdd);
+
+      final newlyAdded = List<Coin>.from(newlyAddedController.favorites);
+      final toAddOnList =
+          newlyAdded.where((element) => idsToAdd.contains(element.id));
+      // print(toAddOnList.toList());
+      toAddOnList.forEach(_addSingleItems);
+    } else if (newList.length < favoritesIds.length) {
+      //so favorite removed
+      final List<String> idsToRemove =
+          favoritesIds.where((element) => !newList.contains(element)).toList();
+      //
+      for (var id in idsToRemove) {
+        Coin coinToRemove = coinList.singleWhere((coin) => coin.id == id);
+        int indexToRemove = coinList.indexOf(coinToRemove);
+        _removeSingleItems(indexToRemove);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     //
-    final size = MediaQuery.of(context).size;
-    //
-    if (isSomeFirestoreError) {
-      return const CustomErrorWidget(
-        icon: SvgIcons.badO,
-        msg: "Something went wrong when try to load",
-      );
-    } else if (favoritesIds.isEmpty) {
-      return //! empty favorite list
-          const Center(
-        child: Text("No Favorite added yet."),
-      );
-    } else if (favoritesIds.isNotEmpty) {
-      //! favorite ids are loaded
-      return BlocBuilder<FavoriteListBloc, FavoriteListState>(
-        builder: (context, state) {
-          if (state is FavoriteListLoading) {
-            return const Center(child: Text("Loading ............"));
-          } else if (state is FavoriteListLoaded) {
-            coinList = state.coinList;
-            return SizedBox(
-                height: size.height,
-                child: AnimatedList(
-                  key: _listKey,
-                  initialItemCount: coinList.length,
-                  itemBuilder: (context, index, animation) {
-                    return _buildListItem(animation, coinList[index], index);
-                  },
-                ));
-          } else if (state is FavoriteListFailed) {
-            return const Center(child: Text("Failure ;"));
-          }
-
-          return const Center(child: Text("Unexpected error"));
-        },
-      );
-      // return Container();
-    } else {
-      return const Center(child: Text("Unexpected last error"));
-    }
+    return Center(
+      child: Column(
+        children: [
+          BlocBuilder<FavoriteListBloc, FavoriteListState>(
+            builder: (context, state) {
+              if (state is FavoriteListLoading) {
+                return const SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is FavoriteListFailed) {}
+              if (state is FavoriteListLoaded) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  state.coinList.forEach(_addSingleItems);
+                });
+                return Container();
+              }
+              return Container();
+            },
+          ),
+          Expanded(
+            child: AnimatedList(
+              padding: const EdgeInsets.only(bottom: 70),
+              key: _listKey,
+              initialItemCount: coinList.length,
+              itemBuilder: (context, index, animation) {
+                return _buildListItem(animation, coinList[index], index);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildListItem(Animation<double> animation, Coin coin, int index) {
@@ -169,29 +196,31 @@ class _BodyState extends State<Body> {
       sizeFactor: animation,
       child: SingleCoin(
         coin: coin,
-        onFavoriteTap: () async{
-
-        final networkInfo = di.sl<NetworkInfo>();
+        onFavoriteTap: () async {
+          final networkInfo = di.sl<NetworkInfo>();
           if (await networkInfo.isConnected) {
-            print("Connected >>>>>>>>>>>>>>>>>>>>>");
             addOrRemoveFavorite(context, coin.id);
-            _removeSingleItems(index);
+            // _removeSingleItems(index);
           } else {
             CustomToast.defaultToast(context, "No internet connection");
           }
-        }
-        ,
+        },
       ),
     );
   }
 
   void _removeSingleItems(int removeIndex) {
     Coin removedItem = coinList.removeAt(removeIndex);
+    favoritesIds.remove(removedItem.id);
     builder(context, animation) {
-      // A method to build the Card widget.
       return _buildListItem(animation, removedItem, removeIndex);
     }
 
     _listKey.currentState?.removeItem(removeIndex, builder);
+  }
+
+  void _addSingleItems(Coin coin) {
+    coinList.add(coin);
+    _listKey.currentState?.insertItem(coinList.length - 1);
   }
 }

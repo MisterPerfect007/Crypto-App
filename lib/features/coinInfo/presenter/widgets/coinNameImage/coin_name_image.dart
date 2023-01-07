@@ -5,25 +5,20 @@ import 'package:crypto_trends/core/widgets/favorite/favorite.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/favorites_utils.dart';
-
+import '../../../../coinList/domain/entities/coin.dart';
 
 class CoinNameImage extends StatefulWidget {
   const CoinNameImage({
     Key? key,
-    required this.name,
-    required this.image,
-    required this.id,
+    required this.coin,
   }) : super(key: key);
-  final String name;
-  final String? image;
-  final String id;
+  final Coin coin;
 
   @override
   State<CoinNameImage> createState() => _CoinNameImageState();
 }
 
 class _CoinNameImageState extends State<CoinNameImage> {
-
   @override
   Widget build(BuildContext context) {
     //
@@ -41,8 +36,8 @@ class _CoinNameImageState extends State<CoinNameImage> {
             child: Row(
               children: [
                 CustomNetworkImage(
-                  image: widget.image,
-                  name: widget.name,
+                  image: widget.coin.image,
+                  name: widget.coin.name,
                   width: 50,
                 ),
                 const SizedBox(
@@ -51,7 +46,7 @@ class _CoinNameImageState extends State<CoinNameImage> {
                 //Name
                 Flexible(
                   child: Text(
-                    widget.name,
+                    widget.coin.name,
                     style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 20,
@@ -65,7 +60,10 @@ class _CoinNameImageState extends State<CoinNameImage> {
           //Favorite
           //! to be extract
 
-          Favorite(id: widget.id, onPressed: () => addOrRemoveFavorite(context, widget.id),),
+          Favorite(
+            coin: widget.coin,
+            onPressed: () => addOrRemoveFavorite(context, widget.coin.id),
+          ),
         ],
       ),
     );

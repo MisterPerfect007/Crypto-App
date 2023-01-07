@@ -35,9 +35,7 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 CoinNameImage(
-                  image: coin.image,
-                  name: coin.name,
-                  id: coin.id,
+                  coin: coin,
                 ),
                 PriceAndPercentage(
                   price: coin.currentPrice,
