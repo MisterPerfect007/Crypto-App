@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class FavoriteNewlyAddedController extends GetxController {
   RxList favorites = [].obs;
   add(Coin coin) {
-    if (!favorites.contains(coin)) {
+    if (!favorites.map((e) => e.id).toList().contains(coin.id)) {
       favorites.add(coin);
     }
   }

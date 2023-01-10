@@ -25,8 +25,6 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     //
@@ -44,31 +42,7 @@ class _FavoritePageState extends State<FavoritePage> {
             ),
           ),
           body: const Body(),
-
-          //! some favorite
-
-          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!new request!!!!!!!!!!!!!!!
         ));
-  }
-
-  InkWell _buildListItem(Animation<double> animation, int index) {
-    return InkWell(
-      onTap: () {
-        builder(context, animation) {
-          return _buildListItem(animation, index);
-        }
-
-        _listKey.currentState?.removeItem(index, builder);
-      },
-      child: SizeTransition(
-        sizeFactor: animation,
-        child: Container(
-            padding: const EdgeInsets.all(10),
-            margin: const EdgeInsets.only(bottom: 5),
-            color: Colors.red,
-            child: Text("data$index")),
-      ),
-    );
   }
 }
 
@@ -87,13 +61,10 @@ class _BodyState extends State<Body> {
       Get.put(FavoriteNewlyAddedController());
   //
   late List<String> favoritesIds = [];
-  //
-  late List<String> newlyAddedFavoritesIds = [];
 
   late List<Coin> coinList = [];
 
   //
-
   bool isSomeFirestoreError = false;
 
   @override
@@ -101,8 +72,9 @@ class _BodyState extends State<Body> {
     super.initState();
     //
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // await Future.delayed(Duration(seconds: 5));
+      //
       final favoritesOrError = await getFavoritesFromFirestore();
+      //
       favoritesOrError.fold((error) {
         isSomeFirestoreError = true;
       }, (favorites) {
@@ -114,16 +86,13 @@ class _BodyState extends State<Body> {
           context.read<FavoriteListBloc>().add(GetFavoriteList(favoritesIds));
         }
       });
+      //
       if (!isSomeFirestoreError) {
         favoriteController.favorites.listen(handleFavoriteChanges);
       }
     });
-    //
-    //
   }
 
-  //
-  //
   ///
   void handleFavoriteChanges(newList) {
     if (newList.length > favoritesIds.length) {
@@ -161,14 +130,17 @@ class _BodyState extends State<Body> {
             builder: (context, state) {
               if (state is FavoriteListLoading) {
                 return const SizedBox(
-                  height: 30,
-                  width: 30,
-                  child: CircularProgressIndicator(),
+                  height: 40,
+                  width: 40,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                  ),
                 );
               }
               if (state is FavoriteListFailed) {}
               if (state is FavoriteListLoaded) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
+                  _removeAllItems();
                   state.coinList.forEach(_addSingleItems);
                 });
                 return Container();
@@ -178,7 +150,7 @@ class _BodyState extends State<Body> {
           ),
           Expanded(
             child: AnimatedList(
-              padding: const EdgeInsets.only(bottom: 70),
+              padding: const EdgeInsets.only(bottom: 70, top: 10),
               key: _listKey,
               initialItemCount: coinList.length,
               itemBuilder: (context, index, animation) {
@@ -191,22 +163,9 @@ class _BodyState extends State<Body> {
     );
   }
 
+  //
   Widget _buildListItem(Animation<double> animation, Coin coin, int index) {
-    return SizeTransition(
-      sizeFactor: animation,
-      child: SingleCoin(
-        coin: coin,
-        onFavoriteTap: () async {
-          final networkInfo = di.sl<NetworkInfo>();
-          if (await networkInfo.isConnected) {
-            addOrRemoveFavorite(context, coin.id);
-            // _removeSingleItems(index);
-          } else {
-            CustomToast.defaultToast(context, "No internet connection");
-          }
-        },
-      ),
-    );
+    return ListItem(animation: animation, coin: coin);
   }
 
   void _removeSingleItems(int removeIndex) {
@@ -222,5 +181,66 @@ class _BodyState extends State<Body> {
   void _addSingleItems(Coin coin) {
     coinList.add(coin);
     _listKey.currentState?.insertItem(coinList.length - 1);
+  }
+
+  //
+  ///Remove all items in the list
+  void _removeAllItems() {
+    final length = coinList.length;
+    for (int i = length - 1; i >= 0; i--) {
+      Coin removedItem = coinList.removeAt(i);
+      builder(context, animation) {
+        return _buildListItem(animation, removedItem, i);
+      }
+
+      _listKey.currentState?.removeItem(i, builder);
+    }
+  }
+}
+
+class ListItem extends StatefulWidget {
+  const ListItem({
+    Key? key,
+    required this.animation,
+    required this.coin,
+  }) : super(key: key);
+
+  final Animation<double> animation;
+  final Coin coin;
+
+  @override
+  State<ListItem> createState() => _ListItemState();
+}
+
+class _ListItemState extends State<ListItem> {
+  bool isOnTapRunning = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizeTransition(
+      sizeFactor: widget.animation,
+      child: SingleCoin(
+        coin: widget.coin,
+        onFavoriteTap: !isOnTapRunning
+            ? () async {
+                setState(() {
+                  isOnTapRunning = true;
+                });
+                final networkInfo = di.sl<NetworkInfo>();
+                if (await networkInfo.isConnected) {
+                  addOrRemoveFavorite(context, widget.coin.id);
+                } else {
+                  CustomToast.defaultToast(context, "No internet connection");
+                }
+                //if the widget still on tree => allow click
+                if (mounted) {
+                  setState(() {
+                    isOnTapRunning = false;
+                  });
+                }
+              }
+            : () => null,
+      ),
+    );
   }
 }

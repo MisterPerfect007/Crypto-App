@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 import '../../../../coinList/presenter/bloc/coin_list_bloc.dart';
 import '../../../../coinList/presenter/cubit/pagination_cubit.dart';
 import '../../../../coinList/presenter/cubit/sorting_cubit.dart';
+import '../../../../favorites/controllers/get/favorite_controller.dart';
+import '../../../../favorites/presenter/bloc/favorite_list_bloc.dart';
 import '../../../../home/presenter/bloc/top10/top_10_bloc.dart';
 import '../../../../home/presenter/bloc/trending_coin/trending_coin_bloc.dart';
 import '../../../data/models/currency_model.dart';
@@ -113,6 +116,11 @@ class _CurrencyDropdownState extends State<CurrencyDropdown> {
     //! Update trending coin
     final trendingBloc = context.read<TrendingCoinsBloc>();
     trendingBloc.add(GetTrendingCoins());
+
+    //! Update favorite list
+    final favoriteBloc = context.read<FavoriteListBloc>();
+    final FavoriteController favoriteController = Get.put(FavoriteController());
+    favoriteBloc.add(GetFavoriteList(favoriteController.favorites));
 
     //dismiss the button
     setState(() {
