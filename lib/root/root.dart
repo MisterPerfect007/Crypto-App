@@ -10,7 +10,7 @@ import 'package:crypto_trends/root/widgets/custom_animated_widget.dart';
 import 'package:crypto_trends/services/firebase/auth/utils.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 
@@ -59,14 +59,13 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
       try {
         final data = event.data() as Map<String, dynamic>;
         final ids = List<String>.from(data["favorites"]);
-        favoriteController.favorites.value = ids;
-        /* print("------------------------------------");
-        print(ids); */
+        if (!const IterableEquality()
+            .equals(ids, favoriteController.favorites.toList())) {
+          favoriteController.updateFavorite(ids);
+        }
       } catch (e) {
         //
-        print("=====================================");
-        print(e);
-        favoriteController.favorites.value = [];
+          favoriteController.updateFavorite([]);
         // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ppppp");
       }
     });

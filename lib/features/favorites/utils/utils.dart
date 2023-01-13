@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:crypto_trends/injection_container.dart' as di;
 
+import '../../../core/network/network_info.dart';
 import '../../../services/firebase/auth/utils.dart';
 
 void handleFavorite(String userUid, String idCoin) {
@@ -58,8 +60,17 @@ Future<Either<String, List<String>>> getFavoritesFromFirestore() async {
   bool someErrorOccurred = false;
   //
   List<String> ids;
+
+  final networkInfo = di.sl<NetworkInfo>();
+  //! if there is internet connection
+  if (!await networkInfo.isConnected) {
+    print("===========object===================");
+    return Left(errorMsg);
+  }
+  //
   final docRef =
       FirebaseFirestore.instance.collection("favorite").doc(getUserUid());
+  //
   try {
     final doc = await docRef.get().catchError((object) {
       someErrorOccurred = true;

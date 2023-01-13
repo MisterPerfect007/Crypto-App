@@ -76,6 +76,7 @@ dependencies:
   cloud_firestore: ^4.1.0
   ##
   get:
+  collection: ^1.16.0
   
 
 dev_dependencies:
