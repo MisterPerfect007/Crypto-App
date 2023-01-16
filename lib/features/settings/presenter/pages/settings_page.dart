@@ -3,6 +3,7 @@ import 'package:crypto_trends/features/loginAndRegister/presenter/pages/login_pa
 import 'package:crypto_trends/features/loginAndRegister/presenter/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../services/firebase/auth/utils.dart';
 import '../widgets/currencyDropdown/currency_dropdown.dart';
 import '../widgets/custom_infos.dart';
 import '../widgets/theme_toggle.dart';
@@ -44,7 +45,7 @@ class SettingsPage extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Inter',
                           color: theme.primaryColor,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       const SizedBox(height: 5),
@@ -55,7 +56,7 @@ class SettingsPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text(
+                /* Text(
                   "Enjoy the App, Enjoy life 😋",
                   style: TextStyle(
                       fontFamily: 'Inter',
@@ -65,14 +66,64 @@ class SettingsPage extends StatelessWidget {
                 ),
                 //
                 //!
-                TextButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
-                }, child: const Text("Login")),
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()));
+                    },
+                    child: const Text("Login")),
 
                 //!
                 const SizedBox(height: 25),
+                TextButton(
+                    onPressed: () {
+                      logout();
+                    },
+                    child: const Text("Logout")),
+
+                //!
+                
+                const SizedBox(height: 25),
                 CustomInfos(theme: theme),
-                const SizedBox(height: 70)
+                const SizedBox(height: 70) */
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()));
+                    },
+                    child: const Text("Login")),
+
+                //!
+                const SizedBox(height: 25),
+                TextButton(
+                    onPressed: () {
+                      logout();
+                    },
+                    child: const Text("Logout")),
+                const SizedBox(height: 25),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text.rich(
+                      const TextSpan(text: "All Data provided by ", children: [
+                        TextSpan(
+                            text: "CoinGecko \n",
+                            style: TextStyle(fontWeight: FontWeight.w900)),
+                      ]),
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: theme.primaryColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          fontStyle: FontStyle.italic),
+                    ),
+                    Image.asset("assets/logos/coingecko_logo.png", width: 30)
+                  ],
+                ),
               ],
             ),
           ),

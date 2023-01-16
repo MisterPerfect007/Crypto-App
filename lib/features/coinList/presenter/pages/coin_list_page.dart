@@ -6,7 +6,6 @@ import 'package:crypto_trends/features/coinList/presenter/cubit/sorting_cubit.da
 import 'package:crypto_trends/ui/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../../../core/widgets/errors/error_message.dart';

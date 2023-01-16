@@ -63,7 +63,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void validate() {
-    di.sl<FireAuth>().signInWithEmailAndPassword(emailValue.trim(), pwdValue.trim());
+    // di.sl<FireAuth>().signInWithEmailAndPassword(emailValue.trim(), pwdValue.trim());
     setState(() {
       isEmailValid = EmailValidator.validate(emailValue) ? true : false;
       isPwdValid = pwdValue.length >= 8 ? true : false;

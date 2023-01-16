@@ -9,6 +9,7 @@ import 'package:crypto_trends/features/settings/presenter/pages/settings_page.da
 import 'package:crypto_trends/root/widgets/custom_animated_widget.dart';
 import 'package:crypto_trends/services/firebase/auth/utils.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -49,24 +50,34 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
     //
     //listen to change on firestore (favorites)
     //
-    //**Listening to user document in favorite collection on firestore*/
-    CollectionReference favoriteCol =
-        FirebaseFirestore.instance.collection('favorite');
-    listener = favoriteCol
-        .doc(getUserUid())
-        .snapshots(includeMetadataChanges: true)
-        .listen((event) {
-      try {
-        final data = event.data() as Map<String, dynamic>;
-        final ids = List<String>.from(data["favorites"]);
-        if (!const IterableEquality()
-            .equals(ids, favoriteController.favorites.toList())) {
-          favoriteController.updateFavorite(ids);
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user == null) {
+        try {
+          listener.cancel();
+        } catch (e) {
+          //
         }
-      } catch (e) {
-        //
-          favoriteController.updateFavorite([]);
-        // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ppppp");
+        favoriteController.updateFavorite([]);
+      } else {
+        //**Listening to user document in favorite collection on firestore*/
+        CollectionReference favoriteCol =
+            FirebaseFirestore.instance.collection('favorite');
+        listener = favoriteCol
+            .doc(getUserUid())
+            .snapshots(includeMetadataChanges: true)
+            .listen((event) {
+          try {
+            final data = event.data() as Map<String, dynamic>;
+            final ids = List<String>.from(data["favorites"]);
+            if (!const IterableEquality()
+                .equals(ids, favoriteController.favorites.toList())) {
+              favoriteController.updateFavorite(ids);
+            }
+          } catch (e) {
+            //
+            favoriteController.updateFavorite([]);
+          }
+        });
       }
     });
   }

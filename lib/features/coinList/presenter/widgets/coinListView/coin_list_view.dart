@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/favorites_utils.dart';
-import '../../../../../services/firebase/auth/utils.dart';
-import '../../../../favorites/utils/utils.dart';
-import '../../../../loginAndRegister/utils/utils.dart';
 import '../../../domain/entities/coin.dart';
 import '../single coin/single_coin.dart';
 import 'custom_expansion_panel.dart';
@@ -58,7 +55,7 @@ class _CoinListViewState extends State<CoinListView> {
             } else {
               return SingleCoin(
                 coin: coinList[i],
-                onFavoriteTap: () => addOrRemoveFavorite(context, coinList[i].id),
+                onFavoriteTap: () async => await addOrRemoveFavorite(context, coinList[i].id),
               );
             }
           })),

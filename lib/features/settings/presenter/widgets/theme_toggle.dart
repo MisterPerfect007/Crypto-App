@@ -31,7 +31,7 @@ class _ThemeToggleState extends State<ThemeToggle> {
               style: TextStyle(
                 fontFamily: 'Inter',
                 color: widget.theme.primaryColor,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w700,
               ),
             ),
             Expanded(child: Container()),

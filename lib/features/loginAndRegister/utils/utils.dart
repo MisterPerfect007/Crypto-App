@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+
 Future<void> handleSignIn(BuildContext context,
     {required Future<Either<List<String>, UserCredential>> Function()
         signInMethod}) async {
@@ -111,20 +112,29 @@ Future showCustomDialog(
                     )),
                 const SizedBox(height: 20),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (onCancel != null)
-                      TextButton(
-                          onPressed: () {
-                            onCancel();
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(cancelText?? "")),
-                    TextButton(
-                        onPressed: () {
-                          onSubmit();
+                    ElevatedButton(
+                        onPressed: () async {
+                          await onSubmit();
                           Navigator.of(context).pop();
                         },
                         child: Text(submitText)),
+                    if (onCancel != null)
+                      Row(
+                        children: [
+                          const SizedBox(width: 20,),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              foregroundColor:  Colors.red,
+                            ),
+                              onPressed: () async {
+                                await onCancel();
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(cancelText?? "")),
+                        ],
+                      ),
                   ],
                 ),
               ],

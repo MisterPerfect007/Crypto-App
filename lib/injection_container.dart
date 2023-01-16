@@ -49,7 +49,7 @@ Future<void> init() async {
 
   //!firebase auth
   sl.registerLazySingleton(() => FirebaseAuth.instance);
-  sl.registerLazySingleton(() => FireAuth(sl()));
+  // sl.registerLazySingleton(() => FireAuth(sl()));
 
   //! for favorite feature
   sl.registerLazySingleton(

@@ -6,12 +6,14 @@ import 'package:crypto_trends/injection_container.dart' as di;
 import 'package:crypto_trends/core/widgets/appBar/custom_app_bar.dart';
 import 'package:crypto_trends/features/favorites/presenter/bloc/favorite_list_bloc.dart';
 import 'package:crypto_trends/ui/icons/svg_icons.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/network/network_info.dart';
 import '../../../../core/utils/favorites_utils.dart';
+import '../../../../services/firebase/auth/utils.dart';
 import '../../../coinList/domain/entities/coin.dart';
 import '../../../coinList/presenter/widgets/single coin/single_coin.dart';
 import '../../controllers/get/favorite_controller.dart';
@@ -67,6 +69,8 @@ class _BodyState extends State<Body> {
 
   //
   bool isSomeFirestoreError = false;
+  //
+  Future<bool> get isDeviceConnected => di.sl<NetworkInfo>().isConnected;
 
   @override
   void initState() {
@@ -74,34 +78,40 @@ class _BodyState extends State<Body> {
     //
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       //
+
       await handleGetFavoritesFromFirestore();
+      FirebaseAuth.instance.authStateChanges().listen((user) async {
+        if (user != null) {
+          await handleGetFavoritesFromFirestore();
+        }
+      });
     });
   }
 
-  //
-  Future<bool> get isDeviceConnected => di.sl<NetworkInfo>().isConnected;
 
   Future<void> handleGetFavoritesFromFirestore() async {
-    final favoritesOrError = await getFavoritesFromFirestore();
-    //
-    favoritesOrError.fold((error) {
-      setState(() {
-        isSomeFirestoreError = true;
+    //if first user is signed in
+    if (isUserSignedIn()) {
+      final favoritesOrError = await getFavoritesFromFirestore();
+      //
+      favoritesOrError.fold((error) {
+        setState(() {
+          isSomeFirestoreError = true;
+        });
+      }, (favorites) {
+        setState(() {
+          favoritesIds = favorites;
+          isSomeFirestoreError = false;
+        });
+        //! load favorite
+        if (favoritesIds.isNotEmpty && !isSomeFirestoreError) {
+          context.read<FavoriteListBloc>().add(GetFavoriteList(favoritesIds));
+        }
       });
-    }, (favorites) {
-      setState(() {
-        favoritesIds = favorites;
-        isSomeFirestoreError = false;
-      });
-      // print("=============================== $favorites");
-      //! load favorite
-      if (favoritesIds.isNotEmpty && !isSomeFirestoreError) {
-        context.read<FavoriteListBloc>().add(GetFavoriteList(favoritesIds));
+      //
+      if (!isSomeFirestoreError) {
+        favoriteController.favorites.listen(handleFavoriteChanges);
       }
-    });
-    //
-    if (!isSomeFirestoreError) {
-      favoriteController.favorites.listen(handleFavoriteChanges);
     }
   }
 
@@ -295,7 +305,7 @@ class _ListItemState extends State<ListItem> {
                   isOnTapRunning = true;
                 });
                 if (await isDeviceConnected) {
-                  addOrRemoveFavorite(context, widget.coin.id);
+                  await addOrRemoveFavorite(context, widget.coin.id);
                 } else {
                   CustomToast.defaultToast(context, "No internet connection");
                 }
@@ -330,17 +340,16 @@ class _IfFavoritesEmptyState extends State<IfFavoritesEmpty> {
   void initState() {
     super.initState();
     favoriteController.favorites.listen((p0) {
-      setState(() {
-        if (mounted) {
+      if (mounted) {
+        setState(() {
           isFavoriteEmpty = p0.isEmpty;
-        }
-      });
+        });
+      }
     });
   }
 
   @override
   void dispose() {
-    print("disposed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     super.dispose();
     favoriteController.dispose();
   }

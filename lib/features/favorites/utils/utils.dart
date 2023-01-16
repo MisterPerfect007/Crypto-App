@@ -64,7 +64,6 @@ Future<Either<String, List<String>>> getFavoritesFromFirestore() async {
   final networkInfo = di.sl<NetworkInfo>();
   //! if there is internet connection
   if (!await networkInfo.isConnected) {
-    print("===========object===================");
     return Left(errorMsg);
   }
   //

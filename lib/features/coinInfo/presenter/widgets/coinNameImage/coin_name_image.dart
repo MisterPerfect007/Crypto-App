@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_trends/core/widgets/custom_network_image.dart';
 import 'package:crypto_trends/core/widgets/favorite/favorite.dart';
 
@@ -62,7 +61,7 @@ class _CoinNameImageState extends State<CoinNameImage> {
 
           Favorite(
             coin: widget.coin,
-            onPressed: () => addOrRemoveFavorite(context, widget.coin.id),
+            onPressed: () async => await addOrRemoveFavorite(context, widget.coin.id),
           ),
         ],
       ),

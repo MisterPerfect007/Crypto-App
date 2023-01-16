@@ -11,10 +11,10 @@ List<String> defaultError = [
 Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
   final googleSignIn = GoogleSignIn();
   final firebaseAuth = FirebaseAuth.instance;
-  //! should wrap in try{} catch block
+
   try {
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    print(">>>>>>>>>>>>>>>>googleUser ==$googleUser");
+    // print(">>>>>>>>>>>>>>>>googleUser ==$googleUser");
     if (googleUser == null) {
       return Left(defaultError);
     }
@@ -29,12 +29,12 @@ Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
 
       return Right(userCredential);
     } on FirebaseAuthException catch (e) {
-      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error firebase ::: ${e.code}");
+      // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error firebase ::: ${e.code}");
       return Left(errorMsgFromCode(e.code));
     }
   } catch (e) {
     //
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error google --> 1 try $e");
+    // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error google --> 1 try $e");
   }
   return Left(defaultError);
 }
@@ -44,7 +44,7 @@ Future<Either<List<String>, UserCredential>> facebookLoginAndRegister() async {
   try {
     //
     final LoginResult loginResult = await FacebookAuth.instance.login();
-    print(loginResult.status);
+    // print(loginResult.status);
     if (loginResult.status == LoginStatus.success) {
       final credential =
           FacebookAuthProvider.credential(loginResult.accessToken!.token);
@@ -54,7 +54,7 @@ Future<Either<List<String>, UserCredential>> facebookLoginAndRegister() async {
 
         return Right(userCredential);
       } on FirebaseAuthException catch (e) {
-        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>${e.code}");
+        // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>${e.code}");
         return Left(errorMsgFromCode(e.code));
       }
     }
@@ -62,7 +62,6 @@ Future<Either<List<String>, UserCredential>> facebookLoginAndRegister() async {
 
   } catch (e) {
     //
-    print(">>>>>>>>>>>>>>>>>> try");
   }
   return Left(defaultError);
 }
@@ -113,4 +112,12 @@ String? getUserUid() {
     return user.uid;
   }
   return null;
+}
+
+
+///Logout from Facebook, Google and FirebaseAuth
+Future<void> logout() async {
+  await GoogleSignIn().signOut();
+  await FacebookAuth.instance.logOut();
+  await FirebaseAuth.instance.signOut();
 }

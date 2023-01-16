@@ -12,10 +12,8 @@ class FireAuth {
           email: email, password: password);
       //! User should verify his email
       userCredential.user?.sendEmailVerification();
-          print(userCredential);
       return Left(userCredential);
     } on FirebaseAuthException catch (e) {
-      print("Error>>>>>> ${e.code}");
       return Right(e.code);
     }
   }
