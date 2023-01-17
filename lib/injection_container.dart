@@ -1,5 +1,4 @@
 import 'package:crypto_trends/features/coinList/data/repository/get_coin_list_repository_implementation.dart';
-import 'package:crypto_trends/services/firebase/auth/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;

@@ -22,10 +22,10 @@ class FireAuth {
     try {
       final userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
-          print(">>>>>>>>>>>>>>>>>>>>>>>>>>>$userCredential");
+          // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>$userCredential");
       return Left(userCredential);
     } on FirebaseAuthException catch (e) {
-      print("Error>>>>>> ${e.code}");
+      // print("Error>>>>>> ${e.code}");
       return Right(e.code);
     }
   }

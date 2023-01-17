@@ -6,12 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../widgets/app_bar.dart';
-import '../widgets/formFields/custom_password_form_field.dart';
-import '../widgets/formFields/custom_text_form_field.dart';
 import '../widgets/formFields/social_media_field.dart';
 import '../widgets/formWidgets/form_header.dart';
 import '../widgets/formWidgets/or_separator.dart';
-import '../widgets/register/register_form.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);

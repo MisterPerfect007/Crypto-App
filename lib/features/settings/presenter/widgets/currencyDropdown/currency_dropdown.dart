@@ -120,7 +120,9 @@ class _CurrencyDropdownState extends State<CurrencyDropdown> {
     //! Update favorite list
     final favoriteBloc = context.read<FavoriteListBloc>();
     final FavoriteController favoriteController = Get.put(FavoriteController());
-    favoriteBloc.add(GetFavoriteList(favoriteController.favorites));
+    if (favoriteController.favorites.isNotEmpty) {
+      favoriteBloc.add(GetFavoriteList(favoriteController.favorites));
+    }
 
     //dismiss the button
     setState(() {

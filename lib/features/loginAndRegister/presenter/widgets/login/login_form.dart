@@ -1,8 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:crypto_trends/injection_container.dart' as di;
 
-import '../../../../../services/firebase/auth/auth.dart';
 import '../formFields/custom_password_form_field.dart';
 import '../formFields/custom_text_form_field.dart';
 import '../form_field_error.dart';

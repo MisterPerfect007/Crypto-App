@@ -9,12 +9,13 @@ class CustomNetworkImage extends StatelessWidget {
     Key? key,
     required this.image,
     required this.name,
-    this.width = 40,
+    this.width = 40, this.radius,
   }) : super(key: key);
 
   final String? image;
   final String name;
   final double width;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +24,17 @@ class CustomNetworkImage extends StatelessWidget {
     if (image != null) {
       return Container(
         color: isDarkMode ? const Color.fromARGB(27, 245, 245, 245) : null,
-        child: CachedNetworkImage(
-          width: width,
-          imageUrl: image!,
-          placeholder: (context, url) => CoinImageShimmer(width: width),
-          errorWidget: (context, url, error) =>
-              DefaultCoinImage(name: name, width: width),
-          fadeOutDuration: const Duration(milliseconds: 300),
-          fadeInDuration: const Duration(milliseconds: 300),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(radius?? 0),
+          child: CachedNetworkImage(
+            width: width,
+            imageUrl: image!,
+            placeholder: (context, url) => CoinImageShimmer(width: width),
+            errorWidget: (context, url, error) =>
+                DefaultCoinImage(name: name, width: width),
+            fadeOutDuration: const Duration(milliseconds: 300),
+            fadeInDuration: const Duration(milliseconds: 300),
+          ),
         ),
       );
     } else {
