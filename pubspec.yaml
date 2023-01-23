@@ -77,6 +77,10 @@ dependencies:
   ##
   get:
   collection: ^1.16.0
+  #url launcher
+  url_launcher: ^6.1.7
+  #rename
+  rename: ^2.1.1
   
 
 dev_dependencies:

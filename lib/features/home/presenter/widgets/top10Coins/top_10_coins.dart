@@ -70,13 +70,16 @@ class _Top10CoinsState extends State<Top10Coins> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const CoinListPage()));
                 },
-                child: Text(
-                  "Top 10 Coins 🔝",
-                  style: TextStyle(
-                      fontFamily: 'Inter',
-                      color: theme.primaryColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16),
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 200),
+                  child: Text(
+                    "Top 10 Coins 🔝",
+                    style: TextStyle(
+                        fontFamily: 'Inter',
+                        color: theme.primaryColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16),
+                  ),
                 ),
               ),
               Expanded(child: Container()),

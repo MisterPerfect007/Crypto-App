@@ -29,15 +29,19 @@ class BottomBarItem extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         splashColor: AppColors.mainGreen.withOpacity(0.5),
         child: Container(
-          padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgIcon(icon: icon, color: color),
-              Text(
-                label,
-                style: TextStyle(fontSize: 9, color: color),
+              Container(
+                constraints: const BoxConstraints(maxWidth: 50),
+                child: Text(
+                  label,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 9, color: color),
+                ),
               )
             ],
           ),

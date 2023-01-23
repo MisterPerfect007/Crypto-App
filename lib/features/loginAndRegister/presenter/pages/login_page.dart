@@ -1,8 +1,10 @@
 import 'package:crypto_trends/services/firebase/auth/utils.dart';
+import 'package:crypto_trends/ui/colors/colors.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../settings/presenter/pages/settings_page.dart';
 import '../../utils/utils.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/formFields/social_media_field.dart';
@@ -39,60 +41,76 @@ class _LoginPageState extends State<LoginPage> {
         // color: Colors.white,
         child: Padding(
           padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              const FormHeader(title: 'Create account or Login with'),
-              // const SizedBox(height: 15),
-              //Login
-              // const LoginForm(),
-              const SizedBox(height: 20),
-              SocialMediaField(
-                logo: SvgPicture.asset(
-                  "assets/social_media_logos/facebook.svg",
-                  width: 20,
-                ),
-                text: "Facebook",
-                onPressed: !isProceeding
-                    ? () async {
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const SizedBox(height: 20),
+            const FormHeader(title: 'Create account or Login with'),
+            // const SizedBox(height: 15),
+            //Login
+            // const LoginForm(),
+            const SizedBox(height: 20),
+            SocialMediaField(
+              logo: SvgPicture.asset(
+                "assets/social_media_logos/facebook.svg",
+                width: 20,
+              ),
+              text: "Facebook",
+              onPressed: !isProceeding
+                  ? () async {
                       setState(() {
-                          isProceeding = true;
-                        });
-                        await handleSignIn(context,
-                            signInMethod: facebookLoginAndRegister);
-                        setState(() {
-                          isProceeding = false;
-                        });
-                      }
-                    : () {},
-                ),
-                const SizedBox(height: 15),
-                SocialMediaField(
-                  logo: SvgPicture.asset(
-                    "assets/social_media_logos/google.svg",
-                    width: 20,
-                  ),
-                  text: 'Google',
-                onPressed: !isProceeding
-                    ? () async {
+                        isProceeding = true;
+                      });
+                      await handleSignIn(context,
+                          signInMethod: facebookLoginAndRegister);
                       setState(() {
-                          isProceeding = true;
-                        });
-                        await handleSignIn(context,
-                            signInMethod: googleLoginAndRegister);
-                        setState(() {
-                          isProceeding = false;
-                        });
-                      }
-                    : () {},
-                ),
-            ]
-              )
-              // const SizedBox(height: 40),
-            ,
-          ),
+                        isProceeding = false;
+                      });
+                    }
+                  : () {},
+            ),
+            const SizedBox(height: 15),
+            SocialMediaField(
+              logo: SvgPicture.asset(
+                "assets/social_media_logos/google.svg",
+                width: 20,
+              ),
+              text: 'Google',
+              onPressed: !isProceeding
+                  ? () async {
+                      setState(() {
+                        isProceeding = true;
+                      });
+                      await handleSignIn(context,
+                          signInMethod: googleLoginAndRegister);
+                      setState(() {
+                        isProceeding = false;
+                      });
+                    }
+                  : () {},
+            ),
+            const SizedBox(height: 40),
+            SizedBox(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                      "By creating an account, you agree to have read and accept our"),
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                      onTap: () async {
+                        await showPrivacyPolicy(context);
+                      },
+                      child: const Text(
+                        "Privacy policy",
+                        style: TextStyle(color: AppColors.mainGreen),
+                      ))
+                ],
+              ),
+            ),
+          ]),
         ),
-      );
+      ),
+    );
   }
 }

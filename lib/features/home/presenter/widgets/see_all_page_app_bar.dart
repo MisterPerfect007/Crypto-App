@@ -33,17 +33,16 @@ class SeeAllPageAppBar extends StatelessWidget {
         child: Row(
           children: [
             const GoBack(),
-            Container(
-              margin: const EdgeInsets.only(left: 10),
-              child: Center(
-                child: Text(
-                  title,
-                  style: TextStyle(
-              fontFamily: 'Inter',
-                      color: theme.primaryColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16),
-                ),
+            Expanded(
+              child: Text(
+                title,
+                
+                style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+            fontFamily: 'Inter',
+                    color: theme.primaryColor,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16),
               ),
             ),
           ],

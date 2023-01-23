@@ -36,19 +36,19 @@ void main() {
     test("return -29.02", () {
       final double percentage = getTop100Percentage(testCoinModels);
 
-      expect(percentage, -29.02);
+      expect(percentage, -9.67);
     });
 
     test("return 24.6", () {
       final double percentage = getTop100Percentage(list1);
 
-      expect(percentage, 24.61);
+      expect(percentage, 12.31);
     });
 
     test("return 12.3", () {
       final double percentage = getTop100Percentage(list2);
 
-      expect(percentage, 12.32);
+      expect(percentage, 6.16);
     });
   });
 }

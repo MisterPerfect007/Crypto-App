@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:crypto_trends/injection_container.dart' as di;
 
 import '../../features/favorites/utils/utils.dart';
-import '../../features/loginAndRegister/utils/utils.dart';
 import '../../services/firebase/auth/utils.dart';
 import '../network/network_info.dart';
+import '../widgets/dialog/show_custom_dialog.dart';
 import '../widgets/toast/toast.dart';
 
 addOrRemoveFavorite(BuildContext context, String id) async {

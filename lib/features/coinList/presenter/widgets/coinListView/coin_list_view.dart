@@ -1,3 +1,4 @@
+import 'package:crypto_trends/core/widgets/animation/custom_opacity_animation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/favorites_utils.dart';
@@ -21,26 +22,12 @@ class CoinListView extends StatefulWidget {
 }
 
 class _CoinListViewState extends State<CoinListView> {
-  double _opacity = 0;
   int currentPage = 1;
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        setState(() {
-          _opacity = 1;
-        });
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedOpacity(
+    return CustomOpacityAnimation(
       duration: const Duration(milliseconds: 500),
-      opacity: _opacity,
       child: ListView.builder(
           physics: const AlwaysScrollableScrollPhysics(),
           controller: widget._scrollController,

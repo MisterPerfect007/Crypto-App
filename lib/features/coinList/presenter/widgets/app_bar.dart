@@ -21,7 +21,7 @@ class CoinListAppBar extends StatelessWidget {
         height: 40,
         child: Row(children: [
            Text(
-            "Coin List 📋",
+            "Coins List 📋",
             style: TextStyle(
               fontSize: 23,
               fontWeight: FontWeight.bold,

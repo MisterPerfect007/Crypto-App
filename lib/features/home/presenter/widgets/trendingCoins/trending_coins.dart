@@ -48,13 +48,16 @@ class _TrendingCoinsState extends State<TrendingCoins> {
           padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
           child: Row(
             children: [
-              Text(
-                "Trending Coins 🔥",
-                style: TextStyle(
-              fontFamily: 'Inter',
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16),
+              Container(
+                constraints: const BoxConstraints(maxWidth: 200),
+                child: Text(
+                  "Trending Coins 🔥",
+                  style: TextStyle(
+                fontFamily: 'Inter',
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16),
+                ),
               ),
               Expanded(child: Container()),
               buildSeeAll(sidePadding)

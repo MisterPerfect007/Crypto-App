@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:694288874012:android:49dff2bbdcd02594957dd9",
         "android_client_info": {
-          "package_name": "com.example.crypto_trends"
+          "package_name": "com.parfaittapsoba.crypto_trends"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "694288874012-1apk35d35bue4kspbdut6gernau8qnd9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.crypto_trends",
+            "package_name": "com.parfaittapsoba.crypto_trends",
             "certificate_hash": "1b7f335f17fb4e318aebea2b9aba045d687022f1"
           }
         },
@@ -25,7 +25,7 @@
           "client_id": "694288874012-30a7cucve1qb18036j8an3idjcqfvq84.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.crypto_trends",
+            "package_name": "com.parfaittapsoba.crypto_trends",
             "certificate_hash": "6301924adc92a60dce16a5ead9f394fc9536bfa8"
           }
         },
@@ -33,7 +33,7 @@
           "client_id": "694288874012-d896pqumes3e8auikoc98occ4i7l5sbm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.crypto_trends",
+            "package_name": "com.parfaittapsoba.crypto_trends",
             "certificate_hash": "38ff2feecef948353eb0d53339ea45f0d16cf515"
           }
         },
@@ -41,7 +41,7 @@
           "client_id": "694288874012-i6v466ul0jbdbe2d4a032ocpecq3ka4l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.crypto_trends",
+            "package_name": "com.parfaittapsoba.crypto_trends",
             "certificate_hash": "268788a3e06b2e8c4de2286f809b4387ca1b8aa0"
           }
         },

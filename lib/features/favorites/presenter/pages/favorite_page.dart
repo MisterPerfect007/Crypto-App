@@ -88,7 +88,6 @@ class _BodyState extends State<Body> {
     });
   }
 
-
   Future<void> handleGetFavoritesFromFirestore() async {
     //if first user is signed in
     if (isUserSignedIn()) {
@@ -134,6 +133,8 @@ class _BodyState extends State<Body> {
       final List<String> idsToRemove =
           favoritesIds.where((element) => !newList.contains(element)).toList();
       //
+      print(idsToRemove);
+      print("-----------------------------------------");
       //
       for (var id in idsToRemove) {
         //
@@ -309,9 +310,9 @@ class _ListItemState extends State<ListItem> {
                 } else {
                   CustomToast.defaultToast(context, "No internet connection");
                 }
+                Future.delayed(const Duration(milliseconds: 500));
                 //if the widget still on tree => allow click
                 if (mounted) {
-                  Future.delayed(const Duration(milliseconds: 300));
                   setState(() {
                     isOnTapRunning = false;
                   });

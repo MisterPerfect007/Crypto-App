@@ -100,6 +100,7 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                                       child: Text(
                                         index.toString(),
                                         style: TextStyle(
+                                          fontSize: 9,
                                             color: theme.primaryColor),
                                       )),
                                 )
