@@ -85,12 +85,12 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                             ),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(5))),
-                        width: 60,
+                        width: 80,
                         height: 40,
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<int>(
                             dropdownColor: theme.disabledColor,
-                            menuMaxHeight: 300,
+                            menuMaxHeight: 400,
                             alignment: AlignmentDirectional.center,
                             value: currentPage,
                             items: List<int>.generate(100, (index) => index + 1)
@@ -100,7 +100,7 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                                       child: Text(
                                         index.toString(),
                                         style: TextStyle(
-                                          fontSize: 9,
+                                            fontSize: 12,
                                             color: theme.primaryColor),
                                       )),
                                 )
@@ -116,9 +116,7 @@ class _PaginationExpansionPanelState extends State<PaginationExpansionPanel> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 20,
-                      ),
+                      const SizedBox(width: 20),
                       ElevatedButton(
                         onPressed: () {
                           context

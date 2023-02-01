@@ -61,28 +61,34 @@ class SettingsPage extends StatelessWidget {
                 //
                 const SizedBox(height: 80),
                 //Coingecko
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text.rich(
-                        
-                        const TextSpan(text: "All Data provided by ", children: [
-                          TextSpan(
-                              text: "CoinGecko \n",
-                              style: TextStyle(fontWeight: FontWeight.w900)),
-                        ]),
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: theme.primaryColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                            fontStyle: FontStyle.italic),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        constraints: const BoxConstraints(maxWidth: 200),
+                        child: Text.rich(
+                          const TextSpan(
+                              text: "All Data provided by ",
+                              children: [
+                                TextSpan(
+                                    text: "CoinGecko \n",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w900)),
+                              ]),
+                          // overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontFamily: 'Inter',
+                              color: theme.primaryColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              fontStyle: FontStyle.italic),
+                        ),
                       ),
-                    ),
-                    Image.asset("assets/logos/coingecko_logo.png", width: 30)
-                  ],
+                      Image.asset("assets/logos/coingecko_logo.png", width: 30)
+                    ],
+                  ),
                 ),
                 const PrivacyPolicy()
               ],
@@ -154,9 +160,11 @@ class _LoginLogoutState extends State<LoginLogout> {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          user?.displayName ?? user?.email ?? "",
+                          (user?.displayName ??
+                              user?.email ?? ""),
                           style: const TextStyle(
                               fontStyle: FontStyle.italic,
+                              // overflow: TextOverflow.ellipsis,
                               fontWeight: FontWeight.w600),
                         )
                       ],

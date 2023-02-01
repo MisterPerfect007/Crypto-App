@@ -132,17 +132,18 @@ class _BodyState extends State<Body> {
       //so favorite removed
       final List<String> idsToRemove =
           favoritesIds.where((element) => !newList.contains(element)).toList();
-      //
-      print(idsToRemove);
-      print("-----------------------------------------");
+
       //
       for (var id in idsToRemove) {
         //
-        Coin coinToRemove = coinList.singleWhere((coin) => coin.id == id);
-        int indexToRemove = coinList.indexOf(coinToRemove);
-        _removeSingleItems(indexToRemove);
-        //
-        favoritesIds.remove(id);
+        //!Verify if [coinList] contains coin with [id]
+        if (coinList.map((coin) => coin.id).toList().contains(id)) {
+          Coin coinToRemove = coinList.singleWhere((coin) => coin.id == id);
+          int indexToRemove = coinList.indexOf(coinToRemove);
+          _removeSingleItems(indexToRemove);
+          //
+          favoritesIds.remove(id);
+        }
       }
     }
   }

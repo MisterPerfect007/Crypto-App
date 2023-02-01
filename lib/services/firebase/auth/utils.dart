@@ -14,7 +14,7 @@ Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
 
   try {
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    // print(">>>>>>>>>>>>>>>>googleUser ==$googleUser");
+    print(">>>>>>>>>>>>>>>>googleUser ==$googleUser");
     if (googleUser == null) {
       return Left(defaultError);
     }
@@ -29,12 +29,12 @@ Future<Either<List<String>, UserCredential>> googleLoginAndRegister() async {
 
       return Right(userCredential);
     } on FirebaseAuthException catch (e) {
-      // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error firebase ::: ${e.code}");
+      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error firebase ::: ${e.code}");
       return Left(errorMsgFromCode(e.code));
     }
   } catch (e) {
     //
-    // print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error google --> 1 try $e");
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error google --> 1 try $e");
   }
   return Left(defaultError);
 }

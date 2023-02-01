@@ -1,4 +1,4 @@
-package com.example.crypto_trends
+package com.parfaittapsoba.crypto_trends
 
 import io.flutter.embedding.android.FlutterActivity
 
